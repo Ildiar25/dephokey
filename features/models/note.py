@@ -33,11 +33,13 @@ class Note(Base):
 
     # Initializer
     def __init__(self, title: str | None, content: str, user) -> None:
-        self.id = PublicID.generate_short_id()
-        self.title = title
+        super().__init__()
+
+        self.id: str = PublicID.generate_short_id()
+        self.title: str | None = title
         self.content_encrypted = content # encrypt_data(content)
-        self.user = user
-        self.created = date.today()
+        self.user: us.User = user
+        self.created: date = date.today()
 
     def __str__(self) -> str:
         return (f"class Note: id='{self.id}', title='{self.title}', "
