@@ -6,20 +6,25 @@ from shared.logger_setup import test_logger as logger
 
 
 class TestUser(unittest.TestCase):
-    def test_create_instance(self) -> None:
-        logger.info("Starting User test...")
+    def setUp(self) -> None:
+        logger.info("Preparing USER instances...")
 
         # Create new instances
-        user_01 = User("admin01", "admin@admin.com", "admin1234")
-        user_02 = User("admin02", "admin@admin.com", "admin1234")
-        self.assertEqual(user_01.fullname, "admin01", "Should be admin01")
-        self.assertEqual(user_01.email, "admin@admin.com", "Should be admin@admin.com")
-        self.assertEqual(user_02.fullname, "admin02", "Should be admin02")
-        self.assertEqual(user_02.email, "admin@admin.com", "Should be admin@admin.com")
+        self.user_01 = User("admin01", "admin@admin.com", "admin1234")
+        self.user_02 = User("admin02", "admin@admin.com", "admin1234")
 
-        # Register instance
-        logger.debug(user_01)
-        logger.debug(user_02)
+        logger.info("USER instances ready for test...")
 
-        # Finish test
-        logger.info("Finishing User test...")
+    def tearDown(self) -> None:
+        logger.info("Finishing USER test...")
+
+    def test_print_instance(self) -> None:
+        logger.debug(self.user_01)
+        logger.debug(self.user_02)
+
+    def test_user_fields(self) -> None:
+        logger.info(">>> Starting USER fields test...")
+        self.assertEqual(self.user_01.fullname, "admin01", "Should be 'admin01'...")
+        self.assertEqual(self.user_01.email, "admin@admin.com", "Should be 'admin@admin.com'...")
+        self.assertEqual(self.user_02.fullname, "admin02", "Should be 'admin02'...")
+        self.assertEqual(self.user_02.email, "admin@admin.com", "Should be 'admin@admin.com'...")

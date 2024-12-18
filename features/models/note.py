@@ -42,7 +42,7 @@ class Note(Base):
         self.created: date = date.today()
 
         # Logs new note
-        logger.info("Note instance created...")
+        logger.info("Note instance created!")
 
     def __str__(self) -> str:
         return (f"<class Note(id='{self.id}', title='{self.title}', content_encrypted={str}, user={object}, "

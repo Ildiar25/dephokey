@@ -30,6 +30,8 @@ class User(Base):
     # Relationship settings
     notes: Mapped[list["Note"]] = relationship("Note", back_populates="user", passive_deletes=True)
     sites: Mapped[list["Site"]] = relationship("Site", back_populates="user", passive_deletes=True)
+    creditcards: Mapped[list["CreditCard"]] = relationship("CreditCard", back_populates="user",
+                                                           passive_deletes=True)
 
     # Initializer
     def __init__(self, fullname: str, email: str, password: str) -> None:
@@ -42,7 +44,7 @@ class User(Base):
         self.created: date = date.today()
 
         # Logs new user
-        logger.info("User instance created...")
+        logger.info("User instance created!")
 
     def __str__(self) -> str:
         return (f"<class User(id='{self.id}', fullname='{self.fullname}', email={str}, "
