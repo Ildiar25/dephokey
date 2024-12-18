@@ -6,7 +6,6 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from data.db_orm import Base
 
 from features.models import *
-# from features.encrypter import encrypt_data
 
 from shared.public_id import PublicID
 from shared.logger_setup import test_logger as logger
