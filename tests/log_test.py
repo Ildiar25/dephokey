@@ -1,8 +1,8 @@
-from shared.logger import *
+from shared.logger_setup import test_logger as logger
 
 
 def main():
-    logger = logging.getLogger(__name__)
+
     logger.debug("Esto es un mensaje del modo DEBUG.")
     logger.info("Esto es un mensaje del modo INFO.")
     logger.warning("Esto es un mensaje del modo WARNING.")

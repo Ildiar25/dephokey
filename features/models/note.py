@@ -10,6 +10,7 @@ from data.db_orm import Base
 # from features.encrypter import encrypt_data
 
 from shared.public_id import PublicID
+from shared.logger_setup import test_logger as logger
 
 
 class Note(Base):
@@ -37,11 +38,14 @@ class Note(Base):
 
         self.id: str = PublicID.generate_short_id()
         self.title: str | None = title
-        self.content_encrypted = content # encrypt_data(content)
-        self.user: us.User = user
+        self.content_encrypted = content  # encrypt_data(content)
+        self.user = user
         self.created: date = date.today()
 
+        # Logs new note
+        logger.debug("new note created...")
+
     def __str__(self) -> str:
-        return (f"class Note: id='{self.id}', title='{self.title}', "
+        return (f"<classNote: id='{self.id}', title='{self.title}', "
                 f"content_encrypted='{self.content_encrypted}', user='{self.user}', "
-                f"created='{self.created.strftime("%d/%m/%Y")}'.")
+                f"created='{self.created.strftime("%d/%m/%Y")}'>")
