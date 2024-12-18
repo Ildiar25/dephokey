@@ -7,7 +7,7 @@ from shared.logger_setup import test_logger as logger
 
 class TestUser(unittest.TestCase):
     def test_create_instance(self) -> None:
-        logger.info("Starting test user...")
+        logger.info("Starting User test...")
 
         # Create new instances
         user_01 = User("admin01", "admin@admin.com", "admin1234")
@@ -22,4 +22,4 @@ class TestUser(unittest.TestCase):
         logger.debug(user_02)
 
         # Finish test
-        logger.info("Ending test user...")
+        logger.info("Finishing User test...")

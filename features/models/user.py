@@ -29,6 +29,7 @@ class User(Base):
 
     # Relationship settings
     notes: Mapped[list["Note"]] = relationship("Note", back_populates="user", passive_deletes=True)
+    sites: Mapped[list["Site"]] = relationship("Site", back_populates="user", passive_deletes=True)
 
     # Initializer
     def __init__(self, fullname: str, email: str, password: str) -> None:
@@ -44,5 +45,5 @@ class User(Base):
         logger.info("User instance created...")
 
     def __str__(self) -> str:
-        return (f"<classUser: id='{self.id}', fullname='{self.fullname}', email='{...}', "
-                f"hashed_password='{...}', created='{self.created.strftime("%d/%m/%Y")}'>")
+        return (f"<class User(id='{self.id}', fullname='{self.fullname}', email={str}, "
+                f"hashed_password={str}, created='{self.created.strftime("%d/%m/%Y")}')>")

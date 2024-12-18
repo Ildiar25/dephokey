@@ -37,7 +37,7 @@ class Note(Base):
 
         self.id: str = PublicID.generate_short_id()
         self.title: str | None = title
-        self.encrypted_content = content  # encrypt_data(content)
+        self.encrypted_content: str = content  # encrypt_data(content)
         self.user: User = user
         self.created: date = date.today()
 
@@ -45,6 +45,5 @@ class Note(Base):
         logger.info("Note instance created...")
 
     def __str__(self) -> str:
-        return (f"<classNote: id='{self.id}', title='{self.title}', "
-                f"content_encrypted='{...}', user='{...}', "
-                f"created='{self.created.strftime("%d/%m/%Y")}'>")
+        return (f"<class Note(id='{self.id}', title='{self.title}', content_encrypted={str}, user={object}, "
+                f"created='{self.created.strftime("%d/%m/%Y")}')>")
