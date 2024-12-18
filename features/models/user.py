@@ -1,4 +1,5 @@
 from datetime import date
+from hashlib import sha256
 
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -37,7 +38,7 @@ class User(Base):
         self.id: str = PublicID.generate_short_id()
         self.fullname: str = fullname
         self.email: str = email
-        self.hashed_password: str = password
+        self.hashed_password: str = sha256(password.encode()).hexdigest()
         self.created: date = date.today()
 
         # Logs new user
