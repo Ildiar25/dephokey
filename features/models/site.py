@@ -8,7 +8,7 @@ from data.db_orm import Base
 from features.models.user import User
 # from features.encrypter import encrypt_data
 
-from shared.public_id import PublicID
+from shared.public_id import GenerateID
 from shared.logger_setup import test_logger as logger
 
 
@@ -37,7 +37,7 @@ class Site(Base):
     def __init__(self, name: str, address: str, username: str, password: str, user: User) -> None:
         super().__init__()
 
-        self.id: str = PublicID.generate_short_id()
+        self.id: str = GenerateID.short_id()
         self.name: str = name
         self.address: str = address
         self.username: str = username

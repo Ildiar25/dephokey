@@ -8,7 +8,7 @@ from data.db_orm import Base
 from features.models.user import User
 # from features.encrypter import encrypt_data
 
-from shared.public_id import PublicID
+from shared.public_id import GenerateID
 from shared.logger_setup import test_logger as logger
 
 
@@ -35,7 +35,7 @@ class Note(Base):
     def __init__(self, content: str, user: User, title: str | None = None) -> None:
         super().__init__()
 
-        self.id: str = PublicID.generate_short_id()
+        self.id: str = GenerateID.short_id()
         self.title: str | None = title
         self.encrypted_content: str = content  # encrypt_data(content)
         self.user: User = user

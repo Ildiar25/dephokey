@@ -7,7 +7,7 @@ from data.db_orm import Base
 
 from features.models import *
 
-from shared.public_id import PublicID
+from shared.public_id import GenerateID
 from shared.logger_setup import test_logger as logger
 
 
@@ -32,12 +32,15 @@ class User(Base):
     sites: Mapped[list["Site"]] = relationship("Site", back_populates="user", passive_deletes=True)
     creditcards: Mapped[list["CreditCard"]] = relationship("CreditCard", back_populates="user",
                                                            passive_deletes=True)
+    password_change_requests: Mapped[list["PasswordRequest"]] = relationship("PasswordRequest",
+                                                                             back_populates="user",
+                                                                             passive_deletes=True)
 
     # Initializer
     def __init__(self, fullname: str, email: str, password: str) -> None:
         super().__init__()
 
-        self.id: str = PublicID.generate_short_id()
+        self.id: str = GenerateID.short_id()
         self.fullname: str = fullname
         self.email: str = email
         self.hashed_password: str = sha256(password.encode()).hexdigest()
