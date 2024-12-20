@@ -23,6 +23,7 @@ class Admin(ft.Container):
             controls=[
                 ft.Column(
                     alignment=ft.MainAxisAlignment.CENTER,
+                    scroll=ft.ScrollMode.AUTO,
                     controls=[
                         ft.Text("¡Hello World!")
                     ]

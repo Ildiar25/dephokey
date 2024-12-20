@@ -45,9 +45,9 @@ FILE_TEST_NAME = "logs/test_logs.log"
 MAIN_LOG_NAME = "app_logs.log"
 
 # Generic text-format setup
-date_format = "%d/%m/%y · %H:%M:%S"
+date_format = "%Y-%m-%dT%H:%M:%S%z"
 log_format = logging.Formatter(
-    fmt="[%(asctime)s] = %(levelname)s at line %(lineno)d from <%(module)s>: %(message)s",
+    fmt="[%(asctime)s]:::%(levelname)s at line %(lineno)d from <%(module)s>: %(message)s",
     datefmt=date_format
 )
 
