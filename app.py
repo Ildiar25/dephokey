@@ -10,7 +10,7 @@ from shared.utils.colors import *
 
 def main(page: ft.Page) -> None:
     # Page settings
-    page.title = "Dephokey (v.0.0.1)"
+    page.title = "Dephokey"
     page.window.maximized = True
     page.fonts = {
         "AlbertSansR": "interface/assets/fonts/albert-sans/albert-sans-regular.ttf"

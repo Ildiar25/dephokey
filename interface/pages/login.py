@@ -34,18 +34,27 @@ class Login(ft.Container):
         # Login attributes
         self.email = CustomTextField(
             "Correo electrónico",
-            autofocus=True
+            autofocus=True,
+            on_change=self.enable_button
         )
         self.password = CustomTextField(
             "Contraseña",
             can_reveal_password=True,
-            password=True
+            password=True,
+            on_change=self.enable_button
         )
         self.login_button = CustomElevatedButton(
             "LOGIN",
             width=300,
             disabled=True,
             on_click=self.login_function
+        )
+        self.forgot_password = ft.Container(
+            on_hover=self.focus_link,
+            content=ft.Text(
+                "Olvidé la contraseña",
+                color=mainSecondaryTextColor
+            )
         )
 
         # Main container settings
@@ -78,7 +87,13 @@ class Login(ft.Container):
                                         ft.Text("¡Bienvenido a Dephokey!", size=24),
                                         self.email,
                                         self.password,
-                                        self.login_button
+                                        self.login_button,
+                                        ft.Row(
+                                            controls=[
+                                                self.forgot_password
+                                            ]
+                                        ),
+                                        ft.Divider(color=accentElementForm, thickness=3)
                                     ]
                                 )
                             ),
@@ -97,6 +112,23 @@ class Login(ft.Container):
                 )
             ]
         )
+
+    def enable_button(self, _: ft.ControlEvent) -> None:
+        if self.email.value and self.password.value:
+            self.login_button.disabled = False
+            self.login_button.update()
+
+        else:
+            self.login_button.disabled = True
+            self.login_button.update()
+
+    def focus_link(self, action: ft.ControlEvent):
+        if action and self.forgot_password.content.color == mainSecondaryTextColor:
+            self.forgot_password.content.color = accentElementForm
+        else:
+            self.forgot_password.content.color = mainSecondaryTextColor
+
+        self.forgot_password.update()
 
     def login_function(self, _: ft.ControlEvent) -> None:
         pass

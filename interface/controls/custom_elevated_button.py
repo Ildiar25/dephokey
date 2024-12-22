@@ -18,7 +18,10 @@ class CustomElevatedButton(ft.ElevatedButton):
 
         # Text design settings
         self.color = textColorElevatedButton
-        self.bgcolor = bgButtonColor
+        self.bgcolor = {
+            ft.ControlState.DISABLED: bgDissabledButtonColor,
+            ft.ControlState.DEFAULT: bgButtonColor
+        }
 
         # Button design settings
         self.style = ft.ButtonStyle(

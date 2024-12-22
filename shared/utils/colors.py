@@ -5,7 +5,8 @@ darkColorBackground = "#110726"
 lightColorBackground = "#EFE6EF"
 
 # General text colors
-mainTextColor = ""
+mainPrimaryTextColor = Colors.BLACK
+mainSecondaryTextColor = Colors.GREY_400
 mainAccentTextColor = ""
 mainDangerTextColor = Colors.RED_500
 
@@ -28,6 +29,7 @@ overlayColorTextButton = Colors.GREY_300
 
 # Custom elevated button
 bgButtonColor = Colors.PURPLE_400
+bgDissabledButtonColor = Colors.GREY_500
 textColorElevatedButton = Colors.WHITE
 
 # Admin page settings
