@@ -9,7 +9,7 @@ from features.models.user import User
 # from features.encrypter import encrypt_data
 
 from shared.public_id import GenerateID
-from shared.logger_setup import test_logger as logger
+# from shared.logger_setup import test_logger as logger
 
 
 class Site(Base):
@@ -46,7 +46,7 @@ class Site(Base):
         self.created: date = date.today()
 
         # Logs new note
-        logger.info("Site instance created!")
+        # logger.info("Site instance created!")
 
     def __str__(self) -> str:
         return (f"<class Site(id='{self.id}', name='{self.name}', address='{self.address}', username={str}, "

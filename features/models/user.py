@@ -1,4 +1,5 @@
 from datetime import date
+from enum import Enum
 from hashlib import sha256
 
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -8,7 +9,12 @@ from data.db_orm import Base
 from features.models import *
 
 from shared.public_id import GenerateID
-from shared.logger_setup import test_logger as logger
+# from shared.logger_setup import test_logger as logger
+
+
+class UserRole(Enum):
+    CLIENT = "client"
+    ADMIN = "admin"
 
 
 class User(Base):
@@ -22,6 +28,7 @@ class User(Base):
 
     # Column settings
     id: Mapped[str] = mapped_column(primary_key=True)
+    role: Mapped[UserRole]
     fullname: Mapped[str]
     email: Mapped[str]
     hashed_password: Mapped[str]
@@ -37,17 +44,18 @@ class User(Base):
                                                                              passive_deletes=True)
 
     # Initializer
-    def __init__(self, fullname: str, email: str, password: str) -> None:
+    def __init__(self, fullname: str, email: str, password: str, user_role: UserRole = UserRole.CLIENT) -> None:
         super().__init__()
 
         self.id: str = GenerateID.short_id()
+        self.role: UserRole = user_role
         self.fullname: str = fullname
         self.email: str = email
         self.hashed_password: str = sha256(password.encode()).hexdigest()
         self.created: date = date.today()
 
         # Logs new user
-        logger.info("User instance created!")
+        # logger.info("User instance created!")
 
     def __str__(self) -> str:
         return (f"<class User(id='{self.id}', fullname='{self.fullname}', email={str}, "
