@@ -4,7 +4,7 @@ from hashlib import sha256
 
 from data.db_orm import session
 
-# from features.models.user import User
+from features.models.user import User
 
 from interface.controls import *
 
@@ -52,6 +52,7 @@ class Login(ft.Container):
         )
         self.forgot_password = ft.Container(
             on_hover=self.focus_link,
+            on_click=self.forgot_password,
             content=ft.Text(
                 "Olvidé la contraseña",
                 color=mainSecondaryTextColor
@@ -99,7 +100,8 @@ class Login(ft.Container):
                                 )
                             ),
                             ft.Text("¿Aún no tienes una cuenta?"),
-                            CustomTextButton("Crea una cuenta", on_click=lambda _: self.page.go("/signup"))
+                            CustomTextButton("Crea una cuenta", on_click=lambda _: self.page.go("/signup")),
+                            self.snackbar
                         ]
                     )
                 ),
@@ -131,6 +133,9 @@ class Login(ft.Container):
 
         self.forgot_password.update()
 
+    def forgot_password(self, _: ft.ControlEvent):
+        raise NotImplementedError("Implement new password login via email")
+
     def login_function(self, _: ft.ControlEvent) -> None:
 
         email_input: str = self.email.value.strip().lower()
@@ -152,7 +157,7 @@ class Login(ft.Container):
                 self.snackbar.update()
 
             else:
-                # Third, load user
+                # Third, load user and hashed input password
                 user: User = session.query(User).filter(User.email == email_input).first()
                 hashed_password = sha256(password_input.encode()).hexdigest()
 

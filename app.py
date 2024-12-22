@@ -41,8 +41,9 @@ def main(page: ft.Page) -> None:
 
             elif user_role == UserRole.CLIENT:
                 pass
+
         else:
-            page.add(Login(page))
+            page.add(Admin(page))
 
     # Define routes
     page.on_route_change = route_changer
