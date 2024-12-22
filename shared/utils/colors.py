@@ -3,6 +3,7 @@ from flet import Colors
 # General color settings
 darkColorBackground = "#110726"
 lightColorBackground = "#EFE6EF"
+accentGeneralElementColor = Colors.AMBER_ACCENT_400
 
 # General text colors
 mainPrimaryTextColor = Colors.BLACK
@@ -17,7 +18,7 @@ bgSnackBarSuccess = ""
 bgSnackBarWarning = ""
 
 # Custom text field
-labelTextColor = Colors.PURPLE_400
+labelTextFieldColor = Colors.PURPLE_400
 cursorColorFieldText = Colors.GREY_400
 selectionColorFieldText = Colors.GREY_200
 staticBorderColorField = Colors.GREY_400

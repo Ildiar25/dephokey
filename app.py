@@ -2,6 +2,8 @@ import flet as ft
 
 from data.db_orm import Base, engine
 
+from features.models.user import UserRole
+
 from interface.pages import *
 # from interface.controls import *
 
@@ -25,10 +27,21 @@ def main(page: ft.Page) -> None:
 
     def route_changer(_: ft.ControlEvent):
         page.clean()
-        if page.route == "/admin": # and page.session.get("admin"):
-            page.add(Admin(page))
-
         if page.route == "/login":
+            page.add(Login(page))
+
+        elif page.route == "/signup":
+            print("On signup Page!")
+
+        elif page.route == "/home" and page.session.contains_key("session"):
+            user_role = page.session.get("session").role
+
+            if user_role == UserRole.ADMIN:
+                page.add(Admin(page))
+
+            elif user_role == UserRole.CLIENT:
+                pass
+        else:
             page.add(Login(page))
 
     # Define routes

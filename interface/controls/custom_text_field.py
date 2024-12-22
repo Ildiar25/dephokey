@@ -20,7 +20,7 @@ class CustomTextField(ft.TextField):
         self.cursor_color = cursorColorFieldText
         self.selection_color = selectionColorFieldText
         self.label_style = ft.TextStyle(
-            color=labelTextColor
+            color=labelTextFieldColor
         )
 
         # Field design settings

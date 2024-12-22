@@ -1,5 +1,6 @@
 import flet as ft
 import time
+from hashlib import sha256
 
 from data.db_orm import session
 
@@ -98,7 +99,7 @@ class Login(ft.Container):
                                 )
                             ),
                             ft.Text("¿Aún no tienes una cuenta?"),
-                            CustomTextButton("Crea una cuenta")
+                            CustomTextButton("Crea una cuenta", on_click=lambda _: self.page.go("/signup"))
                         ]
                     )
                 ),
@@ -131,4 +132,54 @@ class Login(ft.Container):
         self.forgot_password.update()
 
     def login_function(self, _: ft.ControlEvent) -> None:
-        pass
+
+        email_input: str = self.email.value.strip().lower()
+        password_input: str = self.password.value.strip()
+
+        # First, validate email and password
+        if not (Validate.is_valid_email(email_input) and Validate.is_valid_password(password_input)):
+            self.snackbar.content.value = ("El correo electrónico o la contraseña no son válidos.\n"
+                                           "La contraseña debe tener al menos un número, una minúscula y "
+                                           "una mayúscula.")
+            self.snackbar.open = True
+            self.snackbar.update()
+
+        else:
+            # Second, check if email already exists
+            if not session.query(User).filter(User.email == email_input).first():
+                self.snackbar.content.value = "¡El usuario no existe!"
+                self.snackbar.open = True
+                self.snackbar.update()
+
+            else:
+                # Third, load user
+                user: User = session.query(User).filter(User.email == email_input).first()
+                hashed_password = sha256(password_input.encode()).hexdigest()
+
+                # Compare data inputs with loaded data
+                if not all((user.email == email_input, user.hashed_password == hashed_password)):
+                    self.snackbar.content.value = "El correo electrónico o la contraseña no son válidos."
+                    self.snackbar.open = True
+                    self.snackbar.update()
+
+                else:
+                    # Create new session
+                    self.page.session.set("session", user)
+
+                    # Report page loading
+                    self.page.overlay.append(
+                        ft.Container(
+                            alignment=ft.alignment.center,
+                            expand=True,
+                            bgcolor=ft.Colors.with_opacity(0.3, lightColorBackground),
+                            content=ft.ProgressRing(
+                                color=accentGeneralElementColor
+                            )
+                        )
+                    )
+                    self.page.update()
+
+                    # Load login page
+                    time.sleep(2)
+                    self.page.overlay.clear()
+                    self.page.go("/home")
