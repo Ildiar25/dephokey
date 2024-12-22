@@ -1,5 +1,7 @@
 import flet as ft
 
+from interface.controls import *
+
 from shared.utils.colors import *
 
 
@@ -25,7 +27,30 @@ class Admin(ft.Container):
                     alignment=ft.MainAxisAlignment.CENTER,
                     scroll=ft.ScrollMode.AUTO,
                     controls=[
-                        ft.Text("¡Hello World!")
+                        ft.Text(
+                            "Añadir Usuario:"
+                        ),
+                        ft.Row(
+                            expand=True,
+                            controls=[
+                                CustomTextField(
+                                    label="Nombre Completo",
+                                    autofocus=True
+                                ),
+                                CustomTextField(
+                                    label="Usuario"
+                                ),
+                                CustomTextField(
+                                    label="Contraseña",
+                                    password=True,
+                                    can_reveal_password=True
+                                ),
+                                CustomButton(
+                                    "AÑADIR",
+                                    width=200
+                                )
+                            ]
+                        )
                     ]
                 )
             ]
