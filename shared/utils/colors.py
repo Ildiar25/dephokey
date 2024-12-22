@@ -1,7 +1,19 @@
 from flet import Colors
 
 # General color settings
-mainColorBackground = "#110726"
+darkColorBackground = "#110726"
+lightColorBackground = "#EFE6EF"
+
+# General text colors
+mainTextColor = ""
+mainAccentTextColor = ""
+mainDangerTextColor = Colors.RED_500
+
+# Snackbar design
+bgSnackBarDanger = Colors.RED_100
+bgSnackBarInfo = ""
+bgSnackBarSuccess = ""
+bgSnackBarWarning = ""
 
 # Custom text field
 labelTextColor = Colors.PURPLE_400
@@ -10,9 +22,19 @@ selectionColorFieldText = Colors.GREY_200
 staticBorderColorField = Colors.GREY_400
 selectedBorderColorField = Colors.PURPLE_600
 
-# Custom button
+# Custom text button
+textColorTextButton = Colors.PURPLE_600
+overlayColorTextButton = Colors.GREY_300
+
+# Custom elevated button
 bgButtonColor = Colors.PURPLE_400
-textButtonColor = Colors.WHITE
+textColorElevatedButton = Colors.WHITE
 
 # Admin page settings
 bgGradientAdminColor = [Colors.WHITE, Colors.WHITE]
+colorAdminAccent = Colors.PURPLE_ACCENT
+
+# Login & Signin settings
+bgAccentForm = Colors.PURPLE
+accentElementForm = Colors.PURPLE_600
+shadowLogForm = Colors.PURPLE_700

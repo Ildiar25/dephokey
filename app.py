@@ -18,7 +18,7 @@ def main(page: ft.Page) -> None:
 
     # Page design
     page.theme = ft.Theme(font_family="AlbertSansR")
-    page.bgcolor = mainColorBackground
+    page.bgcolor = darkColorBackground
     page.padding = ft.padding.all(10)
     page.window.min_width = 950
     page.window.min_height = 650
@@ -28,13 +28,16 @@ def main(page: ft.Page) -> None:
         if page.route == "/admin": # and page.session.get("admin"):
             page.add(Admin(page))
 
+        if page.route == "/login":
+            page.add(Login(page))
+
     # Define routes
     page.on_route_change = route_changer
 
     # Create all tables
     # Base.metadata.create_all(bind=engine)
 
-    page.go("/admin")
+    page.go("/login")
 
 
 if __name__ == '__main__':

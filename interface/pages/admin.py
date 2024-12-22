@@ -11,6 +11,15 @@ class Admin(ft.Container):
 
         # General attributes
         self.page = page
+        self.snackbar = ft.SnackBar(
+            open=True,
+            bgcolor=bgSnackBarDanger,
+            content=ft.Text(
+                "Testing a new snackbar",
+                text_align=ft.TextAlign.CENTER,
+                color=mainDangerTextColor
+            )
+        )
 
         # Main container settings
         self.expand = True
@@ -45,14 +54,33 @@ class Admin(ft.Container):
                                     password=True,
                                     can_reveal_password=True
                                 ),
-                                CustomButton(
+                                CustomElevatedButton(
                                     "AÑADIR",
-                                    width=200
+                                    width=200,
+                                    on_click=self.add_new_user
                                 )
                             ]
-                        )
+                        ),
+                        ft.Row(
+                            controls=[
+                                ft.Text("Usuarios Añadidos:"),
+                                ft.IconButton(ft.Icons.REFRESH, icon_color=colorAdminAccent, on_click=self.update_users)
+                            ]
+                        ),
+                        ft.Row(
+
+                        ),
+                        self.snackbar
                     ]
                 )
             ]
         )
 
+    def add_new_user(self, _: ft.ControlEvent) -> None:
+        fullname: str = self.content.controls[0].controls[1].controls[0].value
+        username: str = self.content.controls[0].controls[1].controls[1].value
+        password: str = self.content.controls[0].controls[1].controls[2].value
+
+    def update_users(self, _: ft.ControlEvent) -> None:
+        print("users = session.query(User).all()")
+        self.content.controls[0].controls[3].controls.append(ft.Container())
