@@ -47,7 +47,7 @@ class CreditCard(Base):
         self.valid_until: date = valid_until
         self.user: User = user
         self.expired: bool = True if self.valid_until < date.today() else False
-        self.alias: str = alias
+        self.alias: str | None = alias
         self.created: date = date.today()
 
         # Logs new creditcard
