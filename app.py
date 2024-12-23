@@ -30,6 +30,9 @@ def main(page: ft.Page) -> None:
         if page.route == "/login":
             page.add(Login(page))
 
+        elif page.route == "/reset_password":
+            pass
+
         elif page.route == "/signup":
             page.add(Signup(page))
 

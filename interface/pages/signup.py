@@ -1,7 +1,13 @@
 import flet as ft
+import time
+
+from data.db_orm import session
+
+from features.models.user import User
 
 from interface.controls import *
 
+from shared.validate import Validate
 from shared.utils.colors import *
 
 
