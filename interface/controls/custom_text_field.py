@@ -6,7 +6,7 @@ from shared.utils.colors import *
 
 class CustomTextField(ft.TextField):
     def __init__(self, label: str, password: bool | None = None, can_reveal_password: bool | None = None,
-                 autofocus: bool | None = None, on_change: Callable = None) -> None:
+                 autofocus: bool | None = None, on_change: Callable = None, text_size: int | None = None) -> None:
         super().__init__()
 
         # Specific settings
@@ -15,6 +15,7 @@ class CustomTextField(ft.TextField):
         self.can_reveal_password = can_reveal_password
         self.autofocus = autofocus
         self.on_change = on_change
+        self.text_size = text_size
 
         # Text design settings
         self.cursor_color = cursorColorFieldText

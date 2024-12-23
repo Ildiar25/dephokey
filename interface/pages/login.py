@@ -95,7 +95,7 @@ class Login(ft.Container):
                                                 self.forgot_password
                                             ]
                                         ),
-                                        ft.Divider(color=accentElementForm, thickness=3)
+                                        ft.Divider(color=accentElementForm, thickness=2)
                                     ]
                                 )
                             ),
@@ -119,11 +119,10 @@ class Login(ft.Container):
     def enable_button(self, _: ft.ControlEvent) -> None:
         if self.email.value and self.password.value:
             self.login_button.disabled = False
-            self.login_button.update()
-
         else:
             self.login_button.disabled = True
-            self.login_button.update()
+
+        self.login_button.update()
 
     def focus_link(self, action: ft.ControlEvent):
         if action and self.forgot_password.content.color == mainSecondaryTextColor:
@@ -134,7 +133,7 @@ class Login(ft.Container):
         self.forgot_password.update()
 
     def forgot_password(self, _: ft.ControlEvent):
-        raise NotImplementedError("Implement new password login via email")
+        raise NotImplementedError("Implementar lógica nueva contraseña vía email")
 
     def login_function(self, _: ft.ControlEvent) -> None:
 

@@ -31,7 +31,7 @@ def main(page: ft.Page) -> None:
             page.add(Login(page))
 
         elif page.route == "/signup":
-            print("On signup Page!")
+            page.add(Signup(page))
 
         elif page.route == "/home" and page.session.contains_key("session"):
             user_role = page.session.get("session").role
@@ -51,7 +51,7 @@ def main(page: ft.Page) -> None:
     # Create all tables
     # Base.metadata.create_all(bind=engine)
 
-    page.go("/home")
+    page.go("/login")
 
 
 if __name__ == '__main__':
