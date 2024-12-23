@@ -51,7 +51,7 @@ def main(page: ft.Page) -> None:
     # Create all tables
     # Base.metadata.create_all(bind=engine)
 
-    page.go("/login")
+    page.go("/home")
 
 
 if __name__ == '__main__':

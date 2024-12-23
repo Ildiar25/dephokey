@@ -42,6 +42,7 @@ class Admin(ft.Container):
                         ft.Row(
                             expand=True,
                             controls=[
+                                CustomCheckbox("ADMIN"),
                                 CustomTextField(
                                     label="Nombre Completo",
                                     autofocus=True
@@ -77,9 +78,10 @@ class Admin(ft.Container):
         )
 
     def add_new_user(self, _: ft.ControlEvent) -> None:
-        fullname: str = self.content.controls[0].controls[1].controls[0].value
-        username: str = self.content.controls[0].controls[1].controls[1].value
-        password: str = self.content.controls[0].controls[1].controls[2].value
+        role: bool = self.content.controls[0].controls[1].controls[0].value
+        fullname: str = self.content.controls[0].controls[1].controls[1].value
+        username: str = self.content.controls[0].controls[1].controls[2].value
+        password: str = self.content.controls[0].controls[1].controls[3].value
 
     def update_users(self, _: ft.ControlEvent) -> None:
         print("users = session.query(User).all()")

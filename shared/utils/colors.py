@@ -4,6 +4,7 @@ from flet import Colors
 darkColorBackground = "#110726"
 lightColorBackground = "#EFE6EF"
 accentGeneralElementColor = Colors.AMBER_ACCENT_400
+transparentColor = Colors.TRANSPARENT
 
 # General text colors
 mainPrimaryTextColor = Colors.BLACK
@@ -17,18 +18,23 @@ bgSnackBarInfo = ""
 bgSnackBarSuccess = ""
 bgSnackBarWarning = ""
 
-# Custom text field
+# Custom checkbox
+selectedBorderCheckboxColor = Colors.PURPLE_600
+defaultFillCheckboxColor = Colors.GREY_300
+selectedFillCheckboxColor = Colors.PURPLE_400
+
+# Custom textfield
 labelTextFieldColor = Colors.PURPLE_400
 cursorColorFieldText = Colors.GREY_400
 selectionColorFieldText = Colors.GREY_200
 staticBorderColorField = Colors.GREY_400
 selectedBorderColorField = Colors.PURPLE_600
 
-# Custom text button
+# Custom textbutton
 textColorTextButton = Colors.PURPLE_600
 overlayColorTextButton = Colors.GREY_300
 
-# Custom elevated button
+# Custom elevatedbutton
 bgButtonColor = Colors.PURPLE_400
 bgDissabledButtonColor = Colors.GREY_500
 textColorElevatedButton = Colors.WHITE
