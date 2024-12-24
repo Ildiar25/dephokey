@@ -13,8 +13,15 @@ class Home(ft.Container):
         self.banner = ft.Banner(
             content=ft.Row(
                 controls=[
-                    ft.Icon(ft.Icons.INFO_ROUNDED),
-                    ft.Text("Something")
+                    ft.Icon(ft.Icons.INFO_ROUNDED, size=45),
+                    ft.ListTile(
+                        title=ft.Text("ATENCIÓN", font_family="AlbertSansB"),
+                        subtitle=ft.Text("Hay que tener en cuenta que todos los datos almacenados no deben de ser "
+                                         "verídicos, pues dicha aplicación no cumple con los estándares de seguridad "
+                                         "PCI DSS\n(https://stripe.com/es/guides/pci-compliance). Esta aplicación sólo "
+                                         "es para la verificación del funcionamiento establecido en el briefing del "
+                                         "proyecto final.")
+                    )
                 ]
             ),
             actions=[
