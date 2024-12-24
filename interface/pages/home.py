@@ -33,6 +33,7 @@ class Home(ft.Container):
         self.page.vertical_alignment = ft.MainAxisAlignment.START
         self.page.horizontal_alignment = ft.CrossAxisAlignment.START
         self.page.floating_action_button.visible = True
+        self.page.appbar.visible = True
         self.page.update()
 
         # Dashboard Content

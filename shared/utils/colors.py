@@ -40,9 +40,9 @@ bgDissabledButtonColor = Colors.GREY_500
 textColorElevatedButton = Colors.WHITE
 
 # Custom floatingbutton
-bgFloatingButtonColor = Colors.BLUE_100
-fgFloatingButtonColor = Colors.BLUE_600
-focusFloatingButtonColor = Colors.BLUE_600
+bgFloatingButtonColor = Colors.DEEP_PURPLE_100
+fgFloatingButtonColor = Colors.DEEP_PURPLE_600
+focusFloatingButtonColor = Colors.DEEP_PURPLE_600
 
 # Admin page settings
 bgGradientAdminColor = [Colors.WHITE, Colors.WHITE]
