@@ -78,7 +78,7 @@ class Signup(ft.Container):
                     alignment=ft.alignment.center,
                     bgcolor=bgAccentForm,
                     image=ft.DecorationImage("interface/assets/bg-image-02.png", fit=ft.ImageFit.COVER),
-                    content=ft.Icon(ft.Icons.LOCK, size=150, color=accentElementForm)
+                    content=ft.Icon(ft.Icons.VERIFIED_USER, size=150, color=accentElementForm)
                 ),
                 ft.Container(
                     width=400,

@@ -5,7 +5,7 @@ from data.db_orm import Base, engine
 from features.models.user import UserRole
 
 from interface.pages import *
-# from interface.controls import *
+from interface.controls.custom_floating_button import CustomFloatingButton
 
 from shared.utils.colors import *
 
@@ -24,6 +24,7 @@ def main(page: ft.Page) -> None:
     page.padding = ft.padding.all(10)
     page.window.min_width = 950
     page.window.min_height = 650
+    page.floating_action_button = CustomFloatingButton()
 
     def route_changer(_: ft.ControlEvent):
         page.clean()
@@ -43,10 +44,10 @@ def main(page: ft.Page) -> None:
                 page.add(Admin(page))
 
             elif user_role == UserRole.CLIENT:
-                pass
+                page.add(Home(page))
 
         else:
-            page.add(Admin(page))
+            page.add(Home(page))
 
     # Define routes
     page.on_route_change = route_changer
@@ -54,7 +55,7 @@ def main(page: ft.Page) -> None:
     # Create all tables
     # Base.metadata.create_all(bind=engine)
 
-    page.go("/login")
+    page.go("/home")
 
 
 if __name__ == '__main__':
