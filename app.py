@@ -15,7 +15,8 @@ def main(page: ft.Page) -> None:
     page.title = "Dephokey"
     page.window.maximized = True
     page.fonts = {
-        "AlbertSansR": "interface/assets/fonts/albert-sans/albert-sans-regular.ttf"
+        "AlbertSansR": "interface/assets/fonts/albert-sans/albert-sans-regular.ttf",
+        "AlbertSansB": "interface/assets/fonts/albert-sans/albert-sans-bold.ttf"
     }
 
     # Page design
@@ -55,7 +56,7 @@ def main(page: ft.Page) -> None:
     # Create all tables
     # Base.metadata.create_all(bind=engine)
 
-    page.go("/home")
+    page.go("/login")
 
 
 if __name__ == '__main__':
