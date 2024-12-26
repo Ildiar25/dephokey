@@ -1,6 +1,6 @@
 import unittest
 
-from features.models.user import User
+from features.models.user import User, UserRole
 
 from shared.logger_setup import test_logger as logger
 
@@ -10,8 +10,8 @@ class TestUser(unittest.TestCase):
         logger.info("Preparing USER instances...")
 
         # Create new instances
-        self.user_01 = User("admin01", "admin@admin.com", "admin1234")
-        self.user_02 = User("admin02", "admin@admin.com", "admin1234")
+        self.user_01 = User("Administrador", "admin.24@gmail.com", "admin1234", UserRole.ADMIN)
+        self.user_02 = User("Cliente", "client.24@gmail.com", "client1234")
 
         logger.info("USER instances ready for test...")
 
@@ -24,7 +24,9 @@ class TestUser(unittest.TestCase):
 
     def test_user_fields(self) -> None:
         logger.info(">>> Starting USER fields test...")
-        self.assertEqual(self.user_01.fullname, "admin01", "Should be 'admin01'...")
-        self.assertEqual(self.user_01.email, "admin@admin.com", "Should be 'admin@admin.com'...")
-        self.assertEqual(self.user_02.fullname, "admin02", "Should be 'admin02'...")
-        self.assertEqual(self.user_02.email, "admin@admin.com", "Should be 'admin@admin.com'...")
+        self.assertEqual(self.user_01.fullname, "Administrador", "Should be 'Administrador'...")
+        self.assertEqual(self.user_01.email, "admin.24@gmail.com", "Should be 'admin.24@gmail.com'...")
+        self.assertEqual(self.user_01.role, UserRole.ADMIN, "Should be 'UserRole.ADMIN'...")
+        self.assertEqual(self.user_02.fullname, "Cliente", "Should be 'Cliente'...")
+        self.assertEqual(self.user_02.email, "client.24@gmail.com", "Should be 'client.24@gmail.com'...")
+        self.assertEqual(self.user_02.role, UserRole.CLIENT, "Should be 'UserRole.CLIENT'...")
