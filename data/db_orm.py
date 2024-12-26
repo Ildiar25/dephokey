@@ -1,10 +1,14 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, DeclarativeBase
+from pathlib import Path
+
+DB_BASE_PATH = Path(__file__).parent
+LANGUAGE = "sqlite"
 
 
 # This engine allows to connect SQLAlchemy with a database.
 # Official documentation: https://docs.sqlalchemy.org/en/14/core/engines.html
-engine = create_engine("sqlite:///data/database/database.db", echo=False)
+engine = create_engine(f"{LANGUAGE}:///{DB_BASE_PATH}/database/database.db", echo=False)
 
 # WARNING: 'create_engine()' method does not connect directly to database, just defines its motor!
 
