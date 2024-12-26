@@ -18,6 +18,7 @@ class CustomElevatedButton(ft.ElevatedButton):
 
         # Text design settings
         self.color = textColorElevatedButton
+
         self.bgcolor = {
             ft.ControlState.DISABLED: bgDissabledButtonColor,
             ft.ControlState.DEFAULT: bgButtonColor
@@ -25,5 +26,8 @@ class CustomElevatedButton(ft.ElevatedButton):
 
         # Button design settings
         self.style = ft.ButtonStyle(
+            text_style=ft.TextStyle(
+                font_family="AlbertSansB"
+            ),
             shape=ft.BeveledRectangleBorder(2)
         )

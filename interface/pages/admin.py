@@ -1,5 +1,9 @@
 import flet as ft
 
+from data.db_orm import session
+
+from features.models.user import UserRole, User
+
 from interface.controls import *
 
 from shared.utils.colors import *
@@ -78,11 +82,18 @@ class Admin(ft.Container):
         )
 
     def add_new_user(self, _: ft.ControlEvent) -> None:
-        role: bool = self.content.controls[0].controls[1].controls[0].value
+        role: UserRole = UserRole.ADMIN if self.content.controls[0].controls[1].controls[0].value else UserRole.CLIENT
         fullname: str = self.content.controls[0].controls[1].controls[1].value
         username: str = self.content.controls[0].controls[1].controls[2].value
         password: str = self.content.controls[0].controls[1].controls[3].value
 
+        new_user: User = User(fullname, username, password, role)
+
+        session.add(new_user)
+        session.commit()
+
     def update_users(self, _: ft.ControlEvent) -> None:
-        print("users = session.query(User).all()")
-        self.content.controls[0].controls[3].controls.append(ft.Container())
+        users = session.query(User).all()
+        for user in users:
+            print(user)
+        # self.content.controls[0].controls[3].controls.append(ft.Container())

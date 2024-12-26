@@ -12,6 +12,10 @@ mainSecondaryTextColor = Colors.GREY_400
 mainAccentTextColor = ""
 mainDangerTextColor = Colors.RED_500
 
+# Custom appbar
+bgAppbarColor = "#DC4B80"
+bgDeployMenuColor = Colors.GREY_500
+
 # Snackbar design
 bgSnackBarDanger = Colors.RED_100
 bgSnackBarInfo = ""
@@ -35,7 +39,7 @@ textColorTextButton = Colors.PURPLE_600
 overlayColorTextButton = Colors.GREY_300
 
 # Custom elevatedbutton
-bgButtonColor = Colors.PURPLE_400
+bgButtonColor = Colors.AMBER_400
 bgDissabledButtonColor = Colors.GREY_500
 textColorElevatedButton = Colors.WHITE
 

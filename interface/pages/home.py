@@ -54,8 +54,7 @@ class Home(ft.Container):
                     expand=True,
                     alignment=ft.MainAxisAlignment.START,
                     controls=[
-                        self.active_content,
-
+                        self.active_content
                     ]
                 )
             ]

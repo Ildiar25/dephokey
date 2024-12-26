@@ -9,6 +9,7 @@ from interface.controls.custom_floating_button import CustomFloatingButton
 from interface.controls.custom_appbar import CustomAppbar
 
 from shared.utils.colors import *
+from shared.logger_setup import main_logger as logger
 
 
 def main(page: ft.Page) -> None:
@@ -56,7 +57,8 @@ def main(page: ft.Page) -> None:
     page.on_route_change = route_changer
 
     # Create all tables
-    # Base.metadata.create_all(bind=engine)
+    Base.metadata.create_all(bind=engine)
+    logger.info("BASE DE DATOS creada con éxito!")
 
     page.go("/home")
 
