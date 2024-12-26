@@ -8,7 +8,7 @@ from data.db_orm import Base
 from features.models.user import User
 
 from shared.public_id import GenerateID
-# from shared.logger_setup import test_logger as logger
+from shared.logger_setup import test_logger as logger
 
 
 class PasswordRequest(Base):
@@ -37,7 +37,7 @@ class PasswordRequest(Base):
         self.created: datetime = datetime.today()
 
         # Logs new note
-        # logger.info("PasswordRequest instance created!")
+        logger.info("PasswordRequest instance created!")
 
     def __str__(self) -> str:
         return (f"<class PasswordRequest(id='{self.id}', user={object}, "

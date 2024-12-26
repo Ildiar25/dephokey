@@ -1,6 +1,6 @@
 import logging
 from logging.handlers import RotatingFileHandler
-import os
+from pathlib import Path
 
 """
 # ----- LEVELS ----- #
@@ -18,13 +18,13 @@ https://docs.python.org/3/library/logging.html
 
 
 # Creates generic function
-def setup_logger(name: str, path: str, file_size: int, text_format: logging.Formatter,
+def setup_logger(name: str, path: Path, mode: str, file_size: int, text_format: logging.Formatter,
                  level: int = logging.DEBUG) -> logging.Logger:
 
     # Sets file handler
     file_handler = RotatingFileHandler(
         filename=path,
-        mode="a",
+        mode=mode,
         maxBytes=file_size,
         backupCount=1,
         encoding="utf-8",
@@ -40,9 +40,12 @@ def setup_logger(name: str, path: str, file_size: int, text_format: logging.Form
     return logger
 
 
+# Set base directory
+BASE_DIR = Path(__file__).parent.parent
+
 # Sets the files name
-FILE_TEST_NAME = "logs/test_logs.log"
-MAIN_LOG_NAME = "app_logs.log"
+FILE_TEST_NAME = "test_logs.log"
+MAIN_FILE_NAME = "app_logs.log"
 
 # Generic text-format setup
 date_format = "%Y-%m-%dT%H:%M:%S%z"
@@ -52,19 +55,18 @@ log_format = logging.Formatter(
 )
 
 test_logger = setup_logger(
-    "test_logger",
-    FILE_TEST_NAME,
-    3072,
-    log_format
+    name="test_logger",
+    path=BASE_DIR.joinpath("tests/logs/" + FILE_TEST_NAME),
+    mode="w",
+    file_size=1048576,
+    text_format=log_format
 )
 
 main_logger = setup_logger(
-    "main_logger",
-    MAIN_LOG_NAME,
-    1048576,
-    log_format,
-    logging.WARNING
+    name="main_logger",
+    path=BASE_DIR.joinpath("tests/logs/" + MAIN_FILE_NAME),
+    mode="a",
+    file_size=3072,
+    text_format=log_format,
+    level=logging.WARNING
 )
-
-something = os.getenv("LOG_LEVEL")
-print(something)

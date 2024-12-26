@@ -9,7 +9,7 @@ from data.db_orm import Base
 from features.models import *
 
 from shared.public_id import GenerateID
-# from shared.logger_setup import test_logger as logger
+from shared.logger_setup import test_logger as logger
 
 
 class UserRole(Enum):
@@ -55,7 +55,7 @@ class User(Base):
         self.created: date = date.today()
 
         # Logs new user
-        # logger.info("User instance created!")
+        logger.info("User instance created!")
 
     def __str__(self) -> str:
         return (f"<class User(id='{self.id}', role='{self.role}', fullname='{self.fullname}', email={str}, "

@@ -9,7 +9,7 @@ from features.models.user import User
 # from features.encrypter import encrypt_data
 
 from shared.public_id import GenerateID
-# from shared.logger_setup import test_logger as logger
+from shared.logger_setup import test_logger as logger
 
 
 class CreditCard(Base):
@@ -51,7 +51,7 @@ class CreditCard(Base):
         self.created: date = date.today()
 
         # Logs new creditcard
-        # logger.info("Creditcard instance created!")
+        logger.info("Creditcard instance created!")
 
     def __str__(self) -> str:
         return (f"<class Creditcard(id='{self.id}', cardholder='{self.cardholder}', encrypted_number={str}, "
