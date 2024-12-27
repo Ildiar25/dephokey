@@ -35,5 +35,9 @@ class TestPasswordRequest(unittest.TestCase):
 
     def test_expired_request(self) -> None:
         logger.info(">>> Starting PASSWORD REQUEST expired request test...")
-        self.assertGreater(self.request_01.created, self.expired_date, "Should be ''...")
-        self.assertLess(self.request_02.created, self.future_date, "Should be ''...")
+        self.assertGreater(self.request_01.created, self.expired_date, f"Should be '{self.expired_date.strftime(
+            "%Y-%m-%dT%H:%M:%S"
+        )}'...")
+        self.assertLess(self.request_02.created, self.future_date, f"Should be '{self.future_date.strftime(
+            "%Y-%m-%dT%H:%M:%S"
+        )}'...")

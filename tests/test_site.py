@@ -28,7 +28,7 @@ class TestSite(unittest.TestCase):
         logger.debug(self.site_02)
 
     def test_site_fields(self) -> None:
-        logger.info(">>> Starting CREDITCARD fields test...")
+        logger.info(">>> Starting SITE fields test...")
         self.assertEqual(self.site_01.name, "Test01", "Should be 'Test01'.")
         self.assertEqual(self.site_01.address, "www.test.com", "Should be 'www.test.com'...")
         self.assertEqual(self.site_02.username, "admin02", "Should be 'admin02'...")

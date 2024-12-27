@@ -55,5 +55,5 @@ class CreditCard(Base):
 
     def __str__(self) -> str:
         return (f"<class Creditcard(id='{self.id}', cardholder='{self.cardholder}', encrypted_number={str}, "
-                f"encrypted_cvc={str}, valid_until='{self.valid_until.strftime("%d/%m/%Y")}', expired={self.expired}, "
+                f"encrypted_cvc={str}, valid_until='{self.valid_until.strftime("%Y-%m-%d")}', expired={self.expired}, "
                 f"alias='{self.alias}', user={User}, created='{self.created.strftime("%Y-%m-%dT%H:%M:%S")}')>")
