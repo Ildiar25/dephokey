@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import datetime
 
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import ForeignKey
@@ -28,7 +28,7 @@ class Site(Base):
     address: Mapped[str]
     username: Mapped[str]
     encrypted_password: Mapped[str]
-    created: Mapped[date]
+    created: Mapped[datetime]
 
     # Relationship settings
     user: Mapped["User"] = relationship("User", back_populates="sites")
@@ -43,11 +43,11 @@ class Site(Base):
         self.username: str = username
         self.encrypted_password: str = password  # encrypt_data(password)
         self.user: User = user
-        self.created: date = date.today()
+        self.created: datetime = datetime.today()
 
         # Logs new note
         logger.info("Site instance created!")
 
     def __str__(self) -> str:
         return (f"<class Site(id='{self.id}', name='{self.name}', address='{self.address}', username={str}, "
-                f"encrypted_password={str}, user={object}, created='{self.created.strftime("%d/%m/%Y")}')>")
+                f"encrypted_password={str}, user={User}, created='{self.created.strftime("%Y-%m-%dT%H:%M:%S")}')>")

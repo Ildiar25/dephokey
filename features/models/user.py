@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import datetime
 from enum import Enum
 from hashlib import sha256
 
@@ -32,7 +32,7 @@ class User(Base):
     fullname: Mapped[str]
     email: Mapped[str]
     hashed_password: Mapped[str]
-    created: Mapped[date]
+    created: Mapped[datetime]
 
     # Relationship settings
     notes: Mapped[list["Note"]] = relationship("Note", back_populates="user", passive_deletes=True)
@@ -52,11 +52,11 @@ class User(Base):
         self.fullname: str = fullname
         self.email: str = email
         self.hashed_password: str = sha256(password.encode()).hexdigest()
-        self.created: date = date.today()
+        self.created: datetime = datetime.today()
 
         # Logs new user
         logger.info("User instance created!")
 
     def __str__(self) -> str:
         return (f"<class User(id='{self.id}', role='{self.role}', fullname='{self.fullname}', email={str}, "
-                f"hashed_password={str}, created='{self.created.strftime("%d/%m/%Y")}')>")
+                f"hashed_password={str}, created='{self.created.strftime("%Y-%m-%dT%H:%M:%S")}')>")

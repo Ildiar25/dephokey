@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import datetime
 
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import ForeignKey
@@ -26,7 +26,7 @@ class Note(Base):
     user_id: Mapped[str] = mapped_column(ForeignKey("user.id", ondelete="CASCADE"), nullable=False, index=True)
     title: Mapped[str | None]
     encrypted_content: Mapped[str]
-    created: Mapped[date]
+    created: Mapped[datetime]
 
     # Relationship settings
     user: Mapped["User"] = relationship("User", back_populates="notes")
@@ -39,11 +39,11 @@ class Note(Base):
         self.title: str | None = title
         self.encrypted_content: str = content  # encrypt_data(content)
         self.user: User = user
-        self.created: date = date.today()
+        self.created: datetime = datetime.today()
 
         # Logs new note
         logger.info("Note instance created!")
 
     def __str__(self) -> str:
-        return (f"<class Note(id='{self.id}', title='{self.title}', content_encrypted={str}, user={object}, "
-                f"created='{self.created.strftime("%d/%m/%Y")}')>")
+        return (f"<class Note(id='{self.id}', title='{self.title}', content_encrypted={str}, user={User}, "
+                f"created='{self.created.strftime("%Y-%m-%dT%H:%M:%S")}')>")

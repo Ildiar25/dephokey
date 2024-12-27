@@ -40,5 +40,5 @@ class PasswordRequest(Base):
         logger.info("PasswordRequest instance created!")
 
     def __str__(self) -> str:
-        return (f"<class PasswordRequest(id='{self.id}', user={object}, "
-                f"created='{self.created.strftime("%d/%m/%Y_%H:%M:%S")}')>")
+        return (f"<class PasswordRequest(id='{self.id}', user={User}, "
+                f"created='{self.created.strftime("%Y-%m-%dT%H:%M:%S")}')>")

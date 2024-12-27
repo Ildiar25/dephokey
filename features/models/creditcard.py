@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, datetime
 
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import ForeignKey
@@ -30,7 +30,7 @@ class CreditCard(Base):
     valid_until: Mapped[date]
     expired: Mapped[bool]
     alias: Mapped[str | None]
-    created: Mapped[date]
+    created: Mapped[datetime]
 
     # Relationship settings
     user: Mapped["User"] = relationship("User", back_populates="creditcards")
@@ -45,10 +45,10 @@ class CreditCard(Base):
         self.encrypted_number: str = number  # encrypt_data(number)
         self.encrypted_cvc: str = cvc  # encrypt_data(number)
         self.valid_until: date = valid_until
-        self.user: User = user
         self.expired: bool = True if self.valid_until < date.today() else False
         self.alias: str | None = alias
-        self.created: date = date.today()
+        self.user: User = user
+        self.created: datetime = datetime.today()
 
         # Logs new creditcard
         logger.info("Creditcard instance created!")
@@ -56,4 +56,4 @@ class CreditCard(Base):
     def __str__(self) -> str:
         return (f"<class Creditcard(id='{self.id}', cardholder='{self.cardholder}', encrypted_number={str}, "
                 f"encrypted_cvc={str}, valid_until='{self.valid_until.strftime("%d/%m/%Y")}', expired={self.expired}, "
-                f"alias='{self.alias}', created='{self.created.strftime("%d/%m/%Y")}')>")
+                f"alias='{self.alias}', user={User}, created='{self.created.strftime("%Y-%m-%dT%H:%M:%S")}')>")
