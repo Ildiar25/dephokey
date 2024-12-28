@@ -9,6 +9,7 @@ from features.models.user import User
 from interface.controls import *
 
 from shared.validate import Validate
+from shared.logger_setup import main_logger as logger
 from shared.utils.colors import *
 
 
@@ -133,7 +134,11 @@ class Login(ft.Container):
         self.forgot_password.update()
 
     def forgot_password(self, _: ft.ControlEvent):
-        raise NotImplementedError("Implementar lógica nueva contraseña vía email")
+        try:
+            raise NotImplementedError("Implementar lógica nueva contraseña vía email")
+
+        except NotImplementedError as error_message:
+            logger.error(f"Llamada a la función '{Login.forgot_password.__name__}': {error_message}")
 
     def login_function(self, _: ft.ControlEvent) -> None:
 

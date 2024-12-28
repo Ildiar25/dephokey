@@ -8,6 +8,7 @@ from features.models.user import User
 from interface.controls import *
 
 from shared.validate import Validate
+from shared.logger_setup import main_logger as logger
 from shared.utils.colors import *
 
 
@@ -123,4 +124,8 @@ class Signup(ft.Container):
         self.signup_button.update()
 
     def create_account(self, _: ft.ControlEvent) -> None:
-        raise NotImplementedError("Implementar lógica de creación de cuenta")
+        try:
+            raise NotImplementedError("Implementar lógica de creación de cuenta")
+
+        except NotImplementedError as error_message:
+            logger.error(f"Llamada a la función '{Signup.create_account.__name__}': {error_message}")
