@@ -11,6 +11,7 @@ mainPrimaryTextColor = Colors.BLACK
 mainSecondaryTextColor = Colors.GREY_400
 mainAccentTextColor = ""
 mainDangerTextColor = Colors.RED_500
+mainInfoTextColor = Colors.BLUE_500
 
 # Custom appbar
 bgAppbarColor = "#DC4B80"
@@ -18,7 +19,7 @@ bgDeployMenuColor = Colors.GREY_500
 
 # Snackbar design
 bgSnackBarDanger = Colors.RED_100
-bgSnackBarInfo = ""
+bgSnackBarInfo = Colors.BLUE_100
 bgSnackBarSuccess = ""
 bgSnackBarWarning = ""
 

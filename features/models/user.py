@@ -19,7 +19,7 @@ class UserRole(Enum):
 
 class User(Base):
     """
-    This class creates a new user instance. It needs an UserID, a CompleteName, a Username, a Password
+    This class creates a new user instance. It needs an UserID, a Role, a CompleteName, a Username, a Password
     and a CreatedDate.
     """
 

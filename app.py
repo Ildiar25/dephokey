@@ -15,7 +15,7 @@ from shared.logger_setup import main_logger as logger
 def main(page: ft.Page) -> None:
     # Page settings
     page.title = "Dephokey"
-    page.window.maximized = True
+    # page.window.maximized = True
     page.fonts = {
         "AlbertSansR": "interface/assets/fonts/albert-sans/albert-sans-regular.ttf",
         "AlbertSansB": "interface/assets/fonts/albert-sans/albert-sans-bold.ttf"
@@ -34,24 +34,29 @@ def main(page: ft.Page) -> None:
         page.clean()
         if page.route == "/login":
             page.add(Login(page))
+            logger.info("Página LOGIN cargada.")
 
         elif page.route == "/reset_password":
-            pass
+
+            logger.info("Página RESET PASSWORD cargada.")
 
         elif page.route == "/signup":
             page.add(Signup(page))
+            logger.info("Página SIGNUP cargada.")
 
         elif page.route == "/home" and page.session.contains_key("session"):
             user_role = page.session.get("session").role
 
             if user_role == UserRole.ADMIN:
                 page.add(Admin(page))
+                logger.info("Página ADMINN cargada.")
 
             elif user_role == UserRole.CLIENT:
                 page.add(Home(page))
+                logger.info("Página HOME cargada.")
 
         else:
-            page.add(Home(page))
+            page.add(Admin(page))
 
     # Define routes
     page.on_route_change = route_changer
@@ -60,7 +65,7 @@ def main(page: ft.Page) -> None:
     Base.metadata.create_all(bind=engine)
     logger.info("BASE DE DATOS creada con éxito!")
 
-    page.go("/home")
+    page.go("/admin")
 
 
 if __name__ == '__main__':
