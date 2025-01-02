@@ -5,8 +5,7 @@ from .custom_checkbox import CustomCheckbox
 from .custom_floating_button import CustomFloatingButton
 from .custom_appbar import CustomAppbar
 from .custom_searchbar import CustomSearchBar
-from .custom_datatable import CustomDatatable
 
 
 __all__ = ["CustomTextField", "CustomElevatedButton", "CustomTextButton", "CustomCheckbox", "CustomFloatingButton",
-           "CustomAppbar", "CustomSearchBar", "CustomDatatable"]
+           "CustomAppbar", "CustomSearchBar"]
