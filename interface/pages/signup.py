@@ -34,23 +34,23 @@ class Signup(ft.Container):
 
         # Signup attributes
         self.fullname = CustomTextField(
-            "Nombre completo",
+            label="Nombre completo",
             text_size=14,
             on_change=self.enable_button
         )
         self.email = CustomTextField(
-            "Correo electrónico",
+            label="Correo electrónico",
             text_size=14,
             on_change=self.enable_button
         )
         self.password = CustomTextField(
-            "Contraseña",
+            label="Contraseña",
             text_size=14,
             password=True,
             on_change=self.enable_button
         )
         self.password_repeat = CustomTextField(
-            "Contraseña",
+            label="Contraseña",
             text_size=14,
             password=True,
             on_change=self.enable_button

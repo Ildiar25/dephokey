@@ -1,5 +1,6 @@
 # Virtual environment files
 .venv/
+.env
 
 # PyCharm IDE files
 .idea/
@@ -13,6 +14,3 @@
 
 # Database files
 data/database/database.db
-
-# Encrypt files
-features/key.key

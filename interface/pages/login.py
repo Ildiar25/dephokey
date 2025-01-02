@@ -35,12 +35,12 @@ class Login(ft.Container):
 
         # Login attributes
         self.email = CustomTextField(
-            "Correo electrónico",
+            label="Correo electrónico",
             autofocus=True,
             on_change=self.enable_button
         )
         self.password = CustomTextField(
-            "Contraseña",
+            label="Contraseña",
             can_reveal_password=True,
             password=True,
             on_change=self.enable_button
