@@ -1,0 +1,20 @@
+[build-system]
+
+
+[project]
+name = "Dephokey"
+version = "0.0.1"
+dependencies = [
+    "SQLAlchemy~=2.0.36",
+    "flet~=0.25.2",
+    "nanoid~=2.0.0"
+]
+requires-python = ">=3.12"
+authors = [{name = "Joan Pastor", email = "j.pastor1591@gmail.com"}]
+maintainers = [{name = "Joan Pastor", email = "j.pastor1591@gmail.com"}]
+description = "Password Manager"
+readme = "README.md"
+
+[project.database]
+type = "sqlite"
+path = "data/database/database.db"
