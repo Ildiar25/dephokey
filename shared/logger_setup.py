@@ -43,6 +43,10 @@ def setup_logger(name: str, path: Path, mode: str, file_size: int, text_format: 
 # Set base directory
 BASE_DIR = Path(__file__).parent.parent
 
+# Create file directory
+if not BASE_DIR.joinpath("tests/logs/").is_dir():
+    BASE_DIR.joinpath("tests/logs/").mkdir()
+
 # Sets the files name
 FILE_TEST_NAME = "test_logs.log"
 MAIN_FILE_NAME = "app_logs.log"
