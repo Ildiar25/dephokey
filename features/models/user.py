@@ -59,4 +59,4 @@ class User(Base):
 
     def __str__(self) -> str:
         return (f"<class User(id='{self.id}', role='{self.role}', fullname='{self.fullname}', email={str}, "
-                f"hashed_password={str}, created='{self.created.strftime("%Y-%m-%dT%H:%M:%S")}')>")
+                f"hashed_password={str}, created='{self.created.strftime('%Y-%m-%dT%H:%M:%S')}')>")

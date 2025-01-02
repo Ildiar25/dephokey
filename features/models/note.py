@@ -46,4 +46,4 @@ class Note(Base):
 
     def __str__(self) -> str:
         return (f"<class Note(id='{self.id}', title='{self.title}', content_encrypted={str}, user={User}, "
-                f"created='{self.created.strftime("%Y-%m-%dT%H:%M:%S")}')>")
+                f"created='{self.created.strftime('%Y-%m-%dT%H:%M:%S')}')>")

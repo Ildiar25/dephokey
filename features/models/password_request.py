@@ -41,4 +41,4 @@ class PasswordRequest(Base):
 
     def __str__(self) -> str:
         return (f"<class PasswordRequest(id='{self.id}', user={User}, "
-                f"created='{self.created.strftime("%Y-%m-%dT%H:%M:%S")}')>")
+                f"created='{self.created.strftime('%Y-%m-%dT%H:%M:%S')}')>")

@@ -50,4 +50,4 @@ class Site(Base):
 
     def __str__(self) -> str:
         return (f"<class Site(id='{self.id}', name='{self.name}', address='{self.address}', username={str}, "
-                f"encrypted_password={str}, user={User}, created='{self.created.strftime("%Y-%m-%dT%H:%M:%S")}')>")
+                f"encrypted_password={str}, user={User}, created='{self.created.strftime('%Y-%m-%dT%H:%M:%S')}')>")
