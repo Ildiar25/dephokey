@@ -2,25 +2,27 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, DeclarativeBase
 from pathlib import Path
 
-# Create file info
-DB_BASE_PATH = Path(__file__).parent
-LANGUAGE = "sqlite"
-
-# Create file directory
-if not DB_BASE_PATH.joinpath("database/").is_dir():
-    DB_BASE_PATH.joinpath("database/").mkdir()
-
-# This engine allows to connect SQLAlchemy with a database.
-# Official documentation: https://docs.sqlalchemy.org/en/14/core/engines.html
-engine = create_engine(f"{LANGUAGE}:///{DB_BASE_PATH}/database/database.db", echo=False)
-
-# WARNING: 'create_engine()' method does not connect directly to database, just defines its motor!
-
-# Session allows interactions with the database.
-Session = sessionmaker(bind=engine)
-session = Session()
-
 
 # Base class transform attributes to mapped data and link them to database table.
 class Base(DeclarativeBase):
     pass
+
+
+# Create database path
+db_path = Path(__file__).parent.joinpath("database")
+
+# Check if directory already exists
+if not db_path.is_dir():
+    db_path.mkdir()
+
+# Prepare database file
+DATABASE_URL = f"sqlite:///{db_path}/database.db"
+
+# This engine allows to connect SQLAlchemy with a database.
+# Official documentation: https://docs.sqlalchemy.org/en/14/core/engines.html
+engine = create_engine(DATABASE_URL, echo=False)
+Session = sessionmaker(bind=engine)
+# WARNING: 'create_engine()' method does not connect directly to database, just defines its motor!
+
+# Session allows interactions with the database.
+session = Session()
