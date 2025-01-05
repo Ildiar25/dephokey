@@ -1,5 +1,8 @@
 import re
 
+from shared.logger_setup import main_logger as logger
+from shared.utils.masker import mask_number
+
 
 class Validate:
     """
@@ -56,8 +59,8 @@ class Validate:
                 # Cast text to number
                 list_numbers = [int(number) for number in creditcard_number]
 
-            except ValueError as error:
-                print(error)
+            except ValueError as error_message:
+                logger.error(f"Datos introducidos '{mask_number(creditcard_number)}': {error_message}")
                 return False
 
             else:
