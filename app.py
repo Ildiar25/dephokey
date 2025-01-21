@@ -56,7 +56,7 @@ def main(page: ft.Page) -> None:
                 logger.info("Página HOME cargada.")
 
         else:
-            page.add(Admin(page))
+            page.add(Home(page))  # Delete 'else' statement once program was finished
 
     # Define routes
     page.on_route_change = route_changer
@@ -65,7 +65,7 @@ def main(page: ft.Page) -> None:
     Base.metadata.create_all(bind=engine)
     logger.info("BASE DE DATOS creada con éxito!")
 
-    page.go("/admin")
+    page.go("/home")
 
 
 if __name__ == '__main__':

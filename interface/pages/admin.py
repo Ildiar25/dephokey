@@ -11,6 +11,7 @@ from features.models import *
 
 from interface.controls import *
 
+from shared.validate import Validate
 from shared.utils.colors import *
 
 
@@ -98,7 +99,8 @@ class Admin(ft.Column):
                 controls=[
                     ft.Row(controls=[self.user_fullname_input]),
                     ft.Row(controls=[self.checkbox_input, self.user_email_input, self.user_password_input]),
-                    ft.Row(controls=[CustomElevatedButton("AÑADIR USUARIO", width=200, on_click=self.add_new_user)],
+                    ft.Row(controls=[CustomElevatedButton("AÑADIR USUARIO", width=200,
+                                                          on_click=self.add_new_user)],
                            alignment=ft.MainAxisAlignment.END)
                 ]
             )
@@ -109,8 +111,7 @@ class Admin(ft.Column):
         # Add creditcard attributes
         self.cardholder_input = CustomTextField(label="Propietario", expand=True)
         self.creditcard_number_input = CustomTextField(label="Número de tarjeta",
-                                                       expand=True,
-                                                       input_filter=ft.NumbersOnlyInputFilter())
+                                                       expand=True)
         self.cvc_input = CustomTextField(label="CVC", width=80, input_filter=ft.NumbersOnlyInputFilter())
         self.date_input = ft.IconButton(
             ft.Icons.CALENDAR_MONTH_ROUNDED,
@@ -124,6 +125,7 @@ class Admin(ft.Column):
             )
         )
 
+
         # Add credditcard form
         self.add_creditcard_form = ft.Container(
             border_radius=8,
@@ -134,7 +136,10 @@ class Admin(ft.Column):
                 expand=True,
                 controls=[
                     ft.Row(controls=[self.user_selector, self.cardholder_input]),
-                    ft.Row(controls=[self.creditcard_number_input, self.cvc_input, self.date_input])
+                    ft.Row(controls=[self.creditcard_number_input, self.cvc_input, self.date_input]),
+                    ft.Row(controls=[CustomElevatedButton("AÑADIR TARJETA", width=200,
+                                                          on_click=self.add_new_creditcard)],
+                           alignment=ft.MainAxisAlignment.END)
                 ]
             )
         )
@@ -299,3 +304,14 @@ class Admin(ft.Column):
             self.snackbar.open = True
             self.snackbar.update()
             self.page.update()
+
+    def add_new_creditcard(self, _: ft.ControlEvent) -> None:
+
+        # get user inputs
+        main_user_input: str = self.user_selector.value
+        cardholder_input: str = self.cardholder_input.value
+        creditcard_number_input: str = self.creditcard_number_input.value
+
+        if Validate.is_valid_creditcard_number(creditcard_number_input):
+            pass
+

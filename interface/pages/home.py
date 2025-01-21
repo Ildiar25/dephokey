@@ -25,7 +25,7 @@ class Home(ft.Container):
                 ]
             ),
             actions=[
-                ft.TextButton("ACEPTAR", on_click=lambda _: self.close_banner())
+                ft.TextButton("ACEPTAR")
             ]
         )
 
@@ -59,14 +59,3 @@ class Home(ft.Container):
                 )
             ]
         )
-
-        self.open_banner()
-
-    def open_banner(self) -> None:
-        time.sleep(4)
-        self.banner.open = True
-        self.page.update()
-
-    def close_banner(self) -> None:
-        self.banner.open = False
-        self.page.update()
