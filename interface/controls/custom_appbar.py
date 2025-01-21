@@ -1,10 +1,12 @@
 import flet as ft
 import time
 
+from interface.pages import LoadPage  # ---> ImportError (Circular import)
+
 from shared.utils.colors import *
 
 
-class CustomAppbar(ft.AppBar):
+class CustomAppbar(ft.Container):
     def __init__(self) -> None:
         super().__init__()
 
@@ -51,37 +53,27 @@ class CustomAppbar(ft.AppBar):
         # Control settings
         self.actions = [
             ft.Container(
-                content=ft.PopupMenuButton(
-                    bgcolor=bgDeployMenuColor,
-                    menu_position=ft.PopupMenuPosition.UNDER,
-                    tooltip="Mostrar menú",
-                    items=[
-                        ft.PopupMenuItem(text="Salir", icon=ft.Icons.LOGOUT, on_click=self.logout),
-                        ft.PopupMenuItem(),
-                        ft.PopupMenuItem(text="Opciones", icon=ft.Icons.SETTINGS),
+                bgcolor=ft.colors.GREEN,
+                content=ft.Row(
+                    controls=[
+                        ft.IconButton(ft.Icons.SETTINGS),
+                        ft.IconButton(ft.Icons.LOGOUT)
                     ]
                 )
             )
         ]
 
+        self.content = ft.IconButton(ft.Icons.LOGOUT, on_click=self.logout)
+
     def logout(self, _: ft.ControlEvent) -> None:
 
         # Close session
         self.page.session.clear()
-        self.page.appbar.visible = False
-        self.page.floating_action_button.visible = False
         self.page.update()
 
         # Report page loading
         self.page.overlay.append(
-            ft.Container(
-                alignment=ft.alignment.center,
-                expand=True,
-                bgcolor=ft.Colors.with_opacity(0.3, lightColorBackground),
-                content=ft.ProgressRing(
-                    color=accentGeneralElementColor
-                )
-            )
+            LoadPage()
         )
         self.page.update()
 

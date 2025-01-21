@@ -6,6 +6,7 @@ from data.db_orm import session
 
 from features.models.user import User
 
+from interface.pages import LoadPage
 from interface.controls import *
 
 from shared.validate import Validate
@@ -177,14 +178,7 @@ class Login(ft.Container):
 
                     # Report page loading
                     self.page.overlay.append(
-                        ft.Container(
-                            alignment=ft.alignment.center,
-                            expand=True,
-                            bgcolor=ft.Colors.with_opacity(0.3, lightColorBackground),
-                            content=ft.ProgressRing(
-                                color=accentGeneralElementColor
-                            )
-                        )
+                        LoadPage()
                     )
                     self.page.update()
 
