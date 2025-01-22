@@ -14,8 +14,10 @@ mainDangerTextColor = Colors.RED_500
 mainInfoTextColor = Colors.BLUE_500
 
 # Custom appbar
-bgAppbarColor = "#DC4B80"
-bgDeployMenuColor = Colors.GREY_500
+bgAppbarColor = "#333333"
+
+# Footer
+bgColorFooter = "#4860B5"
 
 # Snackbar design
 bgSnackBarDanger = Colors.RED_100

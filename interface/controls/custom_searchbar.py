@@ -14,7 +14,7 @@ class CustomSearchBar(ft.Container):
         self.bgcolor = ft.Colors.WHITE
         self.border_radius = 6
         self.padding = 8
-        self.opacity = 0
+        self.opacity = 0.2
 
         # Animation
         self.animate_opacity = 250
@@ -27,6 +27,7 @@ class CustomSearchBar(ft.Container):
             controls=[
                 ft.Icon(ft.Icons.SEARCH_ROUNDED, size=17, color=ft.Colors.BLACK, opacity=0.85),
                 ft.TextField(
+                    expand=True,
                     border_color=ft.Colors.TRANSPARENT,
                     height=20,
                     text_size=14,
@@ -41,5 +42,5 @@ class CustomSearchBar(ft.Container):
         )
 
     def toggle_bar(self, event: ft.ControlEvent) -> None:
-        self.opacity = 1 if event.data and self.opacity == 0 else 0
+        self.opacity = 1 if event.data and self.opacity == 0.2 else 0.2
         self.update()
