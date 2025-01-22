@@ -5,8 +5,8 @@ from data.db_orm import Base, engine
 from features.models.user import UserRole
 
 from interface.pages import *
-from interface.controls.custom_floating_button import CustomFloatingButton
-from interface.controls.custom_appbar import CustomAppbar
+from interface.controls.my_appbar import CustomAppbar
+from interface.controls.my_footer import Footer
 
 from shared.utils.colors import *
 from shared.logger_setup import main_logger as logger
@@ -24,11 +24,13 @@ def main(page: ft.Page) -> None:
     # Page design
     page.theme = ft.Theme(font_family="AlbertSansR")
     page.bgcolor = darkColorBackground
-    page.padding = ft.padding.all(10)
+    page.padding = ft.padding.all(0)
     page.window.min_width = 950
     page.window.min_height = 650
-    page.floating_action_button = CustomFloatingButton()
+
+    # Page elements
     page.appbar = CustomAppbar()
+    page.bottom_appbar = Footer()
 
     def route_changer(_: ft.ControlEvent):
         page.clean()
