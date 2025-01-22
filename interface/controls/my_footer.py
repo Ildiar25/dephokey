@@ -9,7 +9,7 @@ class Footer(ft.BottomAppBar):
         super().__init__()
 
         # General settings
-        self.visible = True
+        self.visible = False
         self.height = 48
         self.padding = ft.padding.only(24, 16, 24, 16)
 

@@ -12,7 +12,7 @@ class CustomAppbar(ft.AppBar):
         super().__init__()
 
         # General settings
-        self.visible = True
+        self.visible = False
         self.toolbar_height = 79
 
         # Design settings
@@ -20,7 +20,13 @@ class CustomAppbar(ft.AppBar):
 
         # Leading (Logo)
         self.leading_width = 200
-        self.leading = None  # Load image logo
+        self.leading = ft.Container(
+            width=152,
+            height=48,
+            margin=ft.margin.only(left=24, right=64),
+            bgcolor=ft.Colors.WHITE,
+            image=ft.DecorationImage("interface/assets/logo.png", fit=ft.ImageFit.COVER)
+        )
 
         # Title (Search bar)
         self.center_title = True
@@ -28,31 +34,18 @@ class CustomAppbar(ft.AppBar):
 
         # Options (Logout)
         self.actions = [
-            ft.IconButton(ft.Icons.SETTINGS),
-            ft.IconButton(ft.Icons.LOGOUT)
+            ft.Container(
+                width=72,
+                margin=ft.margin.only(left=64, right=56),
+                content=ft.Row(
+                    controls=[
+                        ft.IconButton(ft.Icons.SETTINGS_OUTLINED),
+                        ft.IconButton(ft.Icons.LOGOUT_OUTLINED, on_click=self.logout)
+                    ]
+                )
+            )
         ]
-        # Searchbar settings
-        # self.title = ft.Container(
-        #     content=ft.Row(
-        #         spacing=10,
-        #         vertical_alignment=ft.CrossAxisAlignment.CENTER,
-        #         controls=[
-        #             ft.Icon(ft.Icons.SEARCH, color=ft.Colors.with_opacity(0.2, lightColorBackground)),
-        #             ft.TextField(
-        #                 selection_color=selectionColorFieldText,
-        #                 text_style=ft.TextStyle(
-        #                     color=lightColorBackground
-        #                 ),
-        #                 cursor_color=lightColorBackground,
-        #                 hint_text="buscar contenido...",
-        #                 hint_style=ft.TextStyle(
-        #                     color=ft.Colors.with_opacity(0.2, lightColorBackground)
-        #                 ),
-        #                 border=ft.InputBorder.NONE
-        #             )
-        #         ]
-        #     )
-        # )
+
 
     def look_for_elements(self, _: ft.ControlEvent) -> None:
         pass
@@ -61,6 +54,10 @@ class CustomAppbar(ft.AppBar):
 
         # Close session
         self.page.session.clear()
+
+        # Hide menus
+        self.page.appbar.visible = False
+        self.page.bottom_appbar.visible = False
         self.page.update()
 
         # Report page loading
@@ -70,6 +67,6 @@ class CustomAppbar(ft.AppBar):
         self.page.update()
 
         # Load login page
-        time.sleep(1)
+        time.sleep(0.5)
         self.page.overlay.clear()
         self.page.go("/login")
