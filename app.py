@@ -13,12 +13,18 @@ from shared.logger_setup import main_logger as logger
 
 
 def main(page: ft.Page) -> None:
+
+    # Create all tables
+    Base.metadata.create_all(bind=engine)
+    logger.info("BASE DE DATOS creada con éxito!")
+
     # Page settings
     page.title = "Dephokey"
     # page.window.maximized = True
     page.fonts = {
         "AlbertSansR": "interface/assets/fonts/albert-sans/albert-sans-regular.ttf",
-        "AlbertSansB": "interface/assets/fonts/albert-sans/albert-sans-bold.ttf"
+        "AlbertSansB": "interface/assets/fonts/albert-sans/albert-sans-bold.ttf",
+        "AlbertSansL": "interface/assets/fonts/albert-sans/albert-sans-light.ttf"
     }
 
     # Page design
@@ -62,11 +68,6 @@ def main(page: ft.Page) -> None:
 
     # Define routes
     page.on_route_change = route_changer
-
-    # Create all tables
-    Base.metadata.create_all(bind=engine)
-    logger.info("BASE DE DATOS creada con éxito!")
-
     page.go("/home")
 
 
