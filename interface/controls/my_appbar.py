@@ -39,8 +39,15 @@ class CustomAppbar(ft.AppBar):
                 margin=ft.margin.only(left=64, right=56),
                 content=ft.Row(
                     controls=[
-                        ft.IconButton(ft.Icons.SETTINGS_OUTLINED),
-                        ft.IconButton(ft.Icons.LOGOUT_OUTLINED, on_click=self.logout)
+                        ft.IconButton(
+                            ft.Icons.SETTINGS_OUTLINED,
+                            icon_color=ft.Colors.WHITE
+                        ),
+                        ft.IconButton(
+                            ft.Icons.LOGOUT_OUTLINED,
+                            icon_color=ft.Colors.WHITE,
+                            on_click=self.logout
+                        )
                     ]
                 )
             )
@@ -58,6 +65,7 @@ class CustomAppbar(ft.AppBar):
         # Hide menus
         self.page.appbar.visible = False
         self.page.bottom_appbar.visible = False
+        self.page.clean()
         self.page.update()
 
         # Report page loading

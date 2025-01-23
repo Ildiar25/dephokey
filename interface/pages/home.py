@@ -11,7 +11,13 @@ class Home(ft.Container):
 
         # General attributes
         self.page = page
-        self.sidebar = CustomSidebar()
+        self.active_content = ft.Container(
+            bgcolor=lightColorBackground,
+            # padding=ft.padding.only(left=10, top=40, right=240),
+            expand=True,
+        )
+
+        self.sidebar = CustomSidebar(self.page, self.active_content)
         # self.banner = ft.Banner(
         #     content=ft.Row(
         #         controls=[
@@ -38,32 +44,30 @@ class Home(ft.Container):
         self.page.bottom_appbar.visible = True
 
         # Dashboard Content
-        # self.active_content = ft.Container(
-        #     bgcolor=lightColorBackground,
-        #     # padding=ft.padding.only(left=10, top=40, right=240),
-        #     expand=True,
-        # )
-
-        self.body = ft.Row(
+        self.sidebar_content = ft.Column(
             expand=True,
             controls=[
-                ft.Column(
+                self.sidebar
+            ]
+        )
+        self.body_content = ft.Column(
+            expand=True,
+            scroll=ft.ScrollMode.AUTO,
+            controls=[
+
+            ]
+        )
+
+
+        self.body = ft.Column(
+            expand=True,
+            spacing=0,
+            controls=[
+                ft.Divider(height=1, thickness=1, color="#F2F2F2"),
+                ft.Row(
                     expand=True,
                     controls=[
-                        self.sidebar
-                    ]
-                ),
-                ft.Column(
-                    expand=True,
-                    scroll=ft.ScrollMode.AUTO,
-                    controls=[
-                        ft.Container(
-                            bgcolor=ft.Colors.WHITE,
-                            expand=True,
-                            content=ft.Row(
-                                expand=True,
-                            )
-                        )
+                        self.sidebar_content, self.body_content
                     ]
                 )
             ]
