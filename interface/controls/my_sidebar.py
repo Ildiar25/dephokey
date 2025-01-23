@@ -1,40 +1,135 @@
 import flet as ft
 
+from shared.utils.colors import *
+
 
 class CustomSidebar(ft.NavigationRail):
-
-    def __init__(self) -> None:
+    def __init__(self, page: ft.Page, active_content: ft.Container) -> None:
         super().__init__()
 
-        # General settings
-        self.visible = True
+        # General attributes
+        self.page = page
+        self.content = active_content
 
-        self.extended = True
-        self.width = 200
-        self.height = 2000
-
-
-        self.destinations = [
-            ft.NavigationRailDestination(
-                icon=ft.Icons.HOME,
-                label_content=ft.Text("Home")
-            ),
-            ft.NavigationRailDestination(
-                icon=ft.Icons.WEB,
-                label_content=ft.Text("Direcciones Web")
-            ),
-            ft.NavigationRailDestination(
-                icon=ft.Icons.CREDIT_CARD,
-                label_content=ft.Text("Tarjetas")
-            ),
-            ft.NavigationRailDestination(
-                icon=ft.Icons.NOTES,
-                label_content=ft.Text("Notas Seguras")
-            ),
-            ft.NavigationRailDestination(
-                icon=ft.Icons.VERIFIED_USER,
-                label_content=ft.Text("Acerca de")
+        # Navigation attributes
+        self.go_home = ft.NavigationRailDestination(
+            ft.Icon(ft.Icons.HOME_ROUNDED, color=accentSidebar),
+            selected_icon=ft.Icon(ft.Icons.HOME_ROUNDED, color=textColorSidebar),
+            padding=5,
+            label_content=ft.Container(
+                padding=10,
+                content=ft.Text(
+                    "Home",
+                    font_family="AlbertSansL",
+                    color=textColorSidebar
+                )
             )
+        )
+        self.go_sites = ft.NavigationRailDestination(
+            ft.Icon(ft.Icons.WEBHOOK_ROUNDED, color=accentSidebar),
+            selected_icon=ft.Icon(ft.Icons.WEBHOOK_ROUNDED, color=textColorSidebar),
+            padding=5,
+            label_content=ft.Container(
+                padding=10,
+                content=ft.Text(
+                    "Sitios Web",
+                    font_family="AlbertSansL",
+                    color=textColorSidebar
+                )
+            )
+        )
+        self.go_cards = ft.NavigationRailDestination(
+            ft.Icon(ft.Icons.CREDIT_CARD_ROUNDED, color=accentSidebar),
+            selected_icon=ft.Icon(ft.Icons.CREDIT_CARD_ROUNDED, color=textColorSidebar),
+            padding=5,
+            label_content=ft.Container(
+                padding=10,
+                content=ft.Text(
+                    "Tarjetas",
+                    font_family="AlbertSansL",
+                    color=textColorSidebar
+                )
+            )
+        )
+        self.go_notes = ft.NavigationRailDestination(
+            ft.Icon(ft.Icons.NOTES_ROUNDED, color=accentSidebar),
+            selected_icon=ft.Icon(ft.Icons.NOTES_ROUNDED, color=textColorSidebar),
+            padding=5,
+            label_content=ft.Container(
+                padding=10,
+                content=ft.Text(
+                    "Notas",
+                    font_family="AlbertSansL",
+                    color=textColorSidebar
+                )
+            )
+        )
+        self.go_info = ft.NavigationRailDestination(
+            ft.Icon(ft.Icons.INFO_ROUNDED, color=accentSidebar),
+            selected_icon=ft.Icon(ft.Icons.INFO_ROUNDED, color=textColorSidebar),
+            padding=5,
+            label_content=ft.Container(
+                padding=10,
+                content=ft.Text(
+                    "Acerca de",
+                    font_family="AlbertSansL",
+                    color=textColorSidebar
+                )
+            )
+        )
+
+        # Main settings
+        self.width = 200
+        self.height = 5000
+        self.extended = True
+        self.visible = True
+        self.on_change = self.select_destination
+
+        # Sidebar design
+        self.bgcolor = bgSidebar
+        self.indicator_color = accentSidebar
+        self.indicator_shape = ft.RoundedRectangleBorder(2)
+
+        # Destinations
+        self.destinations = [
+            self.go_home,
+            self.go_sites,
+            self.go_cards,
+            self.go_notes,
+            self.go_info
         ]
 
+    def show_home(self):
+        print("home")
 
+    def show_sites(self):
+        print("sites")
+
+    def show_cards(self):
+        print("cards")
+
+    def show_notes(self):
+        print("notes")
+
+    def show_info(self):
+        print("info")
+
+    def select_destination(self, event: ft.ControlEvent) -> None:
+        match event.control.selected_index:
+            case 0:
+                self.show_home()
+
+            case 1:
+                self.show_sites()
+
+            case 2:
+                self.show_cards()
+
+            case 3:
+                self.show_notes()
+
+            case 4:
+                self.show_info()
+
+            case _:
+                pass

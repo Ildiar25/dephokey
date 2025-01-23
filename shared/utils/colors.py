@@ -9,12 +9,17 @@ transparentColor = Colors.TRANSPARENT
 # General text colors
 mainPrimaryTextColor = Colors.BLACK
 mainSecondaryTextColor = Colors.GREY_400
-mainAccentTextColor = ""
+mainAccentTextColor = "#4860B5"
 mainDangerTextColor = Colors.RED_500
 mainInfoTextColor = Colors.BLUE_500
 
 # Custom appbar
 bgAppbarColor = "#333333"
+
+# Custom sidebar
+bgSidebar = "#333333"
+accentSidebar = "#4860B5"
+textColorSidebar = Colors.WHITE
 
 # Footer
 bgColorFooter = "#4860B5"
