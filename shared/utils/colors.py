@@ -15,6 +15,7 @@ mainInfoTextColor = Colors.BLUE_500
 
 # Custom appbar
 bgAppbarColor = "#333333"
+textColorAppbar = Colors.WHITE
 
 # Custom sidebar
 bgSidebar = "#333333"

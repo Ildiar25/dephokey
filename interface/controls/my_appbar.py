@@ -24,7 +24,6 @@ class CustomAppbar(ft.AppBar):
             width=152,
             height=48,
             margin=ft.margin.only(left=24, right=64),
-            bgcolor=ft.Colors.WHITE,
             image=ft.DecorationImage("interface/assets/logo.png", fit=ft.ImageFit.COVER)
         )
 
@@ -40,12 +39,12 @@ class CustomAppbar(ft.AppBar):
                 content=ft.Row(
                     controls=[
                         ft.IconButton(
-                            ft.Icons.SETTINGS_OUTLINED,
-                            icon_color=ft.Colors.WHITE
+                            ft.Icons.SETTINGS_ROUNDED,
+                            icon_color=textColorAppbar
                         ),
                         ft.IconButton(
-                            ft.Icons.LOGOUT_OUTLINED,
-                            icon_color=ft.Colors.WHITE,
+                            ft.Icons.EXIT_TO_APP_ROUNDED,
+                            icon_color=textColorAppbar,
                             on_click=self.logout
                         )
                     ]
@@ -53,8 +52,7 @@ class CustomAppbar(ft.AppBar):
             )
         ]
 
-
-    def look_for_elements(self, _: ft.ControlEvent) -> None:
+    def look_for_elements(self, e: ft.ControlEvent) -> None:
         pass
 
     def logout(self, _: ft.ControlEvent) -> None:
@@ -68,7 +66,7 @@ class CustomAppbar(ft.AppBar):
         self.page.clean()
         self.page.update()
 
-        # Report page loading
+        # Show page loading
         self.page.overlay.append(
             LoadPage()
         )

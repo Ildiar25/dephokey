@@ -68,7 +68,7 @@ def main(page: ft.Page) -> None:
 
     # Define routes
     page.on_route_change = route_changer
-    page.go("/home")
+    page.go("/home")  # Change to 'login' once program finished
 
 
 if __name__ == '__main__':

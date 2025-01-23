@@ -54,7 +54,10 @@ class Home(ft.Container):
             expand=True,
             scroll=ft.ScrollMode.AUTO,
             controls=[
-
+                ft.Container(
+                    expand=True,
+                    bgcolor=ft.Colors.PINK
+                )
             ]
         )
 
