@@ -17,8 +17,9 @@ class Home(ft.Container):
             bgcolor=lightColorBackground
         )
 
-        # Sidebar controller
+        # Sidebar controller & Searchbar function
         self.sidebar = CustomSidebar(self.page, self.active_content)
+        self.page.appbar = CustomAppbar(self.look_for_elements)
 
         # Page design
         self.page.vertical_alignment = ft.MainAxisAlignment.START
@@ -60,6 +61,10 @@ class Home(ft.Container):
                 )
             ]
         )
+
+    def look_for_elements(self, e: ft.ControlEvent) -> None:
+        self.active_content.content = ft.Text(e.control.value)
+        self.active_content.update()
 
         # self.banner = ft.Banner(
         #     content=ft.Row(
