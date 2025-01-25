@@ -12,12 +12,55 @@ class Home(ft.Container):
         # General attributes
         self.page = page
         self.active_content = ft.Container(
-            bgcolor=lightColorBackground,
-            # padding=ft.padding.only(left=10, top=40, right=240),
+            height=5000,
             expand=True,
+            bgcolor=lightColorBackground
         )
 
+        # Sidebar controller
         self.sidebar = CustomSidebar(self.page, self.active_content)
+
+        # Page design
+        self.page.vertical_alignment = ft.MainAxisAlignment.START
+        self.page.horizontal_alignment = ft.CrossAxisAlignment.START
+        self.page.appbar.visible = True
+        self.page.bottom_appbar.visible = True
+
+        # Dashboard
+        self.content = ft.Column(
+            expand=True,
+            spacing=0,
+            controls=[
+                # Divider
+                ft.Divider(height=1, thickness=1, color="#F2F2F2"),
+
+                # Sidebar & Bodycontent
+                ft.Row(
+                    spacing=0,
+                    expand=True,
+                    controls=[
+
+                        # Sidebar
+                        ft.Column(
+                            width=200,
+                            controls=[
+                                self.sidebar
+                            ]
+                        ),
+
+                        # Body content
+                        ft.Column(
+                            expand=True,
+                            scroll=ft.ScrollMode.AUTO,
+                            controls=[
+                                self.active_content
+                            ]
+                        )
+                    ]
+                )
+            ]
+        )
+
         # self.banner = ft.Banner(
         #     content=ft.Row(
         #         controls=[
@@ -36,49 +79,3 @@ class Home(ft.Container):
         #         ft.TextButton("ACEPTAR")
         #     ]
         # )
-
-        # Page design
-        self.page.vertical_alignment = ft.MainAxisAlignment.START
-        self.page.horizontal_alignment = ft.CrossAxisAlignment.START
-        self.page.appbar.visible = True
-        self.page.bottom_appbar.visible = True
-
-        # Dashboard Content
-        self.sidebar_content = ft.Column(
-            expand=True,
-            controls=[
-                self.sidebar
-            ]
-        )
-        self.body_content = ft.Column(
-            expand=True,
-            scroll=ft.ScrollMode.AUTO,
-            controls=[
-                ft.Container(
-                    expand=True,
-                    bgcolor=ft.Colors.PINK
-                )
-            ]
-        )
-
-
-        self.body = ft.Column(
-            expand=True,
-            spacing=0,
-            controls=[
-                ft.Divider(height=1, thickness=1, color="#F2F2F2"),
-                ft.Row(
-                    expand=True,
-                    controls=[
-                        self.sidebar_content, self.body_content
-                    ]
-                )
-            ]
-        )
-
-        self.content = ft.Column(
-            controls=[
-                # Row (sidebar menu & content)
-                self.body,
-            ]
-        )
