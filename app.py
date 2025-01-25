@@ -5,7 +5,6 @@ from data.db_orm import Base, engine
 from features.models.user import UserRole
 
 from interface.pages import *
-from interface.controls.my_appbar import CustomAppbar
 from interface.controls.my_footer import Footer
 
 from shared.utils.colors import *
@@ -35,7 +34,6 @@ def main(page: ft.Page) -> None:
     page.window.min_height = 650
 
     # Page elements
-    page.appbar = CustomAppbar()
     page.bottom_appbar = Footer()
 
     def route_changer(_: ft.ControlEvent):
