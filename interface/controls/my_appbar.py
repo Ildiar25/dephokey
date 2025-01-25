@@ -58,7 +58,21 @@ class CustomAppbar(ft.AppBar):
         ]
 
     def settings(self, _: ft.ControlEvent) -> None:
-        self.active_content.content = ft.Text("Muestra OPCIONES")
+        self.active_content.content = ft.Column(
+            controls=[
+                # Title
+                ft.Row(
+                    alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+                    controls=[
+                        ft.Text("Configuración", font_family="AlbertSansB", color=primaryTextColor, size=24)
+                    ]
+                ),
+
+                # Content
+
+            ]
+        )
+
         self.active_content.update()
 
     def logout(self, _: ft.ControlEvent) -> None:

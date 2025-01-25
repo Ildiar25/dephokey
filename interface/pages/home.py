@@ -11,6 +11,7 @@ class Home(ft.Container):
         # General attributes
         self.page = page
         self.active_content = ft.Container(
+            padding=ft.padding.only(56, 57, 56),
             height=5000,
             expand=True,
         )
@@ -23,7 +24,7 @@ class Home(ft.Container):
         # Page design
         self.page.vertical_alignment = ft.MainAxisAlignment.START
         self.page.horizontal_alignment = ft.CrossAxisAlignment.START
-        self.page.bgcolor = lightColorBackground
+        self.page.bgcolor = neutral05
         self.page.appbar.visible = True
         self.page.bottom_appbar.visible = True
 
@@ -33,7 +34,7 @@ class Home(ft.Container):
             spacing=0,
             controls=[
                 # Divider
-                ft.Divider(height=1, thickness=1, color="#F2F2F2"),
+                ft.Divider(height=1, thickness=1, color=neutral05),
 
                 # Sidebar & Bodycontent
                 ft.Row(
@@ -63,7 +64,7 @@ class Home(ft.Container):
         )
 
     def look_for_elements(self, e: ft.ControlEvent) -> None:
-        self.active_content.content = ft.Text("Muestra: " + e.control.value)
+        self.active_content.content = ft.Text("Muestra " + e.control.value)
         self.active_content.update()
 
         # self.banner = ft.Banner(

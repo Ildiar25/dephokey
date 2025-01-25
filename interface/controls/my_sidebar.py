@@ -104,19 +104,92 @@ class CustomSidebar(ft.NavigationRail):
         self.active_content.update()
 
     def show_sites(self):
-        self.active_content.content = ft.Text("Muestra SITIOS")
+        self.active_content.content = ft.Column(
+            controls=[
+                # Title
+                ft.Row(
+                    alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+                    controls=[
+                        ft.Text("Direcciones Web", font_family="AlbertSansB", color=primaryTextColor, size=24),
+                        ft.Row(
+                            controls=[
+                                ft.TextButton("Generar Contraseña"),
+                                ft.TextButton("Nueva Dirección Web"),
+                            ]
+                        )
+                    ]
+                ),
+
+                # Content
+
+            ]
+        )
+
         self.active_content.update()
 
     def show_cards(self):
-        self.active_content.content = ft.Text("Muestra TARJETAS")
+        self.active_content.content = ft.Column(
+            controls=[
+                # Title
+                ft.Row(
+                    alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+                    controls=[
+                        ft.Text("Tarjetas", font_family="AlbertSansB", color=primaryTextColor, size=24),
+                        ft.Row(
+                            controls=[
+                                ft.TextButton("Generar Número"),
+                                ft.TextButton("Nueva Tarjeta"),
+                            ]
+                        )
+                    ]
+                ),
+
+                # Content
+
+            ]
+        )
+
         self.active_content.update()
 
     def show_notes(self):
-        self.active_content.content = ft.Text("Muestra NOTAS")
+        self.active_content.content = ft.Column(
+            controls=[
+                # Title
+                ft.Row(
+                    alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+                    controls=[
+                        ft.Text("Notas Seguras", font_family="AlbertSansB", color=primaryTextColor, size=24),
+                        ft.Row(
+                            controls=[
+                                ft.TextButton("Nueva Nota"),
+                            ]
+                        )
+                    ]
+                ),
+
+                # Content
+
+            ]
+        )
+
         self.active_content.update()
 
     def show_info(self):
-        self.active_content.content = ft.Text("Muestra ACERCA DE")
+        self.active_content.content = ft.Column(
+            controls=[
+                # Title
+                ft.Row(
+                    alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+                    controls=[
+                        ft.Text("Acerca de", font_family="AlbertSansB", color=primaryTextColor, size=24)
+                    ]
+                ),
+
+                # Content
+
+            ]
+        )
+
         self.active_content.update()
 
     def select_destination(self, event: ft.ControlEvent) -> None:
