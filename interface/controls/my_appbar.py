@@ -10,12 +10,13 @@ from shared.utils.colors import *
 
 
 class CustomAppbar(ft.AppBar):
-    def __init__(self, find_function: Callable[[ft.ControlEvent], None]) -> None:
+    def __init__(self, find_function: Callable[[ft.ControlEvent], None], content: ft.Container) -> None:
         super().__init__()
 
         # General settings
         self.visible = False
         self.toolbar_height = 79
+        self.active_content = content
         self.look_for_elements = find_function
 
         # Design settings
@@ -43,7 +44,8 @@ class CustomAppbar(ft.AppBar):
                     controls=[
                         ft.IconButton(
                             ft.Icons.SETTINGS_ROUNDED,
-                            icon_color=textColorAppbar
+                            icon_color=textColorAppbar,
+                            on_click=self.settings
                         ),
                         ft.IconButton(
                             ft.Icons.EXIT_TO_APP_ROUNDED,
@@ -54,6 +56,10 @@ class CustomAppbar(ft.AppBar):
                 )
             )
         ]
+
+    def settings(self, _: ft.ControlEvent) -> None:
+        self.active_content.content = ft.Text("Muestra OPCIONES")
+        self.active_content.update()
 
     def logout(self, _: ft.ControlEvent) -> None:
 

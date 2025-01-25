@@ -4,12 +4,12 @@ from shared.utils.colors import *
 
 
 class CustomSidebar(ft.NavigationRail):
-    def __init__(self, page: ft.Page, active_content: ft.Container) -> None:
+    def __init__(self, page: ft.Page, content: ft.Container) -> None:
         super().__init__()
 
         # General attributes
         self.page = page
-        self.content = active_content
+        self.active_content = content
 
         # Navigation attributes
         self.go_home = ft.NavigationRailDestination(
@@ -100,19 +100,24 @@ class CustomSidebar(ft.NavigationRail):
         ]
 
     def show_home(self):
-        print("home")
+        self.active_content.content = ft.Text("Muestra HOME")
+        self.active_content.update()
 
     def show_sites(self):
-        print("sites")
+        self.active_content.content = ft.Text("Muestra SITIOS")
+        self.active_content.update()
 
     def show_cards(self):
-        print("cards")
+        self.active_content.content = ft.Text("Muestra TARJETAS")
+        self.active_content.update()
 
     def show_notes(self):
-        print("notes")
+        self.active_content.content = ft.Text("Muestra NOTAS")
+        self.active_content.update()
 
     def show_info(self):
-        print("info")
+        self.active_content.content = ft.Text("Muestra ACERCA DE")
+        self.active_content.update()
 
     def select_destination(self, event: ft.ControlEvent) -> None:
         match event.control.selected_index:

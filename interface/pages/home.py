@@ -1,5 +1,4 @@
 import flet as ft
-import time
 
 from interface.controls import CustomAppbar, CustomSidebar
 from shared.utils.colors import *
@@ -14,16 +13,17 @@ class Home(ft.Container):
         self.active_content = ft.Container(
             height=5000,
             expand=True,
-            bgcolor=lightColorBackground
         )
 
         # Sidebar controller & Searchbar function
+        self.page.appbar = CustomAppbar(self.look_for_elements, self.active_content)
         self.sidebar = CustomSidebar(self.page, self.active_content)
-        self.page.appbar = CustomAppbar(self.look_for_elements)
+
 
         # Page design
         self.page.vertical_alignment = ft.MainAxisAlignment.START
         self.page.horizontal_alignment = ft.CrossAxisAlignment.START
+        self.page.bgcolor = lightColorBackground
         self.page.appbar.visible = True
         self.page.bottom_appbar.visible = True
 
@@ -63,7 +63,7 @@ class Home(ft.Container):
         )
 
     def look_for_elements(self, e: ft.ControlEvent) -> None:
-        self.active_content.content = ft.Text(e.control.value)
+        self.active_content.content = ft.Text("Muestra: " + e.control.value)
         self.active_content.update()
 
         # self.banner = ft.Banner(
