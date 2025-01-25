@@ -1,58 +1,96 @@
 from flet import Colors
 
-# General color settings
-darkColorBackground = "#110726"
-lightColorBackground = "#EFE6EF"
-accentGeneralElementColor = Colors.AMBER_ACCENT_400
+
+# Corporate colors
+primaryCorporateColor = "#4860B5"
+secondaryCorporateColor = "#FB9820"
+
+
+# Corporate variants
+darkPrimaryCorporateColor = "#0E2060"
+lightPrimaryCorporateColor = ""
+darkSecondaryCorporateColor = ""
+lightSecondaryCorporateColor = ""
+
+
+# General color styles
+neutral00 = Colors.WHITE      #FFFFFF
+neutral05 = Colors.GREY_200   #F2F2F2
+neutral10 = Colors.GREY_300   #E6E6E6
+neutral20 = Colors.GREY_400   #CDCDCD
+neutral40 = Colors.BLACK38    #9A9A9A
+neutral60 = Colors.GREY_700   #
+neutral80 = Colors.GREY_900   #333333
+
+neutralSuccess = "#32B832"
+neutralInfo = primaryCorporateColor
+neutralWarning = ""
+neutralDanger = "#D80027"
+
 transparentColor = Colors.TRANSPARENT
 
-# General text colors
-mainPrimaryTextColor = Colors.BLACK
-mainSecondaryTextColor = Colors.GREY_400
-mainAccentTextColor = "#4860B5"
-mainDangerTextColor = Colors.RED_500
-mainInfoTextColor = Colors.BLUE_500
 
-# Custom appbar
-bgAppbarColor = "#333333"
-textColorAppbar = Colors.WHITE
+# Text colors
+primaryTextColor = neutral80
+secondaryTextColor = neutral40
+tertiaryTextColor = neutral00
+accentTextColor = primaryCorporateColor
+successTextColor = neutralSuccess
+infoTextColor = neutralInfo
+warningTextColor = neutralWarning
+dangerTextColor = neutralDanger
 
-# Custom sidebar
-bgSidebar = "#333333"
-accentSidebar = "#4860B5"
-textColorSidebar = Colors.WHITE
 
-# Footer
-bgColorFooter = "#4860B5"
+# Appbar colors
+bgAppbarColor = neutral80
+iconAppbarColor = neutral05
 
-# Snackbar design
-bgSnackBarDanger = Colors.RED_100
-bgSnackBarInfo = Colors.BLUE_100
-bgSnackBarSuccess = ""
-bgSnackBarWarning = ""
 
-# Custom checkbox
+# Sidebar colors
+bgSidebarColor = neutral80
+selectSidebarColor = primaryCorporateColor
+iconSidebarColor = neutral05
+textSidebarColor = tertiaryTextColor
+
+
+# Footer colors
+bgFooterColor = primaryCorporateColor
+textFooterColor = tertiaryTextColor
+
+
+# Snackbar colors
+bgSnackbarDangerColor = Colors.with_opacity(0.3, neutralDanger)
+bgSnackbarInfoColor = Colors.with_opacity(0.3, neutralInfo)
+bgSnackbarSuccessColor = Colors.with_opacity(0.3, neutralSuccess)
+bgSnackbarWarningColor = Colors.with_opacity(0.3, neutralWarning)
+textSnackbarColor = tertiaryTextColor
+
+
+# Checkbox colors
 selectedBorderCheckboxColor = Colors.PURPLE_600
 defaultFillCheckboxColor = Colors.GREY_300
 selectedFillCheckboxColor = Colors.PURPLE_400
 
-# Custom textfield
-labelTextFieldColor = Colors.PURPLE_400
-cursorColorFieldText = Colors.GREY_400
-selectionColorFieldText = Colors.GREY_200
-staticBorderColorField = Colors.GREY_400
-selectedBorderColorField = Colors.PURPLE_600
 
-# Custom textbutton
+# Textfield colors
+cursorTextfieldColor = accentTextColor
+selectCursorTextfieldColor = secondaryTextColor
+labelTextfieldColor = secondaryTextColor
+
+staticBorderTextfieldColor = neutral20
+selectedBorderTextfieldColor = primaryCorporateColor
+
+
+# T-button colors
 textColorTextButton = Colors.PURPLE_600
 overlayColorTextButton = Colors.GREY_300
 
-# Custom elevatedbutton
+# E-button colors
 bgButtonColor = Colors.AMBER_400
 bgDissabledButtonColor = Colors.GREY_500
 textColorElevatedButton = Colors.WHITE
 
-# Custom floatingbutton
+# F-button
 bgFloatingButtonColor = Colors.DEEP_PURPLE_100
 fgFloatingButtonColor = Colors.DEEP_PURPLE_600
 focusFloatingButtonColor = Colors.DEEP_PURPLE_600

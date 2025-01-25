@@ -13,67 +13,67 @@ class CustomSidebar(ft.NavigationRail):
 
         # Navigation attributes
         self.go_home = ft.NavigationRailDestination(
-            ft.Icon(ft.Icons.HOME_ROUNDED, color=accentSidebar),
-            selected_icon=ft.Icon(ft.Icons.HOME_ROUNDED, color=textColorSidebar),
+            ft.Icon(ft.Icons.HOME_ROUNDED, color=selectSidebarColor),
+            selected_icon=ft.Icon(ft.Icons.HOME_ROUNDED, color=iconSidebarColor),
             padding=5,
             label_content=ft.Container(
                 padding=10,
                 content=ft.Text(
                     "Home",
                     font_family="AlbertSansL",
-                    color=textColorSidebar
+                    color=textSidebarColor
                 )
             )
         )
         self.go_sites = ft.NavigationRailDestination(
-            ft.Icon(ft.Icons.WEBHOOK_ROUNDED, color=accentSidebar),
-            selected_icon=ft.Icon(ft.Icons.WEBHOOK_ROUNDED, color=textColorSidebar),
+            ft.Icon(ft.Icons.WEBHOOK_ROUNDED, color=selectSidebarColor),
+            selected_icon=ft.Icon(ft.Icons.WEBHOOK_ROUNDED, color=iconSidebarColor),
             padding=5,
             label_content=ft.Container(
                 padding=10,
                 content=ft.Text(
                     "Sitios Web",
                     font_family="AlbertSansL",
-                    color=textColorSidebar
+                    color=textSidebarColor
                 )
             )
         )
         self.go_cards = ft.NavigationRailDestination(
-            ft.Icon(ft.Icons.CREDIT_CARD_ROUNDED, color=accentSidebar),
-            selected_icon=ft.Icon(ft.Icons.CREDIT_CARD_ROUNDED, color=textColorSidebar),
+            ft.Icon(ft.Icons.CREDIT_CARD_ROUNDED, color=selectSidebarColor),
+            selected_icon=ft.Icon(ft.Icons.CREDIT_CARD_ROUNDED, color=iconSidebarColor),
             padding=5,
             label_content=ft.Container(
                 padding=10,
                 content=ft.Text(
                     "Tarjetas",
                     font_family="AlbertSansL",
-                    color=textColorSidebar
+                    color=textSidebarColor
                 )
             )
         )
         self.go_notes = ft.NavigationRailDestination(
-            ft.Icon(ft.Icons.NOTES_ROUNDED, color=accentSidebar),
-            selected_icon=ft.Icon(ft.Icons.NOTES_ROUNDED, color=textColorSidebar),
+            ft.Icon(ft.Icons.NOTES_ROUNDED, color=selectSidebarColor),
+            selected_icon=ft.Icon(ft.Icons.NOTES_ROUNDED, color=iconSidebarColor),
             padding=5,
             label_content=ft.Container(
                 padding=10,
                 content=ft.Text(
                     "Notas",
                     font_family="AlbertSansL",
-                    color=textColorSidebar
+                    color=textSidebarColor
                 )
             )
         )
         self.go_info = ft.NavigationRailDestination(
-            ft.Icon(ft.Icons.INFO_ROUNDED, color=accentSidebar),
-            selected_icon=ft.Icon(ft.Icons.INFO_ROUNDED, color=textColorSidebar),
+            ft.Icon(ft.Icons.INFO_ROUNDED, color=selectSidebarColor),
+            selected_icon=ft.Icon(ft.Icons.INFO_ROUNDED, color=iconSidebarColor),
             padding=5,
             label_content=ft.Container(
                 padding=10,
                 content=ft.Text(
                     "Acerca de",
                     font_family="AlbertSansL",
-                    color=textColorSidebar
+                    color=textSidebarColor
                 )
             )
         )
@@ -86,8 +86,8 @@ class CustomSidebar(ft.NavigationRail):
         self.on_change = self.select_destination
 
         # Sidebar design
-        self.bgcolor = bgSidebar
-        self.indicator_color = accentSidebar
+        self.bgcolor = bgSidebarColor
+        self.indicator_color = selectSidebarColor
         self.indicator_shape = ft.RoundedRectangleBorder(2)
 
         # Destinations

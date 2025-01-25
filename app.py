@@ -19,7 +19,6 @@ def main(page: ft.Page) -> None:
 
     # Page settings
     page.title = "Dephokey"
-    # page.window.maximized = True
     page.fonts = {
         "AlbertSansR": "interface/assets/fonts/albert-sans/albert-sans-regular.ttf",
         "AlbertSansB": "interface/assets/fonts/albert-sans/albert-sans-bold.ttf",
@@ -28,7 +27,7 @@ def main(page: ft.Page) -> None:
 
     # Page design
     page.theme = ft.Theme(font_family="AlbertSansR")
-    page.bgcolor = darkColorBackground
+    page.bgcolor = darkPrimaryCorporateColor
     page.padding = ft.padding.all(0)
     page.window.min_width = 950
     page.window.min_height = 650

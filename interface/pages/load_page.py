@@ -11,7 +11,7 @@ class LoadPage(ft.Container):
         # Main container settings
         self.alignment = ft.alignment.center
         self.expand = True
-        self.bgcolor = ft.Colors.with_opacity(0.3, lightColorBackground)
+        self.bgcolor = ft.Colors.with_opacity(0.3, neutral00)
 
         # Content
-        self.content = ft.ProgressRing(color=accentGeneralElementColor)
+        self.content = ft.ProgressRing(color=secondaryCorporateColor)

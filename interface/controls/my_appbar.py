@@ -44,12 +44,12 @@ class CustomAppbar(ft.AppBar):
                     controls=[
                         ft.IconButton(
                             ft.Icons.SETTINGS_ROUNDED,
-                            icon_color=textColorAppbar,
+                            icon_color=iconAppbarColor,
                             on_click=self.settings
                         ),
                         ft.IconButton(
                             ft.Icons.EXIT_TO_APP_ROUNDED,
-                            icon_color=textColorAppbar,
+                            icon_color=iconAppbarColor,
                             on_click=self.logout
                         )
                     ]
@@ -69,6 +69,7 @@ class CustomAppbar(ft.AppBar):
         # Hide menus
         self.page.appbar.visible = False
         self.page.bottom_appbar.visible = False
+        self.page.bgcolor = darkPrimaryCorporateColor
         self.page.clean()
         self.page.update()
 
