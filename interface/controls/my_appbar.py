@@ -1,3 +1,5 @@
+from collections.abc import Callable
+
 import flet as ft
 import time
 
@@ -8,12 +10,13 @@ from shared.utils.colors import *
 
 
 class CustomAppbar(ft.AppBar):
-    def __init__(self) -> None:
+    def __init__(self, find_function: Callable[[ft.ControlEvent], None]) -> None:
         super().__init__()
 
         # General settings
         self.visible = False
         self.toolbar_height = 79
+        self.look_for_elements = find_function
 
         # Design settings
         self.bgcolor = bgAppbarColor
@@ -51,9 +54,6 @@ class CustomAppbar(ft.AppBar):
                 )
             )
         ]
-
-    def look_for_elements(self, e: ft.ControlEvent) -> None:
-        pass
 
     def logout(self, _: ft.ControlEvent) -> None:
 
