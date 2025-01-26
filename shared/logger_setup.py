@@ -72,5 +72,5 @@ main_logger = setup_logger(
     mode="a",
     file_size=3072,
     text_format=log_format,
-    level=logging.WARNING
+    level=logging.DEBUG
 )
