@@ -14,11 +14,11 @@ class Footer(ft.BottomAppBar):
         self.padding = ft.padding.only(24, 16, 24, 16)
 
         # Design settings
-        self.bgcolor = bgColorFooter
+        self.bgcolor = bgFooterColor
 
         # Content
         self.content = ft.Row(
             controls=[
-                ft.Text("DephoKey © 2025 · Todos los derechos reservados", color=ft.Colors.WHITE)
+                ft.Text("DephoKey © 2025 · Todos los derechos reservados", color=textFooterColor)
             ]
         )
