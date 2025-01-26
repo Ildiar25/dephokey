@@ -22,3 +22,9 @@ def mask_number(number: str) -> str:
 def mask_phone(phone: str) -> str:
     masked = "*" * len(phone[:-3])
     return masked + phone[-3:]
+
+
+def mask_text(text: str) -> str:
+    if len(text) >= 20:
+        return "*" * 17 + "..."
+    return "*" * len(text)
