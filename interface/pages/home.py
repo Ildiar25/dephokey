@@ -64,7 +64,30 @@ class Home(ft.Container):
         )
 
     def look_for_elements(self, e: ft.ControlEvent) -> None:
-        self.active_content.content = ft.Text("Muestra " + e.control.value)
+
+        title = ft.Text(f"Resultado de '{e.control.value}'", font_family="AlbertSansB",
+                                color=primaryTextColor,
+                                size=24)
+
+        no_title = ft.Text("Nada que mostrar", font_family="AlbertSansB",
+                                color=primaryTextColor,
+                                size=24)
+
+        self.active_content.content = ft.Column(
+            controls=[
+                # Title
+                ft.Row(
+                    alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+                    controls=[
+                        title if e.control.value != "" else no_title
+                    ]
+                ),
+
+                # Content
+
+            ]
+        )
+
         self.active_content.update()
 
         # self.banner = ft.Banner(

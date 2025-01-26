@@ -1,5 +1,7 @@
 import flet as ft
 
+from interface.controls import CustomElevatedButton
+
 from shared.utils.colors import *
 
 
@@ -100,7 +102,21 @@ class CustomSidebar(ft.NavigationRail):
         ]
 
     def show_home(self):
-        self.active_content.content = ft.Text("Muestra HOME")
+        self.active_content.content = ft.Column(
+            controls=[
+                # Title
+                ft.Row(
+                    alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+                    controls=[
+                        ft.Text("Inicio", font_family="AlbertSansB", color=primaryTextColor, size=24),
+                    ]
+                ),
+
+                # Content
+
+            ]
+        )
+
         self.active_content.update()
 
     def show_sites(self):
@@ -113,8 +129,16 @@ class CustomSidebar(ft.NavigationRail):
                         ft.Text("Direcciones Web", font_family="AlbertSansB", color=primaryTextColor, size=24),
                         ft.Row(
                             controls=[
-                                ft.TextButton("Generar Contraseña"),
-                                ft.TextButton("Nueva Dirección Web"),
+                                CustomElevatedButton("Generar Contraseña", 187,
+                                                     icon=ft.Icons.PASSWORD_ROUNDED,
+                                                     foreground_color=accentTextColor,
+                                                     bg_color=neutral05,
+                                                     border_size=1),
+                                CustomElevatedButton("Nueva Dirección Web", 197,
+                                                     icon=ft.Icons.ADD_ROUNDED,
+                                                     foreground_color=tertiaryTextColor,
+                                                     bg_color=primaryCorporateColor,
+                                                     border_size=-1)
                             ]
                         )
                     ]
@@ -137,8 +161,16 @@ class CustomSidebar(ft.NavigationRail):
                         ft.Text("Tarjetas", font_family="AlbertSansB", color=primaryTextColor, size=24),
                         ft.Row(
                             controls=[
-                                ft.TextButton("Generar Número"),
-                                ft.TextButton("Nueva Tarjeta"),
+                                CustomElevatedButton("Generar Número", 187,
+                                                     icon=ft.Icons.ADD_CARD_ROUNDED,
+                                                     foreground_color=accentTextColor,
+                                                     bg_color=neutral05,
+                                                     border_size=1),
+                                CustomElevatedButton("Nueva Tarjeta", 197,
+                                                     icon=ft.Icons.ADD_ROUNDED,
+                                                     foreground_color=tertiaryTextColor,
+                                                     bg_color=primaryCorporateColor,
+                                                     border_size=-1)
                             ]
                         )
                     ]
@@ -161,7 +193,11 @@ class CustomSidebar(ft.NavigationRail):
                         ft.Text("Notas Seguras", font_family="AlbertSansB", color=primaryTextColor, size=24),
                         ft.Row(
                             controls=[
-                                ft.TextButton("Nueva Nota"),
+                                CustomElevatedButton("Nueva Nota", 197,
+                                                     icon=ft.Icons.ADD_ROUNDED,
+                                                     foreground_color=tertiaryTextColor,
+                                                     bg_color=primaryCorporateColor,
+                                                     border_size=-1)
                             ]
                         )
                     ]
