@@ -15,7 +15,7 @@ def main(page: ft.Page) -> None:
 
     # Create all tables
     Base.metadata.create_all(bind=engine)
-    logger.info("BASE DE DATOS creada con éxito!")
+    logger.info("¡BASE DE DATOS cargada con éxito!")
 
     # Page settings
     page.title = "Dephokey"
@@ -54,7 +54,7 @@ def main(page: ft.Page) -> None:
 
             if user_role == UserRole.ADMIN:
                 page.add(Admin(page))
-                logger.info("Página ADMINN cargada.")
+                logger.info("Página ADMIN cargada.")
 
             elif user_role == UserRole.CLIENT:
                 page.add(Home(page))
