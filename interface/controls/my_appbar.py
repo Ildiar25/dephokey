@@ -45,12 +45,16 @@ class CustomAppbar(ft.AppBar):
                         ft.IconButton(
                             ft.Icons.SETTINGS_ROUNDED,
                             icon_color=iconAppbarColor,
-                            on_click=self.settings
+                            on_click=self.settings,
+                            highlight_color=selectedIconAppbarColor,
+                            hover_color=neutral60
                         ),
                         ft.IconButton(
                             ft.Icons.EXIT_TO_APP_ROUNDED,
                             icon_color=iconAppbarColor,
-                            on_click=self.logout
+                            on_click=self.logout,
+                            highlight_color=selectedIconAppbarColor,
+                            hover_color=neutral60
                         )
                     ]
                 )
