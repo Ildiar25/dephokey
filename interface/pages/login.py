@@ -19,7 +19,7 @@ class Login(ft.Container):
     def __init__(self, page: ft.Page) -> None:
         super().__init__()
 
-        # General attributes (like info elements)
+        # General attributes
         self.page = page
         self.snackbar = ft.SnackBar(
             bgcolor=bgSnackbarDangerColor,
@@ -59,35 +59,7 @@ class Login(ft.Container):
         self.content = ft.Row(
             spacing=0,
             controls=[
-                ft.Container(
-                    expand=True,
-                    image=ft.DecorationImage("interface/assets/left-bgimage.png", fit=ft.ImageFit.COVER),
-                    content=ft.Stack(
-                        alignment=ft.alignment.bottom_left,
-                        controls=[
-                            ft.Container(
-                                width=152,
-                                height=48,
-                                margin=ft.margin.only(50, 0, 0, 25),
-                                bgcolor=ft.Colors.WHITE
-                            ),
-                            ft.Column(
-                                expand=True,
-                                horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-                                controls=[
-                                    ft.Container(
-                                        expand=True,
-                                        alignment=ft.alignment.center,
-                                        gradient=ft.LinearGradient(bgGradientColor,
-                                                                   begin=ft.alignment.top_center,
-                                                                   end=ft.alignment.bottom_center),
-                                        content=ft.Icon(ft.Icons.LOCK_ROUNDED, size=250, color=iconAccentFormColor)
-                                    )
-                                ]
-                            )
-                        ]
-                    )
-                ),
+                # Login form
                 ft.Container(
                     expand=True,
                     bgcolor=bgFormColor,
@@ -126,8 +98,7 @@ class Login(ft.Container):
                                             controls=[
                                                 self.login_button
                                             ]
-                                        ),
-                                        self.snackbar
+                                        )
                                     ]
                                 )
                             ),
@@ -135,7 +106,7 @@ class Login(ft.Container):
                                 width=380,
                                 content=ft.Row(
                                     controls=[
-                                        ft.Text("No tienes cuenta?"),
+                                        ft.Text("¿No tienes cuenta?"),
                                         ft.Container(
                                             on_hover=self.focus_link,
                                             on_click=lambda _: self.page.go("/signup"),
@@ -146,6 +117,38 @@ class Login(ft.Container):
                                         )
                                     ]
                                 )
+                            ),
+                            self.snackbar
+                        ]
+                    )
+                ),
+
+                # Image deco
+                ft.Container(
+                    expand=True,
+                    image=ft.DecorationImage("interface/assets/right-bgimage.png", fit=ft.ImageFit.COVER),
+                    content=ft.Stack(
+                        alignment=ft.alignment.bottom_right,
+                        controls=[
+                            ft.Container(
+                                width=152,
+                                height=48,
+                                margin=ft.margin.only(0, 0, 50, 25),
+                                bgcolor=ft.Colors.WHITE
+                            ),
+                            ft.Column(
+                                expand=True,
+                                horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+                                controls=[
+                                    ft.Container(
+                                        expand=True,
+                                        alignment=ft.alignment.center,
+                                        gradient=ft.LinearGradient(bgGradientColor,
+                                                                   begin=ft.alignment.top_center,
+                                                                   end=ft.alignment.bottom_center),
+                                        content=ft.Icon(ft.Icons.LOCK_ROUNDED, size=250, color=iconAccentFormColor)
+                                    )
+                                ]
                             )
                         ]
                     )
@@ -181,7 +184,7 @@ class Login(ft.Container):
         email_input = self.email.value.lower().strip()
         password_input = self.password.value.strip()
 
-        # First, validate email and password
+        # First, validate email & password
         if not all((Validate.is_valid_email(email_input), Validate.is_valid_password(password_input))):
             self.snackbar.content.value = ("El correo o la contraseña no son válidos.\n"
                                            "La contraseña debe tener al menos un número, una mayúscula y "
@@ -201,7 +204,7 @@ class Login(ft.Container):
 
                 # Compare data inputs with loaded data
                 if not all((user.email == email_input, user.hashed_password == hashed_password)):
-                    logger.warning("Inicio de sesión fallido...")
+                    logger.warning("Inicio de sesión fallido: Los datos no coinciden...")
                     logger.debug(f" >>> Datos: '{mask_email(email_input)}' - '{mask_password(password_input)}'")
                     self.snackbar.content.value = "El correo electrónico o la contraseña no son válidos."
                     self.snackbar.open = True
@@ -219,7 +222,7 @@ class Login(ft.Container):
                     )
                     self.page.update()
 
-                    # Load login page
+                    # Load home page
                     time.sleep(2)
                     self.page.overlay.clear()
                     self.page.go("/home")
