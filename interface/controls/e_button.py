@@ -21,20 +21,26 @@ class CustomElevatedButton(ft.ElevatedButton):
         self.disabled = disabled
         self.elevation = 0
 
-        # Text design settings
-        self.color = foreground_color
-        self.icon_color = foreground_color
-
         # Button design settings
         self.bgcolor = {
             ft.ControlState.DISABLED: dissabledEButtonColor,
             ft.ControlState.DEFAULT: bg_color,
-            ft.ControlState.HOVERED: ft.Colors.PINK
+            ft.ControlState.HOVERED: primaryCorporate25
         }
         self.style = ft.ButtonStyle(
             text_style=ft.TextStyle(
                 font_family="AlbertSansL"
             ),
+            color={
+                ft.ControlState.DEFAULT: foreground_color,
+                ft.ControlState.DISABLED: foreground_color,
+                ft.ControlState.HOVERED: neutral00
+            },
+            icon_color={
+                ft.ControlState.DEFAULT: foreground_color,
+                ft.ControlState.DISABLED: foreground_color,
+                ft.ControlState.HOVERED: neutral00,
+            },
             side={
                 ft.ControlState.DEFAULT: ft.BorderSide(
                     width=border_size,
@@ -43,7 +49,7 @@ class CustomElevatedButton(ft.ElevatedButton):
                 ),
                 ft.ControlState.HOVERED: ft.BorderSide(
                     width=2,
-                    color=ft.Colors.PINK,
+                    color=primaryCorporate25,
                     stroke_align=ft.BorderSideStrokeAlign.INSIDE
                 )
             },

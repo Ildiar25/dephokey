@@ -7,10 +7,15 @@ secondaryCorporateColor = "#FB9820"
 
 
 # Corporate variants
-darkPrimaryCorporateColor = "#0E2060"
-lightPrimaryCorporateColor = ""
-darkSecondaryCorporateColor = ""
-lightSecondaryCorporateColor = ""
+primaryCorporate100 = "#0E2060"
+primaryCorporate75 = "#32548C"
+primaryCorporate25 = "#95A6E1"
+primaryCorporate00 = "#CBD4F4"
+
+secondaryCorporate100 = "#802305"
+secondaryCorporate75 = "#BF5610"
+secondaryCorporate25 = "#FFB55B"
+secondaryCorporate00 = "#FDD29F"
 
 
 # General color styles
@@ -22,10 +27,20 @@ neutral40 = Colors.BLACK38    #9A9A9A
 neutral60 = Colors.GREY_700   #686868
 neutral80 = Colors.GREY_900   #333333
 
-neutralSuccess = "#32B832"
-neutralInfo = primaryCorporateColor
-neutralWarning = ""
-neutralDanger = "#D80027"
+neutralSuccessDark = "#217B21"
+neutralSuccessMedium = "#32B832"
+neutralSuccessLight = "#B7EAB7"
+
+neutralInfoDark = primaryCorporate100
+neutralInfoMedium = primaryCorporateColor
+neutralInfoLight = primaryCorporate25
+
+neutralDangerDark = "#9C001C"
+neutralDangerMedium = "#D80027"
+neutralDangerLight = "#F6A8B3"
+
+neutralWarningMedium = "#DAC40C"
+neutralWarningLight = "#FFF8E4"
 
 transparentColor = Colors.TRANSPARENT
 
@@ -35,15 +50,16 @@ primaryTextColor = neutral80
 secondaryTextColor = neutral40
 tertiaryTextColor = neutral00
 accentTextColor = primaryCorporateColor
-successTextColor = neutralSuccess
-infoTextColor = neutralInfo
-warningTextColor = neutralWarning
-dangerTextColor = neutralDanger
+successTextColor = neutralSuccessMedium
+infoTextColor = neutralInfoMedium
+warningTextColor = neutralWarningMedium
+dangerTextColor = neutralDangerMedium
 
 
 # Appbar colors
 bgAppbarColor = neutral80
 iconAppbarColor = neutral05
+selectedIconAppbarColor = primaryCorporateColor
 
 
 # Sidebar colors
@@ -59,10 +75,10 @@ textFooterColor = tertiaryTextColor
 
 
 # Snackbar colors
-bgSnackbarDangerColor = Colors.with_opacity(0.3, neutralDanger)
-bgSnackbarInfoColor = Colors.with_opacity(0.3, neutralInfo)
-bgSnackbarSuccessColor = Colors.with_opacity(0.3, neutralSuccess)
-bgSnackbarWarningColor = Colors.with_opacity(0.3, neutralWarning)
+bgSnackbarDangerColor = neutralDangerLight
+bgSnackbarInfoColor = neutralInfoLight
+bgSnackbarSuccessColor = neutralSuccessLight
+bgSnackbarWarningColor = neutralWarningLight
 textSnackbarColor = tertiaryTextColor
 
 
@@ -101,6 +117,7 @@ bgGradientAdminColor = [Colors.WHITE, Colors.WHITE]
 colorAdminAccent = Colors.PURPLE_ACCENT
 
 # Login & Signin settings
-bgAccentForm = Colors.PURPLE
-accentElementForm = Colors.PURPLE_600
-shadowLogForm = Colors.PURPLE_700
+bgGradientColor = [Colors.with_opacity(0.5, primaryCorporateColor), transparentColor]
+iconAccentFormColor = neutral00
+bgFormColor = neutral00
+
