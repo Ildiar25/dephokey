@@ -8,6 +8,7 @@ from data.db_orm import Base
 
 from features.models import *
 
+from shared.utils.masker import mask_email, mask_text
 from shared.public_id import GenerateID
 from shared.logger_setup import test_logger as logger
 
@@ -58,5 +59,6 @@ class User(Base):
         logger.info("User instance created!")
 
     def __str__(self) -> str:
-        return (f"<class User(id='{self.id}', role='{self.role}', fullname='{self.fullname}', email={str}, "
-                f"hashed_password={str}, created='{self.created.strftime('%Y-%m-%dT%H:%M:%S')}')>")
+        return (f"<class User(id='{self.id}', role='{self.role}', fullname='{self.fullname}', "
+                f"email={mask_email(self.email)}, hashed_password={mask_text(self.hashed_password)}, "
+                f"created='{self.created.strftime('%Y-%m-%dT%H:%M:%S')}')>")

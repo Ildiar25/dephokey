@@ -8,6 +8,7 @@ from data.db_orm import Base
 from features.models.user import User
 # from features.encrypter import encrypt_data
 
+from shared.utils.masker import mask_username, mask_text
 from shared.public_id import GenerateID
 from shared.logger_setup import test_logger as logger
 
@@ -49,5 +50,6 @@ class Site(Base):
         logger.info("Site instance created!")
 
     def __str__(self) -> str:
-        return (f"<class Site(id='{self.id}', name='{self.name}', address='{self.address}', username={str}, "
-                f"encrypted_password={str}, user={User}, created='{self.created.strftime('%Y-%m-%dT%H:%M:%S')}')>")
+        return (f"<class Site(id='{self.id}', name='{self.name}', address='{self.address}', username="
+                f"{mask_username(self.username)}, encrypted_password={mask_text(self.encrypted_password)}, "
+                f"user={self.user.fullname}, created='{self.created.strftime('%Y-%m-%dT%H:%M:%S')}')>")

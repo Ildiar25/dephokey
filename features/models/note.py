@@ -8,6 +8,7 @@ from data.db_orm import Base
 from features.models.user import User
 # from features.encrypter import encrypt_data
 
+from shared.utils.masker import mask_email, mask_text
 from shared.public_id import GenerateID
 from shared.logger_setup import test_logger as logger
 
@@ -45,5 +46,6 @@ class Note(Base):
         logger.info("Note instance created!")
 
     def __str__(self) -> str:
-        return (f"<class Note(id='{self.id}', title='{self.title}', content_encrypted={str}, user={User}, "
+        return (f"<class Note(id='{self.id}', title='{self.title}', "
+                f"content_encrypted={mask_text(self.encrypted_content)}, user={mask_email(self.user.email)}, "
                 f"created='{self.created.strftime('%Y-%m-%dT%H:%M:%S')}')>")

@@ -8,6 +8,7 @@ from data.db_orm import Base
 from features.models.user import User
 # from features.encrypter import encrypt_data
 
+from shared.utils.masker import mask_text, mask_email
 from shared.public_id import GenerateID
 from shared.logger_setup import test_logger as logger
 
@@ -54,6 +55,7 @@ class CreditCard(Base):
         logger.info("Creditcard instance created!")
 
     def __str__(self) -> str:
-        return (f"<class Creditcard(id='{self.id}', cardholder='{self.cardholder}', encrypted_number={str}, "
-                f"encrypted_cvc={str}, valid_until='{self.valid_until.strftime('%Y-%m-%d')}', expired={self.expired}, "
-                f"alias='{self.alias}', user={User}, created='{self.created.strftime('%Y-%m-%dT%H:%M:%S')}')>")
+        return (f"<class Creditcard(id='{self.id}', cardholder='{self.cardholder}', "
+                f"encrypted_number={mask_text(self.encrypted_number)}, encrypted_cvc={mask_text(self.encrypted_cvc)}, "
+                f"valid_until='{self.valid_until.strftime('%Y-%m-%d')}', expired={self.expired}, alias='{self.alias}', "
+                f"user={mask_email(self.user.email)}, created='{self.created.strftime('%Y-%m-%dT%H:%M:%S')}')>")

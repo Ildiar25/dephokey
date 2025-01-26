@@ -7,6 +7,7 @@ from data.db_orm import Base
 
 from features.models.user import User
 
+from shared.utils.masker import mask_email
 from shared.public_id import GenerateID
 from shared.logger_setup import test_logger as logger
 
@@ -40,5 +41,5 @@ class PasswordRequest(Base):
         logger.info("PasswordRequest instance created!")
 
     def __str__(self) -> str:
-        return (f"<class PasswordRequest(id='{self.id}', user={User}, "
+        return (f"<class PasswordRequest(id='{self.id}', user={mask_email(self.user.email)}, "
                 f"created='{self.created.strftime('%Y-%m-%dT%H:%M:%S')}')>")
