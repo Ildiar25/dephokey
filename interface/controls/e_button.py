@@ -6,11 +6,11 @@ from shared.utils.colors import *
 
 
 class CustomElevatedButton(ft.ElevatedButton):
-    def __init__(self, name: str, width: int, icon: ft.Icons | None = None,
+    def __init__(self, name: str, width: int | None = None, icon: ft.Icons | None = None,
                  foreground_color: Union[str, ft.Colors] | None = None,
                  bg_color: Union[str, ft.Colors] | None = None,
                  on_click: Callable[[ft.ControlEvent], None] | None = None,
-                 disabled: bool = False, border_size: int | None = None) -> None:
+                 disabled: bool = False, border_size: int | None = None, expand: bool | None = None) -> None:
         super().__init__()
 
         # Specific settings
@@ -20,6 +20,7 @@ class CustomElevatedButton(ft.ElevatedButton):
         self.on_click = on_click
         self.disabled = disabled
         self.elevation = 0
+        self.expand = expand
 
         # Button design settings
         self.bgcolor = {

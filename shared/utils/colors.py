@@ -79,7 +79,6 @@ bgSnackbarDangerColor = neutralDangerLight
 bgSnackbarInfoColor = neutralInfoLight
 bgSnackbarSuccessColor = neutralSuccessLight
 bgSnackbarWarningColor = neutralWarningLight
-textSnackbarColor = tertiaryTextColor
 
 
 # Checkbox colors

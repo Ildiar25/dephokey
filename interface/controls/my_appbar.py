@@ -87,7 +87,7 @@ class CustomAppbar(ft.AppBar):
         # Hide menus
         self.page.appbar.visible = False
         self.page.bottom_appbar.visible = False
-        self.page.bgcolor = darkPrimaryCorporateColor
+        self.page.bgcolor = primaryCorporate100
         self.page.clean()
         self.page.update()
 
