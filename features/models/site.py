@@ -35,11 +35,11 @@ class Site(Base):
     user: Mapped["User"] = relationship("User", back_populates="sites")
 
     # Initializer
-    def __init__(self, name: str, address: str, username: str, password: str, user: User) -> None:
+    def __init__(self, address: str, username: str, password: str, user: User, name: str | None = None) -> None:
         super().__init__()
 
         self.id: str = GenerateID.short_id()
-        self.name: str = name
+        self.name: str | None = name
         self.address: str = address
         self.username: str = username
         self.encrypted_password: str = password  # encrypt_data(password)
