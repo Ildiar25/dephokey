@@ -13,10 +13,12 @@ class TestSite(unittest.TestCase):
         self.user_test = User("admin", "admin@admin.com", "admin1234")
 
         # Create new instances
-        self.site_01 = Site("Test01", "www.test.com",
-                            "admin01", "admin1234", self.user_test)
-        self.site_02 = Site("Test02", "www.test.com",
-                            "admin02", "admin1234", self.user_test)
+        self.site_01 = Site("www.test.com",
+                            "admin01", "admin1234", self.user_test, "Test01")
+        self.site_02 = Site("www.test.com",
+                            "admin02", "admin1234", self.user_test, "Test02")
+        self.site_03 = Site("www.test.com",
+                            "admin03", "admin1234", self.user_test)
 
         logger.info("SITE instances ready for test...")
 
@@ -26,6 +28,7 @@ class TestSite(unittest.TestCase):
     def test_print_instance(self) -> None:
         logger.debug(self.site_01)
         logger.debug(self.site_02)
+        logger.debug(self.site_03)
 
     def test_site_fields(self) -> None:
         logger.info(">>> Starting SITE fields test...")
@@ -33,3 +36,4 @@ class TestSite(unittest.TestCase):
         self.assertEqual(self.site_01.address, "www.test.com", "Should be 'www.test.com'...")
         self.assertEqual(self.site_02.username, "admin02", "Should be 'admin02'...")
         self.assertEqual(self.site_02.user, self.user_test, "Should be 'user_test'...")
+        self.assertEqual(self.site_03.name, None, "Should be 'None'...")
