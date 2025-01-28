@@ -66,12 +66,12 @@ class Signup(ft.Container):
                     expand=True,
                     image=ft.DecorationImage("interface/assets/signup-bgimage.png", fit=ft.ImageFit.COVER),
                     content=ft.Stack(
-                        alignment=ft.alignment.bottom_left,
+                        alignment=ft.alignment.top_left,
                         controls=[
                             ft.Container(
                                 width=152,
                                 height=48,
-                                margin=ft.margin.only(50, 0, 0, 25),
+                                margin=ft.margin.only(left=50, top=25),
                                 bgcolor=ft.Colors.WHITE
                             ),
                             ft.Column(
@@ -81,9 +81,6 @@ class Signup(ft.Container):
                                     ft.Container(
                                         expand=True,
                                         alignment=ft.alignment.center,
-                                        gradient=ft.LinearGradient(bgGradientColor,
-                                                                   begin=ft.alignment.top_center,
-                                                                   end=ft.alignment.bottom_center),
                                         content=ft.Icon(ft.Icons.SUPERVISED_USER_CIRCLE_ROUNDED,
                                                         size=300, color=iconAccentFormColor)
                                     )

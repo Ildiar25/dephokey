@@ -122,12 +122,12 @@ class Login(ft.Container):
                     expand=True,
                     image=ft.DecorationImage("interface/assets/login-bgimage.png", fit=ft.ImageFit.COVER),
                     content=ft.Stack(
-                        alignment=ft.alignment.bottom_right,
+                        alignment=ft.alignment.top_right,
                         controls=[
                             ft.Container(
                                 width=152,
                                 height=48,
-                                margin=ft.margin.only(0, 0, 50, 25),
+                                margin=ft.margin.only(top=25, right=50),
                                 bgcolor=ft.Colors.WHITE
                             ),
                             ft.Column(
@@ -137,9 +137,6 @@ class Login(ft.Container):
                                     ft.Container(
                                         expand=True,
                                         alignment=ft.alignment.center,
-                                        gradient=ft.LinearGradient(bgGradientColor,
-                                                                   begin=ft.alignment.top_center,
-                                                                   end=ft.alignment.bottom_center),
                                         content=ft.Icon(ft.Icons.LOCK_ROUNDED, size=300, color=iconAccentFormColor)
                                     )
                                 ]
