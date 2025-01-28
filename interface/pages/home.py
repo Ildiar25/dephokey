@@ -1,6 +1,7 @@
 import flet as ft
 
 from interface.controls import CustomAppbar, CustomSidebar
+
 from shared.utils.colors import *
 
 
@@ -14,16 +15,30 @@ class Home(ft.Container):
             padding=ft.padding.only(56, 57, 56),
             height=5000,
             expand=True,
+            content=ft.Column(
+                controls=[
+                    # Title
+                    ft.Row(
+                        alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+                        controls=[
+                            ft.Row(
+                                alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+                                controls=[
+                                    ft.Text(f"Bienvenido 'usuario'",  # TODO: Show admin name
+                                            font_family="AlbertSansB", color=primaryTextColor, size=24)
+                                ]
+                            )
+                        ]
+                    )
+                ]
+            )
         )
 
         # Sidebar controller & Searchbar function
         self.page.appbar = CustomAppbar(self.look_for_elements, self.active_content)
         self.sidebar = CustomSidebar(self.page, self.active_content)
 
-
         # Page design
-        self.page.vertical_alignment = ft.MainAxisAlignment.START
-        self.page.horizontal_alignment = ft.CrossAxisAlignment.START
         self.page.bgcolor = neutral05
         self.page.appbar.visible = True
         self.page.bottom_appbar.visible = True
@@ -41,7 +56,6 @@ class Home(ft.Container):
                     spacing=0,
                     expand=True,
                     controls=[
-
                         # Sidebar
                         ft.Column(
                             width=200,
@@ -49,7 +63,6 @@ class Home(ft.Container):
                                 self.sidebar
                             ]
                         ),
-
                         # Body content
                         ft.Column(
                             expand=True,
@@ -65,13 +78,18 @@ class Home(ft.Container):
 
     def look_for_elements(self, e: ft.ControlEvent) -> None:
 
-        title = ft.Text(f"Resultado de '{e.control.value}'", font_family="AlbertSansB",
-                                color=primaryTextColor,
-                                size=24)
-
-        no_title = ft.Text("Nada que mostrar", font_family="AlbertSansB",
-                                color=primaryTextColor,
-                                size=24)
+        title = ft.Text(
+            f"Resultados de '{e.control.value}'",
+            font_family="AlbertSansB",
+            color=primaryTextColor,
+            size=24
+        )
+        no_title = ft.Text(
+            "Nada que mostrar",
+            font_family="AlbertSansB",
+            color=primaryTextColor,
+            size=24
+        )
 
         self.active_content.content = ft.Column(
             controls=[
@@ -82,7 +100,6 @@ class Home(ft.Container):
                         title if e.control.value != "" else no_title
                     ]
                 ),
-
                 # Content
 
             ]
