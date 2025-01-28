@@ -213,7 +213,13 @@ class Login(ft.Container):
                     )
                     self.page.update()
 
+                    # Load sound
+                    opening = ft.Audio("interface/assets/start-session.mp3", autoplay=True)
+                    self.page.overlay.append(opening)
+                    self.page.update()
+
                     # Load home page
                     time.sleep(2)
+                    self.page.update()
                     self.page.overlay.clear()
                     self.page.go("/home")
