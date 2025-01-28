@@ -50,10 +50,10 @@ primaryTextColor = neutral80
 secondaryTextColor = neutral40
 tertiaryTextColor = neutral00
 accentTextColor = primaryCorporateColor
-successTextColor = neutralSuccessMedium
-infoTextColor = neutralInfoMedium
+successTextColor = neutralSuccessDark
+infoTextColor = neutralInfoDark
 warningTextColor = neutralWarningMedium
-dangerTextColor = neutralDangerMedium
+dangerTextColor = neutralDangerDark
 
 
 # Appbar colors
@@ -111,6 +111,17 @@ bgFloatingButtonColor = Colors.DEEP_PURPLE_100
 fgFloatingButtonColor = Colors.DEEP_PURPLE_600
 focusFloatingButtonColor = Colors.DEEP_PURPLE_600
 
+
+# Sitewidget colors
+bgSiteWidgetColor = neutral00
+titleSiteWidgetColor = primaryTextColor
+textSiteWidgetColor = neutral60
+accentSiteWidgetColor = tertiaryTextColor
+iconSiteWidgetColor = neutral80
+iconAccentSiteWidgetColor = primaryCorporateColor
+
+
+
 # Admin page settings
 bgGradientAdminColor = [Colors.WHITE, Colors.WHITE]
 colorAdminAccent = Colors.PURPLE_ACCENT
@@ -120,3 +131,9 @@ bgGradientColor = [Colors.with_opacity(0.5, primaryCorporateColor), transparentC
 iconAccentFormColor = neutral00
 bgFormColor = neutral00
 
+
+# Delete form colors
+bgDeleteFormColor = neutral00
+iconDeleteFormColor = neutral80
+selectedIconDeleteFormColor = neutral40
+hoverIconDeleteFormColor = neutral20

@@ -29,10 +29,6 @@ class Signup(ft.Container):
             )
         )
 
-        # Main app settings
-        self.page.vertical_alignment = ft.MainAxisAlignment.CENTER
-        self.page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
-
         # Signup elements
         self.name = CustomTextField(
             label="Nombre Completo",
@@ -59,9 +55,7 @@ class Signup(ft.Container):
         )
 
         # Page design
-        self.width = 1080
-        self.height = 720
-        self.border_radius = 10
+        self.expand = True
 
         # Body content
         self.content = ft.Row(
@@ -70,7 +64,7 @@ class Signup(ft.Container):
                 # Image deco
                 ft.Container(
                     expand=True,
-                    image=ft.DecorationImage("interface/assets/left-bgimage.png", fit=ft.ImageFit.COVER),
+                    image=ft.DecorationImage("interface/assets/signup-bgimage.png", fit=ft.ImageFit.COVER),
                     content=ft.Stack(
                         alignment=ft.alignment.bottom_left,
                         controls=[
@@ -91,7 +85,7 @@ class Signup(ft.Container):
                                                                    begin=ft.alignment.top_center,
                                                                    end=ft.alignment.bottom_center),
                                         content=ft.Icon(ft.Icons.SUPERVISED_USER_CIRCLE_ROUNDED,
-                                                        size=250, color=iconAccentFormColor)
+                                                        size=300, color=iconAccentFormColor)
                                     )
                                 ]
                             )

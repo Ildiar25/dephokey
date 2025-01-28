@@ -30,10 +30,6 @@ class Login(ft.Container):
             )
         )
 
-        # Main app settings
-        self.page.vertical_alignment = ft.MainAxisAlignment.CENTER
-        self.page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
-
         # Login elements
         self.email = CustomTextField(
             label="Correo Electrónico",
@@ -51,9 +47,7 @@ class Login(ft.Container):
         )
 
         # Page design
-        self.width = 1080
-        self.height = 720
-        self.border_radius = 10
+        self.expand = True
 
         # Body content
         self.content = ft.Row(
@@ -126,7 +120,7 @@ class Login(ft.Container):
                 # Image deco
                 ft.Container(
                     expand=True,
-                    image=ft.DecorationImage("interface/assets/right-bgimage.png", fit=ft.ImageFit.COVER),
+                    image=ft.DecorationImage("interface/assets/login-bgimage.png", fit=ft.ImageFit.COVER),
                     content=ft.Stack(
                         alignment=ft.alignment.bottom_right,
                         controls=[
@@ -146,7 +140,7 @@ class Login(ft.Container):
                                         gradient=ft.LinearGradient(bgGradientColor,
                                                                    begin=ft.alignment.top_center,
                                                                    end=ft.alignment.bottom_center),
-                                        content=ft.Icon(ft.Icons.LOCK_ROUNDED, size=250, color=iconAccentFormColor)
+                                        content=ft.Icon(ft.Icons.LOCK_ROUNDED, size=300, color=iconAccentFormColor)
                                     )
                                 ]
                             )
