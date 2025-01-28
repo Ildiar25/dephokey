@@ -35,5 +35,5 @@ class TestUser(unittest.TestCase):
         self.assertEqual(self.user_02.fullname, "Cliente", "Should be 'Cliente'...")
         self.assertEqual(self.user_02.email, "client.24@gmail.com", "Should be 'client.24@gmail.com'...")
         self.assertFalse(self.user_02.hashed_password == "client1234",
-                         f"Should be '{sha256("client1234".encode()).hexdigest()}'...")
+                         f"Should be '{sha256('client1234'.encode()).hexdigest()}'...")
         self.assertEqual(self.user_02.role, UserRole.CLIENT, "Should be 'UserRole.CLIENT'...")
