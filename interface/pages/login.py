@@ -56,7 +56,7 @@ class Login(ft.Container):
                 # Login form
                 ft.Container(
                     expand=True,
-                    bgcolor=bgFormColor,
+                    bgcolor=bgGeneralFormColor,
                     content=ft.Column(
                         horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                         alignment=ft.MainAxisAlignment.CENTER,
@@ -137,7 +137,7 @@ class Login(ft.Container):
                                     ft.Container(
                                         expand=True,
                                         alignment=ft.alignment.center,
-                                        content=ft.Icon(ft.Icons.LOCK_ROUNDED, size=300, color=iconAccentFormColor)
+                                        content=ft.Icon(ft.Icons.LOCK_ROUNDED, size=300, color=iconGeneralFormColor)
                                     )
                                 ]
                             )
@@ -214,12 +214,12 @@ class Login(ft.Container):
                     self.page.update()
 
                     # Load sound
-                    opening = ft.Audio("interface/assets/start-session.mp3", autoplay=True)
-                    self.page.overlay.append(opening)
+                    open_session = ft.Audio("interface/assets/effects/open-session.mp3", autoplay=True)
+                    self.page.overlay.append(open_session)
                     self.page.update()
 
                     # Load home page
-                    time.sleep(2)
+                    time.sleep(2.5)
                     self.page.update()
                     self.page.overlay.clear()
                     self.page.go("/home")

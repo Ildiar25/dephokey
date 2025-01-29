@@ -10,11 +10,14 @@ from shared.utils.colors import *
 
 
 class CustomAppbar(ft.AppBar):
-    def __init__(self, find_function: Callable[[ft.ControlEvent], None], content: ft.Container) -> None:
+    def __init__(self, content: ft.Container,
+                 search_bar: bool = False,
+                 find_function: Callable[[ft.ControlEvent], None] | None = None) -> None:
         super().__init__()
 
         # General settings
         self.visible = False
+        self.search_bar = search_bar
         self.toolbar_height = 79
         self.active_content = content
         self.look_for_elements = find_function
@@ -32,8 +35,9 @@ class CustomAppbar(ft.AppBar):
         )
 
         # Title (Search bar)
-        self.center_title = True
-        self.title = CustomSearchBar(1008, self.look_for_elements)
+        if self.search_bar and find_function:
+            self.center_title = True
+            self.title = CustomSearchBar(1008, self.look_for_elements)
 
         # Options (Logout)
         self.actions = [
@@ -91,6 +95,11 @@ class CustomAppbar(ft.AppBar):
         self.page.clean()
         self.page.update()
 
+        # Load sound
+        close_session = ft.Audio("interface/assets/effects/close-session.mp3", autoplay=True)
+        self.page.overlay.append(close_session)
+        self.page.update()
+
         # Show page loading
         self.page.overlay.append(
             LoadPage()
@@ -98,6 +107,6 @@ class CustomAppbar(ft.AppBar):
         self.page.update()
 
         # Load login page
-        time.sleep(0.5)
+        time.sleep(2.5)
         self.page.overlay.clear()
         self.page.go("/login")
