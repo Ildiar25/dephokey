@@ -11,6 +11,7 @@ class Home(ft.Container):
 
         # General attributes
         self.page = page
+        self.page.scroll = ft.ScrollMode.AUTO
         self.active_content = ft.Container(
             padding=ft.padding.only(56, 57, 56),
             height=5000,
@@ -35,7 +36,7 @@ class Home(ft.Container):
         )
 
         # Sidebar controller & Searchbar function
-        self.page.appbar = CustomAppbar(self.look_for_elements, self.active_content)
+        self.page.appbar = CustomAppbar(self.active_content, search_bar=True, find_function=self.look_for_elements)
         self.sidebar = CustomSidebar(self.page, self.active_content)
 
         # Page design
@@ -106,22 +107,3 @@ class Home(ft.Container):
         )
 
         self.active_content.update()
-
-        # self.banner = ft.Banner(
-        #     content=ft.Row(
-        #         controls=[
-        #             ft.Icon(ft.Icons.INFO_ROUNDED, size=45),
-        #             ft.ListTile(
-        #                 title=ft.Text("ATENCIÓN", font_family="AlbertSansB"),
-        #                 subtitle=ft.Text("Hay que tener en cuenta que todos los datos almacenados no deben de ser "
-        #                                  "verídicos, pues dicha aplicación no cumple con los estándares de seguridad "
-        #                                  "PCI DSS\n(https://stripe.com/es/guides/pci-compliance). Esta aplicación sólo "
-        #                                  "es para la verificación del funcionamiento establecido en el briefing del "
-        #                                  "proyecto final.")
-        #             )
-        #         ]
-        #     ),
-        #     actions=[
-        #         ft.TextButton("ACEPTAR")
-        #     ]
-        # )
