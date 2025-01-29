@@ -21,6 +21,7 @@ class Login(ft.Container):
 
         # General attributes
         self.page = page
+        self.page.scroll = None
         self.snackbar = ft.SnackBar(
             bgcolor=bgSnackbarDangerColor,
             content=ft.Text(

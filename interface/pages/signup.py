@@ -82,7 +82,7 @@ class Signup(ft.Container):
                                         expand=True,
                                         alignment=ft.alignment.center,
                                         content=ft.Icon(ft.Icons.SUPERVISED_USER_CIRCLE_ROUNDED,
-                                                        size=300, color=iconAccentFormColor)
+                                                        size=300, color=iconGeneralFormColor)
                                     )
                                 ]
                             )
@@ -93,7 +93,7 @@ class Signup(ft.Container):
                 # Signup form
                 ft.Container(
                     expand=True,
-                    bgcolor=bgFormColor,
+                    bgcolor=bgGeneralFormColor,
                     content=ft.Column(
                         horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                         alignment=ft.MainAxisAlignment.CENTER,
@@ -182,12 +182,22 @@ class Signup(ft.Container):
 
         # First, check if passwords are equal
         if not password_input == repeat_input:
+            # Reset Snackbar
+            self.snackbar.content.color = dangerTextColor
+            self.snackbar.bgcolor = bgSnackbarDangerColor
+            self.snackbar.update()
+
             self.snackbar.content.value = "¡Las contraseñas no coinciden!"
             self.snackbar.open = True
             self.snackbar.update()
         else:
             # Second, validates email & password
             if not all((Validate.is_valid_email(email_input), Validate.is_valid_password(password_input))):
+                # Reset Snackbar
+                self.snackbar.content.color = dangerTextColor
+                self.snackbar.bgcolor = bgSnackbarDangerColor
+                self.snackbar.update()
+
                 self.snackbar.content.value = ("El correo o la contraseña no son válidos.\n"
                                                "La contraseña debe tener al menos un número, una mayúscula y "
                                                "una minúscula")
@@ -198,6 +208,12 @@ class Signup(ft.Container):
                 if session.query(User).filter(User.email == email_input).first():
                     logger.warning("Creación de usuario fallida: El usuario ya existe...")
                     logger.debug(f" >>> Datos: '{mask_email(email_input)}' - '{mask_password(password_input)}'")
+
+                    # Reset Snackbar
+                    self.snackbar.content.color = dangerTextColor
+                    self.snackbar.bgcolor = bgSnackbarDangerColor
+                    self.snackbar.update()
+
                     self.snackbar.content.value = "¡El correo electrónico ya existe!"
                     self.snackbar.open = True
                     self.snackbar.update()
@@ -212,6 +228,7 @@ class Signup(ft.Container):
                     self.email.value = ""
                     self.password.value = ""
                     self.password_repeat.value = ""
+                    self.content.update()
 
                     # Saves user to database
                     session.add(new_user)
