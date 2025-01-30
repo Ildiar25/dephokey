@@ -24,7 +24,7 @@ class SiteWidget(ft.Card):
         self.height = 200
         self.elevation = 2
 
-        # Sitewidget elements
+        # SiteWidget elements
         self.title = ft.Text(
             self.site.name if self.site.name else "Título de la web",
             font_family="AlbertSansB",
@@ -56,7 +56,6 @@ class SiteWidget(ft.Card):
                 size=18
             )
         )
-
 
         # Widget design
         self.color = bgSiteWidgetColor
