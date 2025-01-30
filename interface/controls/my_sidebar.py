@@ -6,7 +6,7 @@ from features.models.user import User
 from features.models import Site, CreditCard, Note
 
 from interface.controls import CustomElevatedButton
-from interface.pages.forms import NewPassword
+from interface.pages.forms import GenerateFormStyle, GenerateForm
 from interface.pages.body_content import BodyContent
 from interface.pages.widgets import *
 
@@ -134,7 +134,8 @@ class CustomSidebar(ft.NavigationRail):
     def show_cards(self) -> None:
         creditcard_buttons = [
             CustomElevatedButton(name="Generar Número", width=187, icon=ft.Icons.ADD_CARD_ROUNDED,
-                                 foreground_color=accentTextColor, bg_color=neutral05,border_size=1),
+                                 foreground_color=accentTextColor, bg_color=neutral05,border_size=1,
+                                 on_click=self.open_newnumber_form),
             CustomElevatedButton(name="Nueva Tarjeta", width=197, icon=ft.Icons.ADD_ROUNDED,
                                  foreground_color=tertiaryTextColor, bg_color=primaryCorporateColor, border_size=-1)
         ]
@@ -159,8 +160,15 @@ class CustomSidebar(ft.NavigationRail):
         self.body_content.controls[1].controls = []
         self.body_content.update()
 
+    def open_newnumber_form(self, _: ft.ControlEvent) -> None:
+        self.page.open(
+            GenerateForm(self.page, title="Generar número", generate_style=GenerateFormStyle.NUMBER)
+        )
+
     def open_newpassword_form(self, _: ft.ControlEvent) -> None:
-        self.page.open(NewPassword(self.page))
+        self.page.open(
+            GenerateForm(self.page, title="Generar contraseña", generate_style=GenerateFormStyle.PASSWORD)
+        )
 
     def select_destination(self, event: ft.ControlEvent) -> None:
         match event.control.selected_index:
