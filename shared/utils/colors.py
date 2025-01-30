@@ -121,19 +121,9 @@ iconSiteWidgetColor = neutral80
 iconAccentSiteWidgetColor = primaryCorporateColor
 
 
-
-# Admin page settings
-bgGradientAdminColor = [Colors.WHITE, Colors.WHITE]
-colorAdminAccent = Colors.PURPLE_ACCENT
-
-# Login & Signin settings
-bgGradientColor = [Colors.with_opacity(0.5, primaryCorporateColor), transparentColor]
-iconAccentFormColor = neutral00
-bgFormColor = neutral00
-
-
-# Delete form colors
-bgDeleteFormColor = neutral00
-iconDeleteFormColor = neutral80
-selectedIconDeleteFormColor = neutral40
-hoverIconDeleteFormColor = neutral20
+# General form colors
+bgGeneralFormColor = neutral00
+iconGeneralFormColor = neutral00
+iconAccentGeneralFormColor = neutral80
+selectedIconGeneralFormColor = neutral40
+hoverIconGeneralFormColor = neutral20
