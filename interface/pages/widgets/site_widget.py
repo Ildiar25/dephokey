@@ -1,8 +1,13 @@
 import flet as ft
+import time
+
+from data.db_orm import session
 
 from features.models import Site
 
 from interface.pages.forms import DeleteForm
+
+from shared.utils.masker import mask_password
 from shared.utils.colors import *
 
 
@@ -38,6 +43,19 @@ class SiteWidget(ft.Card):
             self.site.username,
             color=textSiteWidgetColor
         )
+        self.site_password = ft.Text(
+            mask_password(self.site.encrypted_password)  # Desencriptar la contraseña AQUÍ
+        )
+        self.copy_button = ft.Container(
+            visible=False,
+            # disabled=True,
+            on_click=lambda _:self.page.set_clipboard(self.site_password.value),
+            padding=ft.padding.only(3),
+            content=ft.Icon(
+                ft.Icons.COPY_ROUNDED,
+                size=18
+            )
+        )
 
 
         # Widget design
@@ -64,7 +82,7 @@ class SiteWidget(ft.Card):
                                         ft.Container(
                                             on_hover=self.toggle_icon_color,
                                             content=ft.Icon(
-                                            ft.Icons.EDIT,
+                                            ft.Icons.EDIT_OUTLINED,
                                             color=iconAccentSiteWidgetColor
                                             )
                                         ),
@@ -72,7 +90,7 @@ class SiteWidget(ft.Card):
                                             on_hover=self.toggle_icon_color,
                                             on_click=self.open_delete_form,
                                             content=ft.Icon(
-                                                ft.Icons.DELETE,
+                                                ft.Icons.DELETE_OUTLINE_ROUNDED,
                                                 color=iconAccentSiteWidgetColor
                                             )
                                         )
@@ -86,14 +104,20 @@ class SiteWidget(ft.Card):
                     ft.Row(
                         spacing=8,
                         controls=[
-                            ft.Icon(ft.Icons.WEB),
+                            ft.Icon(
+                                ft.Icons.LINK_ROUNDED,
+                                color=iconSiteWidgetColor
+                            ),
                             self.site_link
                         ]
                     ),
                     ft.Row(
                         spacing=8,
                         controls=[
-                            ft.Icon(ft.Icons.SUPERVISED_USER_CIRCLE_ROUNDED),
+                            ft.Icon(
+                                ft.Icons.ACCOUNT_CIRCLE_ROUNDED,
+                                color=iconSiteWidgetColor
+                            ),
                             self.site_username
                         ]
                     ),
@@ -104,14 +128,19 @@ class SiteWidget(ft.Card):
                                 content=ft.Row(
                                     spacing=8,
                                     controls=[
-                                        ft.Icon(ft.Icons.PASSWORD_ROUNDED),
-                                        ft.Text(self.site.encrypted_password)
+                                        ft.Icon(
+                                            ft.Icons.PASSWORD_ROUNDED,
+                                            color=iconSiteWidgetColor
+                                        ),
+                                        self.site_password,
+                                        self.copy_button
                                     ]
                                 )
                             ),
                             ft.Container(
                                 on_hover=self.focus_link,
-                                on_click=lambda _: print(f"Mostrando Contraseña"),
+                                on_click=self.show_password,
+                                tooltip="Muestra la contraseña durante 3 segundos",
                                 content=ft.Text(
                                     "ver contraseña",
                                     color=accentTextColor
@@ -131,12 +160,6 @@ class SiteWidget(ft.Card):
             cursor.control.content.color = accentTextColor
         cursor.control.update()
 
-    def open_delete_form(self, _: ft.ControlEvent) -> None:
-        self.page.open(DeleteForm(self.page, self.site, self.delete_site))
-
-    def delete_site(self, _: ft.ControlEvent) -> None:
-        print("Deleting objeeeect....")
-
     @staticmethod
     def toggle_icon_color(cursor: ft.ControlEvent) -> None:
         if cursor and cursor.control.content.color == iconAccentSiteWidgetColor:
@@ -145,3 +168,25 @@ class SiteWidget(ft.Card):
             cursor.control.content.color = iconAccentSiteWidgetColor
         cursor.control.update()
 
+    def show_password(self, cursor: ft.ControlEvent) -> None:
+        if cursor:
+            self.site_password.value = self.site.encrypted_password
+            self.site_password.update()
+            self.copy_button.visible = True
+            # self.copy_button.disabled = False
+            self.copy_button.update()
+            time.sleep(3)
+            self.site_password.value = mask_password(self.site.encrypted_password)
+            self.copy_button.visible = False
+            # self.copy_button.disabled = True
+            self.copy_button.update()
+
+        self.site_password.update()
+
+    def open_delete_form(self, _: ft.ControlEvent) -> None:
+        self.page.open(DeleteForm(self.page, self.site, self.delete_site))
+
+    def delete_site(self, _: ft.ControlEvent) -> None:
+        # New query
+        session.query(Site).filter(Site.id == self.site.id).delete()
+        session.commit()
