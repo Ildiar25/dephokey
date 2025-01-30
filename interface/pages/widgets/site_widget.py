@@ -48,7 +48,6 @@ class SiteWidget(ft.Card):
         )
         self.copy_button = ft.Container(
             visible=False,
-            # disabled=True,
             on_click=lambda _:self.page.set_clipboard(self.site_password.value),
             padding=ft.padding.only(3),
             content=ft.Icon(
@@ -165,6 +164,18 @@ class SiteWidget(ft.Card):
             cursor.control.content.color = iconSiteWidgetColor
         else:
             cursor.control.content.color = iconAccentSiteWidgetColor
+        cursor.control.update()
+
+    def copy_text(self, cursor: ft.ControlEvent) -> None:
+        self.page.set_clipboard(self.site_password.value)
+        cursor.control.badge = ft.Badge(
+            text="Copiado!",
+            bgcolor=ft.Colors.with_opacity(opacity=0.5, color=neutral80),
+            text_color=neutral05
+        )
+        cursor.control.update()
+        time.sleep(1)
+        cursor.control.badge.label_visible = False
         cursor.control.update()
 
     def show_password(self, cursor: ft.ControlEvent) -> None:
