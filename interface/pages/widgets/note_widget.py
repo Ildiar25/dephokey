@@ -5,7 +5,7 @@ from data.db_orm import session
 
 from features.models import Note
 
-from interface.pages.forms import DeleteForm
+from interface.pages.forms import DeleteFormStyle, DeleteForm
 
 from shared.utils.masker import mask_text
 from shared.utils.colors import *
@@ -128,7 +128,7 @@ class NoteWidget(ft.Card):
         self.note_content.update()
 
     def open_delete_form(self, _: ft.ControlEvent) -> None:
-        self.page.open(DeleteForm(self.page, self.note, self.delete_note))
+        self.page.open(DeleteForm(self.page, self.note, self.delete_note, DeleteFormStyle.NOTE))
 
     def delete_note(self, _: ft.ControlEvent) -> None:
         # New query

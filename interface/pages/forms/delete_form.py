@@ -1,4 +1,5 @@
 import flet as ft
+from enum import Enum
 from typing import Union, Callable
 
 from interface.controls import CustomElevatedButton
@@ -9,30 +10,38 @@ from features.models import *
 from shared.utils.colors import *
 
 
+class DeleteFormStyle(Enum):
+    CREDITCARD = "creditcard"
+    NOTE = "note"
+    PASS_REQ = "pass_req"
+    SITE = "site"
+    USER = "user"
+
+
 class DeleteForm(ft.AlertDialog):
     def __init__(self, page: ft.Page, element: Union[CreditCard, Site, Note, User, PasswordRequest],
-                 delete_fun: Callable[[ft.ControlEvent], None]) -> None:
+                 delete_fun: Callable[[ft.ControlEvent], None], del_style: DeleteFormStyle) -> None:
         super().__init__()
 
         # General attributes
         self.page = page
         self.element = element
         self.delete_fun = delete_fun
-        self.element_type = type(self.element).__name__
+        self.element_type = del_style
 
         match self.element_type:
-            case "Site":
-                self.element_type = "sitio web"
-            case "Note":
-                self.element_type = "nota segura"
-            case "CreditCard":
-                self.element_type = "tarjeta de crédito"
-            case "User":
-                self.element_type = "usuario"
-            case "PasswordRequest":
-                self.element_type = "reseteo de contraseña"
+            case DeleteFormStyle.CREDITCARD:
+                self.text_title = "tarjeta de crédito"
+            case DeleteFormStyle.NOTE:
+                self.text_title = "nota segura"
+            case DeleteFormStyle.PASS_REQ:
+                self.text_title = "registro de cambio"
+            case DeleteFormStyle.SITE:
+                self.text_title = "sitio"
+            case DeleteFormStyle.USER:
+                self.text_title = "usuario"
             case _:
-                pass
+                self.text_title = "unknow"
 
         # Form settings
         self.modal = True
@@ -42,7 +51,7 @@ class DeleteForm(ft.AlertDialog):
             alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
             controls=[
                 ft.Text(
-                    f"Eliminar {self.element_type}",
+                    f"Eliminar {self.text_title}",
                     font_family="AlbertSansB",
                     size=20
                 ),
