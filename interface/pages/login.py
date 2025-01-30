@@ -43,7 +43,7 @@ class Login(ft.Container):
             can_reveal_password=True
         )
         self.login_button = CustomElevatedButton(
-            "Login", bg_color=bgEButtonColor, foreground_color=tertiaryTextColor,
+            name="Login", bg_color=bgEButtonColor, foreground_color=tertiaryTextColor,
             border_size=-1, expand=True, disabled=True, on_click=self.login
         )
 
