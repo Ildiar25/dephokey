@@ -37,8 +37,8 @@ class CustomSidebar(ft.NavigationRail):
             )
         )
         self.go_sites = ft.NavigationRailDestination(
-            ft.Icon(ft.Icons.WEBHOOK_ROUNDED, color=selectSidebarColor),
-            selected_icon=ft.Icon(ft.Icons.WEBHOOK_ROUNDED, color=iconSidebarColor),
+            ft.Icon(ft.Icons.LANGUAGE_ROUNDED, color=selectSidebarColor),
+            selected_icon=ft.Icon(ft.Icons.LANGUAGE_ROUNDED, color=iconSidebarColor),
             padding=5,
             label_content=ft.Container(
                 padding=10,
