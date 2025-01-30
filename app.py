@@ -1,8 +1,8 @@
 import flet as ft
 
-from data.db_orm import Base, engine
+from data.db_orm import Base, engine, session
 
-from features.models.user import UserRole
+from features.models.user import UserRole, User
 
 from interface.pages import *
 from interface.controls.my_footer import Footer
@@ -11,11 +11,25 @@ from shared.utils.colors import *
 from shared.logger_setup import main_logger as logger
 
 
+def create_admin_account() -> None:
+    admin = User(fullname="Administrador", email="admin.24@gmail.com", password="Admin1234", user_role=UserRole.ADMIN)
+    session.add(admin)
+    session.commit()
+
+
 def main(page: ft.Page) -> None:
 
     # Create all tables
     Base.metadata.create_all(bind=engine)
     logger.info("¡BASE DE DATOS cargada con éxito!")
+
+    # Add admin user automatically
+    if not session.query(User).filter(User.email == "admin.24@gmail.com").first():
+        create_admin_account()
+
+    # This snippet allows change UserRole without any bug (DELETE AFTER FINISH THE APP)
+    user = User("Usuario Prueba", "test@test.com", "test1234", UserRole.CLIENT)
+    page.session.set("session", user)
 
     # Page settings
     page.title = "Dephokey"
@@ -50,22 +64,12 @@ def main(page: ft.Page) -> None:
             logger.info("Página SIGNUP cargada.")
 
         elif page.route == "/home" and page.session.contains_key("session"):
-            user_role = page.session.get("session").role
-
-            if user_role == UserRole.ADMIN:
-                page.add(Admin(page))
-                logger.info("Página ADMIN cargada.")
-
-            elif user_role == UserRole.CLIENT:
-                page.add(Home(page))
-                logger.info("Página HOME cargada.")
-
-        else:
-            page.add(Home(page))  # Delete 'else' statement once program was finished
+            page.add(Home(page))
+            logger.info("Página HOME cargada.")
 
     # Define routes
     page.on_route_change = route_changer
-    page.go("/home")  # Change to 'login' once program finished
+    page.go("/home")  # Change to 'login' once program is finished
 
 
 if __name__ == '__main__':
