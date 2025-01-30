@@ -39,6 +39,7 @@ class Login(ft.Container):
         self.password = CustomTextField(
             label="Contraseña",
             on_change=self.toggle_login_button_state,
+            on_submit=self.login,
             password=True,
             can_reveal_password=True
         )
