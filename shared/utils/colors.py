@@ -121,6 +121,15 @@ iconSiteWidgetColor = neutral80
 iconAccentSiteWidgetColor = primaryCorporateColor
 
 
+# Notewidget colors
+bgNoteWidgetColor = neutral00
+titleNoteWidgetColor = primaryTextColor
+textNoteWidgetColor = neutral60
+accentNoteWidgetColor = tertiaryTextColor
+iconNoteWidgetColor = neutral80
+iconAccentNoteWidgetColor = primaryCorporateColor
+
+
 # General form colors
 bgGeneralFormColor = neutral00
 iconGeneralFormColor = neutral00

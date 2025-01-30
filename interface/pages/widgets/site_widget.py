@@ -26,7 +26,7 @@ class SiteWidget(ft.Card):
 
         # SiteWidget elements
         self.title = ft.Text(
-            self.site.name if self.site.name else "Título de la web",
+            self.site.name if self.site.name else "Sin título",
             font_family="AlbertSansB",
             size=18,
             color=titleSiteWidgetColor
@@ -44,7 +44,7 @@ class SiteWidget(ft.Card):
             color=textSiteWidgetColor
         )
         self.site_password = ft.Text(
-            mask_password(self.site.encrypted_password)  # Desencriptar la contraseña AQUÍ
+            mask_password(self.site.encrypted_password)  # TODO: Decrypt password HERE!
         )
         self.copy_button = ft.Container(
             visible=False,
@@ -169,13 +169,13 @@ class SiteWidget(ft.Card):
 
     def show_password(self, cursor: ft.ControlEvent) -> None:
         if cursor:
-            self.site_password.value = self.site.encrypted_password
+            self.site_password.value = self.site.encrypted_password  # TODO: Decrypt password HERE!
             self.site_password.update()
             self.copy_button.visible = True
             # self.copy_button.disabled = False
             self.copy_button.update()
             time.sleep(3)
-            self.site_password.value = mask_password(self.site.encrypted_password)
+            self.site_password.value = mask_password(self.site.encrypted_password)  # TODO: Decrypt password HERE!
             self.copy_button.visible = False
             # self.copy_button.disabled = True
             self.copy_button.update()
