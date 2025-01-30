@@ -1,17 +1,26 @@
 import flet as ft
 
+from data.db_orm import session
+
+from features.models.user import User
+from features.models import Site, CreditCard, Note
+
 from interface.controls import CustomElevatedButton
+from interface.pages.widgets import *
+from interface.pages.body_content import BodyContent
+from interface.pages.widgets import *
 
 from shared.utils.colors import *
 
 
 class CustomSidebar(ft.NavigationRail):
-    def __init__(self, page: ft.Page, content: ft.Container) -> None:
+    def __init__(self, page: ft.Page, content: BodyContent) -> None:
         super().__init__()
 
         # General attributes
         self.page = page
-        self.active_content = content
+        self.user: User = self.page.session.get("session")
+        self.body_content = content
 
         # Navigation attributes
         self.go_home = ft.NavigationRailDestination(
@@ -82,7 +91,7 @@ class CustomSidebar(ft.NavigationRail):
 
         # Main settings
         self.width = 200
-        self.height = 5000
+        # self.height = 500
         self.extended = True
         self.visible = True
         self.on_change = self.select_destination
@@ -91,6 +100,7 @@ class CustomSidebar(ft.NavigationRail):
         self.bgcolor = bgSidebarColor
         self.indicator_color = selectSidebarColor
         self.indicator_shape = ft.RoundedRectangleBorder(2)
+        self.expand = True
 
         # Destinations
         self.destinations = [
@@ -101,132 +111,52 @@ class CustomSidebar(ft.NavigationRail):
             self.go_info
         ]
 
-    def show_home(self):
-        self.active_content.content = ft.Column(
-            controls=[
-                # Title
-                ft.Row(
-                    alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
-                    controls=[
-                        ft.Text("Inicio", font_family="AlbertSansB", color=primaryTextColor, size=24),
-                    ]
-                ),
+    def show_home(self) -> None:
+        self.body_content.controls[0].controls[0].value = "Inicio"
+        self.body_content.controls[0].controls[1].controls = []
+        self.body_content.controls[1].controls = []
+        self.body_content.update()
 
-                # Content
+    def show_sites(self) -> None:
+        site_buttons = [
+            CustomElevatedButton(name="Generar Contraseña", width=187, icon=ft.Icons.PASSWORD_ROUNDED,
+                                 foreground_color=accentTextColor, bg_color=neutral05, border_size=1),
+            CustomElevatedButton(name="Nueva Dirección Web", width=197, icon=ft.Icons.ADD_ROUNDED,
+                                 foreground_color=tertiaryTextColor, bg_color=primaryCorporateColor,  border_size=-1)
+        ]
 
-            ]
-        )
+        self.body_content.controls[0].controls[0].value = "Direcciones web"
+        self.body_content.controls[0].controls[1].controls = site_buttons
+        self.body_content.controls[1].controls = [SiteWidget(site, self.page) for site in self.user.sites]
+        self.body_content.update()
 
-        self.active_content.update()
+    def show_cards(self) -> None:
+        creditcard_buttons = [
+            CustomElevatedButton(name="Generar Número", width=187, icon=ft.Icons.ADD_CARD_ROUNDED,
+                                 foreground_color=accentTextColor, bg_color=neutral05,border_size=1),
+            CustomElevatedButton(name="Nueva Tarjeta", width=197, icon=ft.Icons.ADD_ROUNDED,
+                                 foreground_color=tertiaryTextColor, bg_color=primaryCorporateColor, border_size=-1)
+        ]
+        self.body_content.controls[0].controls[0].value = "Tarjetas de crédito"
+        self.body_content.controls[0].controls[1].controls = creditcard_buttons
+        self.body_content.controls[1].controls = []
+        self.body_content.update()
 
-    def show_sites(self):
-        self.active_content.content = ft.Column(
-            controls=[
-                # Title
-                ft.Row(
-                    alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
-                    controls=[
-                        ft.Text("Direcciones Web", font_family="AlbertSansB", color=primaryTextColor, size=24),
-                        ft.Row(
-                            controls=[
-                                CustomElevatedButton("Generar Contraseña", 187,
-                                                     icon=ft.Icons.PASSWORD_ROUNDED,
-                                                     foreground_color=accentTextColor,
-                                                     bg_color=neutral05,
-                                                     border_size=1),
-                                CustomElevatedButton("Nueva Dirección Web", 197,
-                                                     icon=ft.Icons.ADD_ROUNDED,
-                                                     foreground_color=tertiaryTextColor,
-                                                     bg_color=primaryCorporateColor,
-                                                     border_size=-1)
-                            ]
-                        )
-                    ]
-                ),
+    def show_notes(self) -> None:
+        note_buttons = [
+            CustomElevatedButton(name="Nueva Nota", width=197, icon=ft.Icons.ADD_ROUNDED,
+                                 foreground_color=tertiaryTextColor, bg_color=primaryCorporateColor, border_size=-1)
+        ]
+        self.body_content.controls[0].controls[0].value = "Notas seguras"
+        self.body_content.controls[0].controls[1].controls = note_buttons
+        self.body_content.controls[1].controls = []
+        self.body_content.update()
 
-                # Content
-
-            ]
-        )
-
-        self.active_content.update()
-
-    def show_cards(self):
-        self.active_content.content = ft.Column(
-            controls=[
-                # Title
-                ft.Row(
-                    alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
-                    controls=[
-                        ft.Text("Tarjetas", font_family="AlbertSansB", color=primaryTextColor, size=24),
-                        ft.Row(
-                            controls=[
-                                CustomElevatedButton("Generar Número", 187,
-                                                     icon=ft.Icons.ADD_CARD_ROUNDED,
-                                                     foreground_color=accentTextColor,
-                                                     bg_color=neutral05,
-                                                     border_size=1),
-                                CustomElevatedButton("Nueva Tarjeta", 197,
-                                                     icon=ft.Icons.ADD_ROUNDED,
-                                                     foreground_color=tertiaryTextColor,
-                                                     bg_color=primaryCorporateColor,
-                                                     border_size=-1)
-                            ]
-                        )
-                    ]
-                ),
-
-                # Content
-
-            ]
-        )
-
-        self.active_content.update()
-
-    def show_notes(self):
-        self.active_content.content = ft.Column(
-            controls=[
-                # Title
-                ft.Row(
-                    alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
-                    controls=[
-                        ft.Text("Notas Seguras", font_family="AlbertSansB", color=primaryTextColor, size=24),
-                        ft.Row(
-                            controls=[
-                                CustomElevatedButton("Nueva Nota", 197,
-                                                     icon=ft.Icons.ADD_ROUNDED,
-                                                     foreground_color=tertiaryTextColor,
-                                                     bg_color=primaryCorporateColor,
-                                                     border_size=-1)
-                            ]
-                        )
-                    ]
-                ),
-
-                # Content
-
-            ]
-        )
-
-        self.active_content.update()
-
-    def show_info(self):
-        self.active_content.content = ft.Column(
-            controls=[
-                # Title
-                ft.Row(
-                    alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
-                    controls=[
-                        ft.Text("Acerca de", font_family="AlbertSansB", color=primaryTextColor, size=24)
-                    ]
-                ),
-
-                # Content
-
-            ]
-        )
-
-        self.active_content.update()
+    def show_info(self) -> None:
+        self.body_content.controls[0].controls[0].value = "Acerca de"
+        self.body_content.controls[0].controls[1].controls = []
+        self.body_content.controls[1].controls = []
+        self.body_content.update()
 
     def select_destination(self, event: ft.ControlEvent) -> None:
         match event.control.selected_index:

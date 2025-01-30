@@ -1,5 +1,11 @@
 import flet as ft
 
+from data.db_orm import session
+
+from features.models.user import UserRole
+from features.models import *
+
+from interface.pages.body_content import BodyContent
 from interface.controls import CustomAppbar, CustomSidebar
 
 from shared.utils.colors import *
@@ -11,40 +17,42 @@ class Home(ft.Container):
 
         # General attributes
         self.page = page
-        self.page.scroll = ft.ScrollMode.AUTO
-        self.active_content = ft.Container(
-            padding=ft.padding.only(56, 57, 56),
-            height=5000,
-            expand=True,
-            content=ft.Column(
-                controls=[
-                    # Title
-                    ft.Row(
-                        alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
-                        controls=[
-                            ft.Row(
-                                alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
-                                controls=[
-                                    ft.Text(f"Bienvenido 'usuario'",  # TODO: Show admin name
-                                            font_family="AlbertSansB", color=primaryTextColor, size=24)
-                                ]
-                            )
-                        ]
-                    )
-                ]
-            )
-        )
+        self.role = self.page.session.get("session").role
+
+        # General content
+        self.body_content = BodyContent()
 
         # Sidebar controller & Searchbar function
-        self.page.appbar = CustomAppbar(self.active_content, search_bar=True, find_function=self.look_for_elements)
-        self.sidebar = CustomSidebar(self.page, self.active_content)
+        self.page.appbar = CustomAppbar(self.body_content, search_bar=True, find_function=self.find_elements)
+        self.sidebar = CustomSidebar(self.page, self.body_content)
+        # self.sidebar_location = ft.Row(controls=[self.sidebar])
+
+        self.sidebar_location = ft.Row(
+            width=200,
+            controls=[
+                ft.Container(
+                    expand=True,
+                    height=1000,
+                    bgcolor=bgSidebarColor,
+                    content=self.sidebar
+                )
+            ]
+        )
+
+        self.sidebar_location.visible = True if self.role == UserRole.CLIENT else False
 
         # Page design
+        self.expand = True
         self.page.bgcolor = neutral05
         self.page.appbar.visible = True
         self.page.bottom_appbar.visible = True
 
         # Dashboard
+        self.active_content = ft.Container(
+            expand=True,
+            padding=ft.padding.only(56, 57, 56, 57),
+            content=self.body_content
+        )
         self.content = ft.Column(
             expand=True,
             spacing=0,
@@ -54,56 +62,17 @@ class Home(ft.Container):
 
                 # Sidebar & Bodycontent
                 ft.Row(
-                    spacing=0,
+                    vertical_alignment=ft.CrossAxisAlignment.START,
                     expand=True,
+                    spacing=0,
                     controls=[
-                        # Sidebar
-                        ft.Column(
-                            width=200,
-                            controls=[
-                                self.sidebar
-                            ]
-                        ),
-                        # Body content
-                        ft.Column(
-                            expand=True,
-                            scroll=ft.ScrollMode.AUTO,
-                            controls=[
-                                self.active_content
-                            ]
-                        )
+                        self.sidebar_location, self.active_content
                     ]
                 )
             ]
         )
 
-    def look_for_elements(self, e: ft.ControlEvent) -> None:
-
-        title = ft.Text(
-            f"Resultados de '{e.control.value}'",
-            font_family="AlbertSansB",
-            color=primaryTextColor,
-            size=24
-        )
-        no_title = ft.Text(
-            "Nada que mostrar",
-            font_family="AlbertSansB",
-            color=primaryTextColor,
-            size=24
-        )
-
-        self.active_content.content = ft.Column(
-            controls=[
-                # Title
-                ft.Row(
-                    alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
-                    controls=[
-                        title if e.control.value != "" else no_title
-                    ]
-                ),
-                # Content
-
-            ]
-        )
-
-        self.active_content.update()
+    def find_elements(self, e: ft.ControlEvent) -> None:
+        self.body_content.controls[0].controls[0].value = f"Buscando {e.control.value}"
+        self.body_content.controls[0].controls[1].controls = []
+        self.body_content.update()

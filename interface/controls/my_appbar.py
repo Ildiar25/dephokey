@@ -4,13 +4,14 @@ import flet as ft
 import time
 
 from interface.controls.custom_searchbar import CustomSearchBar
+from interface.pages.body_content import BodyContent
 from interface.pages import LoadPage  # ---> ImportError (Circular import)
 
 from shared.utils.colors import *
 
 
 class CustomAppbar(ft.AppBar):
-    def __init__(self, content: ft.Container,
+    def __init__(self, content: BodyContent,
                  search_bar: bool = False,
                  find_function: Callable[[ft.ControlEvent], None] | None = None) -> None:
         super().__init__()
@@ -19,7 +20,7 @@ class CustomAppbar(ft.AppBar):
         self.visible = False
         self.search_bar = search_bar
         self.toolbar_height = 79
-        self.active_content = content
+        self.settings_content = content
         self.look_for_elements = find_function
 
         # Design settings
@@ -39,7 +40,7 @@ class CustomAppbar(ft.AppBar):
             self.center_title = True
             self.title = CustomSearchBar(1008, self.look_for_elements)
 
-        # Options (Logout)
+        # Options (Settings & Logout)
         self.actions = [
             ft.Container(
                 width=72,
@@ -66,22 +67,10 @@ class CustomAppbar(ft.AppBar):
         ]
 
     def settings(self, _: ft.ControlEvent) -> None:
-        self.active_content.content = ft.Column(
-            controls=[
-                # Title
-                ft.Row(
-                    alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
-                    controls=[
-                        ft.Text("Configuración", font_family="AlbertSansB", color=primaryTextColor, size=24)
-                    ]
-                ),
-
-                # Content
-
-            ]
-        )
-
-        self.active_content.update()
+        self.settings_content.controls[0].controls[0].value = "Configuración"
+        self.settings_content.controls[0].controls[1].controls = []
+        self.settings_content.controls[1].controls = []
+        self.settings_content.update()
 
     def logout(self, _: ft.ControlEvent) -> None:
 
