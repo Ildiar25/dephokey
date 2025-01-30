@@ -149,7 +149,7 @@ class CustomSidebar(ft.NavigationRail):
         ]
         self.body_content.controls[0].controls[0].value = "Notas seguras"
         self.body_content.controls[0].controls[1].controls = note_buttons
-        self.body_content.controls[1].controls = []
+        self.body_content.controls[1].controls = [NoteWidget(note, self.page) for note in self.user.notes]
         self.body_content.update()
 
     def show_info(self) -> None:
