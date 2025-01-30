@@ -48,10 +48,10 @@ class DeleteForm(ft.AlertDialog):
                 ),
                 ft.IconButton(
                     ft.Icons.CLOSE_ROUNDED,
-                    icon_color=iconDeleteFormColor,
+                    icon_color=iconAccentGeneralFormColor,
                     on_click=lambda _: self.page.close(self),
-                    highlight_color=selectedIconDeleteFormColor,
-                    hover_color=hoverIconDeleteFormColor
+                    highlight_color=selectedIconGeneralFormColor,
+                    hover_color=hoverIconGeneralFormColor
                 )
             ]
         )
@@ -84,6 +84,7 @@ class DeleteForm(ft.AlertDialog):
 
         # Form design
         self.shape = ft.RoundedRectangleBorder(4)
+        self.bgcolor = bgGeneralFormColor
 
     def delete(self, e: ft.ControlEvent) -> None:
         self.delete_fun(e)
