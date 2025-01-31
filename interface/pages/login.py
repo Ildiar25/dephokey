@@ -82,7 +82,7 @@ class Login(ft.Container):
                                                 self.password,
                                                 ft.Container(
                                                     on_hover=self.focus_link,
-                                                    on_click=lambda _: print("/forgot_password"),
+                                                    on_click=lambda _: self.page.go("/reset_password"),
                                                     content=ft.Text(
                                                         "¿Has olvidado la contraseña?",
                                                         color=accentTextColor
