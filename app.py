@@ -56,7 +56,7 @@ def main(page: ft.Page) -> None:
             logger.info("Página LOGIN cargada.")
 
         elif page.route == "/reset_password":
-
+            page.add(ResetPasswordPage(page))
             logger.info("Página RESET PASSWORD cargada.")
 
         elif page.route == "/signup":
