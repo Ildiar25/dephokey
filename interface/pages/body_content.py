@@ -6,7 +6,7 @@ from shared.utils.colors import *
 
 
 class BodyContent(ft.Column):
-    def __init__(self, title: str = "", buttons: List[ft.Control] | None = None,
+    def __init__(self, title: str = "'no_title'", buttons: List[ft.Control] | None = None,
                  widgets: List[ft.Control] | None = None, visible: bool = True) -> None:
         super().__init__()
 
