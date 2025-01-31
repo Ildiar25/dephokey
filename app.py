@@ -28,7 +28,7 @@ def main(page: ft.Page) -> None:
         create_admin_account()
 
     # This snippet allows change UserRole without any bug (DELETE AFTER FINISH THE APP)
-    user = User("Usuario Prueba", "test@test.com", "test1234", UserRole.CLIENT)
+    user = User("Usuario Prueba", "test@test.com", "test1234", UserRole.ADMIN)
     page.session.set("session", user)
 
     # Page settings
