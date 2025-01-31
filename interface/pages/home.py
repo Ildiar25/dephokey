@@ -2,10 +2,11 @@ import flet as ft
 
 from data.db_orm import session
 
-from features.models.user import UserRole
+from features.models.user import UserRole,User
 from features.models import *
 
 from interface.pages.body_content import BodyContent
+from interface.pages.admin import Admin
 from interface.controls import CustomAppbar, CustomSidebar
 
 from shared.utils.colors import *
@@ -17,10 +18,19 @@ class Home(ft.Container):
 
         # General attributes
         self.page = page
-        self.role = self.page.session.get("session").role
+        self.user: User = self.page.session.get("session")
 
         # General content
-        self.body_content = BodyContent()
+        if self.user.role == UserRole.ADMIN:
+            self.body_content = BodyContent(
+                title="Bienvenido Administrador!",
+                widgets=[Admin(self.page)]
+            )
+
+        else:
+            self.body_content = BodyContent(
+                title=f"Bienvenido {self.user.fullname.split(' ')[0]}!"
+            )
 
         # Sidebar controller & Searchbar function
         self.page.appbar = CustomAppbar(self.body_content, search_bar=True, find_function=self.find_elements)
@@ -39,7 +49,7 @@ class Home(ft.Container):
             ]
         )
 
-        self.sidebar_location.visible = True if self.role == UserRole.CLIENT else False
+        self.sidebar_location.visible = True if self.user.role == UserRole.CLIENT else False
 
         # Page design
         self.expand = True
