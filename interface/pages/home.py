@@ -33,9 +33,11 @@ class Home(ft.Container):
             )
 
         # Sidebar controller & Searchbar function
-        self.page.appbar = CustomAppbar(self.body_content, search_bar=True, find_function=self.find_elements)
         self.sidebar = CustomSidebar(self.page, self.body_content)
-        # self.sidebar_location = ft.Row(controls=[self.sidebar])
+        self.page.appbar = CustomAppbar(
+            self.body_content, search_bar=True if self.user.role == UserRole.CLIENT else False,
+            find_function=self.find_elements if self.user.role == UserRole.CLIENT else None)
+
 
         self.sidebar_location = ft.Row(
             width=200,
