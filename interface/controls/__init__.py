@@ -7,7 +7,8 @@ from .my_appbar import CustomAppbar
 from .custom_searchbar import CustomSearchBar
 from .my_sidebar import CustomSidebar
 from .my_footer import Footer
+from .date_picker import DatePicker
 
 
 __all__ = ["CustomTextField", "CustomElevatedButton", "CustomTextButton", "CustomCheckbox",
-           "CustomAppbar", "CustomSearchBar", "CustomSidebar", "Footer", "CustomSwitch"]
+           "CustomAppbar", "CustomSearchBar", "CustomSidebar", "Footer", "CustomSwitch", "DatePicker"]
