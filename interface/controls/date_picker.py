@@ -106,9 +106,9 @@ class DatePicker(ft.AlertDialog):
             main_logger.error(f"No se ha podido castear a entero el número introducido: {err}")
 
         else:
-            # # Reset values to an empty field
-            # self.date_input.value = ""
-            # self.date_input.update()
+            # Reset values to an empty field
+            self.date_input.value = ""
+            self.date_input.update()
 
             # Sends the new date to main function
             new_date = datetime(nyear, nmonth, nday)
