@@ -114,6 +114,3 @@ class DatePicker(ft.AlertDialog):
             new_date = datetime(nyear, nmonth, nday)
             self.update_date(new_date)
             self.page.close(self)
-
-
-
