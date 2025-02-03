@@ -17,6 +17,8 @@ class TestValidate(unittest.TestCase):
         self.valid_creditcard_number = "4111111111111111"
         self.invalid_creditcard_number = "4852154762351248"
         self.creditcard_not_number = "test01test01test"
+        self.valid_date = ""
+        self.invalid_date = ""
 
         # Create new instance
         self.validate = Validate()
