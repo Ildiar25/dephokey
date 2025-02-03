@@ -17,8 +17,8 @@ class Validate:
         :return: boolean
         """
         # This pattern allows to validate an email
-        pattern = r"^([\w]+\.?)+@+[\w]+\.+[\w]{2,3}$"
-        return True if re.match(pattern, email) else False
+        sequence = r"^([\w]+\.?)+@+[\w]+\.+[\w]{2,3}$"
+        return True if re.match(sequence, email) else False
 
     @staticmethod
     def is_valid_password(password: str) -> bool:
@@ -28,8 +28,8 @@ class Validate:
         :return: boolean
         """
         # This pattern allows to validate a password
-        pattern = r"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$"
-        return True if re.match(pattern, password) else False
+        sequence = r"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$"
+        return True if re.match(sequence, password) else False
 
     @staticmethod
     def is_valid_address(site_address: str) -> bool:
@@ -40,9 +40,9 @@ class Validate:
         :return: boolean
         """
         # This pattern allows to validate a password
-        pattern = (r"((http)?s?:?(\/\/)?(www)?\.?)[a-zA-Z0-9-]+\.[a-z]{2,3}\/?([a-zA-Z0-9\~\@\#\$\%\^\&\*\("
+        sequence = (r"((http)?s?:?(\/\/)?(www)?\.?)[a-zA-Z0-9-]+\.[a-z]{2,3}\/?([a-zA-Z0-9\~\@\#\$\%\^\&\*\("
                    r"\)_\-\=\+\\\/\?\.\:\;\'\,]*)?")
-        return True if re.match(pattern, site_address) else False
+        return True if re.match(sequence, site_address) else False
 
     @staticmethod
     def is_valid_creditcard_number(creditcard_number: str) -> bool:
@@ -82,3 +82,15 @@ class Validate:
                 # Add numbers
                 total = sum(list_numbers)
                 return total % 10 == 0
+
+    @staticmethod
+    def is_valid_date(new_date: str) -> bool:
+        """
+        In this case, date must have the next format: 'dd-mm-yyyy'.
+        :param new_date: date user input
+        :return: boolean
+        """
+        # This pattern allows to validate a date
+        sequence = (r"^(((0[1-9]|[12][0-9]|3[01])-(0[13578]|1[02])|(0[1-9]|[12][0-9]|30)-(0[469]|11)|(0[1-9]|1"
+                    r"\d|2[0-8])-02)-\d{4}|29-02-(\d{2}(0[48]|[2468][048]|[13579][26])|([02468][048]|[1359][26])00))$")
+        return True if re.match(sequence, new_date) else False
