@@ -1,4 +1,4 @@
-from datetime import date, datetime
+from datetime import datetime
 
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import ForeignKey
@@ -28,7 +28,7 @@ class CreditCard(Base):
     cardholder: Mapped[str]
     encrypted_number: Mapped[str]
     encrypted_cvc: Mapped[str]
-    valid_until: Mapped[date]
+    valid_until: Mapped[datetime]
     expired: Mapped[bool]
     alias: Mapped[str | None]
     created: Mapped[datetime]
@@ -37,7 +37,7 @@ class CreditCard(Base):
     user: Mapped["User"] = relationship("User", back_populates="creditcards")
 
     # Initializer
-    def __init__(self, cardholder: str, number: str, cvc: str, valid_until: date,
+    def __init__(self, cardholder: str, number: str, cvc: str, valid_until: datetime,
                  user: User, alias: str | None = None) -> None:
         super().__init__()
 
@@ -45,8 +45,8 @@ class CreditCard(Base):
         self.cardholder: str = cardholder
         self.encrypted_number: str = number  # encrypt_data(number)
         self.encrypted_cvc: str = cvc  # encrypt_data(number)
-        self.valid_until: date = valid_until
-        self.expired: bool = True if self.valid_until < date.today() else False
+        self.valid_until: datetime = valid_until
+        self.expired: bool = True if self.valid_until < datetime.today() else False
         self.alias: str | None = alias
         self.user: User = user
         self.created: datetime = datetime.today()
