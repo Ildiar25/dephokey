@@ -12,8 +12,8 @@ class TestCreditCard(unittest.TestCase):
         logger.info("Preparing CREDITCARD instances...")
 
         user_test = User("admin", "admin@admin.com", "admin1234")
-        future_date = datetime.date(2026, 5, 1)
-        expired_date = datetime.date(2020, 5, 1)
+        future_date = datetime.datetime(2026, 5, 1)
+        expired_date = datetime.datetime(2020, 5, 1)
 
         # Create new instances
         self.creditcard_01 = CreditCard(
