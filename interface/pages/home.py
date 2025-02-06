@@ -29,7 +29,7 @@ class Home(ft.Container):
 
         else:
             self.body_content = BodyContent(
-                title=f"Bienvenido {self.user.fullname.split(' ')[0]}!"
+                title=f"Bienvenido/a {self.user.fullname.split(' ')[0]}!"
             )
 
         # Sidebar controller & Searchbar function
