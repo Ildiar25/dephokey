@@ -6,7 +6,7 @@ from sqlalchemy import ForeignKey
 from data.db_orm import Base
 
 from features.models.user import User
-# from features.encrypter import encrypt_data
+# from features.encryption_module import encrypt_data
 
 from shared.utils.masker import mask_email, mask_text
 from shared.public_id import GenerateID
