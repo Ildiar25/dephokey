@@ -64,7 +64,7 @@ class DeleteForm(ft.AlertDialog):
             width=380,
             height=60,
             content=ft.Text(
-            "¿Desea eliminar este registro? Esta acción no se puede deshacer.",
+                value="¿Desea eliminar este registro? Esta acción no se puede deshacer.",
                 font_family="AlbertSansL",
                 size=16,
             )

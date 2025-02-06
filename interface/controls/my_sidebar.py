@@ -6,7 +6,7 @@ from features.models.user import User
 from features.models import Site, CreditCard, Note
 
 from interface.controls import CustomElevatedButton
-from interface.pages.forms import GenerateFormStyle, GenerateForm
+from interface.pages.forms import GenerateFormStyle, GenerateForm, AddFormStyle, AddForm
 from interface.pages.body_content import BodyContent
 from interface.pages.widgets import *
 
@@ -123,7 +123,8 @@ class CustomSidebar(ft.NavigationRail):
                                  foreground_color=accentTextColor, bg_color=neutral05, border_size=1,
                                  on_click=self.open_newpassword_form),
             CustomElevatedButton(name="Nueva Dirección Web", width=197, icon=ft.Icons.ADD_ROUNDED,
-                                 foreground_color=tertiaryTextColor, bg_color=primaryCorporateColor,  border_size=-1)
+                                 foreground_color=tertiaryTextColor, bg_color=primaryCorporateColor, border_size=-1,
+                                 on_click=self.add_newsite_form)
         ]
 
         self.body_content.controls[0].controls[0].value = "Direcciones web"
@@ -137,7 +138,8 @@ class CustomSidebar(ft.NavigationRail):
                                  foreground_color=accentTextColor, bg_color=neutral05,border_size=1,
                                  on_click=self.open_newnumber_form),
             CustomElevatedButton(name="Nueva Tarjeta", width=197, icon=ft.Icons.ADD_ROUNDED,
-                                 foreground_color=tertiaryTextColor, bg_color=primaryCorporateColor, border_size=-1)
+                                 foreground_color=tertiaryTextColor, bg_color=primaryCorporateColor, border_size=-1,
+                                 on_click=self.add_newcreditcard_form)
         ]
         self.body_content.controls[0].controls[0].value = "Tarjetas de crédito"
         self.body_content.controls[0].controls[1].controls = creditcard_buttons
@@ -147,7 +149,8 @@ class CustomSidebar(ft.NavigationRail):
     def show_notes(self) -> None:
         note_buttons = [
             CustomElevatedButton(name="Nueva Nota", width=197, icon=ft.Icons.ADD_ROUNDED,
-                                 foreground_color=tertiaryTextColor, bg_color=primaryCorporateColor, border_size=-1)
+                                 foreground_color=tertiaryTextColor, bg_color=primaryCorporateColor, border_size=-1,
+                                 on_click=self.add_newnote_form)
         ]
         self.body_content.controls[0].controls[0].value = "Notas seguras"
         self.body_content.controls[0].controls[1].controls = note_buttons
@@ -159,6 +162,22 @@ class CustomSidebar(ft.NavigationRail):
         self.body_content.controls[0].controls[1].controls = []
         self.body_content.controls[1].controls = []
         self.body_content.update()
+
+    def add_newsite_form(self, _: ft.ControlEvent) -> None:
+        self.page.open(
+            AddForm(self.page, title="Nueva Dirección Web", addform_style=AddFormStyle.SITE)
+        )
+
+    def add_newcreditcard_form(self, _: ft.ControlEvent) -> None:
+        self.page.open(
+            AddForm(self.page, title="Nueva Tarjeta de Crédito", addform_style=AddFormStyle.CREDITCARD)
+        )
+
+    def add_newnote_form(self, _: ft.ControlEvent) -> None:
+        self.page.open(
+            AddForm(self.page, title="Nueva Nota Segura", addform_style=AddFormStyle.NOTE)
+        )
+
 
     def open_newnumber_form(self, _: ft.ControlEvent) -> None:
         self.page.open(
