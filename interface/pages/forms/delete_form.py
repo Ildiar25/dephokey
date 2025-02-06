@@ -19,13 +19,12 @@ class DeleteFormStyle(Enum):
 
 
 class DeleteForm(ft.AlertDialog):
-    def __init__(self, page: ft.Page, element: Union[CreditCard, Site, Note, User, PasswordRequest],
-                 delete_fun: Callable[[ft.ControlEvent], None], del_style: DeleteFormStyle) -> None:
+    def __init__(self, page: ft.Page, delete_fun: Callable[[ft.ControlEvent], None],
+                 del_style: DeleteFormStyle) -> None:
         super().__init__()
 
         # General attributes
         self.page = page
-        self.element = element
         self.delete_fun = delete_fun
         self.element_type = del_style
 
