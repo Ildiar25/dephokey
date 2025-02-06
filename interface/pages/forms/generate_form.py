@@ -1,10 +1,9 @@
-from string import ascii_lowercase, ascii_uppercase, digits, punctuation
-from enum import Enum
-from faker import Faker
 import flet as ft
+from enum import Enum
+from string import ascii_lowercase, ascii_uppercase, digits, punctuation
+from faker import Faker
 import random
 import time
-
 
 from interface.controls import CustomElevatedButton, CustomSwitch, CustomTextField
 
@@ -27,15 +26,6 @@ class GenerateForm(ft.AlertDialog):
             name="Generar", bg_color=bgEButtonColor, foreground_color=tertiaryTextColor,
             border_size=-1, expand=True, disabled=False
         )
-
-        # New password elements
-        self.switches = [
-            CustomSwitch(title="Minúsculas", width=240, on_change=self.toggle_generate_button_state, value=True),
-            CustomSwitch(title="Mayúsculas", width=240, on_change=self.toggle_generate_button_state),
-            CustomSwitch(title="Números", width=240, on_change=self.toggle_generate_button_state),
-            CustomSwitch(title="Caracteres Especiales", width=240, on_change=self.toggle_generate_button_state)
-        ]
-        self.max_input = CustomTextField(width=76, max_length=3, on_change=self.change_number_input)
         self.result = CustomTextField(expand=True, read_only=True)
         self.copybutton = ft.IconButton(
             ft.Icons.COPY_ROUNDED,
@@ -46,10 +36,19 @@ class GenerateForm(ft.AlertDialog):
             tooltip="Copiar al portapapeles"
         )
 
-        # New creditcard elements
-
+        # Content according to style
         match generate_style:
             case GenerateFormStyle.PASSWORD:
+
+                # GeneratePassword attributes
+                self.switches = [
+                    CustomSwitch(title="Minúsculas", width=240, on_change=self.toggle_generate_button_state,
+                                 value=True),
+                    CustomSwitch(title="Mayúsculas", width=240, on_change=self.toggle_generate_button_state),
+                    CustomSwitch(title="Números", width=240, on_change=self.toggle_generate_button_state),
+                    CustomSwitch(title="Caracteres Especiales", width=240, on_change=self.toggle_generate_button_state)
+                ]
+                self.max_input = CustomTextField(width=76, max_length=3, on_change=self.change_number_input)
                 self.submit_button.on_click = self.generate_password
                 self.bodycontent = ft.Container(
                     width=524,
