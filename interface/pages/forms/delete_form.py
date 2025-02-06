@@ -1,11 +1,8 @@
 import flet as ft
 from enum import Enum
-from typing import Union, Callable
+from typing import Callable
 
 from interface.controls import CustomElevatedButton
-
-from features.models.user import User
-from features.models import *
 
 from shared.utils.colors import *
 
