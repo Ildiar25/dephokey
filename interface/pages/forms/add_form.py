@@ -7,6 +7,7 @@ from data.db_orm import session
 
 from features.models.user import User
 
+from interface.controls.date_picker import DatePicker
 from interface.controls import CustomElevatedButton, CustomTextField
 
 from shared.utils.colors import *
@@ -84,21 +85,15 @@ class AddForm(ft.AlertDialog):
                 # CreditCard attributes
                 self.creditcard_cardholder = CustomTextField(label="Titular", width=250)
                 self.creditcard_alias = CustomTextField(label="Alias (opcional)", width=250)
-                self.creditcard_number = CustomTextField(label="Número", width=350)
+                self.creditcard_number = CustomTextField(label="Número", width=320)
                 self.creditcard_cvc = CustomTextField(label="CVC", width=64)
-                self.creditcard_expires_date = CustomTextField(label="Caducidad", width=400)
-                self.date_button = ft.IconButton(
-                    ft.Icons.CALENDAR_MONTH_ROUNDED,
-                    icon_color=primaryCorporateColor,
-                    highlight_color=selectedIconGeneralFormColor,
-                    hover_color=hoverIconGeneralFormColor,
-                    tooltip="Seleccionar fecha"
-                )
+                self.creditcard_expires_date = CustomTextField(label="Caducidad", width=115)
+
 
                 # CreditCard content
                 self.bodycontent = ft.Container(
                     width=524,
-                    height=304,
+                    height=224,
                     content=ft.Column(
                         alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
                         controls=[
@@ -121,11 +116,7 @@ class AddForm(ft.AlertDialog):
                             ),
                             ft.Row(
                                 alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
-                                controls=[self.creditcard_number, self.creditcard_cvc]
-                            ),
-                            ft.Row(
-                                alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
-                                controls=[self.creditcard_expires_date, self.date_button]
+                                controls=[self.creditcard_number, self.creditcard_expires_date, self.creditcard_cvc]
                             )
                         ]
                     )
@@ -133,9 +124,41 @@ class AddForm(ft.AlertDialog):
 
             case AddFormStyle.NOTE:
                 # Note attributes
+                self.note_title = CustomTextField(label="Título (opcional)", width=520)
+                self.note_content = CustomTextField(label="Contenido", max_lines=2, multiline=True, width=520,
+                                                    min_lines=2)
 
                 # Note content
-                self.bodycontent = ft.Text("NOTE CONTENT")
+                self.bodycontent = ft.Container(
+                    width=524,
+                    height=224,
+                    content=ft.Column(
+                        alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+                        controls=[
+                            ft.Row(
+                                wrap=True,
+                                controls=[
+                                    ft.Text(
+                                        value="Todos los siguientes campos son necesarios a no ser que se indique lo "
+                                              "contrario. Para añadir una nueva nota segura a la base de datos, "
+                                              "rellena el formulario y pulsa 'Aceptar'.",
+                                        font_family="AlbertSansR",
+                                        size=16,
+                                        color=primaryTextColor
+                                    )
+                                ]
+                            ),
+                            ft.Row(
+                                alignment=ft.MainAxisAlignment.CENTER,
+                                controls=[self.note_title]
+                            ),
+                            ft.Row(
+                                alignment=ft.MainAxisAlignment.CENTER,
+                                controls=[self.note_content]
+                            )
+                        ]
+                    )
+                )
 
             case _:
                 self.bodycontent = ft.Text("{nothing_to_show}")
@@ -171,6 +194,3 @@ class AddForm(ft.AlertDialog):
         # Form design
         self.shape = ft.RoundedRectangleBorder(4)
         self.bgcolor = bgGeneralFormColor
-
-    def update_creditcard_date(self, new_date: datetime.datetime) -> None:
-        pass
