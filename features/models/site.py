@@ -25,7 +25,7 @@ class Site(Base):
     # Column settings
     id: Mapped[str] = mapped_column(primary_key=True)
     user_id: Mapped[str] = mapped_column(ForeignKey("user.id", ondelete="CASCADE"), nullable=False, index=True)
-    name: Mapped[str]
+    name: Mapped[str | None]
     address: Mapped[str]
     username: Mapped[str]
     encrypted_password: Mapped[str]
