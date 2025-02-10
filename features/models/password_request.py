@@ -24,16 +24,18 @@ class PasswordRequest(Base):
     # Column settings
     id: Mapped[str] = mapped_column(primary_key=True)
     user_id: Mapped[str] = mapped_column(ForeignKey("user.id", ondelete="CASCADE"), nullable=False, index=True)
+    encrypted_code: Mapped[str]
     created: Mapped[datetime]
 
     # Relationship settings
     user: Mapped["User"] = relationship("User", back_populates="password_change_requests")
 
     # Initializer
-    def __init__(self, user: User) -> None:
+    def __init__(self, code: str, user: User) -> None:
         super().__init__()
 
         self.id: str = GenerateID.short_id()
+        self.encrypted_code: str = code  # encrypt_data(code)
         self.user: User = user
         self.created: datetime = datetime.today()
 
@@ -42,4 +44,4 @@ class PasswordRequest(Base):
 
     def __str__(self) -> str:
         return (f"<class PasswordRequest(id='{self.id}', user={mask_email(self.user.email)}, "
-                f"created='{self.created.strftime('%Y-%m-%dT%H:%M:%S')}')>")
+                f"encrypted_code='{self.encrypted_code}', created='{self.created.strftime('%Y-%m-%dT%H:%M:%S')}')>")
