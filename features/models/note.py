@@ -9,7 +9,7 @@ from features.models.user import User
 # from features.encryption_module import encrypt_data
 
 from shared.utils.masker import mask_email, mask_text
-from shared.public_id import GenerateID
+from shared.generators import GenerateID
 from shared.logger_setup import test_logger as logger
 
 

@@ -8,7 +8,7 @@ from data.db_orm import Base
 from features.models.user import User
 
 from shared.utils.masker import mask_email
-from shared.public_id import GenerateID
+from shared.generators import GenerateID
 from shared.logger_setup import test_logger as logger
 
 
