@@ -6,7 +6,7 @@ from sqlalchemy import ForeignKey
 from data.db_orm import Base
 
 from features.models.user import User
-# from features.encryption_module import encrypt_data
+from features.encryption.core import encrypt_data
 
 from shared.utils.masker import mask_username, mask_text
 from shared.generators import GenerateID
@@ -42,7 +42,7 @@ class Site(Base):
         self.name: str | None = name
         self.address: str = address
         self.username: str = username
-        self.encrypted_password: str = password  # encrypt_data(password)
+        self.encrypted_password: str = encrypt_data(password)
         self.user: User = user
         self.created: datetime = datetime.today()
 

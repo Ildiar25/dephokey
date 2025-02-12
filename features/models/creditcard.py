@@ -6,7 +6,7 @@ from sqlalchemy import ForeignKey
 from data.db_orm import Base
 
 from features.models.user import User
-# from features.encryption_module import encrypt_data
+from features.encryption.core import encrypt_data
 
 from shared.utils.masker import mask_text, mask_email
 from shared.generators import GenerateID
@@ -43,8 +43,8 @@ class CreditCard(Base):
 
         self.id: str = GenerateID.short_id()
         self.cardholder: str = cardholder
-        self.encrypted_number: str = number  # encrypt_data(number)
-        self.encrypted_cvc: str = cvc  # encrypt_data(number)
+        self.encrypted_number: str = encrypt_data(number)
+        self.encrypted_cvc: str = encrypt_data(cvc)
         self.valid_until: datetime = valid_until
         self.expired: bool = True if self.valid_until < datetime.today() else False
         self.alias: str | None = alias

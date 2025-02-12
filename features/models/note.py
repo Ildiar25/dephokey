@@ -6,7 +6,7 @@ from sqlalchemy import ForeignKey
 from data.db_orm import Base
 
 from features.models.user import User
-# from features.encryption_module import encrypt_data
+from features.encryption.core import encrypt_data
 
 from shared.utils.masker import mask_email, mask_text
 from shared.generators import GenerateID
@@ -38,7 +38,7 @@ class Note(Base):
 
         self.id: str = GenerateID.short_id()
         self.title: str | None = title
-        self.encrypted_content: str = content  # encrypt_data(content)
+        self.encrypted_content: str = encrypt_data(content)
         self.user: User = user
         self.created: datetime = datetime.today()
 
