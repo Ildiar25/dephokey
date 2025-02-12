@@ -25,5 +25,5 @@ key_path = Path(__file__).parent
 
 
 # Check if key already exists:
-if not "key.key" in os.listdir(key_path):
+if "key.key" not in os.listdir(key_path):
     create_key()
