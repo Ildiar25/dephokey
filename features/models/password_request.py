@@ -6,8 +6,9 @@ from sqlalchemy import ForeignKey
 from data.db_orm import Base
 
 from features.models.user import User
+from features.encryption.core import encrypt_data
 
-from shared.utils.masker import mask_email
+from shared.utils.masker import mask_email, mask_text
 from shared.generators import GenerateID
 from shared.logger_setup import test_logger as logger
 
@@ -35,7 +36,7 @@ class PasswordRequest(Base):
         super().__init__()
 
         self.id: str = GenerateID.short_id()
-        self.encrypted_code: str = code  # encrypt_data(code)
+        self.encrypted_code: str = encrypt_data(code)
         self.user: User = user
         self.created: datetime = datetime.today()
 
@@ -44,4 +45,5 @@ class PasswordRequest(Base):
 
     def __str__(self) -> str:
         return (f"<class PasswordRequest(id='{self.id}', user={mask_email(self.user.email)}, "
-                f"encrypted_code='{self.encrypted_code}', created='{self.created.strftime('%Y-%m-%dT%H:%M:%S')}')>")
+                f"encrypted_code='{mask_text(self.encrypted_code)}',"
+                f"created='{self.created.strftime('%Y-%m-%dT%H:%M:%S')}')>")
