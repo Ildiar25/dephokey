@@ -17,3 +17,6 @@ data/database/database.db
 
 # Logs
 **/*.log
+
+# Keys
+**/*.key
