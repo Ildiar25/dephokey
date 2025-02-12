@@ -5,7 +5,7 @@ from cryptography.fernet import Fernet
 from shared.logger_setup import main_logger as logger
 
 
-def create_key():
+def create_key() -> None:
     new_key = Fernet.generate_key()
     try:
         with open(f"{key_path}/key.key", "xb") as key_file:
@@ -13,10 +13,8 @@ def create_key():
 
     except PermissionError as permission:
         logger.error(f"{type(permission).__name__} ::: No se disponen de permisos para la creación del archivo 'key'.")
-
     except FileExistsError as already_exists:
         logger.error(f"{type(already_exists).__name__} ::: El archivo 'key' ya existe.")
-
     except Exception as unknown:
         logger.error(f"{type(unknown).__name__} ::: Un error inesperado a ocurrido al tratar de crear el archivo "
                      f"'key'.")
