@@ -27,12 +27,10 @@ class CustomAppbar(ft.AppBar):
         self.bgcolor = bgAppbarColor
 
         # Leading (Logo)
-        self.leading_width = 200
+        self.leading_width = 230
         self.leading = ft.Container(
-            width=152,
-            height=48,
             margin=ft.margin.only(left=24, right=64),
-            image=ft.DecorationImage("interface/assets/logo.png", fit=ft.ImageFit.COVER)
+            content=ft.Image(src="interface/assets/logotype.svg", fit=ft.ImageFit.FIT_WIDTH)
         )
 
         # Title (Search bar)
