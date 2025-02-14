@@ -11,13 +11,13 @@ from shared.logger_setup import main_logger as logger
 class Email:
 
     def __init__(self, user: User, encrypt_code: str) -> None:
-        self.name = user.fullname.split(" ")[0]
-        self.receiver = user.email
-        self.code = decrypt_data(encrypt_code)
-        self.message_content = self.create(self.name, self.code)
+        self.name: str = user.fullname.split(" ")[0]
+        self.receiver: str = user.email
+        self.code: str = " ".join([ch for ch in decrypt_data(encrypt_code)])
+        self.message_content: tuple[str, str | None] = self.__create(self.name, self.code)
 
     @staticmethod
-    def create(name: str, code: str) -> tuple[str, str] | str:
+    def __create(name: str, code: str) -> tuple[str, str | None]:
 
         plain_text_email = (f"Hola {name}!\nPor favor, introduce en el programa el código de siete caracteres "
                             f"proporcionado\npara poder actualizar tu contraseña:\n\n{code}\n\nSi no has realizado la "
@@ -32,12 +32,17 @@ class Email:
             template = env.get_template("reset_password.html")
             html_doc = template.render(name=name, code=code)
 
+        # Returns message content
         except TemplateNotFound as not_template:
             logger.error(f"{type(not_template).__name__} ::: No se ha encontrado la plantilla HTML.")
-            return plain_text_email
-        # Return new HTML
+            return plain_text_email, None
         else:
-            return html_doc, plain_text_email
+            return plain_text_email, html_doc
 
     def send(self) -> None:
+        # Prepares connection with server
+
+        # Prepares message content
+
+        # Send message and report
         pass
