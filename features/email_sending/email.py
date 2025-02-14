@@ -32,12 +32,16 @@ class Email:
             template = env.get_template("reset_password.html")
             html_doc = template.render(name=name, code=code)
 
+            return plain_text_email, html_doc
+
         # Returns message content
         except TemplateNotFound as not_template:
-            logger.error(f"{type(not_template).__name__} ::: No se ha encontrado la plantilla HTML.")
+            logger.error(f"{type(not_template).__name__} ::: No se ha encontrado la plantilla HTML. {not_template}")
             return plain_text_email, None
-        else:
-            return plain_text_email, html_doc
+        except Exception as unknown:
+            logger.error(f"{type(unknown).__name__} ::: Un error inesperado ha ocurrido al procesar la platilla "
+                         f"HTML. {unknown}")
+            return plain_text_email, None
 
     def send(self) -> None:
         # Prepares connection with server
