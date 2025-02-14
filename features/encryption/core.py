@@ -12,14 +12,13 @@ def load_key() -> bytes | None:
         with open(f"{key_path}/key.key", "rb") as key_file:
             key = key_file.read()
 
+        return key
+
     except FileNotFoundError as not_found:
-        logger.error(f"{type(not_found).__name__} ::: No se ha encontrado el archivo 'key'.")
+        logger.error(f"{type(not_found).__name__} ::: No se ha encontrado el archivo 'key'. {not_found}")
     except Exception as unknown:
         logger.error(f"{type(unknown).__name__} ::: Un error inesperado a ocurrido al tratar de abrir el archivo "
-                     f"'key'.")
-
-    else:
-        return key
+                     f"'key'. {unknown}")
 
 
 def encrypt_data(new_data: str) -> str:
@@ -36,7 +35,11 @@ def encrypt_data(new_data: str) -> str:
         return encrypted_data.decode()
 
     except TypeError as current_type:
-        logger.error(f"{type(current_type).__name__} ::: No se ha podido encriptar el archivo.")
+        logger.error(f"{type(current_type).__name__} ::: No se ha podido encriptar el archivo. {current_type}")
+        return data_coded.decode()
+    except Exception as unknown:
+        logger.error(f"{type(unknown).__name__} ::: Un error inesperado ha ocurrido al tratar de encriptar el "
+                     f"archivo. {unknown}")
         return data_coded.decode()
 
 
@@ -55,4 +58,8 @@ def decrypt_data(load_data: str) -> str:
 
     except TypeError as current_type:
         logger.error(f"{type(current_type).__name__} ::: No se ha podido desencriptar el archivo.")
+        return data_coded.decode()
+    except Exception as unknown:
+        logger.error(f"{type(unknown).__name__} ::: Un error inesperado ha ocurrido al tratar de desencriptar el "
+                     f"archivo. {unknown}")
         return data_coded.decode()
