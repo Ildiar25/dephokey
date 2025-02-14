@@ -3,12 +3,15 @@ import flet as ft
 from data.db_orm import Base, engine, session
 
 from features.models.user import UserRole, User
+from features.email_sending.email import Email
+from features.encryption.core import encrypt_data
 
 from interface.pages import *
 from interface.controls.my_footer import Footer
 
 from shared.utils.colors import *
 from shared.logger_setup import main_logger as logger
+from shared.generators import GenerateToken
 
 
 def create_admin_account() -> None:
@@ -71,6 +74,11 @@ def main(page: ft.Page) -> None:
     page.on_route_change = route_changer
     page.go("/home")  # Change to 'login' once program is finished
 
+    # Testing email module (DELETE AFTER FINISH THE APP)
+    code_encrypted = encrypt_data(GenerateToken.tokenize())
+
+    new_email = Email(user, code_encrypted)
+    print(new_email.message_content)
 
 if __name__ == '__main__':
     ft.app(target=main, assets_dir="interface/assets")
