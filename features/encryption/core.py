@@ -1,11 +1,15 @@
 from cryptography.fernet import Fernet
+from pathlib import Path
 
 from shared.logger_setup import main_logger as logger
 
 
 def load_key() -> bytes | None:
     try:
-        with open("key.key", "rb") as key_file:
+        # Create key path
+        key_path = Path(__file__).parent
+
+        with open(f"{key_path}/key.key", "rb") as key_file:
             key = key_file.read()
 
     except FileNotFoundError as not_found:
