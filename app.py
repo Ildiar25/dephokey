@@ -3,7 +3,7 @@ import flet as ft
 from data.db_orm import Base, engine, session
 
 from features.models.user import UserRole, User
-from features.email_sending.email import Email
+from features.email_management.email import Email
 from features.encryption.core import encrypt_data
 
 from interface.pages import *
