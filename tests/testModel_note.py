@@ -38,7 +38,7 @@ class TestNote(unittest.TestCase):
     def setUp(self) -> None:
         logger.info("Preparing NOTE instance...")
 
-        # Create new instances
+        # Create new instance
         self.note = NoteBuilder().build()
         self.content = "Testing Note content..."
 
