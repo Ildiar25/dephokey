@@ -45,7 +45,7 @@ class TestCreditCard(unittest.TestCase):
         self.number = "1234123412341234"
         self.cvc = "123"
 
-        logger.info("CREDITCARD instances ready for test...")
+        logger.info("CREDITCARD instance ready for test...")
 
     def tearDown(self) -> None:
         del self.creditcard
