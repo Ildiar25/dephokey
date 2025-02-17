@@ -8,7 +8,7 @@ from features.encryption.core import decrypt_data
 from shared.logger_setup import main_logger as logger
 
 
-class Email:
+class CreateEmail:
 
     def __init__(self, user: User, encrypt_code: str) -> None:
         self.name: str = user.fullname.split(" ")[0]
