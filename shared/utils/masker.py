@@ -7,7 +7,12 @@ def mask_email(email: str) -> str:
 
 
 def mask_username(username: str) -> str:
-    pass
+    if "@" in username:
+        return mask_email(username)
+
+    else:
+        masked = "*" * len(username[3:])
+        return username[:3] + masked
 
 
 def mask_password(passsword: str) -> str:
