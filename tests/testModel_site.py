@@ -43,7 +43,7 @@ class TestSite(unittest.TestCase):
         self.site = SiteBuilder().build()
         self.password = "User_1234"
 
-        logger.info("SITE instances ready for test...")
+        logger.info("SITE instance ready for test...")
 
     def tearDown(self) -> None:
         del self.site
@@ -98,8 +98,8 @@ class TestSite(unittest.TestCase):
         logger.info(">>> Confirm if SITE PASSWORD is instance of STRING...   OK")
 
     def test_sitePasswordEncrypted(self) -> None:
-        self.assertEqual(self.password, decrypt_data(self.site.encrypted_password), msg="Password MUST BE equal.")
-        logger.info(">>> Confirm if PASSWORD is ENCRYPTED...   OK")
+        self.assertEqual(self.password, decrypt_data(self.site.encrypted_password), msg="Site password MUST BE equal.")
+        logger.info(">>> Confirm if SITE PASSWORD is ENCRYPTED...   OK")
 
     @staticmethod
     def log_instance(site: Site) -> None:
