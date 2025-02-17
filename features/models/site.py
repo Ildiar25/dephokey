@@ -50,6 +50,6 @@ class Site(Base):
         logger.info("Site instance created!")
 
     def __str__(self) -> str:
-        return (f"<class Site(id='{self.id}', name='{self.name}', address='{self.address}', username="
-                f"{mask_username(self.username)}, encrypted_password={mask_text(self.encrypted_password)}, "
-                f"user={self.user.fullname}, created='{self.created.strftime('%Y-%m-%dT%H:%M:%S')}')>")
+        return (f"<class Site(id={repr(self.id)}, name={repr(self.name)}, address={repr(self.address)}, username="
+                f"{repr(mask_username(self.username))}, encrypted_password={repr(mask_text(self.encrypted_password))}, "
+                f"user={repr(self.user.fullname)}, created={repr(self.created.strftime('%Y-%m-%dT%H:%M:%S'))})>")

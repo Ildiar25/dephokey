@@ -59,6 +59,6 @@ class User(Base):
         logger.info("User instance created!")
 
     def __str__(self) -> str:
-        return (f"<class User(id='{self.id}', role='{self.role}', fullname='{self.fullname}', "
-                f"email={mask_email(self.email)}, hashed_password={mask_text(self.hashed_password)}, "
-                f"created='{self.created.strftime('%Y-%m-%dT%H:%M:%S')}')>")
+        return (f"<class User(id={repr(self.id)}, role={repr(self.role)}, fullname={repr(self.fullname)}, "
+                f"email={repr(mask_email(self.email))}, hashed_password={repr(mask_text(self.hashed_password))}, "
+                f"created={repr(self.created.strftime('%Y-%m-%dT%H:%M:%S'))})>")

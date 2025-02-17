@@ -55,7 +55,8 @@ class CreditCard(Base):
         logger.info("Creditcard instance created!")
 
     def __str__(self) -> str:
-        return (f"<class Creditcard(id='{self.id}', cardholder='{self.cardholder}', "
-                f"encrypted_number={mask_text(self.encrypted_number)}, encrypted_cvc={mask_text(self.encrypted_cvc)}, "
-                f"valid_until='{self.valid_until.strftime('%Y-%m-%d')}', expired={self.expired}, alias='{self.alias}', "
-                f"user={mask_email(self.user.email)}, created='{self.created.strftime('%Y-%m-%dT%H:%M:%S')}')>")
+        return (f"<class Creditcard(id={repr(self.id)}, cardholder={repr(self.cardholder)}, "
+                f"encrypted_number={repr(mask_text(self.encrypted_number))}, encrypted_cvc"
+                f"={repr(mask_text(self.encrypted_cvc))}, valid_until={repr(self.valid_until.strftime('%Y-%m'))}, "
+                f"expired={repr(self.expired)}, alias={repr(self.alias)}, user={repr(mask_email(self.user.email))}, "
+                f"created={repr(self.created.strftime('%Y-%m-%dT%H:%M:%S'))})>")

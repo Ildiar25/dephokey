@@ -46,6 +46,7 @@ class Note(Base):
         logger.info("Note instance created!")
 
     def __str__(self) -> str:
-        return (f"<class Note(id='{self.id}', title='{self.title}', "
-                f"content_encrypted={mask_text(self.encrypted_content)}, user={mask_email(self.user.email)}, "
-                f"created='{self.created.strftime('%Y-%m-%dT%H:%M:%S')}')>")
+        return (f"<class Note(id={repr(self.id)}, title={repr(self.title)}, "
+                f"content_encrypted={repr(mask_text(self.encrypted_content))}, "
+                f"user={repr(mask_email(self.user.email))}, "
+                f"created={repr(self.created.strftime('%Y-%m-%dT%H:%M:%S'))})>")
