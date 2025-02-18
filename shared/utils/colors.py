@@ -39,8 +39,8 @@ neutralDangerDark = "#9C001C"
 neutralDangerMedium = "#D80027"
 neutralDangerLight = "#F6A8B3"
 
-neutralWarningMedium = "#DAC40C"
-neutralWarningLight = "#FFF8E4"
+neutralWarningMedium = Colors.AMBER_600
+neutralWarningLight = Colors.AMBER_300
 
 transparentColor = Colors.TRANSPARENT
 
