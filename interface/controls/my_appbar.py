@@ -9,6 +9,7 @@ from features.models.user import User
 
 from interface.controls.custom_searchbar import CustomSearchBar
 from interface.controls import CustomElevatedButton, CustomTextField
+from interface.pages.forms.change_password_form import ChangePasswordForm
 from interface.pages.body_content import BodyContent
 from interface.pages import LoadPage  # ---> ImportError (Circular import)
 
@@ -114,7 +115,6 @@ class CustomAppbar(ft.AppBar):
                             alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
                             controls=[
                                 ft.Row(
-                                    # height=29,
                                     controls=[
                                         ft.Text(
                                             "Información general",
@@ -125,7 +125,6 @@ class CustomAppbar(ft.AppBar):
                                     ]
                                 ),
                                 ft.Row(
-                                    # height=140,
                                     controls=[
                                         ft.Column(
                                             expand=True,
@@ -219,7 +218,7 @@ class CustomAppbar(ft.AppBar):
                                         CustomElevatedButton(
                                             name="Cambiar contraseña",
                                             foreground_color=secondaryTextColor,
-                                            on_click=self.update_password,
+                                            on_click=self.open_change_password_form,
                                             border_size=-1
                                         )
                                     ]
@@ -265,8 +264,10 @@ class CustomAppbar(ft.AppBar):
                 self.snackbar.open = True
                 self.snackbar.update()
 
-    def update_password(self, _: ft.ControlEvent) -> None:
-        pass
+    def open_change_password_form(self, _: ft.ControlEvent) -> None:
+        self.page.open(
+            ChangePasswordForm(self.page)
+        )
 
     @staticmethod
     def toggle_empty_fields(field: ft.ControlEvent) -> None:
