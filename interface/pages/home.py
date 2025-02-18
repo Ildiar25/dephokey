@@ -19,6 +19,14 @@ class Home(ft.Container):
         # General attributes
         self.page = page
         self.user: User = self.page.session.get("session")
+        self.snackbar = ft.SnackBar(
+            bgcolor=bgSnackbarDangerColor,
+            content=ft.Text(
+                "",
+                text_align=ft.TextAlign.CENTER,
+                color=dangerTextColor
+            )
+        )
 
         # General content
         if self.user.role == UserRole.ADMIN:
@@ -35,8 +43,8 @@ class Home(ft.Container):
         # Sidebar controller & Searchbar function
         self.sidebar = CustomSidebar(self.page, self.body_content)
         self.page.appbar = CustomAppbar(
-            self.page,
-            self.body_content, search_bar=True if self.user.role == UserRole.CLIENT else False,
+            self.page, self.body_content, self.snackbar,
+            search_bar=True if self.user.role == UserRole.CLIENT else False,
             find_function=self.find_elements if self.user.role == UserRole.CLIENT else None)
 
 
@@ -79,7 +87,7 @@ class Home(ft.Container):
                     expand=True,
                     spacing=0,
                     controls=[
-                        self.sidebar_location, self.active_content
+                        self.sidebar_location, self.active_content, self.snackbar
                     ]
                 )
             ]
