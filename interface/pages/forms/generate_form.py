@@ -110,7 +110,7 @@ class GenerateForm(ft.AlertDialog):
             case GenerateFormStyle.NUMBER:
                 self.submit_button.on_click = self.generate_cardnumber
                 self.bodycontent = ft.Container(
-                    width = 524,
+                    width=524,
                     height=150,
                     content=ft.Column(
                         alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
