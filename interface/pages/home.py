@@ -35,6 +35,7 @@ class Home(ft.Container):
         # Sidebar controller & Searchbar function
         self.sidebar = CustomSidebar(self.page, self.body_content)
         self.page.appbar = CustomAppbar(
+            self.page,
             self.body_content, search_bar=True if self.user.role == UserRole.CLIENT else False,
             find_function=self.find_elements if self.user.role == UserRole.CLIENT else None)
 
@@ -62,7 +63,7 @@ class Home(ft.Container):
         # Dashboard
         self.active_content = ft.Container(
             expand=True,
-            padding=ft.padding.only(56, 57, 56, 57),
+            padding=ft.padding.only(56, 56, 56, 28),
             content=self.body_content
         )
         self.content = ft.Column(
