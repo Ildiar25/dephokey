@@ -3,11 +3,16 @@ from collections.abc import Callable
 import flet as ft
 import time
 
+from data.db_orm import session
+
+from features.models.user import User
+
 from interface.controls.custom_searchbar import CustomSearchBar
 from interface.controls import CustomElevatedButton, CustomTextField
 from interface.pages.body_content import BodyContent
 from interface.pages import LoadPage  # ---> ImportError (Circular import)
 
+from shared.validate import Validate
 from shared.utils.colors import *
 
 
@@ -15,12 +20,14 @@ class CustomAppbar(ft.AppBar):
     def __init__(self,
                  page: ft.Page,
                  content: BodyContent,
+                 snackbar: ft.SnackBar,
                  search_bar: bool = False,
                  find_function: Callable[[ft.ControlEvent], None] | None = None) -> None:
         super().__init__()
 
         # General settings
         self.page = page
+        self.snackbar = snackbar
         self.visible = False
         self.search_bar = search_bar
         self.toolbar_height = 79
@@ -31,10 +38,12 @@ class CustomAppbar(ft.AppBar):
         self.fullname = CustomTextField(
             value=self.page.session.get("session").fullname,
             expand=True,
+            on_change=self.toggle_empty_fields
         )
         self.email = CustomTextField(
             value=self.page.session.get("session").email,
-            expand=True
+            expand=True,
+            on_change=self.toggle_empty_fields
         )
         self.password = CustomTextField(
             value="oooooooooooo",
@@ -148,6 +157,7 @@ class CustomAppbar(ft.AppBar):
                                             width=85,
                                             bg_color=bgEButtonColor,
                                             foreground_color=tertiaryTextColor,
+                                            on_click=self.update_info,
                                             border_size=-1
                                         )
                                     ]
@@ -209,7 +219,7 @@ class CustomAppbar(ft.AppBar):
                                         CustomElevatedButton(
                                             name="Cambiar contraseña",
                                             foreground_color=secondaryTextColor,
-                                            # on_click=lambda _: self.page.close(self),
+                                            on_click=self.update_password,
                                             border_size=-1
                                         )
                                     ]
@@ -221,6 +231,50 @@ class CustomAppbar(ft.AppBar):
             )
         ]
         self.settings_content.update()
+
+    def update_info(self, _: ft.ControlEvent) -> None:
+
+        new_fullname: str = self.fullname.value.title().strip()
+        new_email: str = self.email.value.lower().strip()
+
+        # Check fields
+        if all([new_fullname, new_email]):
+            # Check if email is valid
+            if not Validate.is_valid_email(new_email):
+                self.email.error_text = "El correo no es válido."
+                self.email.update()
+
+            else:
+                user: User = self.page.session.get("session")
+
+                user.fullname = new_fullname
+                user.email = new_email
+                session.commit()
+
+                # Updates settings page
+                self.fullname.value = self.page.session.get("session").fullname
+                self.fullname.update()
+
+                self.email.value = self.page.session.get("session").email
+                self.email.update()
+
+                # Notifies to the user
+                self.snackbar.content.value = f"¡Datos actualizados!"
+                self.snackbar.content.color = successTextColor
+                self.snackbar.bgcolor = neutralSuccessLight
+                self.snackbar.open = True
+                self.snackbar.update()
+
+    def update_password(self, _: ft.ControlEvent) -> None:
+        pass
+
+    @staticmethod
+    def toggle_empty_fields(field: ft.ControlEvent) -> None:
+        if field and not field.control.value:
+            field.control.error_text = "El campo no puede estar vacío."
+        else:
+            field.control.error_text = None
+        field.control.update()
 
     def logout(self, _: ft.ControlEvent) -> None:
 
