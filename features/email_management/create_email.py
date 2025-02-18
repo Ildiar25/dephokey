@@ -3,17 +3,17 @@ from jinja2.exceptions import TemplateNotFound
 from jinja2 import Environment, FileSystemLoader
 
 from features.models.user import User  # Circular import error with SQLAlchemy and Literal if executes from here
-from features.encryption.core import decrypt_data
 
+from shared.utils.masker import mask_text
 from shared.logger_setup import main_logger as logger
 
 
 class CreateEmail:
 
-    def __init__(self, user: User, encrypt_code: str) -> None:
+    def __init__(self, user: User, code: str) -> None:
         self.name: str = user.fullname.split(" ")[0]
         self.receiver: str = user.email
-        self.code: str = " ".join([ch for ch in decrypt_data(encrypt_code)])
+        self.code: str = " ".join([ch for ch in code])
         self.message_content: tuple[str, str | None] = self.__create(self.name, self.code)
 
     @staticmethod
@@ -43,10 +43,6 @@ class CreateEmail:
                          f"HTML. {unknown}")
             return plain_text_email, None
 
-    def send(self) -> None:
-        # Prepares connection with server
-
-        # Prepares message content
-
-        # Send message and report
-        pass
+    def __repr__(self) -> str:
+        return (f"<class CreateEmail(name={repr(self.name)}, receiver={repr(self.receiver)}, "
+                f"code={repr(mask_text(self.code))}, message={repr(mask_text(self.message_content[0]))})>")
