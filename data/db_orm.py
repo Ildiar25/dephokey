@@ -7,6 +7,10 @@ from pathlib import Path
 class Base(DeclarativeBase):
     pass
 
+# Prepare test database settings
+test_engine = create_engine("sqlite:///:memory:", echo=True)
+New_session = sessionmaker(bind=test_engine)
+test_session = New_session()
 
 # Create database path
 db_path = Path(__file__).parent.joinpath("database")
