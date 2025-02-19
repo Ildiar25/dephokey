@@ -76,7 +76,7 @@ class Home(ft.Container):
             padding=ft.padding.only(56, 56, 56, 28),
             content=ft.Stack(
                 controls=[
-                    ft.Container(image=ft.DecorationImage("interface/assets/deco-bgimage.png", fit=ft.ImageFit.COVER)),
+                    ft.Container(image=ft.DecorationImage("interface/assets/bgimage-home-page.png", fit=ft.ImageFit.COVER)),
                     self.body_content
                 ]
             )
