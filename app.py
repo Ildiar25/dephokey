@@ -32,7 +32,7 @@ def main(page: ft.Page) -> None:
     page.session.set("session", user)
 
     # Page settings
-    page.title = "Dephokey"
+    page.title = "Dephokey — PasswordManager v.0.0.1"
     page.fonts = {
         "AlbertSansR": "interface/assets/fonts/albert-sans/albert-sans-regular.ttf",
         "AlbertSansB": "interface/assets/fonts/albert-sans/albert-sans-bold.ttf",
