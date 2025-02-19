@@ -12,7 +12,7 @@ class LoadPage(ft.Container):
         self.alignment = ft.alignment.top_center
         self.expand = True
         self.bgcolor = ft.Colors.with_opacity(0.3, neutral00)
-        self.image = ft.DecorationImage(src="interface/assets/blurry-bgimage.png", fit=ft.ImageFit.COVER)
+        self.image = ft.DecorationImage(src="interface/assets/bgimage-load-page.png", fit=ft.ImageFit.COVER)
 
         # Content
         self.content = ft.ProgressBar(color=secondaryCorporateColor)
