@@ -122,7 +122,7 @@ class Login(ft.Container):
                 # Image deco
                 ft.Container(
                     expand=True,
-                    image=ft.DecorationImage("interface/assets/login-bgimage.png", fit=ft.ImageFit.COVER),
+                    image=ft.DecorationImage("interface/assets/bg-image-login.png", fit=ft.ImageFit.COVER),
                     content=ft.Stack(
                         alignment=ft.alignment.top_right,
                         controls=[
@@ -130,7 +130,7 @@ class Login(ft.Container):
                                 width=152,
                                 height=48,
                                 margin=ft.margin.only(top=25, right=50),
-                                bgcolor=ft.Colors.WHITE
+                                content=ft.Image("interface/assets/logotype-white.svg")
                             ),
                             ft.Column(
                                 expand=True,
@@ -139,7 +139,7 @@ class Login(ft.Container):
                                     ft.Container(
                                         expand=True,
                                         alignment=ft.alignment.center,
-                                        content=ft.Icon(ft.Icons.LOCK_ROUNDED, size=300, color=iconGeneralFormColor)
+                                        content=ft.Image(src="interface/assets/login-account-circle.svg", width=350)
                                     )
                                 ]
                             )

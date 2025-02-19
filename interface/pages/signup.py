@@ -64,7 +64,7 @@ class Signup(ft.Container):
                 # Image deco
                 ft.Container(
                     expand=True,
-                    image=ft.DecorationImage("interface/assets/signup-bgimage.png", fit=ft.ImageFit.COVER),
+                    image=ft.DecorationImage("interface/assets/bg-image-signup.png", fit=ft.ImageFit.COVER),
                     content=ft.Stack(
                         alignment=ft.alignment.top_left,
                         controls=[
@@ -72,7 +72,7 @@ class Signup(ft.Container):
                                 width=152,
                                 height=48,
                                 margin=ft.margin.only(left=50, top=25),
-                                bgcolor=ft.Colors.WHITE
+                                content=ft.Image("interface/assets/logotype-white.svg")
                             ),
                             ft.Column(
                                 expand=True,
@@ -81,8 +81,7 @@ class Signup(ft.Container):
                                     ft.Container(
                                         expand=True,
                                         alignment=ft.alignment.center,
-                                        content=ft.Icon(ft.Icons.SUPERVISED_USER_CIRCLE_ROUNDED,
-                                                        size=300, color=iconGeneralFormColor)
+                                        content=ft.Image(src="interface/assets/signup-passkey.svg", width=350)
                                     )
                                 ]
                             )
