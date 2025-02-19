@@ -93,14 +93,23 @@ class TestDatabase(unittest.TestCase):
         self.assertEqual(first=element.name, second="Test02", msg="Test table DOESN'T FIND element with id=3.")
         logger.info(">>> Confirm if TEST TABLE return specific element.")
 
-    def test_tableQueryMultipleElements(self) -> None:
+    def test_tableQueryAllElements(self) -> None:
 
-        # Multiple elements request
+        # All elements request
         elements = test_session.query(TableBuilder).all()
 
         self.log_query_result(elements)
         self.assertEqual(first=len(elements), second=4, msg="Test table DOESN'T HAVE 4 rows (all elements).")
         logger.info(">>> Confirm if TEST TABLE return all elements.")
+
+    def test_tableQueryLimitElements(self) -> None:
+
+        # Limit elements request
+        elements = test_session.query(TableBuilder).limit(2).all()
+
+        self.log_query_result(elements)
+        self.assertEqual(first=len(elements), second=2, msg="Test table DOESN'T HAVE enough elements.")
+        logger.info(">>> Confirm if TEST TABLE return (2) elements.")
 
     def test_tableQuerySpecificMultipleElements(self) -> None:
 
