@@ -28,7 +28,7 @@ def main(page: ft.Page) -> None:
         create_admin_account()
 
     # This snippet allows change UserRole without any bug (DELETE AFTER FINISH THE APP)
-    user = User("Usuario Prueba", "test@test.com", "test1234", UserRole.ADMIN)
+    user = User("Usuario Prueba", "test@test.com", "test1234", UserRole.CLIENT)
     page.session.set("session", user)
 
     # Page settings
@@ -36,7 +36,8 @@ def main(page: ft.Page) -> None:
     page.fonts = {
         "AlbertSansR": "interface/assets/fonts/albert-sans/albert-sans-regular.ttf",
         "AlbertSansB": "interface/assets/fonts/albert-sans/albert-sans-bold.ttf",
-        "AlbertSansL": "interface/assets/fonts/albert-sans/albert-sans-light.ttf"
+        "AlbertSansL": "interface/assets/fonts/albert-sans/albert-sans-light.ttf",
+        "AlbertSansI": "interface/assets/fonts/albert-sans/albert-sans-italic.ttf",
     }
 
     # Page design
