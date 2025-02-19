@@ -3,6 +3,8 @@ import random
 from string import ascii_lowercase, ascii_uppercase, digits
 from hashlib import sha256
 
+from click import style
+
 from data.db_orm import session
 
 from features.models.user import User
@@ -62,31 +64,46 @@ class ChangePasswordForm(ft.AlertDialog):
 
         # F-Content
         self.content = ft.Container(
-            width=530,
-            height=248,
+            width=550,
+            height=320,
             content=ft.Column(
                 alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
                 controls=[
                     ft.Row(
                         alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
                         controls=[
-                            ft.Column(
-                                width=80,
-                                alignment=ft.MainAxisAlignment.CENTER,
-                                horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-                                controls=[
-                                    ft.Icon(ft.Icons.WARNING_AMBER_ROUNDED, size=40, color=neutralWarningMedium)
-                                ]
-                            ),
+                            # ft.Column(
+                            #     width=80,
+                            #     alignment=ft.MainAxisAlignment.CENTER,
+                            #     horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+                            #     controls=[
+                            #         ft.Icon(ft.Icons.WARNING_ROUNDED, size=40, color=neutralWarningMedium)
+                            #     ]
+                            # ),
                             ft.Row(
                                 expand=True,
                                 wrap=True,
                                 controls=[
                                     ft.Text(
-                                        "Atención: Si olvida la contraseña deberá volver a restaurarla desde el "
-                                        "principio. Por su seguridad las contraseñas no se almacenan en la "
-                                        "base de datos y no vamos a explicar ahora cómo lo hacen...",
-                                        color=secondaryTextColor
+                                        value="¡Atención!",
+                                        color=primaryTextColor,
+                                        spans=[
+                                            ft.TextSpan(text=" Si olvidas la contraseña deberás restaurarla desde el "
+                                                        "principio. Por tu seguridad,",
+                                                        style=ft.TextStyle(font_family="AlbertSansL")),
+                                            ft.TextSpan(text=" las contraseñas no se almacenan en la base de datos,",
+                                                        style=ft.TextStyle(font_family="AlbertSansB")),
+                                            ft.TextSpan(text=" por lo que",
+                                                        style=ft.TextStyle(font_family="AlbertSansL")),
+                                            ft.TextSpan(text=" es importante que la recuerdes.\n\n",
+                                                        style=ft.TextStyle(font_family="AlbertSansB")),
+                                            ft.TextSpan(text="Puedes introducir tu nueva contraseña de forma manual o "
+                                                        "generarla automáticamente desde el botón",
+                                                        style=ft.TextStyle(font_family="AlbertSansL")),
+                                            ft.TextSpan(text=" Generar Contraseña.",
+                                                        style=ft.TextStyle(font_family="AlbertSansI"))
+                                        ],
+                                        font_family="AlbertSansB"
                                     )
                                 ]
                             )
@@ -134,8 +151,6 @@ class ChangePasswordForm(ft.AlertDialog):
             self.submit_button.disabled = True
         self.submit_button.update()
 
-
-
     def generate_password(self, _: ft.ControlEvent) -> None:
         characters = ascii_lowercase + digits + ascii_uppercase
         new_password = ""
@@ -163,7 +178,8 @@ class ChangePasswordForm(ft.AlertDialog):
             if not Validate.is_valid_password(password):
                 self.check_password.error_text = ""
                 self.check_password.update()
-                self.password.error_text = "La contraseña no es válida"
+                self.password.error_text = ("Contraseña inválida: debe contener mínimo mayúsculas, minúsculas y un "
+                                            "número.")
                 self.password.update()
 
             else:
