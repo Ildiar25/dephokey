@@ -3,8 +3,6 @@ import random
 from string import ascii_lowercase, ascii_uppercase, digits
 from hashlib import sha256
 
-from click import style
-
 from data.db_orm import session
 
 from features.models.user import User

@@ -101,6 +101,6 @@ class Home(ft.Container):
         )
 
     def find_elements(self, e: ft.ControlEvent) -> None:
-        self.body_content.controls[0].controls[0].value = f"Buscando {e.control.value}"
+        self.body_content.controls[0].controls[0].value = f"Buscando {e.control.value.title()}"
         self.body_content.controls[0].controls[1].controls = []
         self.body_content.update()
