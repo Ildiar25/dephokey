@@ -75,7 +75,7 @@ class CustomAppbar(ft.AppBar):
         self.leading_width = 230
         self.leading = ft.Container(
             margin=ft.margin.only(left=24, right=64),
-            content=ft.Image(src="interface/assets/logotype.svg", fit=ft.ImageFit.FIT_WIDTH)
+            content=ft.Image(src="interface/assets/logotype-color.svg", fit=ft.ImageFit.FIT_WIDTH)
         )
 
         # Title (Search bar)
