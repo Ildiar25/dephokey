@@ -18,7 +18,7 @@ class CustomSearchBar(ft.Container):
 
         # Animation
         self.animate_opacity = 250
-        self.on_hover = self.toggle_bar
+        self.on_hover = self.toggle_bar_opacity
 
         # Container content
         self.content = ft.Row(
@@ -41,6 +41,6 @@ class CustomSearchBar(ft.Container):
             ]
         )
 
-    def toggle_bar(self, event: ft.ControlEvent) -> None:
+    def toggle_bar_opacity(self, event: ft.ControlEvent) -> None:
         self.opacity = 1 if event.data and self.opacity == 0.2 else 0.2
         self.update()
