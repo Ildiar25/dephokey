@@ -37,7 +37,8 @@ class Home(ft.Container):
 
         else:
             self.body_content = BodyContent(
-                title=f"Bienvenido/a {self.user.fullname.split(' ')[0]}!"
+                title=f"Bienvenido/a {self.user.fullname.split(' ')[0]}!",
+                widgets=[]
             )
 
         # Sidebar controller & Searchbar function
@@ -72,7 +73,12 @@ class Home(ft.Container):
         self.active_content = ft.Container(
             expand=True,
             padding=ft.padding.only(56, 56, 56, 28),
-            content=self.body_content
+            content=ft.Stack(
+                controls=[
+                    ft.Container(image=ft.DecorationImage("interface/assets/deco-bgimage.png", fit=ft.ImageFit.COVER)),
+                    self.body_content
+                ]
+            )
         )
         self.content = ft.Column(
             expand=True,
