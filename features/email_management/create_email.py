@@ -13,7 +13,7 @@ class CreateEmail:
     def __init__(self, user: User, code: str) -> None:
         self.name: str = user.fullname.split(" ")[0]
         self.receiver: str = user.email
-        self.code: str = " ".join([ch for ch in code])
+        self.code: str = code
         self.message_content: tuple[str, str | None] = self.__create(self.name, self.code)
 
     @staticmethod

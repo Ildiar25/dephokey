@@ -38,12 +38,12 @@ class TestMasker(unittest.TestCase):
         logger.info("Preparing MASKER testing...")
 
         # Create comparable elements
-        self.masked_email = "**********@example.com"
-        self.masked_username = "Tes********"
-        self.masked_password = "***********"
-        self.masked_number = "************9989"
-        self.masked_phone = "******454"
-        self.masked_text = "*****************..."
+        self.masked_email = "••••••••••@example.com"
+        self.masked_username = "Tes••••••••"
+        self.masked_password = "•••••••••••"
+        self.masked_number = "••••••••••••9989"
+        self.masked_phone = "••••••454"
+        self.masked_text = "•••• •• • ••••• ••• •••••••• •••• •• •••• ••••••• ••• ••• •••••••"
 
         logger.info("MASKER ready for test...")
 

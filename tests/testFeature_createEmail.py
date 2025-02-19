@@ -26,9 +26,9 @@ class TestCreateEmail(unittest.TestCase):
         # Create comparable items
         self.name = "User"
         self.user_email = "user.email@example.com"
-        self.code = "A B C 1 2 3 4"
+        self.code = "ABC1234"
         self.text_plain = ("Hola User!\nPor favor, introduce en el programa el código de siete caracteres "
-                           "proporcionado\npara poder actualizar tu contraseña:\n\nA B C 1 2 3 4\n\nSi no has "
+                           "proporcionado\npara poder actualizar tu contraseña:\n\nABC1234\n\nSi no has "
                            "realizado la petición, puedes ignorar este email.\n\nAtentamente,\nEl equipo Dephokey")
         self.html_message = ('<!DOCTYPE html>\n<html lang="es">\n\n<head>\n    <meta charset="UTF-8">\n    '
                              '<meta name="viewport" content="width=device-width,initial-scale=1.0">\n    <style>'
@@ -54,7 +54,7 @@ class TestCreateEmail(unittest.TestCase):
                              'en el programa\n                                el código de siete caracteres '
                              'proporcionado para poder actualizar tu contraseña:</p>\n                            '
                              '<p id="code" class="center-align">\n                                    '
-                             '<strong style="font-size: 180%;">A B C 1 2 3 4</strong></p>\n                            '
+                             '<strong style="font-size: 180%;">ABC1234</strong></p>\n                            '
                              '<p>Si no has realizado la petición, puedes ignorar este email.</p>\n'
                              '                            <p>Atentamente,<br>El equipo Dephokey</p>\n'
                              '                        </div>\n                    </div>\n                    '
@@ -112,7 +112,7 @@ class TestCreateEmail(unittest.TestCase):
         logger.info(">>> Confirm if CODE is instance of STRING...   OK")
 
     def test_createEmailCodeLenght(self) -> None:
-        self.assertEqual(first=len(self.email.code), second=13, msg="Code lenght (with spaces) MUST BE 13 characters.")
+        self.assertEqual(first=len(self.email.code), second=7, msg="Code lenght MUST BE 7 characters.")
         logger.info(">>> Confirm if CODE LENGTH is VALID...   OK")
 
     def test_createEmailMessageExists(self) -> None:

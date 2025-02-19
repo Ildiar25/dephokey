@@ -30,6 +30,12 @@ def mask_phone(phone: str) -> str:
 
 
 def mask_text(text: str) -> str:
-    if len(text) >= 20:
-        return "•" * 17 + "..."
-    return "•" * len(text)
+    masked = ""
+    for char in text:
+        if char == " ":
+            masked += " "
+        else:
+            masked += "•"
+    if len(masked) > 120:
+        return masked[:120] + "..."
+    return masked
