@@ -29,10 +29,11 @@ class Home(ft.Container):
         )
 
         # General content
+        self.admin_page = Admin(self.page)
         if self.user.role == UserRole.ADMIN:
             self.body_content = BodyContent(
                 title="Bienvenido Administrador!",
-                widgets=[Admin(self.page)]
+                widgets=[self.admin_page]
             )
 
         else:
@@ -44,7 +45,7 @@ class Home(ft.Container):
         # Sidebar controller & Searchbar function
         self.sidebar = CustomSidebar(self.page, self.body_content)
         self.page.appbar = CustomAppbar(
-            self.page, self.body_content, self.snackbar,
+            self.page, self.body_content, self.snackbar, self.admin_page,
             search_bar=True if self.user.role == UserRole.CLIENT else False,
             find_function=self.find_elements if self.user.role == UserRole.CLIENT else None)
 

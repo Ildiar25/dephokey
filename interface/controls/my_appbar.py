@@ -5,13 +5,16 @@ import time
 
 from data.db_orm import session
 
-from features.models.user import User
+from features.models.user import User, UserRole
 
 from interface.controls.custom_searchbar import CustomSearchBar
 from interface.controls import CustomElevatedButton, CustomTextField
+
 from interface.pages.forms.change_password_form import ChangePasswordForm
+#from interface.pages.admin import Admin   ---> ImportError (Circular import)
 from interface.pages.body_content import BodyContent
 from interface.pages import LoadPage  # ---> ImportError (Circular import)
+
 
 from shared.validate import Validate
 from shared.utils.colors import *
@@ -22,18 +25,30 @@ class CustomAppbar(ft.AppBar):
                  page: ft.Page,
                  content: BodyContent,
                  snackbar: ft.SnackBar,
+                 admin_page,  # Admin Class
                  search_bar: bool = False,
                  find_function: Callable[[ft.ControlEvent], None] | None = None) -> None:
         super().__init__()
 
         # General settings
         self.page = page
+        self.admin_page = admin_page
         self.snackbar = snackbar
         self.visible = False
         self.search_bar = search_bar
         self.toolbar_height = 79
         self.settings_content = content
         self.look_for_elements = find_function
+        self.user = self.page.session.get("session")
+
+        self.back_button = ft.IconButton(
+            ft.Icons.KEYBOARD_DOUBLE_ARROW_LEFT_ROUNDED,
+            icon_color=primaryCorporateColor,
+            on_click=self.go_back,
+            highlight_color=neutral20,
+            hover_color=neutral10,
+            visible=False
+        )
 
         # Settings attributes
         self.fullname = CustomTextField(
@@ -96,9 +111,14 @@ class CustomAppbar(ft.AppBar):
 
     def settings(self, _: ft.ControlEvent) -> None:
         self.settings_content.controls[0].controls[0].value = "Configuración"
-        self.settings_content.controls[0].controls[1].controls = []
-        self.settings_content.controls[1].controls = [
+        self.settings_content.controls[0].controls[1].controls = [self.back_button]
+        self.settings_content.update()
 
+        if self.user.role == UserRole.ADMIN:
+            self.back_button.visible = True
+            self.back_button.update()
+
+        self.settings_content.controls[1].controls = [
             ft.Row(
                 spacing=32,
                 controls=[
@@ -268,6 +288,13 @@ class CustomAppbar(ft.AppBar):
         self.page.open(
             ChangePasswordForm(self.page)
         )
+
+    def go_back(self, _: ft.ControlEvent) -> None:
+        self.settings_content.controls[0].controls[0].value = "Bienvenido Administrador!"
+        self.settings_content.controls[0].controls[1].controls = []
+        self.settings_content.controls[1].controls = [self.admin_page]
+        self.settings_content.update()
+
 
     @staticmethod
     def toggle_empty_fields(field: ft.ControlEvent) -> None:
