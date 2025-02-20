@@ -1,14 +1,10 @@
 import flet as ft
 
-from data.db_orm import session
+from features.models.user import User, UserRole
 
-from features.models.user import User
-from features.models import Site, CreditCard, Note
-
-from interface.controls import CustomElevatedButton
+from interface.controls import *
 from interface.pages.forms import GenerateFormStyle, GenerateForm, AddFormStyle, AddForm
-from interface.pages.body_content import BodyContent
-from interface.pages.widgets import *
+from interface.pages.body_content import BodyContent, ContentStyle
 
 from shared.utils.colors import *
 
@@ -19,10 +15,10 @@ class CustomSidebar(ft.NavigationRail):
 
         # General attributes
         self.page = page
-        self.user: User = self.page.session.get("session")
         self.body_content = content
 
         # Navigation attributes
+        self.user: User = self.page.session.get("session")
         self.go_home = ft.NavigationRailDestination(
             ft.Icon(ft.Icons.HOME_ROUNDED, color=selectSidebarColor),
             selected_icon=ft.Icon(ft.Icons.HOME_ROUNDED, color=iconSidebarColor),
@@ -30,7 +26,7 @@ class CustomSidebar(ft.NavigationRail):
             label_content=ft.Container(
                 padding=10,
                 content=ft.Text(
-                    "Home",
+                    "Inicio",
                     font_family="AlbertSansL",
                     color=textSidebarColor
                 )
@@ -91,9 +87,8 @@ class CustomSidebar(ft.NavigationRail):
 
         # Main settings
         self.width = 200
-        # self.height = 500
         self.extended = True
-        self.visible = True
+        self.visible = True if self.user.role == UserRole.CLIENT else False
         self.on_change = self.select_destination
 
         # Sidebar design
@@ -112,55 +107,46 @@ class CustomSidebar(ft.NavigationRail):
         ]
 
     def show_home(self) -> None:
-        self.body_content.controls[0].controls[0].value = "Inicio"
-        self.body_content.controls[0].controls[1].controls = []
-        self.body_content.controls[1].controls = []
+        self.body_content.change_content(title="Inicio", style=ContentStyle.HOME)
         self.body_content.update()
 
     def show_sites(self) -> None:
         site_buttons = [
-            CustomElevatedButton(name="Generar Contraseña", width=187, icon=ft.Icons.PASSWORD_ROUNDED,
-                                 foreground_color=accentTextColor, bg_color=neutral05, border_size=1,
-                                 on_click=self.open_newpassword_form),
-            CustomElevatedButton(name="Nueva Dirección Web", width=197, icon=ft.Icons.ADD_ROUNDED,
-                                 foreground_color=tertiaryTextColor, bg_color=primaryCorporateColor, border_size=-1,
-                                 on_click=self.add_newsite_form)
+            CustomElevatedButton(
+                name="Generar contraseña", style=ButtonStyle.BORDER, on_click=self.open_newpassword_form,
+                icon=ft.Icons.PASSWORD_ROUNDED),
+            CustomElevatedButton(
+                name="Nueva dirección web", style=ButtonStyle.ICON, on_click=self.add_newsite_form)
         ]
 
-        self.body_content.controls[0].controls[0].value = "Direcciones web"
-        self.body_content.controls[0].controls[1].controls = site_buttons
-        self.body_content.controls[1].controls = [SiteWidget(site, self.page) for site in self.user.sites]
+        self.body_content.change_content(
+            title="Direcciones web", style=ContentStyle.SITES, buttons=site_buttons
+        )
         self.body_content.update()
 
     def show_cards(self) -> None:
         creditcard_buttons = [
-            CustomElevatedButton(name="Generar Número", width=187, icon=ft.Icons.ADD_CARD_ROUNDED,
-                                 foreground_color=accentTextColor, bg_color=neutral05,border_size=1,
-                                 on_click=self.open_newnumber_form),
-            CustomElevatedButton(name="Nueva Tarjeta", width=197, icon=ft.Icons.ADD_ROUNDED,
-                                 foreground_color=tertiaryTextColor, bg_color=primaryCorporateColor, border_size=-1,
-                                 on_click=self.add_newcreditcard_form)
+            CustomElevatedButton(
+                name="Generar número", style=ButtonStyle.BORDER, on_click=self.open_newnumber_form,
+                icon=ft.Icons.ADD_CARD_ROUNDED),
+            CustomElevatedButton(
+                name="Nueva tarjeta de crédito", style=ButtonStyle.ICON, on_click=self.add_newcreditcard_form)
         ]
-        self.body_content.controls[0].controls[0].value = "Tarjetas de crédito"
-        self.body_content.controls[0].controls[1].controls = creditcard_buttons
-        self.body_content.controls[1].controls = []
+        self.body_content.change_content(
+            title="Tarjetas de crédito", style=ContentStyle.CREDITCARDS, buttons=creditcard_buttons
+        )
         self.body_content.update()
 
     def show_notes(self) -> None:
         note_buttons = [
-            CustomElevatedButton(name="Nueva Nota", width=197, icon=ft.Icons.ADD_ROUNDED,
-                                 foreground_color=tertiaryTextColor, bg_color=primaryCorporateColor, border_size=-1,
-                                 on_click=self.add_newnote_form)
+            CustomElevatedButton(
+                name="Nueva nota segura", style=ButtonStyle.ICON, on_click=self.add_newnote_form)
         ]
-        self.body_content.controls[0].controls[0].value = "Notas seguras"
-        self.body_content.controls[0].controls[1].controls = note_buttons
-        self.body_content.controls[1].controls = [NoteWidget(note, self.page) for note in self.user.notes]
+        self.body_content.change_content(title="Notas seguras", style=ContentStyle.NOTES, buttons=note_buttons)
         self.body_content.update()
 
     def show_info(self) -> None:
-        self.body_content.controls[0].controls[0].value = "Acerca de"
-        self.body_content.controls[0].controls[1].controls = []
-        self.body_content.controls[1].controls = []
+        self.body_content.change_content(title="Acerca de", style=ContentStyle.ABOUT)
         self.body_content.update()
 
     def add_newsite_form(self, _: ft.ControlEvent) -> None:
@@ -205,6 +191,3 @@ class CustomSidebar(ft.NavigationRail):
 
             case 4:
                 self.show_info()
-
-            case _:
-                pass
