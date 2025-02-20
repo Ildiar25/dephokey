@@ -1,6 +1,6 @@
 import flet as ft
 
-from interface.controls import CustomTextField, CustomElevatedButton
+from interface.controls import *
 from shared.utils.colors import *
 
 
@@ -16,14 +16,7 @@ class ResetPasswordPage(ft.Container):
             label="Correo Electrónico",
             on_change=None
         )
-        self.submit_email = CustomElevatedButton(
-            name="¡Vamos!",
-            width=85,
-            bg_color=bgEButtonColor,
-            foreground_color=tertiaryTextColor,
-            on_click=None,
-            border_size=-1
-        )
+        self.submit_email = CustomElevatedButton(name="¡Vamos!", style=ButtonStyle.DEFAULT, on_click=None)
 
         # Page design
         self.expand = True
