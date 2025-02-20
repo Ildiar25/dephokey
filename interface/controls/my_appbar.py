@@ -255,6 +255,10 @@ class CustomAppbar(ft.AppBar):
 
         new_fullname: str = self.fullname.value.title().strip()
         new_email: str = self.email.value.lower().strip()
+        user: User = self.page.session.get("session")
+
+        if user.fullname == new_fullname and user.email == new_email:
+            return
 
         # Check fields
         if all([new_fullname, new_email]):
@@ -264,8 +268,6 @@ class CustomAppbar(ft.AppBar):
                 self.email.update()
 
             else:
-                user: User = self.page.session.get("session")
-
                 user.fullname = new_fullname
                 user.email = new_email
                 session.commit()
