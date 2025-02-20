@@ -11,7 +11,7 @@ class Footer(ft.BottomAppBar):
         # General settings
         self.visible = False
         self.height = 48
-        self.padding = ft.padding.only(24, 16, 24, 16)
+        self.padding = ft.padding.symmetric(vertical=16, horizontal=24)
 
         # Design settings
         self.bgcolor = bgFooterColor
