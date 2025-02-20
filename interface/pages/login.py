@@ -6,7 +6,7 @@ from data.db_orm import session
 
 from features.models.user import User
 
-from interface.pages import LoadPage
+from interface.pages.load_page import LoadPage
 from interface.controls import *
 
 from shared.validate import Validate
@@ -22,14 +22,7 @@ class Login(ft.Container):
         # General attributes
         self.page = page
         self.page.scroll = None
-        self.snackbar = ft.SnackBar(
-            bgcolor=bgSnackbarDangerColor,
-            content=ft.Text(
-                "",
-                text_align=ft.TextAlign.CENTER,
-                color=dangerTextColor
-            )
-        )
+        self.snackbar = Snackbar()
 
         # Login elements
         self.email = CustomTextField(
@@ -44,8 +37,7 @@ class Login(ft.Container):
             can_reveal_password=True
         )
         self.login_button = CustomElevatedButton(
-            name="Login", bg_color=bgEButtonColor, foreground_color=tertiaryTextColor,
-            border_size=-1, expand=True, disabled=True, on_click=self.login
+            name="Login", style=ButtonStyle.DEFAULT, expand=True, disabled=True, on_click=self.login
         )
 
         # Page design
@@ -179,16 +171,15 @@ class Login(ft.Container):
 
         # First, validate email & password
         if not all((Validate.is_valid_email(email_input), Validate.is_valid_password(password_input))):
-            self.snackbar.content.value = ("El correo o la contraseña no son válidos.\n"
-                                           "La contraseña debe tener al menos un número, una mayúscula y "
-                                           "una minúscula")
-            self.snackbar.open = True
+            self.snackbar.change_style(
+                msg="El correo o la contraseña no son válidos.\nLa contraseña debe tener al menos un número, "
+                    "una mayúscula y una minúscula", style=SnackbarStyle.DANGER
+            )
             self.snackbar.update()
         else:
             # Second, check if email already exists
             if not session.query(User).filter(User.email == email_input).first():
-                self.snackbar.content.value = "¡El usuario no existe!"
-                self.snackbar.open = True
+                self.snackbar.change_style(msg="¡El usuario no existe!", style=SnackbarStyle.DANGER)
                 self.snackbar.update()
             else:
                 # Third, load user and hashed input password
@@ -199,8 +190,8 @@ class Login(ft.Container):
                 if not all((user.email == email_input, user.hashed_password == hashed_password)):
                     logger.warning("Inicio de sesión fallido: Los datos no coinciden...")
                     logger.debug(f" >>> Datos: '{mask_email(email_input)}' - '{mask_password(password_input)}'")
-                    self.snackbar.content.value = "El correo electrónico o la contraseña no son válidos."
-                    self.snackbar.open = True
+                    self.snackbar.change_style(msg="El correo electrónico o la contraseña no son válidos.",
+                                               style=SnackbarStyle.DANGER)
                     self.snackbar.update()
 
                 else:

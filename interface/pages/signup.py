@@ -6,7 +6,6 @@ from data.db_orm import session
 from features.models.user import User
 
 from interface.pages.load_page import LoadPage
-from interface.controls.snackbar import Snackbar, SnackbarStyle
 from interface.controls import *
 
 from shared.validate import Validate
@@ -44,8 +43,7 @@ class Signup(ft.Container):
             password=True
         )
         self.signup_button = CustomElevatedButton(
-            "Regístrate", bg_color=bgEButtonColor, foreground_color=tertiaryTextColor,
-            border_size=-1, expand=True, disabled=True, on_click=self.create_account
+            name="Regístrate", style=ButtonStyle.DEFAULT, expand=True, disabled=True, on_click=self.create_account
         )
 
         # Page design
@@ -160,7 +158,7 @@ class Signup(ft.Container):
         cursor.control.update()
 
     def toggle_signup_button_state(self, _: ft.ControlEvent) -> None:
-        if all((self.name, self.email.value, self.password.value, self.password_repeat)):
+        if all((self.name, self.email.value, self.password.value, self.password_repeat.value)):
             self.signup_button.disabled = False
         else:
             self.signup_button.disabled = True
@@ -183,11 +181,9 @@ class Signup(ft.Container):
             # Second, validates email & password
             if not all((Validate.is_valid_email(email_input), Validate.is_valid_password(password_input))):
                 # Reset Snackbar
-
                 self.snackbar.change_style(
                     msg="El correo o la contraseña no son válidos.\nLa contraseña debe tener al menos un número, "
-                        "una mayúscula y una minúscula",
-                    style=SnackbarStyle.DANGER)
+                        "una mayúscula y una minúscula", style=SnackbarStyle.DANGER)
                 self.snackbar.update()
 
             else:
