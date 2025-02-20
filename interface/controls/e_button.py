@@ -102,7 +102,7 @@ class CustomElevatedButton(ft.ElevatedButton):
             case ButtonStyle.BORDER:
                 self.bgcolor = {
                     ft.ControlState.DISABLED: bgDissabledEButtonColor,
-                    ft.ControlState.DEFAULT: neutral00,
+                    ft.ControlState.DEFAULT: transparentColor,
                     ft.ControlState.HOVERED: bgHoverEButtonColor
                 }
                 self.style = ft.ButtonStyle(
