@@ -37,7 +37,11 @@ class CustomElevatedButton(ft.ElevatedButton):
                     ft.ControlState.HOVERED: bgHoverEButtonColor
                 }
                 self.style = ft.ButtonStyle(
-                    text_style=ft.TextStyle(font_family="AlbertSansR"),
+                    padding={
+                        ft.ControlState.DEFAULT: ft.padding.symmetric(vertical=8, horizontal=16),
+                        ft.ControlState.DISABLED: ft.padding.symmetric(vertical=8, horizontal=16),
+                        ft.ControlState.HOVERED: ft.padding.symmetric(vertical=8, horizontal=16)
+                    },
                     color={
                         ft.ControlState.DEFAULT: tertiaryTextColor,
                         ft.ControlState.DISABLED: tertiaryTextColor,
@@ -72,7 +76,11 @@ class CustomElevatedButton(ft.ElevatedButton):
                     ft.ControlState.HOVERED: bgHoverEButtonColor
                 }
                 self.style = ft.ButtonStyle(
-                    text_style=ft.TextStyle(font_family="AlbertSansR"),
+                    padding={
+                        ft.ControlState.DEFAULT: ft.padding.symmetric(vertical=8, horizontal=16),
+                        ft.ControlState.DISABLED: ft.padding.symmetric(vertical=8, horizontal=16),
+                        ft.ControlState.HOVERED: ft.padding.symmetric(vertical=8, horizontal=16)
+                    },
                     color={
                         ft.ControlState.DEFAULT: tertiaryTextColor,
                         ft.ControlState.DISABLED: tertiaryTextColor,
@@ -106,7 +114,11 @@ class CustomElevatedButton(ft.ElevatedButton):
                     ft.ControlState.HOVERED: bgHoverEButtonColor
                 }
                 self.style = ft.ButtonStyle(
-                    text_style=ft.TextStyle(font_family="AlbertSansR"),
+                    padding={
+                        ft.ControlState.DEFAULT: ft.padding.symmetric(vertical=8, horizontal=16),
+                        ft.ControlState.DISABLED: ft.padding.symmetric(vertical=8, horizontal=16),
+                        ft.ControlState.HOVERED: ft.padding.symmetric(vertical=8, horizontal=16)
+                    },
                     color={
                         ft.ControlState.DEFAULT: accentTextColor,
                         ft.ControlState.DISABLED: tertiaryTextColor,
@@ -145,7 +157,11 @@ class CustomElevatedButton(ft.ElevatedButton):
                     ft.ControlState.HOVERED: bgDissabledEButtonColor
                 }
                 self.style = ft.ButtonStyle(
-                    text_style=ft.TextStyle(font_family="AlbertSansR"),
+                    padding={
+                        ft.ControlState.DEFAULT: ft.padding.symmetric(vertical=8, horizontal=16),
+                        ft.ControlState.DISABLED: ft.padding.symmetric(vertical=8, horizontal=16),
+                        ft.ControlState.HOVERED: ft.padding.symmetric(vertical=8, horizontal=16)
+                    },
                     color={
                         ft.ControlState.DEFAULT: secondaryTextColor,
                         ft.ControlState.DISABLED: secondaryTextColor,
@@ -179,7 +195,11 @@ class CustomElevatedButton(ft.ElevatedButton):
                     ft.ControlState.HOVERED: neutralDangerDark
                 }
                 self.style = ft.ButtonStyle(
-                    text_style=ft.TextStyle(font_family="AlbertSansR"),
+                    padding={
+                        ft.ControlState.DEFAULT: ft.padding.symmetric(vertical=8, horizontal=16),
+                        ft.ControlState.DISABLED: ft.padding.symmetric(vertical=8, horizontal=16),
+                        ft.ControlState.HOVERED: ft.padding.symmetric(vertical=8, horizontal=16)
+                    },
                     color={
                         ft.ControlState.DEFAULT: tertiaryTextColor,
                         ft.ControlState.DISABLED: tertiaryTextColor,
