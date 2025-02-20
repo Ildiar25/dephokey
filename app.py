@@ -5,7 +5,7 @@ from data.db_orm import Base, engine, session
 from features.models.user import UserRole, User
 
 from interface.pages import *
-from interface.controls.my_footer import Footer
+from interface.controls.footer import Footer
 
 from shared.utils.colors import *
 from shared.logger_setup import main_logger as logger
@@ -65,12 +65,12 @@ def main(page: ft.Page) -> None:
             logger.info("Página SIGNUP cargada.")
 
         elif page.route == "/home" and page.session.contains_key("session"):
-            page.add(Home(page))
-            logger.info("Página HOME cargada.")
+            page.add(Dashboard(page))
+            logger.info("Página DASHBOARD cargada.")
 
     # Define routes
     page.on_route_change = route_changer
-    page.go("/home")  # Change to 'login' once program is finished
+    page.go("/login")  # Change to 'login' once program is finished
 
 
 if __name__ == '__main__':
