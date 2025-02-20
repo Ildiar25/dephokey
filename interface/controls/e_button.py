@@ -1,59 +1,207 @@
 import flet as ft
+from enum import Enum
 
-from typing import Callable, Union
+from typing import Callable
 
 from shared.utils.colors import *
 
 
+class ButtonStyle(Enum):
+    DEFAULT = "default"
+    ICON = "icon"
+    BORDER = "border"
+    CANCEL = "cancel"
+    DELETE = "delete"
+
+
 class CustomElevatedButton(ft.ElevatedButton):
-    def __init__(self, name: str, width: int | None = None, icon: ft.Icons | None = None,
-                 foreground_color: Union[str, ft.Colors] | None = None,
-                 bg_color: Union[str, ft.Colors] | None = None,
-                 on_click: Callable[[ft.ControlEvent], None] | None = None,
-                 disabled: bool = False, border_size: int | None = None, expand: bool | None = None) -> None:
-        super().__init__()
+    def __init__(
+            self, name: str, style: ButtonStyle, on_click: Callable[[ft.ControlEvent], None] | None = None, **kwargs
+    ) -> None:
+        super().__init__(**kwargs)
 
         # Specific settings
         self.text = name
-        self.icon = icon
-        self.width = width
         self.on_click = on_click
-        self.disabled = disabled
         self.elevation = 0
-        self.expand = expand
 
-        # Button design settings
-        self.bgcolor = {
-            ft.ControlState.DISABLED: dissabledEButtonColor,
-            ft.ControlState.DEFAULT: bg_color,
-            ft.ControlState.HOVERED: primaryCorporate25
-        }
-        self.style = ft.ButtonStyle(
-            text_style=ft.TextStyle(
-                font_family="AlbertSansL"
-            ),
-            color={
-                ft.ControlState.DEFAULT: foreground_color,
-                ft.ControlState.DISABLED: foreground_color,
-                ft.ControlState.HOVERED: neutral00
-            },
-            icon_color={
-                ft.ControlState.DEFAULT: foreground_color,
-                ft.ControlState.DISABLED: foreground_color,
-                ft.ControlState.HOVERED: neutral00,
-            },
-            side={
-                ft.ControlState.DEFAULT: ft.BorderSide(
-                    width=border_size,
-                    color=borderEButtonColor,
-                    stroke_align=ft.BorderSideStrokeAlign.INSIDE
-                ),
-                ft.ControlState.HOVERED: ft.BorderSide(
-                    width=2,
-                    color=primaryCorporate25,
-                    stroke_align=ft.BorderSideStrokeAlign.INSIDE
+        # Create button style
+        self.__update_button_appaerance(style)
+
+    def __update_button_appaerance(self, style: ButtonStyle) -> None:
+        match style:
+            case ButtonStyle.DEFAULT:
+                self.bgcolor = {
+                    ft.ControlState.DISABLED: bgDissabledEButtonColor,
+                    ft.ControlState.DEFAULT: bgEButtonColor,
+                    ft.ControlState.HOVERED: bgHoverEButtonColor
+                }
+                self.style = ft.ButtonStyle(
+                    text_style=ft.TextStyle(font_family="AlbertSansR"),
+                    color={
+                        ft.ControlState.DEFAULT: tertiaryTextColor,
+                        ft.ControlState.DISABLED: tertiaryTextColor,
+                        ft.ControlState.HOVERED: tertiaryTextColor
+                    },
+                    icon_color={
+                        ft.ControlState.DEFAULT: tertiaryIconColor,
+                        ft.ControlState.DISABLED: tertiaryIconColor,
+                        ft.ControlState.HOVERED: tertiaryIconColor,
+                    },
+                    side={
+                        ft.ControlState.DEFAULT: ft.BorderSide(
+                            width=-1,
+                            color=borderEButtonColor,
+                            stroke_align=ft.BorderSideStrokeAlign.INSIDE
+                        ),
+                        ft.ControlState.HOVERED: ft.BorderSide(
+                            width=1.8,
+                            color=bgHoverEButtonColor,
+                            stroke_align=ft.BorderSideStrokeAlign.INSIDE
+                        )
+                    },
+                    shape=ft.RoundedRectangleBorder(4),
+                    elevation=self.elevation
                 )
-            },
-            shape=ft.RoundedRectangleBorder(4),
-            elevation=self.elevation
-        )
+
+            case ButtonStyle.ICON:
+                self.icon=ft.Icons.ADD_ROUNDED
+                self.bgcolor = {
+                    ft.ControlState.DISABLED: bgDissabledEButtonColor,
+                    ft.ControlState.DEFAULT: bgEButtonColor,
+                    ft.ControlState.HOVERED: bgHoverEButtonColor
+                }
+                self.style = ft.ButtonStyle(
+                    text_style=ft.TextStyle(font_family="AlbertSansR"),
+                    color={
+                        ft.ControlState.DEFAULT: tertiaryTextColor,
+                        ft.ControlState.DISABLED: tertiaryTextColor,
+                        ft.ControlState.HOVERED: tertiaryTextColor
+                    },
+                    icon_color={
+                        ft.ControlState.DEFAULT: tertiaryIconColor,
+                        ft.ControlState.DISABLED: tertiaryIconColor,
+                        ft.ControlState.HOVERED: tertiaryIconColor,
+                    },
+                    side={
+                        ft.ControlState.DEFAULT: ft.BorderSide(
+                            width=-1,
+                            color=borderEButtonColor,
+                            stroke_align=ft.BorderSideStrokeAlign.INSIDE
+                        ),
+                        ft.ControlState.HOVERED: ft.BorderSide(
+                            width=1.8,
+                            color=bgHoverEButtonColor,
+                            stroke_align=ft.BorderSideStrokeAlign.INSIDE
+                        )
+                    },
+                    shape=ft.RoundedRectangleBorder(4),
+                    elevation=self.elevation
+                )
+
+            case ButtonStyle.BORDER:
+                self.bgcolor = {
+                    ft.ControlState.DISABLED: bgDissabledEButtonColor,
+                    ft.ControlState.DEFAULT: neutral00,
+                    ft.ControlState.HOVERED: bgHoverEButtonColor
+                }
+                self.style = ft.ButtonStyle(
+                    text_style=ft.TextStyle(font_family="AlbertSansR"),
+                    color={
+                        ft.ControlState.DEFAULT: accentTextColor,
+                        ft.ControlState.DISABLED: tertiaryTextColor,
+                        ft.ControlState.HOVERED: tertiaryTextColor
+                    },
+                    icon_color={
+                        ft.ControlState.DEFAULT: accentIconColor,
+                        ft.ControlState.DISABLED: tertiaryIconColor,
+                        ft.ControlState.HOVERED: tertiaryIconColor,
+                    },
+                    side={
+                        ft.ControlState.DEFAULT: ft.BorderSide(
+                            width=1.8,
+                            color=borderEButtonColor,
+                            stroke_align=ft.BorderSideStrokeAlign.INSIDE
+                        ),
+                        ft.ControlState.DISABLED: ft.BorderSide(
+                            width=1.8,
+                            color=borderDissabledEButtonColor,
+                            stroke_align=ft.BorderSideStrokeAlign.INSIDE
+                        ),
+                        ft.ControlState.HOVERED: ft.BorderSide(
+                            width=1.8,
+                            color=borderHoverEButtonColor,
+                            stroke_align=ft.BorderSideStrokeAlign.INSIDE
+                        )
+                    },
+                    shape=ft.RoundedRectangleBorder(4),
+                    elevation=self.elevation
+                )
+
+            case ButtonStyle.CANCEL:
+                self.bgcolor = {
+                    ft.ControlState.DISABLED: bgDissabledEButtonColor,
+                    ft.ControlState.DEFAULT: transparentColor,
+                    ft.ControlState.HOVERED: bgDissabledEButtonColor
+                }
+                self.style = ft.ButtonStyle(
+                    text_style=ft.TextStyle(font_family="AlbertSansR"),
+                    color={
+                        ft.ControlState.DEFAULT: secondaryTextColor,
+                        ft.ControlState.DISABLED: secondaryTextColor,
+                        ft.ControlState.HOVERED: secondaryTextColor
+                    },
+                    icon_color={
+                        ft.ControlState.DEFAULT: secondaryIconColor,
+                        ft.ControlState.DISABLED: secondaryIconColor,
+                        ft.ControlState.HOVERED: secondaryIconColor,
+                    },
+                    side={
+                        ft.ControlState.DEFAULT: ft.BorderSide(
+                            width=-1,
+                            color=borderEButtonColor,
+                            stroke_align=ft.BorderSideStrokeAlign.INSIDE
+                        ),
+                        ft.ControlState.HOVERED: ft.BorderSide(
+                            width=1.8,
+                            color=bgDissabledEButtonColor,
+                            stroke_align=ft.BorderSideStrokeAlign.INSIDE
+                        )
+                    },
+                    shape=ft.RoundedRectangleBorder(4),
+                    elevation=self.elevation
+                )
+
+            case ButtonStyle.DELETE:
+                self.bgcolor = {
+                    ft.ControlState.DISABLED: bgDissabledEButtonColor,
+                    ft.ControlState.DEFAULT: neutralDangerMedium,
+                    ft.ControlState.HOVERED: neutralDangerDark
+                }
+                self.style = ft.ButtonStyle(
+                    text_style=ft.TextStyle(font_family="AlbertSansR"),
+                    color={
+                        ft.ControlState.DEFAULT: tertiaryTextColor,
+                        ft.ControlState.DISABLED: tertiaryTextColor,
+                        ft.ControlState.HOVERED: tertiaryTextColor
+                    },
+                    icon_color={
+                        ft.ControlState.DEFAULT: tertiaryIconColor,
+                        ft.ControlState.DISABLED: tertiaryIconColor,
+                        ft.ControlState.HOVERED: tertiaryIconColor,
+                    },
+                    side={
+                        ft.ControlState.DEFAULT: ft.BorderSide(
+                            width=-1,
+                            color=neutralDangerDark,
+                            stroke_align=ft.BorderSideStrokeAlign.INSIDE
+                        ),
+                        ft.ControlState.HOVERED: ft.BorderSide(
+                            width=2,
+                            color=neutralDangerDark,
+                            stroke_align=ft.BorderSideStrokeAlign.INSIDE
+                        )
+                    },
+                    shape=ft.RoundedRectangleBorder(4),
+                    elevation=self.elevation
+                )
