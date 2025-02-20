@@ -6,6 +6,7 @@ from data.db_orm import session
 from features.models.user import User
 
 from interface.pages.load_page import LoadPage
+from interface.controls.snackbar import Snackbar, SnackbarStyle
 from interface.controls import *
 
 from shared.validate import Validate
@@ -20,14 +21,7 @@ class Signup(ft.Container):
 
         # General attributes (like info elements)
         self.page = page
-        self.snackbar = ft.SnackBar(
-            bgcolor=bgSnackbarDangerColor,
-            content=ft.Text(
-                "",
-                text_align=ft.TextAlign.CENTER,
-                color=dangerTextColor
-            )
-        )
+        self.snackbar = Snackbar()
 
         # Signup elements
         self.name = CustomTextField(
@@ -182,26 +176,20 @@ class Signup(ft.Container):
         # First, check if passwords are equal
         if not password_input == repeat_input:
             # Reset Snackbar
-            self.snackbar.content.color = dangerTextColor
-            self.snackbar.bgcolor = bgSnackbarDangerColor
+            self.snackbar.change_style(msg="¡Las contraseñas no coinciden!", style=SnackbarStyle.DANGER)
             self.snackbar.update()
 
-            self.snackbar.content.value = "¡Las contraseñas no coinciden!"
-            self.snackbar.open = True
-            self.snackbar.update()
         else:
             # Second, validates email & password
             if not all((Validate.is_valid_email(email_input), Validate.is_valid_password(password_input))):
                 # Reset Snackbar
-                self.snackbar.content.color = dangerTextColor
-                self.snackbar.bgcolor = bgSnackbarDangerColor
+
+                self.snackbar.change_style(
+                    msg="El correo o la contraseña no son válidos.\nLa contraseña debe tener al menos un número, "
+                        "una mayúscula y una minúscula",
+                    style=SnackbarStyle.DANGER)
                 self.snackbar.update()
 
-                self.snackbar.content.value = ("El correo o la contraseña no son válidos.\n"
-                                               "La contraseña debe tener al menos un número, una mayúscula y "
-                                               "una minúscula")
-                self.snackbar.open = True
-                self.snackbar.update()
             else:
                 # Check if user already exists
                 if session.query(User).filter(User.email == email_input).first():
@@ -209,13 +197,9 @@ class Signup(ft.Container):
                     logger.debug(f" >>> Datos: '{mask_email(email_input)}' - '{mask_password(password_input)}'")
 
                     # Reset Snackbar
-                    self.snackbar.content.color = dangerTextColor
-                    self.snackbar.bgcolor = bgSnackbarDangerColor
+                    self.snackbar.change_style(msg="¡El correo electrónico ya existe!", style=SnackbarStyle.DANGER)
                     self.snackbar.update()
 
-                    self.snackbar.content.value = "¡El correo electrónico ya existe!"
-                    self.snackbar.open = True
-                    self.snackbar.update()
                 else:
                     # Creates new user instance
                     new_user = User(fullname=name_input, email=email_input, password=password_input)
@@ -234,10 +218,7 @@ class Signup(ft.Container):
                     session.commit()
 
                     # Notifies to the user
-                    self.snackbar.content.value = f"¡Bienvenido/a {new_user.fullname}!"
-                    self.snackbar.content.color = successTextColor
-                    self.snackbar.bgcolor = neutralSuccessLight
-                    self.snackbar.open = True
+                    self.snackbar.change_style(msg=f"¡Bienvenido/a {new_user.fullname}!", style=SnackbarStyle.SUCCESS)
                     self.snackbar.update()
 
                     # Report loading page
