@@ -22,10 +22,7 @@ class Dashboard(ft.Container):
 
         # Sidebar controller & Searchbar function
         self.sidebar = CustomSidebar(self.page, self.body_content)
-        self.page.appbar = CustomAppbar(
-            self.page, self.snackbar, self.body_content,
-            find_function=self.find_elements if self.user.role == UserRole.CLIENT else None)
-
+        self.page.appbar = CustomAppbar(self.page, self.snackbar, self.body_content)
 
         self.sidebar_location = ft.Row(
             width=200,
@@ -76,8 +73,3 @@ class Dashboard(ft.Container):
                 )
             ]
         )
-
-    def find_elements(self, e: ft.ControlEvent) -> None:
-        self.body_content.controls[0].controls[0].value = f"Buscando {e.control.value.title()}"
-        self.body_content.controls[0].controls[1].controls = []
-        self.body_content.update()
