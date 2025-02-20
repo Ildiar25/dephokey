@@ -1,4 +1,3 @@
-from collections.abc import Callable
 import flet as ft
 import time
 
@@ -12,8 +11,7 @@ from shared.utils.colors import *
 
 
 class CustomAppbar(ft.AppBar):
-    def __init__(self, page: ft.Page, snackbar: ft.SnackBar, content: BodyContent,
-                 find_function: Callable[[ft.ControlEvent], None] | None = None) -> None:
+    def __init__(self, page: ft.Page, snackbar: ft.SnackBar, content: BodyContent) -> None:
         super().__init__()
 
         # General settings
@@ -23,12 +21,11 @@ class CustomAppbar(ft.AppBar):
         # Appbar attributes
         self.user: User = self.page.session.get("session")
         self.body_content = content
-        self.search_bar = True if self.user.role == UserRole.CLIENT else False
+        self.search_bar = CustomSearchBar(width=1008, function=self.search_results)
 
         # Appbar design
         self.visible = False
         self.toolbar_height = 79
-        self.look_for_elements = find_function
         self.user = self.page.session.get("session")
 
         self.back_button = ft.IconButton(
@@ -51,9 +48,8 @@ class CustomAppbar(ft.AppBar):
         )
 
         # Title (Search bar)
-        if self.search_bar and find_function:
-            self.center_title = True
-            self.title = CustomSearchBar(width=1008, function=self.look_for_elements)
+        self.title = self.search_bar if self.user.role == UserRole.CLIENT else None
+        self.center_title = True
 
         # Options (Settings & Logout)
         self.actions = [
@@ -96,7 +92,12 @@ class CustomAppbar(ft.AppBar):
         self.body_content.update()
 
     def go_back(self, _: ft.ControlEvent) -> None:
-        self.body_content.change_content(title="Bienvenido Administrador", style=ContentStyle.HOME)
+        self.body_content.change_content(title="Bienvenido Administrador", style=ContentStyle.ADMIN)
+        self.body_content.update()
+
+    def search_results(self, result: ft.ControlEvent) -> None:
+        self.body_content.change_content(
+            title=f"Resultados de: {result.control.value.title()}", style=ContentStyle.HOME)
         self.body_content.update()
 
     def logout(self, _: ft.ControlEvent) -> None:
