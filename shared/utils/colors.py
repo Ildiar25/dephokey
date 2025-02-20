@@ -56,6 +56,13 @@ warningTextColor = neutralWarningMedium
 dangerTextColor = neutralDangerDark
 
 
+# Icon text-colors
+primaryIconColor = neutral80
+secondaryIconColor = neutral40
+tertiaryIconColor = neutral00
+accentIconColor = primaryCorporateColor
+
+
 # Appbar colors
 bgAppbarColor = neutral80
 iconAppbarColor = neutral05
@@ -102,9 +109,13 @@ textColorTextButton = Colors.PURPLE_600
 overlayColorTextButton = Colors.GREY_300
 
 # E-button colors
-dissabledEButtonColor = neutral10
-borderEButtonColor = primaryCorporateColor
 bgEButtonColor = primaryCorporateColor
+bgHoverEButtonColor = primaryCorporate25
+bgDissabledEButtonColor = neutral10
+borderEButtonColor = primaryCorporateColor
+borderDissabledEButtonColor = neutral20
+borderHoverEButtonColor = primaryCorporate25
+
 
 # F-button
 bgFloatingButtonColor = Colors.DEEP_PURPLE_100
