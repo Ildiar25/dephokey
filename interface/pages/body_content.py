@@ -10,6 +10,7 @@ from shared.utils.colors import *
 
 class ContentStyle(Enum):
     HOME = "home"
+    ADMIN = "admin"
     SITES = "sites"
     CREDITCARDS = "creditcards"
     NOTES = "notes"
@@ -62,6 +63,9 @@ class BodyContent(ft.Column):
     def update_appearance(self) -> None:
         match self.style:
             case ContentStyle.HOME:
+                self.body.controls = []
+
+            case ContentStyle.ADMIN:
                 self.body.controls = []
 
             case ContentStyle.SITES:
