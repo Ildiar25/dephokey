@@ -3,7 +3,7 @@ from typing import List, Union
 from enum import Enum
 
 from interface.controls.snackbar import Snackbar
-from interface.pages.content_settings import SettingsPage
+from interface.pages.settings_content import SettingsPage
 from interface.pages.widgets import SiteWidget, NoteWidget
 from shared.utils.colors import *
 

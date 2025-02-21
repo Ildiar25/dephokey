@@ -4,8 +4,8 @@ import time
 from features.models.user import User, UserRole
 
 from interface.controls.custom_searchbar import CustomSearchBar
-from interface.pages.body_content import BodyContent, ContentStyle
-from interface.pages.load_page import LoadPage
+from interface.pages.content_manager import BodyContent, ContentStyle
+from interface.pages.loading_page import LoadPage
 
 from shared.utils.colors import *
 

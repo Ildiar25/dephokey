@@ -2,7 +2,7 @@ import flet as ft
 
 from features.models.user import UserRole,User
 
-from interface.pages.body_content import BodyContent
+from interface.pages.content_manager import BodyContent
 from interface.controls import CustomAppbar, CustomSidebar, Snackbar
 
 from shared.utils.colors import *

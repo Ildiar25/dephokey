@@ -16,28 +16,14 @@ class DeleteFormStyle(Enum):
 
 
 class DeleteForm(ft.AlertDialog):
-    def __init__(self, page: ft.Page, delete_fun: Callable[[ft.ControlEvent], None],
-                 del_style: DeleteFormStyle) -> None:
+    def __init__(self, page: ft.Page, delete_function: Callable[[ft.ControlEvent], None],
+                 style: DeleteFormStyle) -> None:
         super().__init__()
 
         # General attributes
         self.page = page
-        self.delete_fun = delete_fun
-        self.element_type = del_style
-
-        match self.element_type:
-            case DeleteFormStyle.CREDITCARD:
-                self.text_title = "tarjeta de crédito"
-            case DeleteFormStyle.NOTE:
-                self.text_title = "nota segura"
-            case DeleteFormStyle.PASS_REQ:
-                self.text_title = "registro de cambio"
-            case DeleteFormStyle.SITE:
-                self.text_title = "sitio"
-            case DeleteFormStyle.USER:
-                self.text_title = "usuario"
-            case _:
-                self.text_title = "unknow"
+        self.delete_function = delete_function
+        self.text_title = self.__update_form_title(style)
 
         # Form settings
         self.modal = True
@@ -47,7 +33,7 @@ class DeleteForm(ft.AlertDialog):
             alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
             controls=[
                 ft.Text(
-                    f"Eliminar {self.text_title}",
+                    value=f"Eliminar {self.text_title}",
                     font_family="AlbertSansB",
                     size=20
                 ),
@@ -91,6 +77,26 @@ class DeleteForm(ft.AlertDialog):
         self.shape = ft.RoundedRectangleBorder(4)
         self.bgcolor = bgGeneralFormColor
 
+    @staticmethod
+    def __update_form_title(style: DeleteFormStyle) -> str:
+        title = ""
+
+        match style:
+            case DeleteFormStyle.CREDITCARD:
+                title = "tarjeta de crédito"
+            case DeleteFormStyle.NOTE:
+                title = "nota segura"
+            case DeleteFormStyle.PASS_REQ:
+                title = "registro de cambio"
+            case DeleteFormStyle.SITE:
+                title = "sitio"
+            case DeleteFormStyle.USER:
+                title = "usuario"
+            case _:
+                pass
+
+        return title
+
     def delete(self, e: ft.ControlEvent) -> None:
-        self.delete_fun(e)
+        self.delete_function(e)
         self.page.close(self)

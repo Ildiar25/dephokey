@@ -5,7 +5,7 @@ from data.db_orm import session
 
 from features.models.user import User
 
-from interface.pages.load_page import LoadPage
+from interface.pages.loading_page import LoadPage
 from interface.controls import *
 
 from shared.validate import Validate

@@ -4,7 +4,7 @@ from features.models.user import User, UserRole
 
 from interface.controls import *
 from interface.pages.forms import GenerateFormStyle, GenerateForm, AddFormStyle, AddForm
-from interface.pages.body_content import BodyContent, ContentStyle
+from interface.pages.content_manager import BodyContent, ContentStyle
 
 from shared.utils.colors import *
 
