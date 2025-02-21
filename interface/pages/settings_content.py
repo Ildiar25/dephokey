@@ -172,7 +172,7 @@ class SettingsPage(ft.Row):
 
     def change_password(self, _: ft.ControlEvent) -> None:
         self.page.open(
-            ChangePasswordForm(self.page)
+            ChangePasswordForm(self.page, self.snackbar)
         )
 
     @staticmethod
