@@ -4,6 +4,7 @@ import time
 from data.db_orm import session
 
 from features.models import Note
+from features.encryption.core import decrypt_data
 
 from interface.pages.forms import DeleteFormStyle, DeleteForm
 
@@ -32,7 +33,7 @@ class NoteWidget(ft.Card):
             color=titleNoteWidgetColor
         )
         self.note_content = ft.Text(
-            mask_text(self.note.encrypted_content)  # TODO: Decrypt content HERE!
+            mask_text(decrypt_data(self.note.encrypted_content))  # TODO: Decrypt content HERE!
         )
 
         # Widget design
@@ -121,10 +122,10 @@ class NoteWidget(ft.Card):
 
     def show_content(self, cursor: ft.ControlEvent) -> None:
         if cursor:
-            self.note_content.value = self.note.encrypted_content  # TODO: Decrypt content HERE!
+            self.note_content.value = decrypt_data(self.note.encrypted_content)
             self.note_content.update()
             time.sleep(3)
-            self.note_content.value = mask_text(self.note.encrypted_content)  # TODO: Decrypt content HERE!
+            self.note_content.value = mask_text(decrypt_data(self.note.encrypted_content))
         self.note_content.update()
 
     def open_delete_form(self, _: ft.ControlEvent) -> None:
