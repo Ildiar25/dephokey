@@ -99,7 +99,7 @@ def main(page: ft.Page) -> None:
     page.window.min_width = 950
     page.window.min_height = 650
 
-    # Page behaviour
+    # Page behavior
     page.theme = ft.Theme(
         font_family="AlbertSansR", page_transitions=ft.PageTransitionsTheme(ft.PageTransitionTheme.NONE)
     )
