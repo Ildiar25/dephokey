@@ -1,41 +1,39 @@
+from string import ascii_lowercase, ascii_uppercase, digits
 import flet as ft
 import random
-from string import ascii_lowercase, ascii_uppercase, digits
 from hashlib import sha256
 
 from data.db_orm import session
 
 from features.models.user import User
 
-from interface.controls import CustomElevatedButton, CustomTextField
+from interface.controls import CustomElevatedButton, ButtonStyle, CustomTextField, Snackbar, SnackbarStyle, TextLink
 
 from shared.validate import Validate
 from shared.utils.colors import *
 
 
 class ChangePasswordForm(ft.AlertDialog):
-    def __init__(self, page: ft.Page) -> None:
+    def __init__(self, page: ft.Page, snackbar: Snackbar) -> None:
         super().__init__()
 
         # General attributes
         self.page = page
-        self.submit_button = CustomElevatedButton(
-            name="Aceptar", width=100, bg_color=bgEButtonColor, foreground_color=tertiaryTextColor,
-            on_click=self.update_password, border_size=-1, disabled=True
-        )
-        self.generate_password = CustomElevatedButton(
-            name="Generar", width=84, foreground_color=tertiaryTextColor, bg_color=neutralDangerMedium,
-            on_click=self.generate_password, border_size=-1
+        self.snackbar = snackbar
+
+        # TODO: Tener en cuenta que puede o no puede haber usuario. Es el mismo formulario para cuando se necesite un
+        #  reseteo de contraseña. Implementar dicho flujo de trabajo.
+
+        # Form attributes
+        self.user: User = self.page.session.get("session")
+        self.submit = CustomElevatedButton(
+            name="Aceptar", style=ButtonStyle.DEFAULT, on_click=self.update_password, disabled=True
         )
         self.password = CustomTextField(
-            expand=True, on_change=self.toggle_generate_button_state,
-            password=True, can_reveal_password=True
-
+            expand=True, on_change=self.toggle_generate_button_state, password=True, can_reveal_password=True
         )
         self.check_password = CustomTextField(
-            expand=True, on_change=self.toggle_generate_button_state,
-            password=True, can_reveal_password=True
-
+            expand=True, on_change=self.toggle_generate_button_state, password=True, can_reveal_password=True
         )
 
         # Form settings
@@ -63,21 +61,13 @@ class ChangePasswordForm(ft.AlertDialog):
         # F-Content
         self.content = ft.Container(
             width=550,
-            height=320,
+            height=378,
             content=ft.Column(
                 alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
                 controls=[
                     ft.Row(
                         alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
                         controls=[
-                            # ft.Column(
-                            #     width=80,
-                            #     alignment=ft.MainAxisAlignment.CENTER,
-                            #     horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-                            #     controls=[
-                            #         ft.Icon(ft.Icons.WARNING_ROUNDED, size=40, color=neutralWarningMedium)
-                            #     ]
-                            # ),
                             ft.Row(
                                 expand=True,
                                 wrap=True,
@@ -114,14 +104,14 @@ class ChangePasswordForm(ft.AlertDialog):
                                 spacing=8,
                                 controls=[
                                     ft.Text(
-                                        "Contraseña:",
+                                        value="Contraseña:",
                                         font_family="AlbertSansR",
                                         size=16,
                                         color=primaryTextColor
                                     ),
                                     ft.Row(controls=[self.password]),
                                     ft.Text(
-                                        "Repite la contraseña:",
+                                        value="Repite la contraseña:",
                                         font_family="AlbertSansR",
                                         size=16,
                                         color=primaryTextColor
@@ -130,13 +120,23 @@ class ChangePasswordForm(ft.AlertDialog):
                                 ]
                             )
                         ]
+                    ),
+                    ft.Row(
+                        controls=[
+                            TextLink(text="Generar contraseña", function=self.generate_password)
+                        ]
                     )
                 ]
             )
         )
 
         # F-Buttons
-        self.actions = [self.generate_password, self.submit_button]
+        self.actions = [
+            CustomElevatedButton(
+                name="Cancelar", style=ButtonStyle.CANCEL, on_click=lambda _: self.page.close(self)
+            ),
+            self.submit
+        ]
 
         # Form design
         self.shape = ft.RoundedRectangleBorder(4)
@@ -144,10 +144,10 @@ class ChangePasswordForm(ft.AlertDialog):
 
     def toggle_generate_button_state(self, cursor: ft.ControlEvent) -> None:
         if cursor and all((self.password.value, self.check_password.value)):
-            self.submit_button.disabled = False
+            self.submit.disabled = False
         else:
-            self.submit_button.disabled = True
-        self.submit_button.update()
+            self.submit.disabled = True
+        self.submit.update()
 
     def generate_password(self, _: ft.ControlEvent) -> None:
         characters = ascii_lowercase + digits + ascii_uppercase
@@ -166,31 +166,27 @@ class ChangePasswordForm(ft.AlertDialog):
 
         # First, check if passwords are equal
         if not password == check_password:
-            self.password.error_text = ""
-            self.password.update()
-            self.check_password.error_text = "Las contraseñas no coinciden"
-            self.check_password.update()
+            self.password.reset_error()
+            self.check_password.show_error("Las contraseñas no coinciden")
 
         else:
             # Second, validates password
             if not Validate.is_valid_password(password):
-                self.check_password.error_text = ""
-                self.check_password.update()
-                self.password.error_text = ("Contraseña inválida: debe contener mínimo mayúsculas, minúsculas y un "
-                                            "número.")
-                self.password.update()
+                self.check_password.reset_error()
+                self.password.show_error(
+                    "Contraseña inválida: debe contener mínimo mayúsculas, minúsculas y un número."
+                )
 
             else:
-                self.password.error_text = ""
-                self.password.update()
-                self.check_password.error_text = ""
-                self.check_password.update()
+                self.password.reset_error()
+                self.check_password.reset_error()
 
                 # Loads user & change Hash
-                user: User = self.page.session.get("session")
-                user.hashed_password = sha256(password.encode()).hexdigest()
+                self.user.hashed_password = sha256(password.encode()).hexdigest()
 
                 # Save changes
                 session.commit()
 
+                self.snackbar.change_style(msg="¡Contraseña actualizada!", style=SnackbarStyle.SUCCESS)
+                self.snackbar.update()
                 self.page.close(self)
