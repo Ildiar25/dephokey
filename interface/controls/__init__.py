@@ -1,11 +1,12 @@
-from .textfield import CustomTextField
 from .e_button import CustomElevatedButton, ButtonStyle
+from .textfield import CustomTextField
 from .snackbar import Snackbar, SnackbarStyle
 from .switch import CustomSwitch
+from .textlink import TextLink
 from .appbar import CustomAppbar
 from .sidebar import CustomSidebar
 
 __all__ = [
-    "CustomTextField", "CustomElevatedButton", "ButtonStyle", "Snackbar", "SnackbarStyle", "CustomSwitch",
-    "CustomAppbar", "CustomSidebar"
+    "CustomElevatedButton", "ButtonStyle", "CustomTextField", "Snackbar", "SnackbarStyle", "CustomSwitch",
+    "TextLink", "CustomAppbar", "CustomSidebar"
 ]
