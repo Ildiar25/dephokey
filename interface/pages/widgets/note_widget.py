@@ -33,7 +33,7 @@ class NoteWidget(ft.Card):
             color=titleNoteWidgetColor
         )
         self.note_content = ft.Text(
-            mask_text(decrypt_data(self.note.encrypted_content))  # TODO: Decrypt content HERE!
+            mask_text(decrypt_data(self.note.encrypted_content))
         )
 
         # Widget design
