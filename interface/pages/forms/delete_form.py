@@ -2,7 +2,7 @@ import flet as ft
 from enum import Enum
 from typing import Callable
 
-from interface.controls import CustomElevatedButton
+from interface.controls import CustomElevatedButton, ButtonStyle
 
 from shared.utils.colors import *
 
@@ -50,27 +50,17 @@ class DeleteForm(ft.AlertDialog):
             width=380,
             height=60,
             content=ft.Text(
-                value="¿Desea eliminar este registro? Esta acción no se puede deshacer.",
+                value="¿Desea eliminar este registro? Esta acción ",
                 font_family="AlbertSansL",
                 size=16,
+                spans=[
+                    ft.TextSpan(text="no se puede deshacer.", style=ft.TextStyle(font_family="AlbertSansB"))
+                ]
             )
         )
         self.actions = [
-            CustomElevatedButton(
-                name="Cancelar",
-                width=84,
-                foreground_color=secondaryTextColor,
-                on_click=lambda _: self.page.close(self),
-                border_size=-1
-            ),
-            CustomElevatedButton(
-                name="Eliminar",
-                width=84,
-                foreground_color=tertiaryTextColor,
-                bg_color=neutralDangerMedium,
-                on_click=self.delete,
-                border_size=-1
-            )
+            CustomElevatedButton(name="Cancelar", style=ButtonStyle.CANCEL, on_click=lambda _: self.page.close(self)),
+            CustomElevatedButton(name="Eliminar", style=ButtonStyle.DELETE, on_click=self.delete)
         ]
 
         # Form design
@@ -92,8 +82,6 @@ class DeleteForm(ft.AlertDialog):
                 title = "sitio"
             case DeleteFormStyle.USER:
                 title = "usuario"
-            case _:
-                pass
 
         return title
 
