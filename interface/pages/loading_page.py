@@ -3,7 +3,7 @@ import flet as ft
 from shared.utils.colors import *
 
 
-class LoadPage(ft.Container):
+class LoadingPage(ft.Container):
 
     def __init__(self):
         super().__init__()

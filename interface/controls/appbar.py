@@ -5,7 +5,7 @@ from features.models.user import User, UserRole
 
 from interface.controls.custom_searchbar import CustomSearchBar
 from interface.pages.content_manager import BodyContent, ContentStyle
-from interface.pages.loading_page import LoadPage
+from interface.pages.loading_page import LoadingPage
 
 from shared.utils.colors import *
 
@@ -119,7 +119,7 @@ class CustomAppbar(ft.AppBar):
 
         # Show page loading
         self.page.overlay.append(
-            LoadPage()
+            LoadingPage()
         )
         self.page.update()
 

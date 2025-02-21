@@ -6,7 +6,7 @@ from data.db_orm import session
 
 from features.models.user import User
 
-from interface.pages.loading_page import LoadPage
+from interface.pages.loading_page import LoadingPage
 from interface.controls import *
 
 from shared.validate import Validate
@@ -202,7 +202,7 @@ class Login(ft.Container):
 
                     # Report page loading
                     self.page.overlay.append(
-                        LoadPage()
+                        LoadingPage()
                     )
                     self.page.update()
 
