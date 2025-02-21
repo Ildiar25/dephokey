@@ -14,48 +14,34 @@ from shared.utils.colors import *
 from shared.logger_setup import main_logger as logger
 
 
-def fill_data(user: User) -> None:
+def fill_with_data(user: User) -> None:
+    logger.info(f"Añadiendo elementos de prueba al usuario {user.email}...")
     fake = Faker()
     some_sites = []
     for _ in range(10):
         some_sites.append(
-            Site(
-                fake.url(),
-                user.email,
-                fake.password(8, False, True, True, True),
-                user,
-                fake.domain_name()
-            )
+            Site(address=fake.url(), username=user.email, password=fake.password(
+                length=8, digits=True, upper_case=True, lower_case=True
+            ), user=user, name=fake.domain_name())
         )
-
     session.add_all(some_sites)
 
     some_cards = []
     for _ in range(10):
         some_cards.append(
             CreditCard(
-                "Cliente Tester Morenazo",
-                fake.credit_card_number(),
-                "234",
-                datetime.today() + timedelta(weeks=208),
-                user,
-                "Compras"
-            )
+                cardholder="Cliente Tester Morenazo", number=fake.credit_card_number(), cvc="234",
+                valid_until=datetime.today() + timedelta(weeks=208), user=user, alias="Compras")
         )
-
     session.add_all(some_cards)
 
     some_notes = []
     for _ in range(10):
         some_notes.append(
-            Note(
-                fake.text(),
-                user,
-                fake.name_male()
-            )
+            Note(content=fake.text(), user=user, title=fake.name_male())
         )
-
     session.add_all(some_notes)
+
     session.commit()
 
 
@@ -76,8 +62,9 @@ def create_client_account() -> None:
     session.add(client)
     session.commit()
 
-    # Add user data
-    fill_data(client)
+    # Add client data examples
+    fill_with_data(client)
+    logger.info("¡Datos de prueba creados exitosamente!")
 
 
 def main(page: ft.Page) -> None:
@@ -88,14 +75,16 @@ def main(page: ft.Page) -> None:
 
     # Add admin user automatically
     if not session.query(User).filter(User.email == "admin.24@gmail.com").first():
+        logger.info("Usuario ADMIN no encontrado. Se procede a crearlo...")
         create_admin_account()
 
     # Add client user automatically
     if not session.query(User).filter(User.email == "client.24@gmail.com").first():
+        logger.info("Usuario CLIENT no encontrado. Se procede a crearlo...")
         create_client_account()
 
     # Page settings
-    page.title = "Dephokey — PasswordManager v.0.0.1"
+    page.title = "Dephokey — PasswordManager v.0.0.3"
     page.fonts = {
         "AlbertSansR": "interface/assets/fonts/albert-sans/albert-sans-regular.ttf",
         "AlbertSansB": "interface/assets/fonts/albert-sans/albert-sans-bold.ttf",
@@ -104,11 +93,16 @@ def main(page: ft.Page) -> None:
     }
 
     # Page design
-    page.theme = ft.Theme(font_family="AlbertSansR")
+    page.theme_mode = ft.ThemeMode.LIGHT
     page.bgcolor = primaryCorporate100
     page.padding = ft.padding.all(0)
     page.window.min_width = 950
     page.window.min_height = 650
+
+    # Page behaviour
+    page.theme = ft.Theme(
+        font_family="AlbertSansR", page_transitions=ft.PageTransitionsTheme(ft.PageTransitionTheme.NONE)
+    )
 
     # Page elements
     page.bottom_appbar = Footer()
