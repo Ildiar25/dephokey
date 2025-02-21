@@ -123,13 +123,9 @@ class Signup(ft.Container):
                                 content=ft.Row(
                                     controls=[
                                         ft.Text("¿Ya tienes cuenta?"),
-                                        ft.Container(
-                                            on_hover=self.focus_link,
-                                            on_click=lambda _: self.page.go("/login"),
-                                            content=ft.Text(
-                                                "Inicia sesión!",
-                                                color=accentTextColor
-                                            )
+                                        TextLink(
+                                            text="¡Inicia Sesión!",
+                                            function=lambda _: self.page.go("/login")
                                         )
                                     ]
                                 )
@@ -142,20 +138,6 @@ class Signup(ft.Container):
         )
 
     logger.info("Creación de la página 'SIGNUP' realizada.")
-
-    @staticmethod
-    def focus_link(cursor: ft.ControlEvent) -> None:
-        if cursor and cursor.control.content.color == accentTextColor:
-            cursor.control.content.color = secondaryTextColor
-            cursor.control.content.style = ft.TextStyle(
-                decoration=ft.TextDecoration.UNDERLINE,
-                decoration_color=secondaryTextColor
-            )
-        else:
-            cursor.control.content.color = accentTextColor
-            cursor.control.content.style = None
-
-        cursor.control.update()
 
     def toggle_signup_button_state(self, _: ft.ControlEvent) -> None:
         if all((self.name, self.email.value, self.password.value, self.password_repeat.value)):

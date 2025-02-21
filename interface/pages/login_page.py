@@ -72,13 +72,9 @@ class Login(ft.Container):
                                             controls=[
                                                 self.email,
                                                 self.password,
-                                                ft.Container(
-                                                    on_hover=self.focus_link,
-                                                    on_click=lambda _: self.page.go("/reset_password"),
-                                                    content=ft.Text(
-                                                        "¿Has olvidado la contraseña?",
-                                                        color=accentTextColor
-                                                    )
+                                                TextLink(
+                                                    text="¿Has olvidado la contraseña?",
+                                                    function=lambda _: self.page.go("/reset_password")
                                                 )
                                             ]
                                         ),
@@ -95,13 +91,9 @@ class Login(ft.Container):
                                 content=ft.Row(
                                     controls=[
                                         ft.Text("¿No tienes cuenta?"),
-                                        ft.Container(
-                                            on_hover=self.focus_link,
-                                            on_click=lambda _: self.page.go("/signup"),
-                                            content=ft.Text(
-                                                "Regístrate en Dephokey!",
-                                                color=accentTextColor
-                                            )
+                                        TextLink(
+                                            text="¡Regístrate en Dephokey!",
+                                            function=lambda _: self.page.go("/signup")
                                         )
                                     ]
                                 )
@@ -142,20 +134,6 @@ class Login(ft.Container):
         )
 
     logger.info("Creación de la página 'LOGIN' realizada.")
-
-    @staticmethod
-    def focus_link(cursor: ft.ControlEvent) -> None:
-        if cursor and cursor.control.content.color == accentTextColor:
-            cursor.control.content.color = secondaryTextColor
-            cursor.control.content.style = ft.TextStyle(
-                decoration=ft.TextDecoration.UNDERLINE,
-                decoration_color=secondaryTextColor
-            )
-        else:
-            cursor.control.content.color = accentTextColor
-            cursor.control.content.style = None
-
-        cursor.control.update()
 
     def toggle_login_button_state(self, _: ft.ControlEvent) -> None:
         if all((self.email.value, self.password.value)):
