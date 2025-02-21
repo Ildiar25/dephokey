@@ -1,8 +1,11 @@
 import flet as ft
+from datetime import datetime, timedelta
+from faker import Faker
 
 from data.db_orm import Base, engine, session
 
 from features.models.user import UserRole, User
+from features.models import Site, CreditCard, Note
 
 from interface.pages import *
 from interface.controls.footer import Footer
@@ -11,10 +14,70 @@ from shared.utils.colors import *
 from shared.logger_setup import main_logger as logger
 
 
+def fill_data(user: User) -> None:
+    fake = Faker()
+    some_sites = []
+    for _ in range(10):
+        some_sites.append(
+            Site(
+                fake.url(),
+                user.email,
+                fake.password(8, False, True, True, True),
+                user,
+                fake.domain_name()
+            )
+        )
+
+    session.add_all(some_sites)
+
+    some_cards = []
+    for _ in range(10):
+        some_cards.append(
+            CreditCard(
+                "Cliente Tester Morenazo",
+                fake.credit_card_number(),
+                "234",
+                datetime.today() + timedelta(weeks=208),
+                user,
+                "Compras"
+            )
+        )
+
+    session.add_all(some_cards)
+
+    some_notes = []
+    for _ in range(10):
+        some_notes.append(
+            Note(
+                fake.text(),
+                user,
+                fake.name_male()
+            )
+        )
+
+    session.add_all(some_notes)
+    session.commit()
+
+
 def create_admin_account() -> None:
-    admin = User(fullname="Administrador", email="admin.24@gmail.com", password="Admin1234", user_role=UserRole.ADMIN)
+    admin = User(
+        fullname="Jefazo Administrativo Supremo", email="admin.24@gmail.com",
+        password="Admin1234", user_role=UserRole.ADMIN
+    )
     session.add(admin)
     session.commit()
+
+
+def create_client_account() -> None:
+    client = User(
+        fullname="Cliente Tester Morenazo", email="client.24@gmail.com",
+        password="Client1234", user_role=UserRole.CLIENT
+    )
+    session.add(client)
+    session.commit()
+
+    # Add user data
+    fill_data(client)
 
 
 def main(page: ft.Page) -> None:
@@ -27,9 +90,9 @@ def main(page: ft.Page) -> None:
     if not session.query(User).filter(User.email == "admin.24@gmail.com").first():
         create_admin_account()
 
-    # This snippet allows change UserRole without any bug (DELETE AFTER FINISH THE APP)
-    user = User("Usuario Prueba", "test@test.com", "test1234", UserRole.CLIENT)
-    page.session.set("session", user)
+    # Add client user automatically
+    if not session.query(User).filter(User.email == "client.24@gmail.com").first():
+        create_client_account()
 
     # Page settings
     page.title = "Dephokey — PasswordManager v.0.0.1"
