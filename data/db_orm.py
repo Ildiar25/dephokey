@@ -7,6 +7,7 @@ from pathlib import Path
 class Base(DeclarativeBase):
     pass
 
+
 # Prepare test database settings
 test_engine = create_engine("sqlite:///:memory:", echo=True)
 New_session = sessionmaker(bind=test_engine)
