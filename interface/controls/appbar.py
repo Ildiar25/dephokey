@@ -3,7 +3,7 @@ import time
 
 from features.models.user import User, UserRole
 
-from interface.controls.custom_searchbar import CustomSearchBar
+from interface.controls.searchbar import CustomSearchBar
 from interface.pages.content_manager import BodyContent, ContentStyle
 from interface.pages.loading_page import LoadingPage
 
