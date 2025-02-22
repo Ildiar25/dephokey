@@ -11,37 +11,34 @@ primaryCorporate100 = "#0E2060"
 primaryCorporate75 = "#32548C"
 primaryCorporate25 = "#95A6E1"
 primaryCorporate00 = "#CBD4F4"
-
 secondaryCorporate100 = "#802305"
 secondaryCorporate75 = "#BF5610"
 secondaryCorporate25 = "#FFB55B"
 secondaryCorporate00 = "#FDD29F"
 
 
-# General color styles
-neutral00 = Colors.WHITE      #FFFFFF
-neutral05 = Colors.GREY_200   #F2F2F2
-neutral10 = Colors.GREY_300   #E6E6E6
-neutral20 = Colors.GREY_400   #CDCDCD
-neutral40 = Colors.BLACK38    #9A9A9A
-neutral60 = Colors.GREY_700   #686868
-neutral80 = Colors.GREY_900   #333333
+# General greyscale Colors
+neutral00 = Colors.WHITE      # #FFFFFF
+neutral05 = Colors.GREY_200   # #F2F2F2
+neutral10 = Colors.GREY_300   # #E6E6E6
+neutral20 = Colors.GREY_400   # #CDCDCD
+neutral40 = Colors.BLACK38    # #9A9A9A
+neutral60 = Colors.GREY_700   # #686868
+neutral80 = Colors.GREY_900   # #333333
 
+
+# Neutral colors
 neutralSuccessDark = "#217B21"
 neutralSuccessMedium = "#32B832"
 neutralSuccessLight = "#B7EAB7"
-
 neutralInfoDark = primaryCorporate100
 neutralInfoMedium = primaryCorporateColor
 neutralInfoLight = primaryCorporate25
-
 neutralDangerDark = "#9C001C"
 neutralDangerMedium = "#D80027"
 neutralDangerLight = "#F6A8B3"
-
 neutralWarningMedium = Colors.AMBER_600
 neutralWarningLight = Colors.AMBER_300
-
 transparentColor = Colors.TRANSPARENT
 
 
