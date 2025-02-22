@@ -1,4 +1,5 @@
 import flet as ft
+import time
 from enum import Enum
 from typing import Callable, Any
 
@@ -17,6 +18,11 @@ class IconLink(ft.Container):
         # Sets style & Update
         self.style = style
         self.on_hover = self.toggle_focus_link
+        self.badge = ft.Badge(
+            bgcolor=neutralSuccessLight, text_color=successTextColor, offset=ft.Offset(-25, -20),
+            label_visible=False, padding=ft.padding.symmetric(horizontal=10),
+            text_style=ft.TextStyle(font_family="AlbertSansR", size=12)
+        )
         self.__update_appareance(icon)
 
         # Endpoint
@@ -45,3 +51,11 @@ class IconLink(ft.Container):
                 else:
                     cursor.control.content.color = tertiaryIconColor
                 cursor.control.update()
+
+    def show_badge(self, msg: str  = "¡copiado!") -> None:
+        self.badge.text = msg
+        self.badge.label_visible = True
+        self.update()
+        time.sleep(1)
+        self.badge.label_visible = False
+        self.update()
