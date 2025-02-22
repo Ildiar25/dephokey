@@ -1,6 +1,5 @@
 import flet as ft
 from typing import Callable
-import time
 
 from data.db_orm import session
 
@@ -27,6 +26,7 @@ class SiteWidget(ft.Card):
         self.width = 365
         self.height = 200
         self.elevation = 2
+        self.animate_scale = ft.animation.Animation(200, ft.AnimationCurve.EASE_IN_OUT)
 
         # SiteWidget elements
         self.site_title = ft.Text(self.site.name if self.site.name else "Sin título", font_family="AlbertSansB",
@@ -41,13 +41,13 @@ class SiteWidget(ft.Card):
 
         # Widget content
         self.content = ft.Container(
+            on_hover=self.scale_widget,
             padding=ft.padding.all(24),
             expand=True,
             content=ft.Column(
                 spacing=16,
                 controls=[
-
-                    # Title
+                    # Header
                     ft.Row(
                         alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
                         controls=[
@@ -86,6 +86,8 @@ class SiteWidget(ft.Card):
                             self.site_username
                         ]
                     ),
+
+                    # Footer
                     ft.Row(
                         alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
                         controls=[
@@ -110,17 +112,16 @@ class SiteWidget(ft.Card):
             )
         )
 
+    def scale_widget(self, cursor: ft.ControlEvent) -> None:
+        if cursor and self.scale == 1.05:
+            self.scale = 1
+        else:
+            self.scale = 1.05
+        self.update()
+
     def copy_text(self, cursor: ft.ControlEvent) -> None:
         self.page.set_clipboard(decrypt_data(self.site.encrypted_password))
-        cursor.control.badge = ft.Badge(
-            text="Copiado!",
-            bgcolor=ft.Colors.with_opacity(opacity=0.5, color=neutral80),
-            text_color=neutral05
-        )
-        cursor.control.update()
-        time.sleep(1)
-        cursor.control.badge.label_visible = False
-        cursor.control.update()
+        cursor.control.show_badge()
 
     def show_password(self, cursor: ft.ControlEvent) -> None:
         if cursor and self.site_password.value == mask_password(decrypt_data(self.site.encrypted_password)):
