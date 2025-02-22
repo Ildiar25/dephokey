@@ -2,9 +2,11 @@ import flet as ft
 from typing import List, Union
 from enum import Enum
 
+from features.models.user import User
+
 from interface.controls.snackbar import Snackbar
 from interface.pages.settings_content import SettingsPage
-from interface.pages.widgets import SiteWidget, NoteWidget
+from interface.pages.widgets import SiteWidget, NoteWidget, CreditCardWidget
 from shared.utils.colors import *
 
 
@@ -30,7 +32,7 @@ class BodyContent(ft.Column):
         self.style = style
 
         # BodyContent attributes
-        self.user = self.page.session.get("session")
+        self.user: User = self.page.session.get("session")
         self.header = ft.Row(
             alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
             controls=[
@@ -66,7 +68,7 @@ class BodyContent(ft.Column):
         self.update()
 
     def update_appearance(self) -> None:
-        self.user = self.page.session.get("session")
+        self.user: User = self.page.session.get("session")
         match self.style:
             case ContentStyle.HOME:
                 self.body.controls = []
@@ -75,13 +77,19 @@ class BodyContent(ft.Column):
                 self.body.controls = []
 
             case ContentStyle.SITES:
-                self.body.controls = [SiteWidget(site, self.page, self.update_changes) for site in self.user.sites]
+                self.body.controls = [
+                    SiteWidget(site, self.page, self.update_changes) for site in self.user.sites
+                ]
 
             case ContentStyle.CREDITCARDS:
-                self.body.controls = []
+                self.body.controls = [
+                    CreditCardWidget(card, self.page, self.update_changes) for card in self.user.creditcards
+                ]
 
             case ContentStyle.NOTES:
-                self.body.controls = [NoteWidget(note, self.page, self.update_changes) for note in self.user.notes]
+                self.body.controls = [
+                    NoteWidget(note, self.page, self.update_changes) for note in self.user.notes
+                ]
 
             case ContentStyle.ABOUT:
                 self.body.controls = []
