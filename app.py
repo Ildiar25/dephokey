@@ -30,8 +30,9 @@ def fill_with_data(user: User) -> None:
     for _ in range(10):
         some_cards.append(
             CreditCard(
-                cardholder="Cliente Tester Morenazo", number=fake.credit_card_number(), cvc="234",
-                valid_until=datetime.today() + timedelta(weeks=208), user=user, alias="Compras")
+                cardholder="Cliente Tester Morenazo", number=fake.credit_card_number(),
+                cvc=fake.credit_card_security_code(), valid_until=datetime.today() + timedelta(weeks=208), user=user,
+                alias="Compras")
         )
     session.add_all(some_cards)
 
@@ -90,6 +91,7 @@ def main(page: ft.Page) -> None:
         "AlbertSansB": "interface/assets/fonts/albert-sans/albert-sans-bold.ttf",
         "AlbertSansL": "interface/assets/fonts/albert-sans/albert-sans-light.ttf",
         "AlbertSansI": "interface/assets/fonts/albert-sans/albert-sans-italic.ttf",
+        "IcelandR": "interface/assets/fonts/iceland/iceland-regular.ttf"
     }
 
     # Page design
