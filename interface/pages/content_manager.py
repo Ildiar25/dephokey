@@ -60,7 +60,13 @@ class BodyContent(ft.Column):
         self.header.controls[1].controls = buttons
         self.update_appearance()
 
+    def update_changes(self) -> None:
+        self.user = self.page.session.get("session")
+        self.update_appearance()
+        self.update()
+
     def update_appearance(self) -> None:
+        self.user = self.page.session.get("session")
         match self.style:
             case ContentStyle.HOME:
                 self.body.controls = []
@@ -69,13 +75,13 @@ class BodyContent(ft.Column):
                 self.body.controls = []
 
             case ContentStyle.SITES:
-                self.body.controls = [SiteWidget(site, self.page) for site in self.user.sites]
+                self.body.controls = [SiteWidget(site, self.page, self.update_changes) for site in self.user.sites]
 
             case ContentStyle.CREDITCARDS:
                 self.body.controls = []
 
             case ContentStyle.NOTES:
-                self.body.controls = [NoteWidget(note, self.page) for note in self.user.notes]
+                self.body.controls = [NoteWidget(note, self.page, self.update_changes) for note in self.user.notes]
 
             case ContentStyle.ABOUT:
                 self.body.controls = []
