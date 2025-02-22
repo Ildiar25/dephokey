@@ -95,7 +95,6 @@ selectedFillCheckboxColor = Colors.PURPLE_400
 cursorTextfieldColor = accentTextColor
 selectCursorTextfieldColor = secondaryTextColor
 labelTextfieldColor = secondaryTextColor
-
 staticBorderTextfieldColor = neutral20
 selectedBorderTextfieldColor = primaryCorporateColor
 
@@ -104,6 +103,7 @@ selectedBorderTextfieldColor = primaryCorporateColor
 dissabledTButtonColor = neutral10
 textColorTextButton = Colors.PURPLE_600
 overlayColorTextButton = Colors.GREY_300
+
 
 # E-button colors
 bgEButtonColor = primaryCorporateColor
@@ -125,6 +125,11 @@ bgSiteWidgetColor = neutral00
 titleSiteWidgetColor = primaryTextColor
 textSiteWidgetColor = neutral60
 accentSiteWidgetColor = tertiaryTextColor
+
+
+# Creditcardwidget colors
+bgCreditcardWidgetColor = primaryCorporateColor
+titleCreditcardWidgetColor = tertiaryTextColor
 
 
 # Notewidget colors
