@@ -26,6 +26,7 @@ class NoteWidget(ft.Card):
         self.width = 365
         self.height = 310
         self.elevation = 2
+        self.animate_scale = ft.animation.Animation(200, ft.AnimationCurve.EASE_IN_OUT)
 
         # NoteWidget elements
         self.note_title = ft.Text(self.note.title if self.note.title else "Sin título", font_family="AlbertSansB",
@@ -38,6 +39,7 @@ class NoteWidget(ft.Card):
 
         # Widget content
         self.content=ft.Container(
+            on_hover=self.scale_widget,
             padding=ft.padding.all(24),
             expand=True,
             content=ft.Column(
@@ -46,7 +48,7 @@ class NoteWidget(ft.Card):
                 controls=[
                     ft.Column(
                         controls=[
-                            # Title
+                            # Header
                             ft.Row(
                                 alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
                                 controls=[
@@ -84,6 +86,13 @@ class NoteWidget(ft.Card):
                 ]
             )
         )
+
+    def scale_widget(self, cursor: ft.ControlEvent) -> None:
+        if cursor and self.scale == 1.05:
+            self.scale = 1
+        else:
+            self.scale = 1.05
+        self.update()
 
     def show_content(self, cursor: ft.ControlEvent) -> None:
         if cursor and self.note_content.value == mask_text(decrypt_data(self.note.encrypted_content)):
