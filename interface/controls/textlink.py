@@ -5,8 +5,8 @@ from shared.utils.colors import *
 
 
 class TextLink(ft.Container):
-    def __init__(self, text: str, function: Callable[[Any], None]) -> None:
-        super().__init__()
+    def __init__(self, text: str, function: Callable[[Any], None], **kwargs) -> None:
+        super().__init__(**kwargs)
 
         # General attributes
         self.content = ft.Text(value=text, color=accentTextColor)
