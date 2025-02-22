@@ -56,7 +56,7 @@ warningTextColor = neutralWarningMedium
 dangerTextColor = neutralDangerDark
 
 
-# Icon text-colors
+# Icon-text colors
 primaryIconColor = neutral80
 secondaryIconColor = neutral40
 tertiaryIconColor = neutral00
@@ -128,8 +128,6 @@ bgSiteWidgetColor = neutral00
 titleSiteWidgetColor = primaryTextColor
 textSiteWidgetColor = neutral60
 accentSiteWidgetColor = tertiaryTextColor
-iconSiteWidgetColor = neutral80
-iconAccentSiteWidgetColor = primaryCorporateColor
 
 
 # Notewidget colors
