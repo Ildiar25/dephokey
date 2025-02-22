@@ -1,11 +1,12 @@
 import flet as ft
-import time
+from typing import Callable
 
 from data.db_orm import session
 
 from features.models import Note
 from features.encryption.core import decrypt_data
 
+from interface.controls import IconLink, IconLinkStyle
 from interface.pages.forms import DeleteFormStyle, DeleteForm
 
 from shared.utils.masker import mask_text
@@ -13,12 +14,13 @@ from shared.utils.colors import *
 
 
 class NoteWidget(ft.Card):
-    def __init__(self, note: Note, page: ft.Page, ) -> None:
+    def __init__(self, note: Note, page: ft.Page, update_appearance: Callable[[], None]) -> None:
         super().__init__()
 
         # General attributes
         self.page = page
         self.note = note
+        self.update_appearance = update_appearance
 
         # Widget settings
         self.width = 365
@@ -26,15 +28,9 @@ class NoteWidget(ft.Card):
         self.elevation = 2
 
         # NoteWidget elements
-        self.title = ft.Text(
-            self.note.title if self.note.title else "Sin título",
-            font_family="AlbertSansB",
-            size=18,
-            color=titleNoteWidgetColor
-        )
-        self.note_content = ft.Text(
-            mask_text(decrypt_data(self.note.encrypted_content))
-        )
+        self.note_title = ft.Text(self.note.title if self.note.title else "Sin título", font_family="AlbertSansB",
+            size=18, color=titleNoteWidgetColor)
+        self.note_content = ft.Text(mask_text(decrypt_data(self.note.encrypted_content)))
 
         # Widget design
         self.color = bgNoteWidgetColor
@@ -54,26 +50,14 @@ class NoteWidget(ft.Card):
                             ft.Row(
                                 alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
                                 controls=[
-                                    self.title,
+                                    self.note_title,
                                     ft.Container(
                                         content=ft.Row(
                                             spacing=8,
                                             controls=[
-                                                ft.Container(
-                                                    on_hover=self.toggle_icon_color,
-                                                    content=ft.Icon(
-                                                        ft.Icons.EDIT_OUTLINED,
-                                                        color=iconAccentSiteWidgetColor
-                                                    )
-                                                ),
-                                                ft.Container(
-                                                    on_hover=self.toggle_icon_color,
-                                                    on_click=self.open_delete_form,
-                                                    content=ft.Icon(
-                                                        ft.Icons.DELETE_OUTLINE_ROUNDED,
-                                                        color=iconAccentSiteWidgetColor
-                                                    )
-                                                )
+                                                IconLink(ft.Icons.EDIT_OUTLINED, IconLinkStyle.LIGHT),
+                                                IconLink(ft.Icons.DELETE_OUTLINED, IconLinkStyle.LIGHT,
+                                                         function=self.open_delete_form)
                                             ]
                                         )
                                     )
@@ -84,47 +68,27 @@ class NoteWidget(ft.Card):
                             ft.Row(
                                 wrap=True,
                                 controls=[
-                                    self.note_content
+                                    ft.Container(
+                                        on_hover=self.show_content,
+                                        content=ft.Row(
+                                            wrap=True,
+                                            controls=[
+                                                self.note_content
+                                            ]
+                                        )
+                                    )
                                 ]
                             ),
                         ]
-                    ),
-
-                    # Footer
-                    ft.Container(
-                        on_hover=self.focus_link,
-                        on_click=self.show_content,
-                        tooltip="Muestra el contenido durante 3 segundos",
-                        content=ft.Text(
-                            "ver contenido",
-                            color=accentTextColor
-                        )
                     )
                 ]
             )
         )
 
-    @staticmethod
-    def focus_link(cursor: ft.ControlEvent) -> None:
-        if cursor and cursor.control.content.color == accentTextColor:
-            cursor.control.content.color = textNoteWidgetColor
-        else:
-            cursor.control.content.color = accentTextColor
-        cursor.control.update()
-
-    @staticmethod
-    def toggle_icon_color(cursor: ft.ControlEvent) -> None:
-        if cursor and cursor.control.content.color == iconAccentNoteWidgetColor:
-            cursor.control.content.color = iconNoteWidgetColor
-        else:
-            cursor.control.content.color = iconAccentNoteWidgetColor
-        cursor.control.update()
-
     def show_content(self, cursor: ft.ControlEvent) -> None:
-        if cursor:
+        if cursor and self.note_content.value == mask_text(decrypt_data(self.note.encrypted_content)):
             self.note_content.value = decrypt_data(self.note.encrypted_content)
-            self.note_content.update()
-            time.sleep(3)
+        else:
             self.note_content.value = mask_text(decrypt_data(self.note.encrypted_content))
         self.note_content.update()
 
@@ -135,4 +99,4 @@ class NoteWidget(ft.Card):
         # New query
         session.query(Note).filter(Note.id == self.note.id).delete()
         session.commit()
-
+        self.update_appearance()
