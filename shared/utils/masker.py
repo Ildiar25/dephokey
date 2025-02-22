@@ -9,10 +9,8 @@ def mask_email(email: str) -> str:
 def mask_username(username: str) -> str:
     if "@" in username:
         return mask_email(username)
-
-    else:
-        masked = "•" * len(username[3:])
-        return username[:3] + masked
+    masked = "•" * len(username[3:])
+    return username[:3] + masked
 
 
 def mask_password(passsword: str) -> str:
@@ -20,8 +18,10 @@ def mask_password(passsword: str) -> str:
 
 
 def mask_number(number: str) -> str:
-    masked = "•" * len(number[:-4])
-    return masked + number[-4:]
+    if len(number) > 10:
+        masked = "•" * len(number[:-4])
+        return masked + number[-4:]
+    return "•" * len(number)
 
 
 def mask_phone(phone: str) -> str:
