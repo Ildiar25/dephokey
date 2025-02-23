@@ -1,11 +1,9 @@
 import flet as ft
-from datetime import datetime, timedelta
-from faker import Faker
+import asyncio
 
-from data.db_orm import Base, engine, session
+from data.db_orm import Base, engine
 
-from features.models.user import UserRole, User
-from features.models import Site, CreditCard, Note
+from features.data_filler.filler_settings import fill_with_users
 
 from interface.pages import *
 from interface.controls.footer import Footer
@@ -14,58 +12,27 @@ from shared.utils.colors import *
 from shared.logger_setup import main_logger as logger
 
 
-def fill_with_data(user: User) -> None:
-    logger.info(f"Añadiendo elementos de prueba al usuario {user.email}...")
-    fake = Faker()
-    some_sites = []
-    for _ in range(10):
-        some_sites.append(
-            Site(address=fake.url(), username=user.email, password=fake.password(
-                length=8, digits=True, upper_case=True, lower_case=True
-            ), user=user, name=fake.domain_name())
-        )
-    session.add_all(some_sites)
-
-    some_cards = []
-    for _ in range(10):
-        some_cards.append(
-            CreditCard(
-                cardholder="Cliente Tester Morenazo", number=fake.credit_card_number(),
-                cvc=fake.credit_card_security_code(), valid_until=datetime.today() + timedelta(weeks=208), user=user,
-                alias="Compras")
-        )
-    session.add_all(some_cards)
-
-    some_notes = []
-    for _ in range(10):
-        some_notes.append(
-            Note(content=fake.text(), user=user, title=fake.name_male())
-        )
-    session.add_all(some_notes)
-
-    session.commit()
+async def check_session_is_expired(page: ft.Page) -> None:
+    """Monitores if session is expired every 30 seconds"""
+    check = True
+    while check:
+        await asyncio.sleep(30)
+        if page.session.contains_key("session"):
+            continue
+        check = False
+        await back_to_login_page(page)
 
 
-def create_admin_account() -> None:
-    admin = User(
-        fullname="Jefazo Administrativo Supremo", email="admin.24@gmail.com",
-        password="Admin1234", user_role=UserRole.ADMIN
-    )
-    session.add(admin)
-    session.commit()
+async def back_to_login_page(page: ft.Page) -> None:
+    page.session.clear()
 
-
-def create_client_account() -> None:
-    client = User(
-        fullname="Cliente Tester Morenazo", email="client.24@gmail.com",
-        password="Client1234", user_role=UserRole.CLIENT
-    )
-    session.add(client)
-    session.commit()
-
-    # Add client data examples
-    fill_with_data(client)
-    logger.info("¡Datos de prueba creados exitosamente!")
+    # Hide menus
+    page.appbar.visible = False
+    page.bottom_appbar.visible = False
+    page.bgcolor = primaryCorporate100
+    page.clean()
+    page.update()
+    page.go("/login")
 
 
 def main(page: ft.Page) -> None:
@@ -73,16 +40,7 @@ def main(page: ft.Page) -> None:
     # Create all tables
     Base.metadata.create_all(bind=engine)
     logger.info("¡BASE DE DATOS cargada con éxito!")
-
-    # Add admin user automatically
-    if not session.query(User).filter(User.email == "admin.24@gmail.com").first():
-        logger.info("Usuario ADMIN no encontrado. Se procede a crearlo...")
-        create_admin_account()
-
-    # Add client user automatically
-    if not session.query(User).filter(User.email == "client.24@gmail.com").first():
-        logger.info("Usuario CLIENT no encontrado. Se procede a crearlo...")
-        create_client_account()
+    fill_with_users()
 
     # Page settings
     page.title = "Dephokey — PasswordManager v.0.0.3"
@@ -125,6 +83,9 @@ def main(page: ft.Page) -> None:
 
         elif page.route == "/home" and page.session.contains_key("session"):
             page.add(Dashboard(page))
+
+            # Initializes session monitoring
+            page.loop.create_task(check_session_is_expired(page))
             logger.info("Página DASHBOARD cargada.")
 
     # Define routes
