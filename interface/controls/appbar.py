@@ -96,8 +96,7 @@ class CustomAppbar(ft.AppBar):
         self.body_content.update()
 
     def search_results(self, result: ft.ControlEvent) -> None:
-        self.body_content.change_content(
-            title=f"Resultados de: {result.control.value.title()}", style=ContentStyle.HOME)
+        self.body_content.show_results(result.control.value)
         self.body_content.update()
 
     def logout(self, _: ft.ControlEvent) -> None:

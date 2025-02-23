@@ -5,6 +5,8 @@ from enum import Enum
 from features.models.user import User
 
 from interface.controls.snackbar import Snackbar
+from interface.pages.results_content import ResultsPage
+from interface.pages.home_content import HomePage
 from interface.pages.settings_content import SettingsPage
 from interface.pages.widgets import SiteWidget, NoteWidget, CreditCardWidget
 from shared.utils.colors import *
@@ -12,6 +14,7 @@ from shared.utils.colors import *
 
 class ContentStyle(Enum):
     HOME = "home"
+    RESULTS = "results"
     ADMIN = "admin"
     SITES = "sites"
     CREDITCARDS = "creditcards"
@@ -30,18 +33,19 @@ class BodyContent(ft.Column):
         self.page = page
         self.snackbar = snackbar
         self.style = style
+        self.title = ft.Text(value=title, font_family="AlbertSansB", color=primaryTextColor, size=24)
 
         # BodyContent attributes
         self.user: User = self.page.session.get("session")
         self.header = ft.Row(
             alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
-            controls=[
-                ft.Text(value=title, font_family="AlbertSansB", color=primaryTextColor, size=24),
-                ft.Row(spacing=16, controls=buttons)
-            ]
+            controls=[self.title, ft.Row(spacing=16, controls=buttons)]
         )
         self.body = ft.Row(expand=True, wrap=True, spacing=16)
         self.style = None
+
+        # Results content
+        self.results_content = None
 
         # Body design
         self.spacing = 32
@@ -49,29 +53,30 @@ class BodyContent(ft.Column):
         self.expand = True
 
         # Body content
-        self.controls = [
-            self.header,
-            self.body
-        ]
-
+        self.controls = [self.header, self.body]
         self.update_appearance()
 
     def change_content(self, title: str, style: ContentStyle, buttons: Union[List[ft.Control], None] = None) -> None:
         self.style = style
-        self.header.controls[0].value = title
+        self.title.value = title
         self.header.controls[1].controls = buttons
         self.update_appearance()
+
+    def show_results(self, user_input: str) -> None:
+        self.style = ContentStyle.RESULTS
+        self.title.value = f"Resultados para '{user_input}':"
+        self.update_appearance(user_input)
 
     def update_changes(self) -> None:
         self.user = self.page.session.get("session")
         self.update_appearance()
         self.update()
 
-    def update_appearance(self) -> None:
+    def update_appearance(self, user_input: str | None = None) -> None:
         self.user: User = self.page.session.get("session")
         match self.style:
             case ContentStyle.HOME:
-                self.body.controls = []
+                self.body.controls = [HomePage(self.page, self.snackbar, self.update_changes)]
 
             case ContentStyle.ADMIN:
                 self.body.controls = []
@@ -96,6 +101,12 @@ class BodyContent(ft.Column):
 
             case ContentStyle.SETTINGS:
                 self.body.controls = [SettingsPage(self.page, self.snackbar)]
+
+            case ContentStyle.RESULTS:
+                if not isinstance(self.results_content, ResultsPage):
+                    self.results_content = ResultsPage(self.page, self.snackbar, self.update_changes)
+                    self.body.controls = [self.results_content]
+                self.results_content.update_results(user_input)
 
             case ContentStyle.EMPTY:
                 self.header.controls[1].controls.clear()

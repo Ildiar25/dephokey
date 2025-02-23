@@ -2,7 +2,7 @@ import flet as ft
 
 from features.models.user import UserRole,User
 
-from interface.pages.content_manager import BodyContent
+from interface.pages.content_manager import BodyContent, ContentStyle
 from interface.controls import CustomAppbar, CustomSidebar, Snackbar
 
 from shared.utils.colors import *
@@ -18,7 +18,9 @@ class Dashboard(ft.Container):
         self.snackbar = Snackbar()
 
         # General content
-        self.body_content = BodyContent(self.page, self.snackbar)
+        self.body_content = BodyContent(
+            self.page, self.snackbar, title=f"Bienvenido {self.user.fullname.split(' ')[0]}!"
+        )
 
         # Sidebar controller & Searchbar function
         self.sidebar = CustomSidebar(self.page, self.body_content)
