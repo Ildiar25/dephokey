@@ -61,3 +61,15 @@ def create_client_account() -> None:
     # Add client data examples
     fill_with_data(client)
     logger.info("¡Datos de prueba creados exitosamente!")
+
+
+def fill_with_users() -> None:
+    # Add admin user automatically
+    if not session.query(User).filter(User.email == "admin.24@gmail.com").first():
+        logger.info("Usuario ADMIN no encontrado. Se procede a crearlo...")
+        create_admin_account()
+
+    # Add client user automatically
+    if not session.query(User).filter(User.email == "client.24@gmail.com").first():
+        logger.info("Usuario CLIENT no encontrado. Se procede a crearlo...")
+        create_client_account()
