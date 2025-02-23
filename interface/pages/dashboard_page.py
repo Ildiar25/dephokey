@@ -47,10 +47,12 @@ class Dashboard(ft.Container):
         # Dashboard
         self.active_content = ft.Container(
             expand=True,
-            padding=ft.padding.only(56, 56, 56, 28),
+            padding=ft.padding.only(left=56, top=56, right=56, bottom=28),
             content=ft.Stack(
                 controls=[
-                    ft.Container(image=ft.DecorationImage("interface/assets/bgimage-home-page.png", fit=ft.ImageFit.COVER)),
+                    ft.Container(
+                        image=ft.DecorationImage("interface/assets/bgimage-home-page.png", fit=ft.ImageFit.COVER)
+                    ),
                     self.body_content
                 ]
             )
