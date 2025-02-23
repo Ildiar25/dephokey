@@ -112,7 +112,7 @@ class CustomAppbar(ft.AppBar):
         self.page.update()
 
         # Load sound
-        close_session = ft.Audio("interface/assets/effects/close-session.mp3", autoplay=True)
+        close_session = ft.Audio(src="interface/assets/effects/close-session.mp3", autoplay=True)
         self.page.overlay.append(close_session)
         self.page.update()
 
