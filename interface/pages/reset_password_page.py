@@ -12,16 +12,13 @@ class ResetPasswordPage(ft.Container):
         self.page = page
 
         # ResetPassword attributes
-        self.main_field = CustomTextField(
-            label="Correo Electrónico",
-            on_change=None
-        )
+        self.main_field = CustomTextField(label="Correo Electrónico", on_change=None)
         self.submit_email = CustomElevatedButton(name="¡Vamos!", style=ButtonStyle.DEFAULT, on_click=None)
 
         # Page design
         self.expand = True
         self.bgcolor = bgGeneralFormColor
-        self.padding = ft.padding.only(32, 56, 32, 56)
+        self.padding = ft.padding.symmetric(vertical=56, horizontal=32)
 
         # Body content
         self.content = ft.Column(
