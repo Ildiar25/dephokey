@@ -7,7 +7,8 @@ from features.models import Note
 from features.encryption.core import decrypt_data
 
 from interface.controls import IconLink, IconLinkStyle
-from interface.pages.forms import DeleteFormStyle, DeleteForm
+from interface.pages.forms.base_form import FormStyle
+from interface.pages.forms import DeleteFormStyle, DeleteForm, NoteForm
 
 from shared.utils.masker import mask_text
 from shared.utils.colors import *
@@ -57,7 +58,8 @@ class NoteWidget(ft.Card):
                                         content=ft.Row(
                                             spacing=8,
                                             controls=[
-                                                IconLink(ft.Icons.EDIT_OUTLINED, IconLinkStyle.LIGHT),
+                                                IconLink(ft.Icons.EDIT_OUTLINED, IconLinkStyle.LIGHT,
+                                                         function=self.open_edit_note_form),
                                                 IconLink(ft.Icons.DELETE_OUTLINED, IconLinkStyle.LIGHT,
                                                          function=self.open_delete_form)
                                             ]
@@ -100,6 +102,11 @@ class NoteWidget(ft.Card):
         else:
             self.note_content.value = mask_text(decrypt_data(self.note.encrypted_content))
         self.note_content.update()
+
+    def open_edit_note_form(self, _: ft.ControlEvent) -> None:
+        self.page.open(
+            NoteForm(title=f"Editando {self.note.title}", page=self.page, style=FormStyle.EDIT, note=self.note)
+        )
 
     def open_delete_form(self, _: ft.ControlEvent) -> None:
         self.page.open(DeleteForm(self.page, self.delete_note, DeleteFormStyle.NOTE))

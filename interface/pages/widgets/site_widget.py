@@ -7,7 +7,8 @@ from features.models import Site
 from features.encryption.core import decrypt_data
 
 from interface.controls import TextLink, IconLink, IconLinkStyle
-from interface.pages.forms import DeleteFormStyle, DeleteForm
+from interface.pages.forms.base_form import FormStyle
+from interface.pages.forms import DeleteFormStyle, DeleteForm, SiteForm
 
 from shared.utils.masker import mask_password
 from shared.utils.colors import *
@@ -56,7 +57,8 @@ class SiteWidget(ft.Card):
                                 content=ft.Row(
                                     spacing=8,
                                     controls=[
-                                        IconLink(ft.Icons.EDIT_OUTLINED, IconLinkStyle.LIGHT),
+                                        IconLink(ft.Icons.EDIT_OUTLINED, IconLinkStyle.LIGHT,
+                                                 function=self.open_edit_site_form),
                                         IconLink(ft.Icons.DELETE_OUTLINED, IconLinkStyle.LIGHT,
                                                  function=self.open_delete_form)
                                     ]
@@ -129,6 +131,11 @@ class SiteWidget(ft.Card):
         else:
             self.site_password.value = mask_password(decrypt_data(self.site.encrypted_password))
         self.site_password.update()
+
+    def open_edit_site_form(self, _: ft.ControlEvent) -> None:
+        self.page.open(
+            SiteForm(title=f"Editando {self.site.name}", page=self.page, style=FormStyle.EDIT, site=self.site)
+        )
 
     def open_delete_form(self, _: ft.ControlEvent) -> None:
         self.page.open(DeleteForm(self.page, self.delete_site, DeleteFormStyle.SITE))

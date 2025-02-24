@@ -9,7 +9,8 @@ from features.models import CreditCard
 from features.encryption.core import decrypt_data
 
 from interface.controls import IconLink, IconLinkStyle
-from interface.pages.forms import DeleteFormStyle, DeleteForm
+from interface.pages.forms.base_form import FormStyle
+from interface.pages.forms import DeleteFormStyle, DeleteForm, CreditCardForm
 
 from shared.utils.masker import mask_number
 from shared.utils.colors import *
@@ -72,7 +73,8 @@ class CreditCardWidget(ft.Card):
                                 content=ft.Row(
                                     spacing=8,
                                     controls=[
-                                        IconLink(ft.Icons.EDIT_OUTLINED, IconLinkStyle.DARK),
+                                        IconLink(ft.Icons.EDIT_OUTLINED, IconLinkStyle.DARK,
+                                                 function=self.open_edit_creditcard_form),
                                         IconLink(ft.Icons.DELETE_OUTLINED, IconLinkStyle.DARK,
                                                  function=self.open_delete_form)
                                     ]
@@ -165,6 +167,12 @@ class CreditCardWidget(ft.Card):
     def copy_text(self, cursor: ft.ControlEvent) -> None:
         self.page.set_clipboard(decrypt_data(self.creditcard.encrypted_number))
         cursor.control.show_badge()
+
+    def open_edit_creditcard_form(self, _: ft.ControlEvent) -> None:
+        self.page.open(
+            CreditCardForm(title=f"Editando {self.creditcard.alias}", page=self.page,
+                           style=FormStyle.EDIT, creditcard=self.creditcard)
+        )
 
     def open_delete_form(self, _: ft.ControlEvent) -> None:
         self.page.open(DeleteForm(self.page, self.delete_creditcard, DeleteFormStyle.CREDITCARD))
