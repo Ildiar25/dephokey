@@ -43,10 +43,15 @@ class ResultsPage(ft.Column):
         # Update searchbar results and show it
         results = user_input.strip()
         user: User = self.page.session.get("session")
-
-        ss = session.query(Site).filter_by(user_id=user.id).filter(Site.address.like(f"%{results}%")).all()
-        cs = session.query(CreditCard).filter_by(user_id=user.id).filter(CreditCard.alias.like(f"%{results}%")).all()
-        ns = session.query(Note).filter_by(user_id=user.id).filter(Note.title.like(f"%{results}%")).all()
+        if results != "":
+            ss = session.query(Site).filter_by(user_id=user.id).filter(Site.name.like(f"%{results}%")).all()
+            cs = session.query(CreditCard).filter_by(
+                user_id=user.id).filter(CreditCard.alias.like(f"%{results}%")).all()
+            ns = session.query(Note).filter_by(user_id=user.id).filter(Note.title.like(f"%{results}%")).all()
+        else:
+            ss = []
+            cs = []
+            ns = []
 
         self.__populate_rows(ss, self.sites_row, SiteWidget)
         self.__populate_rows(cs, self.creditcards_row, CreditCardWidget)

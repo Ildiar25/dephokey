@@ -54,26 +54,9 @@ class BodyContent(ft.Column):
 
         # Body content
         self.controls = [self.header, self.body]
-        self.update_appearance()
+        self.__update_appearance()
 
-    def change_content(self, title: str, style: ContentStyle, buttons: Union[List[ft.Control], None] = None) -> None:
-        self.style = style
-        self.title.value = title
-        self.header.controls[1].controls = buttons
-        self.update_appearance()
-
-    def show_results(self, user_input: str) -> None:
-        self.style = ContentStyle.RESULTS
-        self.title.value = f"Resultados para '{user_input}':"
-        self.update_appearance(user_input)
-
-    def update_changes(self) -> None:
-        self.user = self.page.session.get("session")
-        self.update_appearance()
-        self.update()
-
-    def update_appearance(self, user_input: str | None = None) -> None:
-        self.user: User = self.page.session.get("session")
+    def __update_appearance(self, user_input: str | None = None) -> None:
         match self.style:
             case ContentStyle.HOME:
                 self.body.controls = [HomePage(self.page, self.snackbar, self.update_changes)]
@@ -111,3 +94,18 @@ class BodyContent(ft.Column):
             case ContentStyle.EMPTY:
                 self.header.controls[1].controls.clear()
                 self.body.controls.clear()
+
+    def change_content(self, title: str, style: ContentStyle, buttons: Union[List[ft.Control], None] = None) -> None:
+        self.style = style
+        self.title.value = title
+        self.header.controls[1].controls = buttons
+        self.__update_appearance()
+
+    def show_results(self, user_input: str) -> None:
+        self.style = ContentStyle.RESULTS
+        self.title.value = f"Resultados para '{user_input}':"
+        self.__update_appearance(user_input)
+
+    def update_changes(self) -> None:
+        self.__update_appearance()
+        self.update()
