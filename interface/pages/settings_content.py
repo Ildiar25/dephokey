@@ -22,14 +22,10 @@ class SettingsPage(ft.Row):
         # Settings attributes
         self.user: User = self.page.session.get("session")
         self.fullname = CustomTextField(
-            value=self.user.fullname, expand=True, on_change=self.toggle_empty_fields
-        )
+            value=self.user.fullname, expand=True, on_change=self.toggle_empty_fields, max_length=30)
         self.email = CustomTextField(
-            value=self.user.email, expand=True, on_change=self.toggle_empty_fields
-        )
-        self.password = CustomTextField(
-            value="*" * 15, expand=True, password=True, read_only=True
-        )
+            value=self.user.email, expand=True, on_change=self.toggle_empty_fields, max_length=30)
+        self.password = CustomTextField(value="*" * 15, expand=True, password=True, read_only=True)
 
         # Design settings
         self.spacing = 32

@@ -24,18 +24,11 @@ class Login(ft.Container):
         self.page.scroll = None
         self.snackbar = Snackbar()
 
-        # Login elements
-        self.email = CustomTextField(
-            label="Correo Electrónico",
-            on_change=self.toggle_login_button_state
-        )
-        self.password = CustomTextField(
-            label="Contraseña",
-            on_change=self.toggle_login_button_state,
-            on_submit=self.login,
-            password=True,
-            can_reveal_password=True
-        )
+        # Login attributes
+        self.email = CustomTextField(label="Correo Electrónico",
+            on_change=self.toggle_login_button_state, max_length=30)
+        self.password = CustomTextField(label="Contraseña", on_change=self.toggle_login_button_state,
+            on_submit=self.login, password=True, can_reveal_password=True, max_length=30)
         self.login_button = CustomElevatedButton(
             name="Login", style=ButtonStyle.DEFAULT, expand=True, disabled=True, on_click=self.login
         )

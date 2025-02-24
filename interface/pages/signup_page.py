@@ -22,26 +22,14 @@ class Signup(ft.Container):
         self.page = page
         self.snackbar = Snackbar()
 
-        # Signup elements
-        self.name = CustomTextField(
-            label="Nombre Completo",
-            on_change=self.toggle_signup_button_state
-        )
-        self.email = CustomTextField(
-            label="Correo electrónico",
-            on_change=self.toggle_signup_button_state
-        )
-        self.password = CustomTextField(
-            label="Contraseña",
-            on_change=self.toggle_signup_button_state,
-            password=True,
-            can_reveal_password=True
-        )
-        self.password_repeat = CustomTextField(
-            label="Repite la contraseña",
-            on_change=self.toggle_signup_button_state,
-            password=True
-        )
+        # Signup attributes
+        self.name = CustomTextField(label="Nombre Completo", on_change=self.toggle_signup_button_state, max_length=30)
+        self.email = CustomTextField(label="Correo electrónico",
+            on_change=self.toggle_signup_button_state, max_length=30)
+        self.password = CustomTextField(label="Contraseña", on_change=self.toggle_signup_button_state,
+            password=True, can_reveal_password=True, max_length=30)
+        self.password_repeat = CustomTextField(label="Repite la contraseña", on_change=self.toggle_signup_button_state,
+            password=True, max_length=30)
         self.signup_button = CustomElevatedButton(
             name="Regístrate", style=ButtonStyle.DEFAULT, expand=True, disabled=True, on_click=self.create_account
         )

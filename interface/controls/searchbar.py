@@ -36,7 +36,8 @@ class CustomSearchBar(ft.Container):
                     cursor_width=1,
                     color=ft.Colors.BLACK,
                     hint_text="Buscar",
-                    on_change=self.function
+                    on_change=self.function,
+                    max_length=100
                 )
             ]
         )
