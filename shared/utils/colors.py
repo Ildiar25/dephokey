@@ -94,7 +94,6 @@ selectedFillCheckboxColor = Colors.PURPLE_400
 # Textfield colors
 cursorTextfieldColor = accentTextColor
 selectCursorTextfieldColor = secondaryTextColor
-labelTextfieldColor = secondaryTextColor
 staticBorderTextfieldColor = neutral20
 selectedBorderTextfieldColor = primaryCorporateColor
 
