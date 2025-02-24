@@ -11,7 +11,7 @@ class StringBuilder:
         self.__password = "Testing_1234"
         self.__address = "http://www.testing-url.com"
         self.__number = "4033473536674460"
-        self.__date = "15-01-1991"
+        self.__date = "01/91"
 
     def build(self, str_type: str) -> str:
         match str_type:
@@ -148,7 +148,7 @@ class TestValidate(unittest.TestCase):
 
     def test_validateValidDate(self) -> None:
         self.assertTrue(self.validate.is_valid_date(StringBuilder().build("date")),
-                        msg="Date MUST BE a valid date (dd-mm-yyyy).")
+                        msg="Date MUST BE a valid format date (mm-yy).")
         logger.info(">>> Confirm if DATE is VALID...   OK")
 
     def test_validateInvalidDate(self) -> None:
