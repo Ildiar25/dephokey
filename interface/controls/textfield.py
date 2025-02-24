@@ -14,7 +14,8 @@ class CustomTextField(ft.TextField):
         # Text design settings
         self.cursor_color = cursorTextfieldColor
         self.selection_color = selectCursorTextfieldColor
-        self.label_style = ft.TextStyle(color=labelTextfieldColor)
+        self.label_style = ft.TextStyle(color=secondaryTextColor)
+        self.hint_style = ft.TextStyle(color=secondaryTextColor)
 
         # Field design settings
         self.border_radius = 4
