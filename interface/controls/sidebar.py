@@ -3,7 +3,7 @@ import flet as ft
 from features.models.user import User, UserRole
 
 from interface.controls import *
-from interface.pages.forms import GenerateFormStyle, GenerateForm, AddFormStyle, AddForm
+from interface.pages.forms import GenerateFormStyle, GenerateForm, FormStyle, SiteForm, CreditCardForm, NoteForm
 from interface.pages.content_manager import BodyContent, ContentStyle
 
 from shared.utils.colors import *
@@ -145,19 +145,18 @@ class CustomSidebar(ft.NavigationRail):
 
     def add_newsite_form(self, _: ft.ControlEvent) -> None:
         self.page.open(
-            AddForm(self.page, title="Nueva Dirección Web", addform_style=AddFormStyle.SITE)
+            SiteForm(title="Nueva dirección web", page=self.page, style=FormStyle.ADD)
         )
 
     def add_newcreditcard_form(self, _: ft.ControlEvent) -> None:
         self.page.open(
-            AddForm(self.page, title="Nueva Tarjeta de Crédito", addform_style=AddFormStyle.CREDITCARD)
+            CreditCardForm(title="Nueva tarjeta de crédito", page=self.page, style=FormStyle.ADD)
         )
 
     def add_newnote_form(self, _: ft.ControlEvent) -> None:
         self.page.open(
-            AddForm(self.page, title="Nueva Nota Segura", addform_style=AddFormStyle.NOTE)
+            NoteForm(title="Nueva nota segura", page=self.page, style=FormStyle.ADD)
         )
-
 
     def open_newnumber_form(self, _: ft.ControlEvent) -> None:
         self.page.open(
