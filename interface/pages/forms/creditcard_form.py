@@ -119,18 +119,18 @@ class CreditCardForm(BaseForm):
                             self.cc_holder
                         ]),
                         ft.Column(spacing=6, controls=[
-                            ft.Text(value="Número de la tarjeta ", font_family="AlbertSansB", color=primaryTextColor,
+                            ft.Text(value="Número de la tarjeta", font_family="AlbertSansR", color=primaryTextColor,
                                     spans=[self.span]),
                             self.cc_number
                         ]),
                         ft.Row(spacing=16, alignment=ft.MainAxisAlignment.SPACE_BETWEEN, controls=[
                             ft.Column(spacing=6, controls=[
-                                ft.Text(value="Fecha de validez ", font_family="AlbertSansB", color=primaryTextColor,
+                                ft.Text(value="Fecha de validez", font_family="AlbertSansR", color=primaryTextColor,
                                         spans=[self.span]),
                                 self.cc_date
                             ]),
                             ft.Column(spacing=6, controls=[
-                                ft.Text(value="CVC ", font_family="AlbertSansB", color=primaryTextColor,
+                                ft.Text(value="CVC", font_family="AlbertSansR", color=primaryTextColor,
                                         spans=[self.span]),
                                 self.cc_cvc
                             ])
