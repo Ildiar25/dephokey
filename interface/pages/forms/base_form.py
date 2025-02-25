@@ -25,13 +25,18 @@ class BaseForm(ft.AlertDialog):
 
         # Form general content
         self.actions = [self.cancel_button, self.submit_button]
+        self.content = ft.Container(width=550, height=378)
+        self.span = ft.TextSpan(text="*", style=ft.TextStyle(font_family="AlbertSansB", color=dangerTextColor))
+        self.close_button = ft.IconButton(
+            ft.Icons.CLOSE_ROUNDED, icon_color=iconAccentGeneralFormColor, on_click=lambda _: self.page.close(self),
+            highlight_color=selectedIconGeneralFormColor, hover_color=hoverIconGeneralFormColor
+        )
 
         # Form general design
         self.shape = ft.RoundedRectangleBorder(4)
         self.bgcolor = bgGeneralFormColor
 
     def toggle_submit_button_state(self, cursor: ft.ControlEvent) -> None:
-        print(cursor.control.value)
         if cursor and all(self.fields):
             self.submit_button.disabled = False
         else:
