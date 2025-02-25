@@ -1,192 +1,201 @@
-from string import ascii_lowercase, ascii_uppercase, digits
 import flet as ft
 import random
 from hashlib import sha256
+from string import ascii_letters, digits
 
 from data.db_orm import session
 
 from features.models.user import User
 
-from interface.controls import CustomElevatedButton, ButtonStyle, CustomTextField, Snackbar, SnackbarStyle, TextLink
+from .base_form import BaseForm, FormStyle
+from interface.controls import Snackbar, SnackbarStyle, CustomTextField, TextLink
 
 from shared.validate import Validate
 from shared.utils.colors import *
 
 
-class ChangePasswordForm(ft.AlertDialog):
-    def __init__(self, page: ft.Page, snackbar: Snackbar) -> None:
+class ChangePasswordForm(BaseForm):
+    def __init__(self, page: ft.Page, snackbar: Snackbar, style: FormStyle, email: str | None = None) -> None:
         super().__init__()
 
         # General attributes
         self.page = page
         self.snackbar = snackbar
-
-        # TODO: Tener en cuenta que puede o no puede haber usuario. Es el mismo formulario para cuando se necesite un
-        #  reseteo de contraseña. Implementar dicho flujo de trabajo.
+        self.style = style
 
         # Form attributes
-        self.user: User = self.page.session.get("session")
-        self.submit = CustomElevatedButton(
-            name="Aceptar", style=ButtonStyle.DEFAULT, on_click=self.update_password, disabled=True
+        self.email = email
+
+        # Form fields
+        self.main_pw = CustomTextField(password=True, can_reveal_password=True, max_length=50,
+            on_change=self.__update_field_inputs
         )
-        self.password = CustomTextField(
-            expand=True, on_change=self.toggle_generate_button_state, password=True, can_reveal_password=True
-        )
-        self.check_password = CustomTextField(
-            expand=True, on_change=self.toggle_generate_button_state, password=True, can_reveal_password=True
+        self.auxiliar_pw = CustomTextField(password=True, can_reveal_password=True, max_length=50,
+            on_change=self.__update_field_inputs
         )
 
         # Form settings
-        self.modal = True
+        self.cancel_button.on_click = lambda _: self.page.close(self)
 
-        # F-Title
+        # Form title
         self.title = ft.Row(
             alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
             controls=[
-                ft.Text(
-                    value="Cambiar Contraseña",
-                    font_family="AlbertSansB",
-                    size=20
-                ),
-                ft.IconButton(
-                    ft.Icons.CLOSE_ROUNDED,
-                    icon_color=iconAccentGeneralFormColor,
-                    on_click=lambda _: self.page.close(self),
-                    highlight_color=selectedIconGeneralFormColor,
-                    hover_color=hoverIconGeneralFormColor
-                )
+                ft.Text(value="Cambiar contraseña", font_family="AlbertSansB", size=20, color=primaryTextColor),
+                self.close_button
             ]
         )
 
-        # F-Content
-        self.content = ft.Container(
-            width=550,
-            height=378,
-            content=ft.Column(
-                alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
-                controls=[
-                    ft.Row(
-                        alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
-                        controls=[
-                            ft.Row(
-                                expand=True,
-                                wrap=True,
-                                controls=[
-                                    ft.Text(
-                                        value="¡Atención!",
-                                        color=primaryTextColor,
-                                        spans=[
-                                            ft.TextSpan(text=" Si olvidas la contraseña deberás restaurarla desde el "
-                                                        "principio. Por tu seguridad,",
-                                                        style=ft.TextStyle(font_family="AlbertSansL")),
-                                            ft.TextSpan(text=" las contraseñas no se almacenan en la base de datos,",
-                                                        style=ft.TextStyle(font_family="AlbertSansB")),
-                                            ft.TextSpan(text=" por lo que",
-                                                        style=ft.TextStyle(font_family="AlbertSansL")),
-                                            ft.TextSpan(text=" es importante que la recuerdes.\n\n",
-                                                        style=ft.TextStyle(font_family="AlbertSansB")),
-                                            ft.TextSpan(text="Puedes introducir tu nueva contraseña de forma manual o "
-                                                        "generarla automáticamente desde el botón",
-                                                        style=ft.TextStyle(font_family="AlbertSansL")),
-                                            ft.TextSpan(text=" Generar Contraseña.",
-                                                        style=ft.TextStyle(font_family="AlbertSansI"))
-                                        ],
-                                        font_family="AlbertSansB"
-                                    )
-                                ]
-                            )
-                        ]
-                    ),
-                    ft.Row(
-                        controls=[
-                            ft.Column(
-                                expand=True,
-                                spacing=8,
-                                controls=[
-                                    ft.Text(
-                                        value="Contraseña:",
-                                        font_family="AlbertSansR",
-                                        size=16,
-                                        color=primaryTextColor
-                                    ),
-                                    ft.Row(controls=[self.password]),
-                                    ft.Text(
-                                        value="Repite la contraseña:",
-                                        font_family="AlbertSansR",
-                                        size=16,
-                                        color=primaryTextColor
-                                    ),
-                                    ft.Row(controls=[self.check_password])
-                                ]
-                            )
-                        ]
-                    ),
-                    ft.Row(
-                        controls=[
-                            TextLink(text="Generar contraseña", function=self.generate_password)
-                        ]
-                    )
-                ]
-            )
-        )
+        self.__update_appearance()
 
-        # F-Buttons
-        self.actions = [
-            CustomElevatedButton(
-                name="Cancelar", style=ButtonStyle.CANCEL, on_click=lambda _: self.page.close(self)
-            ),
-            self.submit
-        ]
+    def __update_appearance(self) -> None:
+        match self.style:
+            case FormStyle.EDIT:
+                self.user: User = self.page.session.get("session")
+                self.submit_button.on_click = self.__update_password
 
-        # Form design
-        self.shape = ft.RoundedRectangleBorder(4)
-        self.bgcolor = bgGeneralFormColor
-
-    def toggle_generate_button_state(self, cursor: ft.ControlEvent) -> None:
-        if cursor and all((self.password.value, self.check_password.value)):
-            self.submit.disabled = False
-        else:
-            self.submit.disabled = True
-        self.submit.update()
-
-    def generate_password(self, _: ft.ControlEvent) -> None:
-        characters = ascii_lowercase + digits + ascii_uppercase
-        new_password = ""
-
-        while len(new_password) < 12:
-            new_password += random.choice(characters)
-
-        self.password.value = new_password
-        self.password.update()
-
-    def update_password(self, _: ft.ControlEvent) -> None:
-
-        password = self.password.value.strip()
-        check_password = self.check_password.value.strip()
-
-        # First, check if passwords are equal
-        if not password == check_password:
-            self.password.reset_error()
-            self.check_password.show_error("Las contraseñas no coinciden")
-
-        else:
-            # Second, validates password
-            if not Validate.is_valid_password(password):
-                self.check_password.reset_error()
-                self.password.show_error(
-                    "Contraseña inválida: debe contener mínimo mayúsculas, minúsculas y un número."
+                # Content
+                self.content.content = ft.Column(alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+                    controls=[
+                        ft.Row(wrap=True,
+                            controls=[
+                                ft.Text(value="¡Atención!", color=primaryTextColor, font_family="AlbertSansB",
+                                    spans=[
+                                        ft.TextSpan(
+                                            text=" Si olvidas la contraseña deberás restaurarla desde el principio."
+                                                 " Por tu seguridad,",
+                                            style=ft.TextStyle(font_family="AlbertSansL")),
+                                        ft.TextSpan(
+                                            text=" las contraseñas no se almacenan en la base de datos,",
+                                            style=ft.TextStyle(font_family="AlbertSansB")),
+                                        ft.TextSpan(
+                                            text=" por lo que",
+                                            style=ft.TextStyle(font_family="AlbertSansL")),
+                                        ft.TextSpan(
+                                            text=" es importante que la recuerdes.\n\n",
+                                            style=ft.TextStyle(font_family="AlbertSansB")),
+                                        ft.TextSpan(
+                                            text="Puedes introducir tu nueva contraseña de forma manual o generarla "
+                                                 "automáticamente desde el botón",
+                                            style=ft.TextStyle(font_family="AlbertSansL")),
+                                        ft.TextSpan(
+                                            text=" Generar Contraseña.",
+                                            style=ft.TextStyle(font_family="AlbertSansI"))
+                                    ])
+                            ]
+                        ),
+                        ft.Row(
+                            controls=[
+                                ft.Column(spacing=8, expand=True,
+                                    controls=[
+                                        ft.Text(value="Contraseña", font_family="AlbertSansR", color=primaryTextColor,
+                                                spans=[self.span]),
+                                        self.main_pw,
+                                        ft.Text(value="Repite la contraseña", font_family="AlbertSansR",
+                                                color=primaryTextColor, spans=[self.span]),
+                                        self.auxiliar_pw
+                                    ]
+                                )
+                            ]
+                        ),
+                        ft.Row(
+                            controls=[
+                                TextLink(text="Generar Contraseña", function=self.__generate_password)
+                            ]
+                        )
+                    ]
                 )
 
-            else:
-                self.password.reset_error()
-                self.check_password.reset_error()
+            case FormStyle.RESET:
+                self.submit_button.on_click = self.__reset_password
 
-                # Loads user & change Hash
-                self.user.hashed_password = sha256(password.encode()).hexdigest()
+                # Content
+                self.content.content = ft.Column(
+                    controls=[
+                        ft.Row(
+                            controls=[
+                                ft.Column(spacing=8, expand=True,
+                                    controls=[
+                                        ft.Text(value="Contraseña", font_family="AlbertSansR",
+                                            color=primaryTextColor,
+                                            spans=[self.span]),
+                                        self.main_pw,
+                                        ft.Text(value="Repite la contraseña", font_family="AlbertSansR",
+                                            color=primaryTextColor, spans=[self.span]),
+                                        self.auxiliar_pw
+                                    ]
+                                )
+                            ]
+                        ),
+                        ft.Row(
+                            controls=[
+                                TextLink(text="Generar Contraseña", function=self.__generate_password)
+                            ]
+                        )
+                    ]
+                )
 
-                # Save changes
-                session.commit()
+    def __update_field_inputs(self, cursor:ft.ControlEvent) -> None:
+        self.main_pw.reset_error()
+        self.auxiliar_pw.reset_error()
+        self.fields = [self.main_pw, self.auxiliar_pw]
+        self.toggle_submit_button_state(cursor)
 
-                self.snackbar.change_style(msg="¡Contraseña actualizada!", style=SnackbarStyle.SUCCESS)
-                self.snackbar.update()
-                self.page.close(self)
+    def __generate_password(self, _: ft.ControlEvent) -> None:
+        dictionary = ascii_letters + digits
+        secure_password = ""
+
+        while len(secure_password) < 15:
+            secure_password += random.choice(dictionary)
+
+        self.main_pw.value = secure_password
+        self.main_pw.update()
+
+    def __update_password(self, _: ft.ControlEvent) -> None:
+        new_password = self.main_pw.value.strip()
+        pass_checking = self.auxiliar_pw.value.strip()
+
+        if not new_password == pass_checking:
+            self.main_pw.reset_error()
+            self.auxiliar_pw.show_error("Las contraseñas no coinciden.")
+            return
+
+        if not Validate.is_valid_password(new_password):
+            self.auxiliar_pw.reset_error()
+            self.main_pw.show_error("Contraseña inválida: debe contener mínimo mayúsculas, minúsculas y un número.")
+            return
+
+        self.main_pw.reset_error()
+        self.auxiliar_pw.reset_error()
+
+        self.user.hashed_password = sha256(new_password.encode()).hexdigest()
+        session.commit()
+
+        self.snackbar.change_style(msg="¡Contraseña actualizada!", style=SnackbarStyle.SUCCESS)
+        self.snackbar.update()
+        self.page.close(self)
+
+    def __reset_password(self, _:ft.ControlEvent) -> None:
+        self.user = session.query(User).filter_by(email=self.email).first()
+        new_password = self.main_pw.value.strip()
+        pass_checking = self.auxiliar_pw.value.strip()
+
+        if not new_password == pass_checking:
+            self.main_pw.reset_error()
+            self.auxiliar_pw.show_error("Las contraseñas no coinciden.")
+            return
+
+        if not Validate.is_valid_password(new_password):
+            self.auxiliar_pw.reset_error()
+            self.main_pw.show_error("Contraseña inválida: debe contener mínimo mayúsculas, minúsculas y un número.")
+            return
+
+        self.main_pw.reset_error()
+        self.auxiliar_pw.reset_error()
+
+        self.user.hashed_password = sha256(new_password.encode()).hexdigest()
+        session.commit()
+
+        self.snackbar.change_style(msg="¡Contraseña actualizada!", style=SnackbarStyle.SUCCESS)
+        self.snackbar.update()
+        self.page.close(self)
