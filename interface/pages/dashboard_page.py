@@ -2,7 +2,7 @@ import flet as ft
 
 from features.models.user import UserRole,User
 
-from interface.pages.content_manager import BodyContent, ContentStyle
+from interface.pages.page_content.content_manager import BodyContent
 from interface.controls import CustomAppbar, CustomSidebar, Snackbar
 
 from shared.utils.colors import *
@@ -23,7 +23,7 @@ class Dashboard(ft.Container):
         )
 
         # Sidebar controller & Searchbar function
-        self.sidebar = CustomSidebar(self.page, self.body_content)
+        self.sidebar = CustomSidebar(self.page, self.snackbar, self.body_content)
         self.page.appbar = CustomAppbar(self.page, self.snackbar, self.body_content)
 
         self.sidebar_location = ft.Row(
