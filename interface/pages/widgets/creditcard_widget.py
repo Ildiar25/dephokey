@@ -57,6 +57,7 @@ class CreditCardWidget(ft.Card):
         # Widget design
         self.color = bgCreditcardWidgetColor
         self.shape = ft.RoundedRectangleBorder(24)
+        self.tooltip = "Clickea para voltear la tarjeta"
 
         # Widget content
         self.front_content = ft.Container(
