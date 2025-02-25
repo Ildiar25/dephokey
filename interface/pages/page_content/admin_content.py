@@ -1,11 +1,22 @@
 import flet as ft
+from typing import Callable
+
+from interface.controls import Snackbar
 
 
-class Admin(ft.Column):
-    def __init__(self, page: ft.Page) -> None:
+class AdminPage(ft.Column):
+    def __init__(self, page: ft.Page, snackbar: Snackbar, update_changes: Callable[[], None]) -> None:
         super().__init__()
-        pass
 
+        # General attributes
+        self.page = page
+        self.snackbar = snackbar
+        self.update_changes = update_changes
+
+        self.update_content()
+
+    def update_content(self) -> None:
+        pass
 
     #     # General attributes
     #     self.page = page
@@ -21,7 +32,7 @@ class Admin(ft.Column):
     #         )
     #     )
     #
-    #     # # Admin attributes
+    #     # # AdminPage attributes
     #     # self.dropdown = ft.Dropdown(
     #     #     label="Selecciona un correo",
     #     #     label_style=ft.TextStyle(color=secondaryTextColor),
