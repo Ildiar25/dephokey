@@ -171,7 +171,7 @@ class CreditCardWidget(ft.Card):
     def open_edit_creditcard_form(self, _: ft.ControlEvent) -> None:
         self.page.open(
             CreditCardForm(title=f"Editando {self.creditcard.alias}", page=self.page, style=FormStyle.EDIT,
-                           creditcard=self.creditcard, update_appearance=self.update_appearance)
+                           creditcard=self.creditcard, update_changes=self.update_appearance)
         )
 
     def open_delete_form(self, _: ft.ControlEvent) -> None:

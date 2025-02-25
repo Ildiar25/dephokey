@@ -4,7 +4,7 @@ from features.models.user import User, UserRole
 
 from interface.controls import *
 from interface.pages.forms import GenerateFormStyle, GenerateForm, FormStyle, SiteForm, CreditCardForm, NoteForm
-from interface.pages.page_content.content_manager import BodyContent, ContentStyle
+from interface.pages.content_manager import BodyContent, ContentStyle
 
 from shared.utils.colors import *
 
@@ -146,17 +146,26 @@ class CustomSidebar(ft.NavigationRail):
 
     def add_newsite_form(self, _: ft.ControlEvent) -> None:
         self.page.open(
-            SiteForm(title="Nueva dirección web", page=self.page, snackbar=self.snackbar, style=FormStyle.ADD)
+            SiteForm(
+                title="Nueva dirección web", page=self.page, snackbar=self.snackbar, style=FormStyle.ADD,
+                update_changes=self.body_content.update_changes
+            )
         )
 
     def add_newcreditcard_form(self, _: ft.ControlEvent) -> None:
         self.page.open(
-            CreditCardForm(title="Nueva tarjeta de crédito", page=self.page, style=FormStyle.ADD)
+            CreditCardForm(
+                title="Nueva tarjeta de crédito", page=self.page, snackbar=self.snackbar, style=FormStyle.ADD,
+                update_changes=self.body_content.update_changes
+            )
         )
 
     def add_newnote_form(self, _: ft.ControlEvent) -> None:
         self.page.open(
-            NoteForm(title="Nueva nota segura", page=self.page, style=FormStyle.ADD)
+            NoteForm(
+                title="Nueva nota segura", page=self.page, snackbar=self.snackbar, style=FormStyle.ADD,
+                update_changes=self.body_content.update_changes
+            )
         )
 
     def open_newnumber_form(self, _: ft.ControlEvent) -> None:

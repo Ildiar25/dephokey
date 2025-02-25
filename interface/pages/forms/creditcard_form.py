@@ -4,7 +4,7 @@ from datetime import datetime
 
 from data.db_orm import session
 
-from features.encryption.core import decrypt_data
+from features.encryption.core import decrypt_data, encrypt_data
 from features.models.user import User
 from features.models import CreditCard
 
@@ -145,7 +145,32 @@ class CreditCardForm(BaseForm):
         self.toggle_submit_button_state(cursor)
 
     def __update_creditcard(self, _: ft.ControlEvent) -> None:
-        pass
+
+        new_alias = self.cc_alias.value.title().strip() if self.cc_alias.value else "Alias Tarjeta"
+        new_holder = self.cc_holder.value.title().strip() if self.cc_holder.value else self.user.fullname
+        new_number = self.cc_number.value.strip()
+        new_date = self.cc_date.value.strip()
+        new_cvc = self.cc_cvc.value.strip()
+
+        if not Validate.is_valid_creditcard_number(new_number):
+            self.cc_number.show_error("Introduce un número de tarjeta válido.")
+            return
+
+        if not Validate.is_valid_date(new_date):
+            self.cc_date.show_error("No es una fecha válida.")
+            return
+
+        # Update creditcard-data
+        self.creditcard.alias = new_alias
+        self.creditcard.cardholder = new_holder
+        self.creditcard.encrypted_number = encrypt_data(new_number)
+        self.creditcard.valid_until = datetime.strptime(new_date, "%m/%y")
+        self.creditcard.encrypted_cvc = encrypt_data(new_cvc)
+
+        session.commit()
+        self.update_changes()
+        self.page.close(self)
+
 
     def __add_creditcard(self, _: ft.ControlEvent) -> None:
 
