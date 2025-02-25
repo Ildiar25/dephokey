@@ -21,9 +21,6 @@ class DeleteForm(BaseForm):
                  style: DeleteFormStyle) -> None:
         super().__init__()
 
-        # TODO: Implementar eliminación de eleemntos en el propio formulario. Tener en cuenta la actualización de las
-        #  vistas de elementos (content_manager)
-
         # General attributes
         self.page = page
         self.delete_function = delete_function
