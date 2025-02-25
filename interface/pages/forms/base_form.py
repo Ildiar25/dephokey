@@ -9,6 +9,7 @@ from shared.utils.colors import *
 class FormStyle(Enum):
     ADD = "add"
     EDIT = "edit"
+    RESET = "reset"
 
 
 class BaseForm(ft.AlertDialog):
