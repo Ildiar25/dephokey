@@ -82,7 +82,7 @@ class NoteWidget(ft.Card):
                                         )
                                     )
                                 ]
-                            ),
+                            )
                         ]
                     )
                 ]
@@ -105,7 +105,8 @@ class NoteWidget(ft.Card):
 
     def open_edit_note_form(self, _: ft.ControlEvent) -> None:
         self.page.open(
-            NoteForm(title=f"Editando {self.note.title}", page=self.page, style=FormStyle.EDIT, note=self.note)
+            NoteForm(title=f"Editando {self.note.title}", page=self.page, style=FormStyle.EDIT,
+                     note=self.note, update_appearance=self.update_appearance)
         )
 
     def open_delete_form(self, _: ft.ControlEvent) -> None:

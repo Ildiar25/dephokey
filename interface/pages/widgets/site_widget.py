@@ -134,7 +134,9 @@ class SiteWidget(ft.Card):
 
     def open_edit_site_form(self, _: ft.ControlEvent) -> None:
         self.page.open(
-            SiteForm(title=f"Editando {self.site.name}", page=self.page, style=FormStyle.EDIT, site=self.site)
+            SiteForm(
+                title=f"Editando {self.site.name}", page=self.page, style=FormStyle.EDIT,
+                site=self.site, update_changes=self.update_appearance)
         )
 
     def open_delete_form(self, _: ft.ControlEvent) -> None:
