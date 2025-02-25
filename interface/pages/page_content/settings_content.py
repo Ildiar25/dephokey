@@ -5,6 +5,7 @@ from data.db_orm import session
 from features.models.user import User
 
 from interface.controls import CustomElevatedButton, ButtonStyle, CustomTextField, Snackbar, SnackbarStyle
+from interface.pages.forms.base_form import FormStyle
 from interface.pages.forms import ChangePasswordForm
 
 from shared.validate import Validate
@@ -159,23 +160,24 @@ class SettingsPage(ft.Row):
             if not Validate.is_valid_email(new_email):
                 self.email.error_text = "El correo no es válido."
                 self.email.update()
-            else:
-                self.user.fullname = new_fullname
-                self.user.email = new_email
-                session.commit()
+                return
 
-                # Updates settings content
-                self.fullname.value = self.user.fullname
-                self.email.value = self.user.email
-                self.update()
+            self.user.fullname = new_fullname
+            self.user.email = new_email
+            session.commit()
 
-                # Notifes the user
-                self.snackbar.change_style(msg="¡Datos actualizados!", style=SnackbarStyle.SUCCESS)
-                self.snackbar.update()
+            # Updates settings content
+            self.fullname.value = self.user.fullname
+            self.email.value = self.user.email
+            self.update()
+
+            # Notifes the user
+            self.snackbar.change_style(msg="¡Datos actualizados!", style=SnackbarStyle.SUCCESS)
+            self.snackbar.update()
 
     def change_password(self, _: ft.ControlEvent) -> None:
         self.page.open(
-            ChangePasswordForm(self.page, self.snackbar)
+            ChangePasswordForm(page=self.page, snackbar=self.snackbar, style=FormStyle.EDIT)
         )
 
     @staticmethod
