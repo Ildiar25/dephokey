@@ -43,7 +43,6 @@ class SiteForm(BaseForm):
         # Form settings
         self.cancel_button.on_click = lambda _: self.page.close(self)
 
-
         # Form title
         self.title = ft.Row(
             alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
@@ -143,7 +142,7 @@ class SiteForm(BaseForm):
         new_password = self.s_password.value.strip()
 
         if not Validate.is_valid_address(new_address):
-            self.s_address.show_error("No es una dirección válida")
+            self.s_address.show_error("No es una dirección válida.")
             return
 
         # Update site-data
@@ -164,7 +163,7 @@ class SiteForm(BaseForm):
         new_password = self.s_password.value.strip()
 
         if not Validate.is_valid_address(new_address):
-            self.s_address.show_error("No es una dirección válida")
+            self.s_address.show_error("No es una dirección válida.")
             return
 
         # Create new site-instance
@@ -173,6 +172,6 @@ class SiteForm(BaseForm):
         session.commit()
 
         self.update_changes()
-        self.snackbar.change_style(msg=f"¡{new_address} añadida!", style=SnackbarStyle.SUCCESS)
+        self.snackbar.change_style(msg=f"¡{new_name} añadida!", style=SnackbarStyle.SUCCESS)
         self.snackbar.update()
         self.page.close(self)
