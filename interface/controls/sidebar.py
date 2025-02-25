@@ -4,17 +4,18 @@ from features.models.user import User, UserRole
 
 from interface.controls import *
 from interface.pages.forms import GenerateFormStyle, GenerateForm, FormStyle, SiteForm, CreditCardForm, NoteForm
-from interface.pages.content_manager import BodyContent, ContentStyle
+from interface.pages.page_content.content_manager import BodyContent, ContentStyle
 
 from shared.utils.colors import *
 
 
 class CustomSidebar(ft.NavigationRail):
-    def __init__(self, page: ft.Page, content: BodyContent) -> None:
+    def __init__(self, page: ft.Page, snackbar: Snackbar, content: BodyContent) -> None:
         super().__init__()
 
         # General attributes
         self.page = page
+        self.snackbar = snackbar
         self.body_content = content
 
         # Navigation attributes
@@ -145,7 +146,7 @@ class CustomSidebar(ft.NavigationRail):
 
     def add_newsite_form(self, _: ft.ControlEvent) -> None:
         self.page.open(
-            SiteForm(title="Nueva dirección web", page=self.page, style=FormStyle.ADD)
+            SiteForm(title="Nueva dirección web", page=self.page, snackbar=self.snackbar, style=FormStyle.ADD)
         )
 
     def add_newcreditcard_form(self, _: ft.ControlEvent) -> None:
