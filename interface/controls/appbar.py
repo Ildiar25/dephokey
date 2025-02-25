@@ -4,7 +4,7 @@ import time
 from features.models.user import User, UserRole
 
 from interface.controls.searchbar import CustomSearchBar
-from interface.pages.content_manager import BodyContent, ContentStyle
+from interface.pages.page_content.content_manager import BodyContent, ContentStyle
 from interface.pages.loading_page import LoadingPage
 
 from shared.utils.colors import *
@@ -96,7 +96,7 @@ class CustomAppbar(ft.AppBar):
         self.body_content.update()
 
     def search_results(self, result: ft.ControlEvent) -> None:
-        self.body_content.show_results(result.control.value)
+        self.body_content.show_results(result.control.value.strip())
         self.body_content.update()
 
     def logout(self, _: ft.ControlEvent) -> None:
