@@ -92,7 +92,8 @@ class CustomAppbar(ft.AppBar):
         self.body_content.update()
 
     def go_back(self, _: ft.ControlEvent) -> None:
-        self.body_content.change_content(title="Bienvenido Administrador", style=ContentStyle.ADMIN)
+        self.body_content.change_content(
+            title=f"Bienvenido {self.user.fullname.split(' ')[0]}!", style=ContentStyle.ADMIN)
         self.body_content.update()
 
     def search_results(self, result: ft.ControlEvent) -> None:
