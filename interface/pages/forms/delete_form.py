@@ -2,6 +2,7 @@ import flet as ft
 from enum import Enum
 from typing import Callable
 
+from .base_form import BaseForm
 from interface.controls import CustomElevatedButton, ButtonStyle
 
 from shared.utils.colors import *
@@ -15,10 +16,13 @@ class DeleteFormStyle(Enum):
     USER = "user"
 
 
-class DeleteForm(ft.AlertDialog):
+class DeleteForm(BaseForm):
     def __init__(self, page: ft.Page, delete_function: Callable[[ft.ControlEvent], None],
                  style: DeleteFormStyle) -> None:
         super().__init__()
+
+        # TODO: Implementar eliminación de eleemntos en el propio formulario. Tener en cuenta la actualización de las
+        #  vistas de elementos (content_manager)
 
         # General attributes
         self.page = page
