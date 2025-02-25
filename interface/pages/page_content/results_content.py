@@ -1,0 +1,79 @@
+import flet as ft
+from typing import Callable, List
+
+from data.db_orm import session
+
+from features.models import Site, CreditCard, Note
+
+from interface.controls import Snackbar
+from interface.pages.widgets import SiteWidget, CreditCardWidget, NoteWidget
+
+
+class ResultsPage(ft.Column):
+    def __init__(self, page: ft.Page, snackbar: Snackbar, update_changes: Callable[[], None]) -> None:
+        super().__init__()
+
+        # General attributes
+        self.page = page
+        self.snackbar = snackbar
+        self.update_changes = update_changes
+        self.user_input = ""
+
+        # Results attributes
+        self.user = self.page.session.get("session")
+        self.sites = []
+        self.creditcards = []
+        self.notes = []
+
+        # Body design
+        self.spacing = 24
+
+        # Body content
+        self.sites_row = ft.Row(scroll=ft.ScrollMode.AUTO, vertical_alignment=ft.CrossAxisAlignment.START)
+        self.creditcards_row = ft.Row(scroll=ft.ScrollMode.AUTO, vertical_alignment=ft.CrossAxisAlignment.START)
+        self.notes_row = ft.Row(scroll=ft.ScrollMode.AUTO, vertical_alignment=ft.CrossAxisAlignment.START)
+
+
+        self.controls = [
+            ft.Text("Sitios encontrados:"),
+            self.sites_row,
+            ft.Text("Tarjetas encontradas:"),
+            self.creditcards_row,
+            ft.Text("Notas encontradas:"),
+            self.notes_row
+        ]
+
+        self.update_content()
+
+    def get_user_input(self, user_input: str) -> None:
+        self.user_input = user_input if user_input is not None else self.user_input
+        self.update_content()
+
+    def __populate_rows(self, sites: List[Site], creditcards: List[CreditCard], notes: List[Note]) -> None:
+        self.__clear_rows()
+        for site in sites:
+            self.sites_row.controls.append(SiteWidget(site, self.page, self.update_changes))
+        for creditcard in creditcards:
+            self.creditcards_row.controls.append(CreditCardWidget(creditcard, self.page, self.update_changes))
+        for note in notes:
+            self.notes_row.controls.append(NoteWidget(note, self.page, self.update_changes))
+
+    def __clear_rows(self) -> None:
+        self.sites_row.controls.clear()
+        self.creditcards_row.controls.clear()
+        self.notes_row.controls.clear()
+
+    def update_content(self) -> None:
+        self.sites = session.query(Site).filter_by(
+            user_id=self.user.id).filter(Site.name.like(f"%{self.user_input}%")).all()
+        self.creditcards = session.query(CreditCard).filter_by(
+            user_id=self.user.id).filter(CreditCard.alias.like(f"%{self.user_input}%"))
+        self.notes = session.query(Note).filter_by(
+            user_id=self.user.id).filter(Note.title.like(f"%{self.user_input}%"))
+
+        if self.user_input == "":
+            self.sites = []
+            self.creditcards = []
+            self.notes = []
+
+        self.__populate_rows(self.sites, self.creditcards, self.notes)
