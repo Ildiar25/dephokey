@@ -131,7 +131,8 @@ class BodyContent(ft.Column):
 
     def show_results(self, user_input: str) -> None:
         self.style = ContentStyle.RESULTS
-        self.title.value = f"Resultados para '{user_input}':"
+        self.title.value = f"Buscando '{user_input}'..."
+        self.header.controls[1].controls.clear()
         self.__update_appearance(user_input)
 
     def update_changes(self) -> None:
