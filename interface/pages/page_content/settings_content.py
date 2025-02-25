@@ -25,7 +25,8 @@ class SettingsPage(ft.Row):
             value=self.user.fullname, expand=True, on_change=self.toggle_empty_fields, max_length=30)
         self.email = CustomTextField(
             value=self.user.email, expand=True, on_change=self.toggle_empty_fields, max_length=30)
-        self.password = CustomTextField(value="*" * 15, expand=True, password=True, read_only=True)
+        self.password = CustomTextField(
+            value="*" * 17, expand=True, password=True, read_only=True)
 
         # Design settings
         self.spacing = 32
@@ -135,6 +136,12 @@ class SettingsPage(ft.Row):
                 )
             )
         ]
+
+        self.update_content()
+
+    def update_content(self) -> None:
+        self.fullname.value = self.user.fullname
+        self.email.value = self.user.email
 
     def save_changes(self, _: ft.ControlEvent) -> None:
         new_fullname: str = self.fullname.value.title().strip()
