@@ -146,54 +146,54 @@ class Signup(ft.Container):
             # Reset Snackbar
             self.snackbar.change_style(msg="¡Las contraseñas no coinciden!", style=SnackbarStyle.DANGER)
             self.snackbar.update()
+            return
 
-        else:
-            # Second, validates email & password
-            if not all((Validate.is_valid_email(email_input), Validate.is_valid_password(password_input))):
-                # Reset Snackbar
-                self.snackbar.change_style(
-                    msg="El correo o la contraseña no son válidos.\nLa contraseña debe tener al menos un número, "
-                        "una mayúscula y una minúscula", style=SnackbarStyle.DANGER)
-                self.snackbar.update()
+        # Second, validates email & password
+        if not all((Validate.is_valid_email(email_input), Validate.is_valid_password(password_input))):
+            # Reset Snackbar
+            self.snackbar.change_style(
+                msg="El correo o la contraseña no son válidos.\nLa contraseña debe tener al menos un número, "
+                    "una mayúscula y una minúscula", style=SnackbarStyle.DANGER)
+            self.snackbar.update()
+            return
 
-            else:
-                # Check if user already exists
-                if session.query(User).filter(User.email == email_input).first():
-                    logger.warning("Creación de usuario fallida: El usuario ya existe...")
-                    logger.debug(f" >>> Datos: '{mask_email(email_input)}' - '{mask_password(password_input)}'")
+        # Check if user already exists
+        if session.query(User).filter(User.email == email_input).first():
+            logger.warning("Creación de usuario fallida: El usuario ya existe...")
+            logger.debug(f" >>> Datos: '{mask_email(email_input)}' - '{mask_password(password_input)}'")
 
-                    # Reset Snackbar
-                    self.snackbar.change_style(msg="¡El correo electrónico ya existe!", style=SnackbarStyle.DANGER)
-                    self.snackbar.update()
+            # Reset Snackbar
+            self.snackbar.change_style(msg="¡El correo electrónico ya existe!", style=SnackbarStyle.DANGER)
+            self.snackbar.update()
+            return
 
-                else:
-                    # Creates new user instance
-                    new_user = User(fullname=name_input, email=email_input, password=password_input)
-                    logger.info("Usuario creado con éxito.")
-                    logger.debug(f" >>> {new_user}")
+        # Creates new user instance
+        new_user = User(fullname=name_input, email=email_input, password=password_input)
+        logger.info("Usuario creado con éxito.")
+        logger.debug(f" >>> {new_user}")
 
-                    # Reset fields
-                    self.name.value = ""
-                    self.email.value = ""
-                    self.password.value = ""
-                    self.password_repeat.value = ""
-                    self.content.update()
+        # Reset fields
+        self.name.value = ""
+        self.email.value = ""
+        self.password.value = ""
+        self.password_repeat.value = ""
+        self.content.update()
 
-                    # Saves user to database
-                    session.add(new_user)
-                    session.commit()
+        # Saves user to database
+        session.add(new_user)
+        session.commit()
 
-                    # Notifies to the user
-                    self.snackbar.change_style(msg=f"¡Bienvenido/a {new_user.fullname}!", style=SnackbarStyle.SUCCESS)
-                    self.snackbar.update()
+        # Notifies to the user
+        self.snackbar.change_style(msg=f"¡Bienvenido/a {new_user.fullname}!", style=SnackbarStyle.SUCCESS)
+        self.snackbar.update()
 
-                    # Report loading page
-                    self.page.overlay.append(
-                        LoadingPage()
-                    )
-                    self.page.update()
+        # Report loading page
+        self.page.overlay.append(
+            LoadingPage()
+        )
+        self.page.update()
 
-                    # Load login page
-                    time.sleep(2)
-                    self.page.overlay.clear()
-                    self.page.go("/login")
+        # Load login page
+        time.sleep(2)
+        self.page.overlay.clear()
+        self.page.go("/login")

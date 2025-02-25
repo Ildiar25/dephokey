@@ -147,43 +147,45 @@ class Login(ft.Container):
                     "una mayúscula y una minúscula", style=SnackbarStyle.DANGER
             )
             self.snackbar.update()
-        else:
-            # Second, check if email already exists
-            if not session.query(User).filter(User.email == email_input).first():
-                self.snackbar.change_style(msg="¡El usuario no existe!", style=SnackbarStyle.DANGER)
-                self.snackbar.update()
-            else:
-                # Third, load user and hashed input password
-                user: User = session.query(User).filter(User.email == email_input).first()
-                hashed_password = sha256(password_input.encode()).hexdigest()
+            return
 
-                # Compare data inputs with loaded data
-                if not all((user.email == email_input, user.hashed_password == hashed_password)):
-                    logger.warning("Inicio de sesión fallido: Los datos no coinciden...")
-                    logger.debug(f" >>> Datos: '{mask_email(email_input)}' - '{mask_password(password_input)}'")
-                    self.snackbar.change_style(msg="El correo electrónico o la contraseña no son válidos.",
-                                               style=SnackbarStyle.DANGER)
-                    self.snackbar.update()
+        # Second, check if email already exists
+        if not session.query(User).filter(User.email == email_input).first():
+            self.snackbar.change_style(msg="¡El usuario no existe!", style=SnackbarStyle.DANGER)
+            self.snackbar.update()
+            return
 
-                else:
-                    # Create new session
-                    self.page.session.set("session", user)
-                    logger.info("Sesión iniciada con éxito.")
-                    logger.debug(f" >>> Usuario: '{mask_email(user.email)}' BIENVENIDO.")
+        # Third, load user and hashed input password
+        user: User = session.query(User).filter(User.email == email_input).first()
+        hashed_password = sha256(password_input.encode()).hexdigest()
 
-                    # Report page loading
-                    self.page.overlay.append(
-                        LoadingPage()
-                    )
-                    self.page.update()
+        # Compare data inputs with loaded data
+        if not all((user.email == email_input, user.hashed_password == hashed_password)):
+            logger.warning("Inicio de sesión fallido: Los datos no coinciden...")
+            logger.debug(f" >>> Datos: '{mask_email(email_input)}' - '{mask_password(password_input)}'")
+            self.snackbar.change_style(msg="El correo electrónico o la contraseña no son válidos.",
+                                       style=SnackbarStyle.DANGER)
+            self.snackbar.update()
+            return
 
-                    # Load sound
-                    open_session = ft.Audio("interface/assets/effects/open-session.mp3", autoplay=True)
-                    self.page.overlay.append(open_session)
-                    self.page.update()
+        # Create new session
+        self.page.session.set("session", user)
+        logger.info("Sesión iniciada con éxito.")
+        logger.debug(f" >>> Usuario: '{mask_email(user.email)}' BIENVENIDO.")
 
-                    # Load home page
-                    time.sleep(2.5)
-                    self.page.update()
-                    self.page.overlay.clear()
-                    self.page.go("/home")
+        # Report page loading
+        self.page.overlay.append(
+            LoadingPage()
+        )
+        self.page.update()
+
+        # Load sound
+        open_session = ft.Audio("interface/assets/effects/open-session.mp3", autoplay=True)
+        self.page.overlay.append(open_session)
+        self.page.update()
+
+        # Load home page
+        time.sleep(2.5)
+        self.page.update()
+        self.page.overlay.clear()
+        self.page.go("/home")
