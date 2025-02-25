@@ -32,13 +32,13 @@ class HomePage(ft.Row):
         self.notes_column = ft.Column(scroll=ft.ScrollMode.AUTO, horizontal_alignment=ft.CrossAxisAlignment.START)
 
         # Design settings
-        self.spacing = 48
         self.alignment = ft.MainAxisAlignment.SPACE_AROUND
         self.vertical_alignment = ft.CrossAxisAlignment.START
+        self.scroll = ft.ScrollMode.AUTO
 
         self.controls = [
             ft.Column(
-                width=355,
+                width=400,
                 alignment=ft.MainAxisAlignment.START,
                 spacing=16,
                 controls=[
@@ -47,7 +47,7 @@ class HomePage(ft.Row):
                 ]
             ),
             ft.Column(
-                width=355,
+                width=400,
                 alignment=ft.MainAxisAlignment.START,
                 spacing=16,
                 controls=[
@@ -56,7 +56,7 @@ class HomePage(ft.Row):
                 ]
             ),
             ft.Column(
-                width=355,
+                width=400,
                 alignment=ft.MainAxisAlignment.START,
                 spacing=16,
                 controls=[
@@ -64,7 +64,7 @@ class HomePage(ft.Row):
                     self.notes_column
                 ]
             ),
-            ft.Column(width=355, alignment=ft.MainAxisAlignment.START, controls=[])
+            ft.Column(width=400, alignment=ft.MainAxisAlignment.START, controls=[])
         ]
 
         self.update_content()
