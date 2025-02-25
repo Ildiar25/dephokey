@@ -8,6 +8,8 @@ from features.models import Site, CreditCard, Note
 from interface.controls import Snackbar
 from interface.pages.widgets import SiteWidget, CreditCardWidget, NoteWidget
 
+from shared.utils.colors import *
+
 
 class ResultsPage(ft.Column):
     def __init__(self, page: ft.Page, snackbar: Snackbar, update_changes: Callable[[], None]) -> None:
@@ -29,18 +31,20 @@ class ResultsPage(ft.Column):
         self.spacing = 24
 
         # Body content
-        self.sites_row = ft.Row(scroll=ft.ScrollMode.AUTO, vertical_alignment=ft.CrossAxisAlignment.START)
-        self.creditcards_row = ft.Row(scroll=ft.ScrollMode.AUTO, vertical_alignment=ft.CrossAxisAlignment.START)
-        self.notes_row = ft.Row(scroll=ft.ScrollMode.AUTO, vertical_alignment=ft.CrossAxisAlignment.START)
+        self.ss_row = ft.Row(scroll=ft.ScrollMode.AUTO, vertical_alignment=ft.CrossAxisAlignment.START, height=210)
+        self.cc_row = ft.Row(scroll=ft.ScrollMode.AUTO, vertical_alignment=ft.CrossAxisAlignment.START, height=235)
+        self.ns_row = ft.Row(scroll=ft.ScrollMode.AUTO, vertical_alignment=ft.CrossAxisAlignment.START, height=320)
 
 
         self.controls = [
-            ft.Text("Sitios encontrados:"),
-            self.sites_row,
-            ft.Text("Tarjetas encontradas:"),
-            self.creditcards_row,
-            ft.Text("Notas encontradas:"),
-            self.notes_row
+            ft.Text(value=" ⳾ Sitios encontrados:", font_family="AlbertSansR", color=primaryTextColor, size=16),
+            self.ss_row,
+            ft.Divider(thickness=2, color=primaryCorporateColor, height=6),
+            ft.Text(value=" ⳾ Tarjetas encontradas:", font_family="AlbertSansR", color=primaryTextColor, size=16),
+            self.cc_row,
+            ft.Divider(thickness=2, color=primaryCorporateColor, height=6),
+            ft.Text(value=" ⳾ Notas encontradas:", font_family="AlbertSansR", color=primaryTextColor, size=16),
+            self.ns_row
         ]
 
         self.update_content()
@@ -52,16 +56,16 @@ class ResultsPage(ft.Column):
     def __populate_rows(self, sites: List[Site], creditcards: List[CreditCard], notes: List[Note]) -> None:
         self.__clear_rows()
         for site in sites:
-            self.sites_row.controls.append(SiteWidget(site, self.page, self.update_changes))
+            self.ss_row.controls.append(SiteWidget(site, self.page, self.update_changes))
         for creditcard in creditcards:
-            self.creditcards_row.controls.append(CreditCardWidget(creditcard, self.page, self.update_changes))
+            self.cc_row.controls.append(CreditCardWidget(creditcard, self.page, self.update_changes))
         for note in notes:
-            self.notes_row.controls.append(NoteWidget(note, self.page, self.update_changes))
+            self.ns_row.controls.append(NoteWidget(note, self.page, self.update_changes))
 
     def __clear_rows(self) -> None:
-        self.sites_row.controls.clear()
-        self.creditcards_row.controls.clear()
-        self.notes_row.controls.clear()
+        self.ss_row.controls.clear()
+        self.cc_row.controls.clear()
+        self.ns_row.controls.clear()
 
     def update_content(self) -> None:
         self.sites = session.query(Site).filter_by(
