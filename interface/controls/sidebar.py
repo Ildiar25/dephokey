@@ -3,7 +3,7 @@ import flet as ft
 from features.models.user import User, UserRole
 
 from interface.controls import *
-from interface.pages.forms import GenerateFormStyle, GenerateForm, FormStyle, SiteForm, CreditCardForm, NoteForm
+from interface.pages.forms import FormStyle, SiteForm, CreditCardForm, NoteForm, GenerateForm
 from interface.pages.content_manager import BodyContent, ContentStyle
 
 from shared.utils.colors import *
@@ -170,12 +170,12 @@ class CustomSidebar(ft.NavigationRail):
 
     def open_newnumber_form(self, _: ft.ControlEvent) -> None:
         self.page.open(
-            GenerateForm(self.page, title="Generar número", generate_style=GenerateFormStyle.NUMBER)
+            GenerateForm(title="Generar número", page=self.page, style=FormStyle.CC_NUMBER)
         )
 
     def open_newpassword_form(self, _: ft.ControlEvent) -> None:
         self.page.open(
-            GenerateForm(self.page, title="Generar contraseña", generate_style=GenerateFormStyle.PASSWORD)
+            GenerateForm(title="Generar contraseña", page=self.page, style=FormStyle.PASSWORD)
         )
 
     def select_destination(self, event: ft.ControlEvent) -> None:
