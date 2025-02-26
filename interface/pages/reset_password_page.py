@@ -1,6 +1,9 @@
 import flet as ft
 
+from interface.pages.forms.base_form import FormStyle
+from interface.pages.forms import ChangePasswordForm
 from interface.controls import *
+
 from shared.utils.colors import *
 
 
@@ -10,10 +13,11 @@ class ResetPasswordPage(ft.Container):
 
         # General attributes
         self.page = page
+        self.snackbar = Snackbar()
 
         # ResetPassword attributes
         self.main_field = CustomTextField(label="Correo Electrónico", on_change=None)
-        self.submit_email = CustomElevatedButton(name="¡Vamos!", style=ButtonStyle.DEFAULT, on_click=None)
+        self.submit_email = CustomElevatedButton(name="¡Vamos!", style=ButtonStyle.DEFAULT, on_click=self.open_form)
 
         # Page design
         self.expand = True
@@ -37,8 +41,13 @@ class ResetPasswordPage(ft.Container):
                 ft.Row(
                     alignment=ft.MainAxisAlignment.CENTER,
                     controls=[
-                        self.main_field, self.submit_email
+                        self.main_field, self.submit_email, self.snackbar
                     ]
                 )
             ]
+        )
+
+    def open_form(self, _: ft.ControlEvent) -> None:
+        self.page.open(
+            ChangePasswordForm(self.page, self.snackbar, FormStyle.RESET, self.main_field.value)
         )
