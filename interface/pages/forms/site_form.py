@@ -136,7 +136,7 @@ class SiteForm(BaseForm):
 
     def __update_site(self, _: ft.ControlEvent) -> None:
 
-        new_name = self.s_name.value.title().strip() if self.s_name.value else "Nueva dirección Web"
+        new_name = self.s_name.value.capitalize().strip() if self.s_name.value else "Nueva dirección web"
         new_address = self.rename_address(self.s_address.value.strip())
         new_username = self.s_username.value.strip()
         new_password = self.s_password.value.strip()
@@ -157,7 +157,7 @@ class SiteForm(BaseForm):
 
     def __add_site(self, _: ft.ControlEvent) -> None:
 
-        new_name = self.s_name.value.title().strip() if self.s_name.value else "Nueva dirección Web"
+        new_name = self.s_name.value.capitalize().strip() if self.s_name.value else "Nueva dirección web"
         new_address = self.rename_address(self.s_address.value.strip())
         new_username = self.s_username.value.strip()
         new_password = self.s_password.value.strip()

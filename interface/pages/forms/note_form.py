@@ -99,7 +99,7 @@ class NoteForm(BaseForm):
 
     def __update_note(self, _: ft.ControlEvent) -> None:
 
-        new_title = self.n_title.value.title().strip() if self.n_title.value else "Nueva Nota"
+        new_title = self.n_title.value.capitalize().strip() if self.n_title.value else "Nueva nota"
         new_content = self.n_content.value.strip()
 
         if not new_content:
@@ -116,7 +116,7 @@ class NoteForm(BaseForm):
 
     def __add_note(self, _: ft.ControlEvent) -> None:
 
-        new_title = self.n_title.value.title().strip() if self.n_title.value else "Nueva Nota"
+        new_title = self.n_title.value.capitalize().strip() if self.n_title.value else "Nueva nota"
         new_content = self.n_content.value.strip()
 
         if not new_content:

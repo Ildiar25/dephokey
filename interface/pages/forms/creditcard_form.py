@@ -146,7 +146,7 @@ class CreditCardForm(BaseForm):
 
     def __update_creditcard(self, _: ft.ControlEvent) -> None:
 
-        new_alias = self.cc_alias.value.title().strip() if self.cc_alias.value else "Alias Tarjeta"
+        new_alias = self.cc_alias.value.capitalize().strip() if self.cc_alias.value else "Alias tarjeta"
         new_holder = self.cc_holder.value.title().strip() if self.cc_holder.value else self.user.fullname
         new_number = self.cc_number.value.strip()
         new_date = self.cc_date.value.strip()
@@ -174,7 +174,7 @@ class CreditCardForm(BaseForm):
 
     def __add_creditcard(self, _: ft.ControlEvent) -> None:
 
-        new_alias = self.cc_alias.value.title().strip() if self.cc_alias.value else "Alias Tarjeta"
+        new_alias = self.cc_alias.value.capitalize().strip() if self.cc_alias.value else "Alias tarjeta"
         new_holder = self.cc_holder.value.title().strip() if self.cc_holder.value else self.user.fullname
         new_number = self.cc_number.value.strip()
         new_date = self.cc_date.value.strip()
