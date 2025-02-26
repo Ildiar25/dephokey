@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime
 from faker import Faker
 
 from data.db_orm import session
@@ -11,30 +11,31 @@ from shared.logger_setup import main_logger as logger
 
 def fill_with_data(user: User) -> None:
     logger.info(f"Añadiendo elementos de prueba al usuario {user.email}...")
-    fake = Faker()
+    fake = Faker('es_ES')
     some_sites = []
     for _ in range(10):
         some_sites.append(
-            Site(address=fake.url(), username=user.email, password=fake.password(
-                length=8, digits=True, upper_case=True, lower_case=True
-            ), user=user, name=fake.domain_name())
+            Site(address=fake.url(), username=user.email, password=fake.password(length=12),
+                 user=user, name=fake.domain_name().capitalize())
         )
     session.add_all(some_sites)
 
     some_cards = []
     for _ in range(10):
+        fake_date = fake.date_time_between(datetime(year=2020, month=1, day=1), datetime(year=2040, month=1, day=1))
         some_cards.append(
             CreditCard(
-                cardholder="Cliente Tester Morenazo", number=fake.credit_card_number(),
-                cvc=fake.credit_card_security_code(), valid_until=datetime.today() + timedelta(weeks=208), user=user,
-                alias="Compras")
+                cardholder=fake.name().title(), number=fake.credit_card_number(),
+                cvc=fake.credit_card_security_code(), user=user, alias=fake.word().capitalize(),
+                valid_until=fake_date
+            )
         )
     session.add_all(some_cards)
 
     some_notes = []
     for _ in range(10):
         some_notes.append(
-            Note(content=fake.text(), user=user, title=fake.name_male())
+            Note(content=fake.text(), user=user, title=fake.name().capitalize())
         )
     session.add_all(some_notes)
 
