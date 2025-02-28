@@ -37,13 +37,13 @@ class ResultsPage(ft.Column):
 
 
         self.controls = [
-            ft.Text(value=" ⳾ Sitios encontrados:", font_family="AlbertSansR", color=primaryTextColor, size=16),
+            ft.Text(value=" ⳾ Sitios encontrados:", font_family="AlbertSansB", color=primaryTextColor, size=16),
             self.ss_row,
             ft.Divider(thickness=2, color=primaryCorporateColor, height=6),
-            ft.Text(value=" ⳾ Tarjetas encontradas:", font_family="AlbertSansR", color=primaryTextColor, size=16),
+            ft.Text(value=" ⳾ Tarjetas encontradas:", font_family="AlbertSansB", color=primaryTextColor, size=16),
             self.cc_row,
             ft.Divider(thickness=2, color=primaryCorporateColor, height=6),
-            ft.Text(value=" ⳾ Notas encontradas:", font_family="AlbertSansR", color=primaryTextColor, size=16),
+            ft.Text(value=" ⳾ Notas encontradas:", font_family="AlbertSansB", color=primaryTextColor, size=16),
             self.ns_row
         ]
 
