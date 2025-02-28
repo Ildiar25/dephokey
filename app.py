@@ -43,7 +43,7 @@ def main(page: ft.Page) -> None:
     fill_with_users()
 
     # Page settings
-    page.title = "Dephokey — PasswordManager v.0.0.3"
+    page.title = "Dephokey — PasswordManager v.0.3.3"
     page.fonts = {
         "AlbertSansR": "interface/assets/fonts/albert-sans/albert-sans-regular.ttf",
         "AlbertSansB": "interface/assets/fonts/albert-sans/albert-sans-bold.ttf",
@@ -90,7 +90,7 @@ def main(page: ft.Page) -> None:
 
     # Define routes
     page.on_route_change = route_changer
-    page.go("/login")  # Change to 'login' once program is finished
+    page.go("/login")
 
 
 if __name__ == '__main__':
