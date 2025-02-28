@@ -102,7 +102,7 @@ class CustomSidebar(ft.NavigationRail):
         self.destinations = [self.go_home, self.go_sites, self.go_cards, self.go_notes, self.go_info]
 
     def show_home(self) -> None:
-        self.body_content.change_content(title="Inicio", style=ContentStyle.HOME)
+        self.body_content.change_content(title="¡Bienvenido a Dephokey!", style=ContentStyle.HOME)
         self.body_content.update()
 
     def show_sites(self) -> None:

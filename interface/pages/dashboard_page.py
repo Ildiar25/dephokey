@@ -19,7 +19,7 @@ class Dashboard(ft.Container):
 
         # General content
         self.body_content = BodyContent(
-            self.page, self.snackbar, title=f"Bienvenido {self.user.fullname.split(' ')[0]}!"
+            self.page, self.snackbar, title=f"¡Hola {self.user.fullname.split(' ')[0]}!"
         )
 
         # Sidebar controller & Searchbar function
