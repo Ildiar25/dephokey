@@ -4,7 +4,7 @@ from typing import Callable
 from data.db_orm import session
 
 from features.models import Site
-from features.encryption.core import decrypt_data
+from features.data_encryption.core import decrypt_data
 
 from interface.controls import TextLink, IconLink, IconLinkStyle
 from interface.pages.forms.base_form import FormStyle

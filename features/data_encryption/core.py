@@ -25,7 +25,7 @@ def encrypt_data(new_data: str) -> str:
     data_coded = new_data.encode(encoding="utf-8", errors="replace")  # 'Replace' changes character by official '�'
     key = load_key()
 
-    # Prepare encryption module
+    # Prepare data_encryption module
     try:
         fernet = Fernet(key)
 
@@ -47,7 +47,7 @@ def decrypt_data(load_data: str) -> str:
     data_coded = load_data.encode()
     key = load_key()
 
-    # Prepare encryption module
+    # Prepare data_encryption module
     try:
         fernet = Fernet(key)
 

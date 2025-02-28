@@ -1,6 +1,6 @@
 import unittest
 
-from features.encryption.core import decrypt_data
+from features.data_encryption.core import decrypt_data
 from features.models.user import User, UserRole
 from features.models.password_request import PasswordRequest
 

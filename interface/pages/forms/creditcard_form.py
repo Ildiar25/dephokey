@@ -4,7 +4,7 @@ from datetime import datetime
 
 from data.db_orm import session
 
-from features.encryption.core import decrypt_data, encrypt_data
+from features.data_encryption.core import decrypt_data, encrypt_data
 from features.models.user import User
 from features.models import CreditCard
 

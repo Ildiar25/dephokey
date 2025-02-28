@@ -2,7 +2,7 @@ import unittest
 from types import NoneType
 import datetime as dt
 
-from features.encryption.core import decrypt_data
+from features.data_encryption.core import decrypt_data
 from features.models.user import User, UserRole
 from features.models.creditcard import CreditCard
 

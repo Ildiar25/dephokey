@@ -1,7 +1,7 @@
 import unittest
 from types import NoneType
 
-from features.encryption.core import decrypt_data
+from features.data_encryption.core import decrypt_data
 from features.models.user import User, UserRole
 from features.models.site import Site
 
