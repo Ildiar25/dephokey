@@ -54,34 +54,33 @@ class Validate:
         if len(creditcard_number) < 16 or len(creditcard_number) > 19:
             return False
 
+        try:
+            # Cast text to number
+            list_numbers = [int(number) for number in creditcard_number]
+
+        except ValueError as error_message:
+            logger.error(f"Datos introducidos '{mask_number(creditcard_number)}': {error_message}")
+            return False
+
         else:
-            try:
-                # Cast text to number
-                list_numbers = [int(number) for number in creditcard_number]
+            # Drop control digit
+            control_digit = list_numbers.pop(-1)
 
-            except ValueError as error_message:
-                logger.error(f"Datos introducidos '{mask_number(creditcard_number)}': {error_message}")
-                return False
+            # Reverse list
+            list_numbers.reverse()
 
-            else:
-                # Drop control digit
-                control_digit = list_numbers.pop(-1)
+            # Duplicate odd index number
+            list_numbers = [number * 2 if index % 2 == 0 else number for index, number in enumerate(list_numbers)]
 
-                # Reverse list
-                list_numbers.reverse()
+            # Substract 9 to numbers over 9:
+            list_numbers = [number - 9 if number > 9 else number for number in list_numbers]
 
-                # Duplicate odd index number
-                list_numbers = [number * 2 if index % 2 == 0 else number for index, number in enumerate(list_numbers)]
+            # Add control digit again
+            list_numbers.append(control_digit)
 
-                # Substract 9 to numbers over 9:
-                list_numbers = [number - 9 if number > 9 else number for number in list_numbers]
-
-                # Add control digit again
-                list_numbers.append(control_digit)
-
-                # Add numbers
-                total = sum(list_numbers)
-                return total % 10 == 0
+            # Add numbers
+            total = sum(list_numbers)
+            return total % 10 == 0
 
     @staticmethod
     def is_valid_date(new_date: str) -> bool:
