@@ -9,11 +9,12 @@ from interface.pages import *
 from interface.controls.footer import Footer
 
 from shared.utils.colors import *
-from shared.logger_setup import main_logger as logger
+from shared.logger_setup import main_log as log
 
 
 async def check_session_is_expired(page: ft.Page) -> None:
     """Monitores if session is expired every 30 seconds"""
+    log.info("Monitoreo de la sesión inicializado.")
     check = True
     while check:
         await asyncio.sleep(30)
@@ -24,6 +25,7 @@ async def check_session_is_expired(page: ft.Page) -> None:
 
 
 async def back_to_login_page(page: ft.Page) -> None:
+    log.info("Sesión expirada. Redirigiendo a LOGIN.")
     page.session.clear()
 
     # Hide menus
@@ -39,7 +41,7 @@ def main(page: ft.Page) -> None:
 
     # Create all tables
     Base.metadata.create_all(bind=engine)
-    logger.info("¡BASE DE DATOS cargada con éxito!")
+    log.info("¡BASE DE DATOS cargada con éxito!")
     fill_with_users()
 
     # Page settings
@@ -70,23 +72,23 @@ def main(page: ft.Page) -> None:
     def route_changer(_: ft.ControlEvent):
         page.clean()
         if page.route == "/login":
+            log.info("Redirigiendo a LOGIN.")
             page.add(Login(page))
-            logger.info("Página LOGIN cargada.")
 
         elif page.route == "/reset_password":
+            log.info("Redirigiendo a RESET PASSWORD.")
             page.add(ResetPasswordPage(page))
-            logger.info("Página RESET PASSWORD cargada.")
 
         elif page.route == "/signup":
+            log.info("Redirigiendo a SIGNUP.")
             page.add(Signup(page))
-            logger.info("Página SIGNUP cargada.")
 
         elif page.route == "/home" and page.session.contains_key("session"):
+            log.info("Redirigiendo a DASHBOARD")
             page.add(Dashboard(page))
 
             # Initializes session monitoring
             page.loop.create_task(check_session_is_expired(page))
-            logger.info("Página DASHBOARD cargada.")
 
     # Define routes
     page.on_route_change = route_changer

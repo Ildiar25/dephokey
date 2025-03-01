@@ -4,6 +4,7 @@ from interface.pages.forms.base_form import FormStyle
 from interface.pages.forms import ChangePasswordForm
 from interface.controls import *
 
+from shared.logger_setup import main_log as log
 from shared.utils.colors import *
 
 
@@ -46,6 +47,8 @@ class ResetPasswordPage(ft.Container):
                 )
             ]
         )
+
+        log.info("Página 'RESET PASSWORD' creada.")
 
     def open_form(self, _: ft.ControlEvent) -> None:
         self.page.open(

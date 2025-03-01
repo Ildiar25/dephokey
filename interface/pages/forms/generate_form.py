@@ -6,7 +6,7 @@ import random
 from .base_form import BaseForm, FormStyle
 from interface.controls import CustomElevatedButton, ButtonStyle, CustomSwitch, CustomTextField, IconLink, IconLinkStyle
 
-from shared.logger_setup import main_logger as logger
+from shared.logger_setup import main_log as log
 from shared.utils.colors import *
 
 
@@ -130,7 +130,7 @@ class GenerateForm(BaseForm):
 
             except ValueError as text_number:
                 password_length = 12
-                logger.error(f"'{self.number_input.value}' no es un número válido.", text_number)
+                log.error(f"'{self.number_input.value}' no es un número válido.", text_number)
 
         while len(new_password) < password_length:
             new_password += random.choice(dictionary)

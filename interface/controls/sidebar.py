@@ -6,6 +6,7 @@ from interface.controls import *
 from interface.pages.forms import FormStyle, SiteForm, CreditCardForm, NoteForm, GenerateForm
 from interface.pages.content_manager import BodyContent, ContentStyle
 
+from shared.logger_setup import main_log as log
 from shared.utils.colors import *
 
 
@@ -102,10 +103,12 @@ class CustomSidebar(ft.NavigationRail):
         self.destinations = [self.go_home, self.go_sites, self.go_cards, self.go_notes, self.go_info]
 
     def show_home(self) -> None:
+        log.info("Redirigiendo a HOME.")
         self.body_content.change_content(title="¡Bienvenido a Dephokey!", style=ContentStyle.HOME)
         self.body_content.update()
 
     def show_sites(self) -> None:
+        log.info("Redirigiendo a SITES.")
         site_buttons = [
             CustomElevatedButton(
                 name="Generar contraseña", style=ButtonStyle.BORDER, on_click=self.open_newpassword_form,
@@ -119,7 +122,8 @@ class CustomSidebar(ft.NavigationRail):
         )
         self.body_content.update()
 
-    def show_cards(self) -> None:
+    def show_creditcards(self) -> None:
+        log.info("Redirigiendo a CREDITCARDS.")
         creditcard_buttons = [
             CustomElevatedButton(
                 name="Generar número", style=ButtonStyle.BORDER, on_click=self.open_newnumber_form,
@@ -133,6 +137,7 @@ class CustomSidebar(ft.NavigationRail):
         self.body_content.update()
 
     def show_notes(self) -> None:
+        log.info("Redirigiendo a NOTES.")
         note_buttons = [
             CustomElevatedButton(
                 name="Nueva nota segura", style=ButtonStyle.ICON, on_click=self.add_newnote_form)
@@ -141,6 +146,7 @@ class CustomSidebar(ft.NavigationRail):
         self.body_content.update()
 
     def show_info(self) -> None:
+        log.info("Redirigiendo a ABOUT.")
         self.body_content.change_content(title="Acerca de", style=ContentStyle.ABOUT)
         self.body_content.update()
 
@@ -187,7 +193,7 @@ class CustomSidebar(ft.NavigationRail):
                 self.show_sites()
 
             case 2:
-                self.show_cards()
+                self.show_creditcards()
 
             case 3:
                 self.show_notes()

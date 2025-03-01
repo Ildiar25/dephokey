@@ -3,6 +3,11 @@ from sqlalchemy.orm import sessionmaker, DeclarativeBase
 from pathlib import Path
 
 
+# Create database path
+DB_PATH = Path(__file__).parent.joinpath("database")
+DB_FILENAME = "database.db"
+
+
 # Base class transform attributes to mapped data and link them to database table.
 class Base(DeclarativeBase):
     pass
@@ -13,15 +18,13 @@ test_engine = create_engine("sqlite:///:memory:", echo=True)
 New_session = sessionmaker(bind=test_engine)
 test_session = New_session()
 
-# Create database path
-db_path = Path(__file__).parent.joinpath("database")
 
 # Check if directory already exists
-if not db_path.is_dir():
-    db_path.mkdir()
+if not DB_PATH.is_dir():
+    DB_PATH.mkdir()
 
 # Prepare database file
-DATABASE_URL = f"sqlite:///{db_path}/database.db"
+DATABASE_URL = f"sqlite:///{DB_PATH.joinpath(DB_FILENAME)}"
 
 # This engine allows to connect SQLAlchemy with a database.
 # Official documentation: https://docs.sqlalchemy.org/en/14/core/engines.html

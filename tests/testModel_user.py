@@ -3,7 +3,7 @@ from hashlib import sha256
 
 from features.models.user import User, UserRole
 
-from shared.logger_setup import test_logger as logger
+from shared.logger_setup import test_log as log
 
 
 class UserBuilder:
@@ -21,13 +21,13 @@ class UserBuilder:
 
 class TestUser(unittest.TestCase):
     def setUp(self) -> None:
-        logger.info("Preparing USER instance...")
+        log.info("Preparing USER instance...")
 
         # Create new instance
         self.user = UserBuilder().with_role(UserRole.ADMIN).build()
         self.hashed_password = sha256("User_1234".encode()).hexdigest()
 
-        logger.info("USER instances ready for test...")
+        log.info("USER instances ready for test...")
 
     def tearDown(self) -> None:
         del self.user
@@ -35,38 +35,38 @@ class TestUser(unittest.TestCase):
     def test_userExists(self) -> None:
         self.log_instance(self.user)
         self.assertIsNotNone(self.user, msg="USER instance doesn't exist.")
-        logger.info(">>> Confirm if USER exists...   OK")
+        log.info(">>> Confirm if USER exists...   OK")
 
     def test_userType(self) -> None:
         self.assertIsInstance(self.user, User, msg="User MUST BE a user type.")
-        logger.info(">>> Confirm if USER is instance of USER...   OK")
+        log.info(">>> Confirm if USER is instance of USER...   OK")
 
     def test_userFullnameExists(self) -> None:
         self.assertIsNotNone(self.user.fullname, msg="User MUST HAVE fullname.")
-        logger.info(">>> Confirm if USER has FULLNAME...   OK")
+        log.info(">>> Confirm if USER has FULLNAME...   OK")
 
     def test_userFullnameType(self) -> None:
         self.assertIsInstance(self.user.fullname, str, msg="Fullname MUST BE string type.")
-        logger.info(">>> Confirm if USER NAME is instance of STRING...   OK")
+        log.info(">>> Confirm if USER NAME is instance of STRING...   OK")
 
     def test_userPasswordExists(self) -> None:
         self.assertIsNotNone(self.user.hashed_password, msg="User MUST HAVE password.")
-        logger.info(">>> Confirm if USER has PASSWORD...   OK")
+        log.info(">>> Confirm if USER has PASSWORD...   OK")
 
     def test_userPasswordType(self) -> None:
         self.assertIsInstance(self.user.hashed_password, str, msg="Password MUST BE string type.")
-        logger.info(">>> Confirm if USER PASSWORD is instance of STRING...   OK")
+        log.info(">>> Confirm if USER PASSWORD is instance of STRING...   OK")
 
     def test_userPasswordHashed(self):
         self.assertEqual(self.user.hashed_password, self.hashed_password, msg="Password MUST BE hashed.")
-        logger.info(">>> Confirm if PASSWORD is HASHED...   OK")
+        log.info(">>> Confirm if PASSWORD is HASHED...   OK")
 
     def test_userRole(self) -> None:
         self.assertEqual(self.user.role, UserRole.ADMIN, msg="Role must be ADMIN.")
 
     @staticmethod
     def log_instance(user: User) -> None:
-        logger.debug(user)
+        log.debug(user)
 
 
 if __name__ == "__main__":

@@ -9,7 +9,7 @@ from interface.pages.loading_page import LoadingPage
 from interface.controls import *
 
 from shared.validate import Validate
-from shared.logger_setup import main_logger as logger
+from shared.logger_setup import main_log as log
 from shared.utils.masker import mask_email, mask_password
 from shared.utils.colors import *
 
@@ -125,7 +125,7 @@ class Signup(ft.Container):
             ]
         )
 
-    logger.info("Creación de la página 'SIGNUP' realizada.")
+    log.info("Página 'SIGNUP' creada.")
 
     def toggle_signup_button_state(self, _: ft.ControlEvent) -> None:
         if all((self.name, self.email.value, self.password.value, self.password_repeat.value)):
@@ -159,8 +159,8 @@ class Signup(ft.Container):
 
         # Check if user already exists
         if session.query(User).filter(User.email == email_input).first():
-            logger.warning("Creación de usuario fallida: El usuario ya existe...")
-            logger.debug(f" >>> Datos: '{mask_email(email_input)}' - '{mask_password(password_input)}'")
+            log.warning("Creación de usuario fallida: El usuario ya existe.")
+            log.debug(f" >>> Datos: '{mask_email(email_input)}' - '{mask_password(password_input)}'")
 
             # Reset Snackbar
             self.snackbar.change_style(msg="¡El correo electrónico ya existe!", style=SnackbarStyle.DANGER)
@@ -169,8 +169,8 @@ class Signup(ft.Container):
 
         # Creates new user instance
         new_user = User(fullname=name_input, email=email_input, password=password_input)
-        logger.info("Usuario creado con éxito.")
-        logger.debug(f" >>> {new_user}")
+        log.info("Usuario creado con éxito.")
+        log.debug(f" >>> {new_user}")
 
         # Reset fields
         self.name.value = ""

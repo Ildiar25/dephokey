@@ -5,7 +5,7 @@ from jinja2 import Environment, FileSystemLoader
 from features.models.user import User  # Circular import error with SQLAlchemy and Literal if executes from here
 
 from shared.utils.masker import mask_text
-from shared.logger_setup import main_logger as logger
+from shared.logger_setup import main_log as log
 
 
 class CreateEmail:
@@ -36,10 +36,10 @@ class CreateEmail:
 
         # Returns message content
         except TemplateNotFound as not_template:
-            logger.error(f"{type(not_template).__name__} ::: No se ha encontrado la plantilla HTML. {not_template}")
+            log.error(f"{type(not_template).__name__} ::: No se ha encontrado la plantilla HTML. {not_template}")
             return plain_text_email, None
         except Exception as unknown:
-            logger.error(f"{type(unknown).__name__} ::: Un error inesperado ha ocurrido al procesar la platilla "
+            log.error(f"{type(unknown).__name__} ::: Un error inesperado ha ocurrido al procesar la platilla "
                          f"HTML. {unknown}")
             return plain_text_email, None
 

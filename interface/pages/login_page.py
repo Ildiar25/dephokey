@@ -10,7 +10,7 @@ from interface.pages.loading_page import LoadingPage
 from interface.controls import *
 
 from shared.validate import Validate
-from shared.logger_setup import main_logger as logger
+from shared.logger_setup import main_log as log
 from shared.utils.masker import mask_email, mask_password
 from shared.utils.colors import *
 
@@ -126,7 +126,7 @@ class Login(ft.Container):
             ]
         )
 
-    logger.info("Creación de la página 'LOGIN' realizada.")
+    log.info("Página 'LOGIN' creada.")
 
     def toggle_login_button_state(self, _: ft.ControlEvent) -> None:
         if all((self.email.value, self.password.value)):
@@ -161,8 +161,8 @@ class Login(ft.Container):
 
         # Compare data inputs with loaded data
         if not all((user.email == email_input, user.hashed_password == hashed_password)):
-            logger.warning("Inicio de sesión fallido: Los datos no coinciden...")
-            logger.debug(f" >>> Datos: '{mask_email(email_input)}' - '{mask_password(password_input)}'")
+            log.warning("Inicio de sesión fallido: Los datos no coinciden.")
+            log.debug(f" >>> Datos: '{mask_email(email_input)}' - '{mask_password(password_input)}'")
             self.snackbar.change_style(msg="El correo electrónico o la contraseña no son válidos.",
                                        style=SnackbarStyle.DANGER)
             self.snackbar.update()
@@ -170,8 +170,8 @@ class Login(ft.Container):
 
         # Create new session
         self.page.session.set("session", user)
-        logger.info("Sesión iniciada con éxito.")
-        logger.debug(f" >>> Usuario: '{mask_email(user.email)}' BIENVENIDO.")
+        log.info("Sesión iniciada con éxito.")
+        log.debug(f" >>> Usuario: '{mask_email(user.email)}' BIENVENIDO.")
 
         # Report page loading
         self.page.overlay.append(

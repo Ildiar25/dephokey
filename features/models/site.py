@@ -10,7 +10,7 @@ from features.data_encryption.core import encrypt_data
 
 from shared.utils.masker import mask_username, mask_text
 from shared.generators import GenerateID
-from shared.logger_setup import test_logger as logger
+from shared.logger_setup import test_log as log
 
 
 class Site(Base):
@@ -47,7 +47,7 @@ class Site(Base):
         self.created: datetime = datetime.today()
 
         # Logs new note
-        logger.info("Site instance created!")
+        log.info(f"Instancia de SITE creada por {self.user.fullname.split(' ')[0]}.")
 
     def __str__(self) -> str:
         return (f"<class Site(id={repr(self.id)}, name={repr(self.name)}, address={repr(self.address)}, username="

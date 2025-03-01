@@ -3,7 +3,7 @@ import unittest
 from features.models.user import User, UserRole
 from features.email_management.create_email import CreateEmail
 
-from shared.logger_setup import test_logger as logger
+from shared.logger_setup import test_log as log
 
 
 class UserBuilder:
@@ -21,7 +21,7 @@ class UserBuilder:
 
 class TestCreateEmail(unittest.TestCase):
     def setUp(self) -> None:
-        logger.info("Preparing CREATE EMAIL instance...")
+        log.info("Preparing CREATE EMAIL instance...")
 
         # Create comparable items
         self.name = "User"
@@ -65,7 +65,7 @@ class TestCreateEmail(unittest.TestCase):
         # Create new instance
         self.email = CreateEmail(UserBuilder().build(), code="ABC1234")
 
-        logger.info("CREATE EMAIL ready for test...")
+        log.info("CREATE EMAIL ready for test...")
 
     def tearDown(self) -> None:
         del self.email
@@ -73,73 +73,73 @@ class TestCreateEmail(unittest.TestCase):
     def test_createEmailExists(self) -> None:
         self.log_instance(self.email)
         self.assertIsNotNone(self.email, msg="CREATE EMAIL instance doesn't exist.")
-        logger.info(">>> Confirm if CREATE EMAIL exists...   OK")
+        log.info(">>> Confirm if CREATE EMAIL exists...   OK")
 
     def test_createEmailType(self) -> None:
         self.assertIsInstance(self.email, CreateEmail, msg="Create email MUST BE create email type.")
-        logger.info(">>> Confirm if CREATE EMAIL is instance of CREATE EMAIL...   OK")
+        log.info(">>> Confirm if CREATE EMAIL is instance of CREATE EMAIL...   OK")
 
     def test_createEmailNameExists(self) -> None:
         self.assertIsNotNone(self.email.name, msg="Create email MUST HAVE name.")
-        logger.info(">>> Confirm if CREATE EMAIL has NAME...   OK")
+        log.info(">>> Confirm if CREATE EMAIL has NAME...   OK")
 
     def test_createEmailNameType(self) -> None:
         self.assertIsInstance(self.email.name, str, msg="Name MUST BE string type.")
-        logger.info(">>> Confirm if NAME is instance of STRING...   OK")
+        log.info(">>> Confirm if NAME is instance of STRING...   OK")
 
     def test_createEmailNameComparison(self) -> None:
         self.assertEqual(self.name, self.email.name, msg="Name content MUST BE equal.")
-        logger.info(">>> Confirm if NAME is setted right...   OK")
+        log.info(">>> Confirm if NAME is setted right...   OK")
 
     def test_createEmailUseremailExists(self) -> None:
         self.assertIsNotNone(self.email.receiver, msg="Create email MUST HAVE email.")
-        logger.info(">>> Confirm if CREATE EMAIL has EMAIL...   OK")
+        log.info(">>> Confirm if CREATE EMAIL has EMAIL...   OK")
 
     def test_createEmailUseremailType(self) -> None:
         self.assertIsInstance(self.email.receiver, str, msg="Email MUST BE string type.")
-        logger.info(">>> Confirm if EMAIL is instance of STRING...   OK")
+        log.info(">>> Confirm if EMAIL is instance of STRING...   OK")
 
     def test_createEmailUseremailComparison(self) -> None:
         self.assertEqual(self.user_email, self.email.receiver, msg="Email content MUST BE equal.")
-        logger.info(">>> Confirm if EMAIL is setted right...   OK")
+        log.info(">>> Confirm if EMAIL is setted right...   OK")
 
     def test_createEmailCodeExists(self) -> None:
         self.assertIsNotNone(self.email.code, msg="Create email MUST HAVE code.")
-        logger.info(">>> Confirm if CREATE EMAIL has CODE...   OK")
+        log.info(">>> Confirm if CREATE EMAIL has CODE...   OK")
 
     def test_createEmailCodeType(self) -> None:
         self.assertIsInstance(self.email.code, str, msg="Code MUST BE string type.")
-        logger.info(">>> Confirm if CODE is instance of STRING...   OK")
+        log.info(">>> Confirm if CODE is instance of STRING...   OK")
 
     def test_createEmailCodeLenght(self) -> None:
         self.assertEqual(first=len(self.email.code), second=7, msg="Code lenght MUST BE 7 characters.")
-        logger.info(">>> Confirm if CODE LENGTH is VALID...   OK")
+        log.info(">>> Confirm if CODE LENGTH is VALID...   OK")
 
     def test_createEmailMessageExists(self) -> None:
         self.assertIsNotNone(self.email.message_content, msg="Create email MUST HAVE content.")
-        logger.info(">>> Confirm if CREATE EMAIL has CONTENT...   OK")
+        log.info(">>> Confirm if CREATE EMAIL has CONTENT...   OK")
 
     def test_createEmailMessateType(self) -> None:
         self.assertIsInstance(self.email.message_content, tuple, msg="Content MUST BE tuple type.")
-        logger.info(">>> Confirm if CONTENT is instance of TUPLE...   OK")
+        log.info(">>> Confirm if CONTENT is instance of TUPLE...   OK")
 
     def test_createEmailMessageTextComparison(self) -> None:
         self.assertEqual(self.text_plain, self.email.message_content[0],
                          msg="Text plain content MUST BE equal.")
-        logger.info(">>> Confirm if TEXT PLAIN is EQUAL...   OK")
+        log.info(">>> Confirm if TEXT PLAIN is EQUAL...   OK")
 
     def test_createEmailMessageHTMLComparison(self) -> None:
         if self.email.message_content[1] is not None:
             self.assertEqual(self.html_message, self.email.message_content[1],
                              msg="HTML content MUST BE equal.")
-            logger.info(">>> Confirm EMAIL CONTENT has HTML...   OK")
+            log.info(">>> Confirm EMAIL CONTENT has HTML...   OK")
             return
         self.assertIsNone(self.email.message_content[1], msg="Content MUST BE None type.")
-        logger.info(">>> Confirm EMAIL CONTENT hasn't HTML...   OK")
+        log.info(">>> Confirm EMAIL CONTENT hasn't HTML...   OK")
 
     @staticmethod
     def log_instance(email: CreateEmail) -> None:
-        logger.debug(email)
+        log.debug(email)
 
 
 if __name__ == "__main__":

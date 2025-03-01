@@ -10,7 +10,7 @@ from features.models import *
 
 from shared.utils.masker import mask_email, mask_text
 from shared.generators import GenerateID
-from shared.logger_setup import test_logger as logger
+from shared.logger_setup import test_log as log
 
 
 class UserRole(Enum):
@@ -56,7 +56,7 @@ class User(Base):
         self.created: datetime = datetime.today()
 
         # Logs new user
-        logger.info("User instance created!")
+        log.info(f"Instancia de USER creada por {self.fullname.split(' ')[0]}.")
 
     def __str__(self) -> str:
         return (f"<class User(id={repr(self.id)}, role={repr(self.role)}, fullname={repr(self.fullname)}, "

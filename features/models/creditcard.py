@@ -10,7 +10,7 @@ from features.data_encryption.core import encrypt_data
 
 from shared.utils.masker import mask_text, mask_email
 from shared.generators import GenerateID
-from shared.logger_setup import test_logger as logger
+from shared.logger_setup import test_log as log
 
 
 class CreditCard(Base):
@@ -52,7 +52,7 @@ class CreditCard(Base):
         self.created: datetime = datetime.today()
 
         # Logs new creditcard
-        logger.info("Creditcard instance created!")
+        log.info(f"instancia de CREDITCARD cerada por {self.user.fullname.split(' ')[0]}.")
 
     def __str__(self) -> str:
         return (f"<class Creditcard(id={repr(self.id)}, cardholder={repr(self.cardholder)}, "

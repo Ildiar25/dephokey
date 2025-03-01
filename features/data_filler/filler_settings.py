@@ -6,11 +6,11 @@ from data.db_orm import session
 from features.models.user import User, UserRole
 from features.models import Site, CreditCard, Note
 
-from shared.logger_setup import main_logger as logger
+from shared.logger_setup import main_log as log
 
 
 def fill_with_data(user: User) -> None:
-    logger.info(f"Añadiendo elementos de prueba al usuario {user.email}...")
+    log.info(f"Añadiendo elementos de prueba al usuario {user.email}...")
     fake = Faker('es_ES')
     some_sites = []
     for _ in range(10):
@@ -61,16 +61,16 @@ def create_client_account() -> None:
 
     # Add client data examples
     fill_with_data(client)
-    logger.info("¡Datos de prueba creados exitosamente!")
+    log.info("¡Datos de prueba creados exitosamente!")
 
 
 def fill_with_users() -> None:
     # Add admin user automatically
     if not session.query(User).filter(User.email == "admin.24@gmail.com").first():
-        logger.info("Usuario ADMIN no encontrado. Se procede a crearlo...")
+        log.info("Usuario ADMIN no encontrado. Se procede a crearlo...")
         create_admin_account()
 
     # Add client user automatically
     if not session.query(User).filter(User.email == "client.24@gmail.com").first():
-        logger.info("Usuario CLIENT no encontrado. Se procede a crearlo...")
+        log.info("Usuario CLIENT no encontrado. Se procede a crearlo...")
         create_client_account()

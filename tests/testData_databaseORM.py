@@ -4,7 +4,7 @@ from sqlalchemy.orm import Mapped, mapped_column
 
 from data.db_orm import Base, test_engine, test_session
 
-from shared.logger_setup import test_logger as logger
+from shared.logger_setup import test_log as log
 
 ##### NOTE: It can't be implemented 'deleting' tests because unittest does not run tests in order.
 
@@ -35,7 +35,7 @@ class TableBuilder(Base):
 
 class TestDatabase(unittest.TestCase):
     def setUp(self):
-        logger.info("Preparing DATATABLE...")
+        log.info("Preparing DATATABLE...")
 
         # Create table
         Base.metadata.create_all(bind=test_engine)
@@ -43,14 +43,14 @@ class TestDatabase(unittest.TestCase):
         # Helps to get info
         self.inspector = inspect(test_engine)
 
-        logger.info("DATATABLE ready for test...")
+        log.info("DATATABLE ready for test...")
 
     def tearDown(self):
         test_session.close()
 
     def test_tableExists(self) -> None:
         self.assertTrue(self.inspector.has_table("test_table"), msg="Test table doesn't exists.")
-        logger.info(">>> Confirm if TEST TABLE exists...   OK")
+        log.info(">>> Confirm if TEST TABLE exists...   OK")
 
     def test_tableAddElement(self) -> None:
         element = TableBuilder().build()
@@ -60,7 +60,7 @@ class TestDatabase(unittest.TestCase):
         test_session.commit()
 
         self.assertTrue(test_session.query(TableBuilder).filter_by(id=1).first(), msg="Test table DOESN'T HAVE id=1")
-        logger.info(">>> Confirm if TEST TABLE has ID 1.")
+        log.info(">>> Confirm if TEST TABLE has ID 1.")
 
     def test_tableAddMultipleElements(self) -> None:
         element02 = TableBuilder().with_id(2).build()
@@ -73,7 +73,7 @@ class TestDatabase(unittest.TestCase):
 
         self.assertEqual(first=test_session.query(TableBuilder).count(), second=4, msg="Test table DOESN'T HAVE 4 "
                                                                                        "rows.")
-        logger.info(">>> Confirm if TEST TABLE has 4 ROWS.")
+        log.info(">>> Confirm if TEST TABLE has 4 ROWS.")
 
     def test_tableQueryFirstElement(self) -> None:
 
@@ -82,7 +82,7 @@ class TestDatabase(unittest.TestCase):
 
         self.log_query_result(element)
         self.assertIsInstance(element, TableBuilder, msg="Test table DOESN'T FIND first element.")
-        logger.info(">>> Confirm if TEST TABLE returns first element.")
+        log.info(">>> Confirm if TEST TABLE returns first element.")
 
     def test_tableQuerySpecificElement(self) -> None:
 
@@ -91,7 +91,7 @@ class TestDatabase(unittest.TestCase):
 
         self.log_query_result(element)
         self.assertEqual(first=element.name, second="Test02", msg="Test table DOESN'T FIND element with id=3.")
-        logger.info(">>> Confirm if TEST TABLE return specific element.")
+        log.info(">>> Confirm if TEST TABLE return specific element.")
 
     def test_tableQueryAllElements(self) -> None:
 
@@ -100,7 +100,7 @@ class TestDatabase(unittest.TestCase):
 
         self.log_query_result(elements)
         self.assertEqual(first=len(elements), second=4, msg="Test table DOESN'T HAVE 4 rows (all elements).")
-        logger.info(">>> Confirm if TEST TABLE return all elements.")
+        log.info(">>> Confirm if TEST TABLE return all elements.")
 
     def test_tableQueryLimitElements(self) -> None:
 
@@ -109,7 +109,7 @@ class TestDatabase(unittest.TestCase):
 
         self.log_query_result(elements)
         self.assertEqual(first=len(elements), second=2, msg="Test table DOESN'T HAVE enough elements.")
-        logger.info(">>> Confirm if TEST TABLE return (2) elements.")
+        log.info(">>> Confirm if TEST TABLE return (2) elements.")
 
     def test_tableQuerySpecificMultipleElements(self) -> None:
 
@@ -119,11 +119,11 @@ class TestDatabase(unittest.TestCase):
         self.log_query_result(elements)
         self.assertEqual(first=len(elements), second=3,
                          msg="Test table DOESN'T HAVE specific elements with name=Test02.")
-        logger.info(">>> Confirm if TEST TABLE return filtered multiple elements.")
+        log.info(">>> Confirm if TEST TABLE return filtered multiple elements.")
 
     @staticmethod
     def log_query_result(result: TableBuilder | list[TableBuilder]) -> None:
-        logger.debug(result)
+        log.debug(result)
 
 
 if __name__ == "__main__":

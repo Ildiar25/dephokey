@@ -7,6 +7,7 @@ from interface.controls.searchbar import CustomSearchBar
 from interface.pages.content_manager import BodyContent, ContentStyle
 from interface.pages.loading_page import LoadingPage
 
+from shared.logger_setup import main_log as log
 from shared.utils.colors import *
 
 
@@ -78,6 +79,7 @@ class CustomAppbar(ft.AppBar):
         ]
 
     def show_settings(self, _: ft.ControlEvent) -> None:
+        log.info("Redirigiendo a SETTINGS")
         buttons = [
             ft.IconButton(
                 ft.Icons.KEYBOARD_DOUBLE_ARROW_LEFT_ROUNDED,
@@ -92,16 +94,18 @@ class CustomAppbar(ft.AppBar):
         self.body_content.update()
 
     def go_back(self, _: ft.ControlEvent) -> None:
+        log.info("Redirigiendo a ADMIN.")
         self.body_content.change_content(
             title=f"Bienvenido {self.user.fullname.split(' ')[0]}!", style=ContentStyle.ADMIN)
         self.body_content.update()
 
     def search_results(self, result: ft.ControlEvent) -> None:
+        log.info("Redirigiendo a RESULTS")
         self.body_content.show_results(result.control.value.strip())
         self.body_content.update()
 
     def logout(self, _: ft.ControlEvent) -> None:
-
+        log.info("Sesión cerrada. Redirigiendo a LOGIN.")
         # Close session
         self.page.session.clear()
 

@@ -10,7 +10,7 @@ from features.data_encryption.core import encrypt_data
 
 from shared.utils.masker import mask_email, mask_text
 from shared.generators import GenerateID
-from shared.logger_setup import test_logger as logger
+from shared.logger_setup import test_log as log
 
 
 class PasswordRequest(Base):
@@ -41,7 +41,7 @@ class PasswordRequest(Base):
         self.created: datetime = datetime.today()
 
         # Logs new note
-        logger.info("PasswordRequest instance created!")
+        log.info(f"Instancia de PASSWORD REQUEST creada por {self.user.fullname.split(' ')[0]}.")
 
     def __str__(self) -> str:
         return (f"<class PasswordRequest(id={repr(self.id)}, user={repr(mask_email(self.user.email))}, "

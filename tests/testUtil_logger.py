@@ -1,19 +1,19 @@
 import unittest
 
 from shared.logger_setup import logging
-from shared.logger_setup import test_logger, main_logger
+from shared.logger_setup import test_log, main_log
 
 
 class TestLog(unittest.TestCase):
     def setUp(self) -> None:
 
         # Preparing both loggers
-        self.test_log = test_logger
-        self.main_log = main_logger
+        self.test_log = test_log
+        self.main_log = main_log
 
         # Main info message
-        self.test_log.info(f"Logger inicializado en nivel: {logging.getLevelName(self.test_log.getEffectiveLevel())}")
-        self.main_log.info(f"Logger inicializado en nivel: {logging.getLevelName(self.main_log.getEffectiveLevel())}")
+        self.test_log.info(f"Logger inicializado en nivel: {logging.getLevelName(self.test_log.get_current_level())}")
+        self.main_log.info(f"Logger inicializado en nivel: {logging.getLevelName(self.main_log.get_current_level())}")
 
     def test_all_levels(self) -> None:
         # Test log file (LEVEL DEBUG)

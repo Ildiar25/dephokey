@@ -5,6 +5,7 @@ from features.models.user import UserRole,User
 from interface.pages.content_manager import BodyContent
 from interface.controls import CustomAppbar, CustomSidebar, Snackbar
 
+from shared.logger_setup import main_log as log
 from shared.utils.colors import *
 
 
@@ -78,3 +79,5 @@ class Dashboard(ft.Container):
                 )
             ]
         )
+
+        log.info("Página 'DASHBOARD' creada.")
