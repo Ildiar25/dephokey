@@ -41,7 +41,7 @@ class GenerateForm(BaseForm):
         match self.style:
             case FormStyle.PASSWORD:
                 self.submit_button.on_click = self.__generate_password
-                self.number_input = CustomTextField(width=76, max_length=2, input_filter=ft.NumbersOnlyInputFilter())
+                self.number_input = CustomTextField(width=86, max_length=2, input_filter=ft.NumbersOnlyInputFilter())
                 self.fields = [
                     CustomSwitch(title="Minúsculas", width=240, on_change=self.toggle_submit_button_state, value=True),
                     CustomSwitch(title="Mayúsculas", width=240, on_change=self.toggle_submit_button_state),
@@ -77,7 +77,8 @@ class GenerateForm(BaseForm):
                                     value="Número máximo de caracteres:",
                                     font_family="AlbertSansB", color=primaryTextColor, spans=[
                                         ft.TextSpan(text="\nEl número por defecto es de 12 caracteres y\npuedes "
-                                            "colocar un máximo de 99.", style=ft.TextStyle(font_family="AlbertSansL"))
+                                            "colocar un máximo de 30 o un mínimo de 7.", style=ft.TextStyle(
+                                            font_family="AlbertSansL"))
                                     ]
                                 ),
                                 self.number_input
@@ -120,6 +121,8 @@ class GenerateForm(BaseForm):
                 )
 
     def __generate_password(self, _: ft.ControlEvent) -> None:
+        self.number_input.reset_error()
+
         password_length = 12
         dictionary = self.__update_dictionary()
         new_password = ""
@@ -131,6 +134,15 @@ class GenerateForm(BaseForm):
             except ValueError as text_number:
                 password_length = 12
                 log.error(f"'{self.number_input.value}' no es un número válido.", text_number)
+
+            else:
+                if password_length < 7:
+                    self.number_input.show_error("Muy corta")
+                    return
+
+                if password_length > 30:
+                    self.number_input.show_error("Muy larga")
+                    return
 
         while len(new_password) < password_length:
             new_password += random.choice(dictionary)
