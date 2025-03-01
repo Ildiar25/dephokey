@@ -1,10 +1,12 @@
-import logging
 from logging.handlers import RotatingFileHandler
 from pathlib import Path
+import logging
+import os
 
 
-# Set base directory
+# Set logger settings
 BASE_DIR = Path(__file__).parent.parent.joinpath("tests/logs")
+LOG_LEVEL = os.getenv("LOG_LEVEL", "WARNING")
 
 
 class Logger:
@@ -21,7 +23,7 @@ class Logger:
     Documentation:
         https://docs.python.org/3/library/logging.html
     """
-    def __init__(self, filename: str, level: str = "debug") -> None:
+    def __init__(self, filename: str, level: str = "DEBUG") -> None:
         self.logger = logging.getLogger(BASE_DIR.joinpath(filename).__str__())
         self.logger.setLevel(self.__get_level(level))
 
@@ -67,11 +69,11 @@ class Logger:
     @staticmethod
     def __get_level(level: str) -> int:
         levels = {
-            "debug": logging.DEBUG,
-            "info": logging.INFO,
-            "warning": logging.WARNING,
-            "error": logging.ERROR,
-            "critical": logging.CRITICAL
+            "DEBUG": logging.DEBUG,
+            "INFO": logging.INFO,
+            "WARNING": logging.WARNING,
+            "ERROR": logging.ERROR,
+            "CRITICAL": logging.CRITICAL
         }
         return levels[level]
 
@@ -81,5 +83,5 @@ if not BASE_DIR.is_dir():
     BASE_DIR.mkdir()
 
 # Prepare loggers
-main_log = Logger(filename="app.log", level="debug")
+main_log = Logger(filename="app.log", level=LOG_LEVEL)
 test_log = Logger(filename="test_results.log")
