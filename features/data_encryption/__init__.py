@@ -14,17 +14,19 @@ def create_key() -> None:
     try:
         with open(KEY_PATH.joinpath(KEY_FILE).__str__(), "xb") as key_file:
             key_file.write(new_key)
-
+        log.info(f"¡Archivo {repr(KEY_FILE)} creado!")
     except PermissionError as permission:
-        log.error(f"{type(permission).__name__} ::: No se disponen de permisos para la creación del archivo 'key'.")
+        log.error(f"{type(permission).__name__} | "
+                  f"No se disponen de permisos para la creación del archivo {repr(KEY_FILE)}: {permission}")
     except FileExistsError as already_exists:
-        log.error(f"{type(already_exists).__name__} ::: El archivo 'key' ya existe.")
+        log.error(f"{type(already_exists).__name__} | "
+                  f"El archivo {repr(KEY_FILE)} ya existe: {already_exists}")
     except Exception as unknown:
-        log.error(f"{type(unknown).__name__} ::: Un error inesperado a ocurrido al tratar de crear el archivo "
-                     f"'key'.")
+        log.error(f"{type(unknown).__name__} | "
+                  f"Un error inesperado a ocurrido al tratar de crear el archivo {repr(KEY_FILE)}: {unknown}")
 
 
 # Check if key already exists:
 if KEY_FILE not in os.listdir(KEY_PATH):
-    log.info(f"No se ha encontrado {KEY_FILE}. Se procede a su creación...")
+    log.info(f"No se ha encontrado {repr(KEY_FILE)}. Se procede a su creación.")
     create_key()

@@ -6,7 +6,7 @@ import os
 
 # Set logger settings
 BASE_DIR = Path(__file__).parent.parent.joinpath("tests/logs")
-LOG_LEVEL = os.getenv("LOG_LEVEL", "WARNING")
+LOG_LEVEL = os.getenv("LOG_LEVEL", "DEBUG")
 
 
 class Logger:
@@ -37,12 +37,16 @@ class Logger:
         console = logging.StreamHandler()
         console.setLevel(self.__get_level(level))
 
-        # Set format
-        date_format = "%Y-%m-%dT%H:%M:%S%z"
-        log_format = "[%(asctime)s] ::: %(levelname)s at line %(lineno)d from <%(module)s>: %(message)s"
-        formatter = logging.Formatter(fmt=log_format, datefmt=date_format)
-        handler.setFormatter(formatter)
-        console.setFormatter(formatter)
+        # Set formats
+        file_date_format = "%Y-%m-%dT%H:%M:%S%z"
+        file_log_format = "[%(asctime)s] ::: %(levelname)8s at line %(lineno)d from <%(module)s>: %(message)s"
+        file_formatter = logging.Formatter(fmt=file_log_format, datefmt=file_date_format)
+        console_date_format = "%H:%M:%S"
+        console_log_format = "[%(asctime)s] | %(levelname)8s | Module: [%(name)s] | %(message)s"
+        console_formatter = logging.Formatter(fmt=console_log_format, datefmt=console_date_format)
+
+        handler.setFormatter(file_formatter)
+        console.setFormatter(console_formatter)
 
         # Add handlers to logger
         self.logger.addHandler(handler)

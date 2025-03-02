@@ -59,7 +59,9 @@ class Validate:
             list_numbers = [int(number) for number in creditcard_number]
 
         except ValueError as error_message:
-            log.error(f"Datos introducidos '{mask_number(creditcard_number)}': {error_message}")
+            log.error(f"{type(error_message).__name__} | "
+                      f"No se han podido castear los datos a número entero: Datos introducidos "
+                      f"{repr(mask_number(creditcard_number))} | {error_message}")
             return False
 
         else:

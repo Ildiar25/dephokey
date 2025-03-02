@@ -43,7 +43,7 @@ class Note(Base):
         self.created: datetime = datetime.today()
 
         # Logs new note
-        log.info(f"Instancia de NOTE creada por {self.user.fullname.split(' ')[0]}.")
+        log.info(f"Instancia de NOTE creada por {repr(mask_email(self.user.email))}.")
 
     def __str__(self) -> str:
         return (f"<class Note(id={repr(self.id)}, title={repr(self.title)}, "

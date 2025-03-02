@@ -56,7 +56,7 @@ class User(Base):
         self.created: datetime = datetime.today()
 
         # Logs new user
-        log.info(f"Instancia de USER creada por {self.fullname.split(' ')[0]}.")
+        log.info(f"Instancia de USER creada por {repr(mask_email(self.email))}.")
 
     def __str__(self) -> str:
         return (f"<class User(id={repr(self.id)}, role={repr(self.role)}, fullname={repr(self.fullname)}, "

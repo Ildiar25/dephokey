@@ -41,7 +41,7 @@ class PasswordRequest(Base):
         self.created: datetime = datetime.today()
 
         # Logs new note
-        log.info(f"Instancia de PASSWORD REQUEST creada por {self.user.fullname.split(' ')[0]}.")
+        log.info(f"Instancia de PASSWORD REQUEST creada por {repr(mask_email(self.user.email))}.")
 
     def __str__(self) -> str:
         return (f"<class PasswordRequest(id={repr(self.id)}, user={repr(mask_email(self.user.email))}, "

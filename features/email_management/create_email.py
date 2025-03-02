@@ -36,10 +36,10 @@ class CreateEmail:
 
         # Returns message content
         except TemplateNotFound as not_template:
-            log.error(f"{type(not_template).__name__} ::: No se ha encontrado la plantilla HTML. {not_template}")
+            log.error(f"{type(not_template).__name__} | No se ha encontrado la plantilla HTML. {not_template}")
             return plain_text_email, None
         except Exception as unknown:
-            log.error(f"{type(unknown).__name__} ::: Un error inesperado ha ocurrido al procesar la platilla "
+            log.error(f"{type(unknown).__name__} | Un error inesperado ha ocurrido al procesar la platilla "
                          f"HTML. {unknown}")
             return plain_text_email, None
 

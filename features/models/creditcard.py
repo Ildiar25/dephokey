@@ -52,7 +52,7 @@ class CreditCard(Base):
         self.created: datetime = datetime.today()
 
         # Logs new creditcard
-        log.info(f"instancia de CREDITCARD cerada por {self.user.fullname.split(' ')[0]}.")
+        log.info(f"Instancia de CREDITCARD creada por {repr(mask_email(self.user.email))}.")
 
     def __str__(self) -> str:
         return (f"<class Creditcard(id={repr(self.id)}, cardholder={repr(self.cardholder)}, "
