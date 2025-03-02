@@ -6,7 +6,7 @@ import os
 
 # Set logger settings
 BASE_DIR = Path(__file__).parent.parent.joinpath("tests/logs")
-LOG_LEVEL = os.getenv("LOG_LEVEL", "DEBUG")
+LOG_LEVEL = os.getenv("LOG_LEVEL", "WARNING").strip().upper()
 
 
 class Logger:
