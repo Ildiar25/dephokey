@@ -15,12 +15,12 @@ from shared.logger_setup import main_log as log
 async def check_session_is_expired(page: ft.Page) -> None:
     """Monitores if session is expired every 30 seconds"""
     log.info("Monitoreo de la sesión inicializado.")
-    check = True
-    while check:
+    current_session = True
+    while current_session:
         await asyncio.sleep(30)
         if page.session.contains_key("session"):
             continue
-        check = False
+        current_session = False
         await back_to_login_page(page)
 
 
@@ -28,13 +28,14 @@ async def back_to_login_page(page: ft.Page) -> None:
     log.info("Sesión expirada. Redirigiendo a LOGIN.")
     page.session.clear()
 
-    # Hide menus
-    page.appbar.visible = False
-    page.bottom_appbar.visible = False
-    page.bgcolor = primaryCorporate100
-    page.clean()
-    page.update()
-    page.go("/login")
+    if isinstance(page.controls[0], Dashboard):
+        # Hide menus
+        page.appbar.visible = False
+        page.bottom_appbar.visible = False
+        page.bgcolor = primaryCorporate100
+        page.clean()
+        page.update()
+        page.go("/login")
 
 
 def main(page: ft.Page) -> None:
