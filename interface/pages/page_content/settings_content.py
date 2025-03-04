@@ -6,7 +6,7 @@ from features.models.user import User
 
 from interface.controls import CustomElevatedButton, ButtonStyle, CustomTextField, Snackbar, SnackbarStyle
 from interface.pages.forms.base_form import FormStyle
-from interface.pages.forms import ChangePasswordForm
+from interface.pages.forms import ChangePasswordForm, DeleteForm, DeleteFormStyle
 
 from shared.validate import Validate
 from shared.utils.colors import *
@@ -120,16 +120,28 @@ class SettingsPage(ft.Row):
                                             value="", font_family="AlbertSansL",
                                             size=16, color=primaryTextColor
                                         ),
-                                        ft.Row(controls=[CustomTextField(disabled=True, border_width=0)])
+                                        ft.Row(
+                                            alignment=ft.MainAxisAlignment.END,
+                                            controls=[
+                                                CustomElevatedButton(
+                                                    name="Cambiar contraseña", style=ButtonStyle.CANCEL,
+                                                    on_click=self.__change_password
+                                                )
+                                            ]
+                                        )
                                     ]
                                 )
                             ]
                         ),
                         ft.Row(
-                            alignment=ft.MainAxisAlignment.END,
+                            alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
                             controls=[
+                                ft.Text(
+                                    value="Cuenta", size=24, color=accentTextColor
+                                ),
                                 CustomElevatedButton(
-                                    name="Cambiar contraseña", style=ButtonStyle.CANCEL, on_click=self.change_password
+                                    name="Eliminar cuenta", style=ButtonStyle.DEFAULT,
+                                    on_click=self.__open_delete_form
                                 )
                             ]
                         )
@@ -175,10 +187,20 @@ class SettingsPage(ft.Row):
             self.snackbar.change_style(msg="¡Datos actualizados!", style=SnackbarStyle.SUCCESS)
             self.snackbar.update()
 
-    def change_password(self, _: ft.ControlEvent) -> None:
+    def __open_delete_form(self, _: ft.ControlEvent) -> None:
+        self.page.open(
+            DeleteForm(page=self.page, style=DeleteFormStyle.USER, delete_function=self.__delete_account)
+        )
+
+    def __change_password(self, _: ft.ControlEvent) -> None:
         self.page.open(
             ChangePasswordForm(page=self.page, snackbar=self.snackbar, style=FormStyle.EDIT)
         )
+
+    def __delete_account(self, _: ft.ControlEvent) -> None:
+        user = session.query(User).filter_by(id=self.user.id).first()
+        session.delete(user)
+        session.commit()
 
     @staticmethod
     def toggle_empty_fields(field: ft.ControlEvent) -> None:

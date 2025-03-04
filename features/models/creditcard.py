@@ -24,7 +24,7 @@ class CreditCard(Base):
 
     # Column settings
     id: Mapped[str] = mapped_column(primary_key=True)
-    user_id: Mapped[str] = mapped_column(ForeignKey("user.id", ondelete="CASCADE"), nullable=False, index=True)
+    user_id: Mapped[str] = mapped_column(ForeignKey(column="user.id", ondelete="CASCADE"), nullable=False, index=True)
     cardholder: Mapped[str]
     encrypted_number: Mapped[str]
     encrypted_cvc: Mapped[str]
@@ -34,7 +34,7 @@ class CreditCard(Base):
     created: Mapped[datetime]
 
     # Relationship settings
-    user: Mapped["User"] = relationship("User", back_populates="creditcards")
+    user: Mapped["User"] = relationship(argument="User", back_populates="creditcards", cascade="all,delete")
 
     # Initializer
     def __init__(self, cardholder: str, number: str, cvc: str, valid_until: datetime,

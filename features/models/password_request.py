@@ -24,12 +24,12 @@ class PasswordRequest(Base):
 
     # Column settings
     id: Mapped[str] = mapped_column(primary_key=True)
-    user_id: Mapped[str] = mapped_column(ForeignKey("user.id", ondelete="CASCADE"), nullable=False, index=True)
+    user_id: Mapped[str] = mapped_column(ForeignKey(column="user.id", ondelete="CASCADE"), nullable=False, index=True)
     encrypted_code: Mapped[str]
     created: Mapped[datetime]
 
     # Relationship settings
-    user: Mapped["User"] = relationship("User", back_populates="password_change_requests")
+    user: Mapped["User"] = relationship(argument="User", back_populates="password_requests", cascade="all,delete")
 
     # Initializer
     def __init__(self, code: str, user: User) -> None:

@@ -24,7 +24,7 @@ class Site(Base):
 
     # Column settings
     id: Mapped[str] = mapped_column(primary_key=True)
-    user_id: Mapped[str] = mapped_column(ForeignKey("user.id", ondelete="CASCADE"), nullable=False, index=True)
+    user_id: Mapped[str] = mapped_column(ForeignKey(column="user.id", ondelete="CASCADE"), nullable=False, index=True)
     name: Mapped[str | None]
     address: Mapped[str]
     username: Mapped[str]
@@ -32,7 +32,7 @@ class Site(Base):
     created: Mapped[datetime]
 
     # Relationship settings
-    user: Mapped["User"] = relationship("User", back_populates="sites")
+    user: Mapped["User"] = relationship(argument="User", back_populates="sites", cascade="all,delete")
 
     # Initializer
     def __init__(self, address: str, username: str, password: str, user: User, name: str | None = None) -> None:

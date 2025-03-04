@@ -24,13 +24,13 @@ class Note(Base):
 
     # Column settings
     id: Mapped[str] = mapped_column(primary_key=True)
-    user_id: Mapped[str] = mapped_column(ForeignKey("user.id", ondelete="CASCADE"), nullable=False, index=True)
+    user_id: Mapped[str] = mapped_column(ForeignKey(column="user.id", ondelete="CASCADE"), nullable=False, index=True)
     title: Mapped[str | None]
     encrypted_content: Mapped[str]
     created: Mapped[datetime]
 
     # Relationship settings
-    user: Mapped["User"] = relationship("User", back_populates="notes")
+    user: Mapped["User"] = relationship(argument="User", back_populates="notes", cascade="all,delete")
 
     # Initializer
     def __init__(self, content: str, user: User, title: str | None = None) -> None:

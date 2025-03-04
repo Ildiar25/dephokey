@@ -36,13 +36,18 @@ class User(Base):
     created: Mapped[datetime]
 
     # Relationship settings
-    notes: Mapped[list["Note"]] = relationship("Note", back_populates="user", passive_deletes=True)
-    sites: Mapped[list["Site"]] = relationship("Site", back_populates="user", passive_deletes=True)
-    creditcards: Mapped[list["CreditCard"]] = relationship("CreditCard", back_populates="user",
-                                                           passive_deletes=True)
-    password_change_requests: Mapped[list["PasswordRequest"]] = relationship("PasswordRequest",
-                                                                             back_populates="user",
-                                                                             passive_deletes=True)
+    notes: Mapped[list["Note"]] = relationship(
+        argument="Note", back_populates="user", passive_deletes=True, cascade="all,delete"
+    )
+    sites: Mapped[list["Site"]] = relationship(
+        argument="Site", back_populates="user", passive_deletes=True, cascade="all,delete"
+    )
+    creditcards: Mapped[list["CreditCard"]] = relationship(
+        argument="CreditCard", back_populates="user", passive_deletes=True, cascade="all,delete"
+    )
+    password_requests: Mapped[list["PasswordRequest"]] = relationship(
+        argument="PasswordRequest", back_populates="user", passive_deletes=True, cascade="all,delete"
+    )
 
     # Initializer
     def __init__(self, fullname: str, email: str, password: str, user_role: UserRole = UserRole.CLIENT) -> None:
