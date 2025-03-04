@@ -21,7 +21,7 @@ class BaseForm(ft.AlertDialog):
         # General attributes
         self.fields = []
         self.submit_button = CustomElevatedButton(name="Aceptar", style=ButtonStyle.DEFAULT, disabled=True)
-        self.cancel_button = CustomElevatedButton(name="cancelar", style=ButtonStyle.CANCEL)
+        self.cancel_button = CustomElevatedButton(name="Cancelar", style=ButtonStyle.CANCEL)
         self.span = ft.TextSpan(text="*", style=ft.TextStyle(font_family="AlbertSansB", color=dangerTextColor))
         self.close_button = ft.IconButton(
             ft.Icons.CLOSE_ROUNDED, icon_color=iconAccentGeneralFormColor, on_click=lambda _: self.page.close(self),
