@@ -1,4 +1,5 @@
 import flet as ft
+import time
 
 from data.db_orm import session
 
@@ -7,8 +8,10 @@ from features.models.user import User
 from interface.controls import CustomElevatedButton, ButtonStyle, CustomTextField, Snackbar, SnackbarStyle
 from interface.pages.forms.base_form import FormStyle
 from interface.pages.forms import ChangePasswordForm, DeleteForm, DeleteFormStyle
+from interface.pages.loading_page import LoadingPage
 
 from shared.validate import Validate
+from shared.logger_setup import main_log as log
 from shared.utils.colors import *
 
 
@@ -189,7 +192,7 @@ class SettingsPage(ft.Row):
 
     def __open_delete_form(self, _: ft.ControlEvent) -> None:
         self.page.open(
-            DeleteForm(page=self.page, style=DeleteFormStyle.USER, delete_function=self.__delete_account)
+            DeleteForm(self.page, self.user, DeleteFormStyle.USER)
         )
 
     def __change_password(self, _: ft.ControlEvent) -> None:
@@ -201,6 +204,33 @@ class SettingsPage(ft.Row):
         user = session.query(User).filter_by(id=self.user.id).first()
         session.delete(user)
         session.commit()
+
+        # log.info("Usuario eliminado. Redirigiendo a LOGIN.")
+        # # Close session
+        # self.page.session.clear()
+        #
+        # # Hide menus
+        # self.page.appbar.visible = False
+        # self.page.bottom_appbar.visible = False
+        # self.page.bgcolor = primaryCorporate100
+        # self.page.clean()
+        # self.page.update()
+        #
+        # # Load sound
+        # close_session = ft.Audio(src="interface/assets/effects/close-session.mp3", autoplay=True)
+        # self.page.overlay.append(close_session)
+        # self.page.update()
+        #
+        # # Show page loading
+        # self.page.overlay.append(
+        #     LoadingPage()
+        # )
+        # self.page.update()
+        #
+        # # Load login page
+        # time.sleep(2.5)
+        # self.page.overlay.clear()
+        # self.page.go("/login")
 
     @staticmethod
     def toggle_empty_fields(field: ft.ControlEvent) -> None:

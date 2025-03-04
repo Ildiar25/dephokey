@@ -146,7 +146,7 @@ class CreditCardWidget(ft.Card):
             case CreditCardStyle.BACK:
                 self.content.content = self.back_content
 
-    def __flip_card(self, _:ft.ControlEvent) -> None:
+    def __flip_card(self, _: ft.ControlEvent) -> None:
         self.style = CreditCardStyle.BACK if self.style == CreditCardStyle.FRONT else CreditCardStyle.FRONT
         self.__update_face()
         self.update()
@@ -176,7 +176,7 @@ class CreditCardWidget(ft.Card):
         )
 
     def open_delete_form(self, _: ft.ControlEvent) -> None:
-        self.page.open(DeleteForm(self.page, self.delete_creditcard, DeleteFormStyle.CREDITCARD))
+        self.page.open(DeleteForm(self.page, self.creditcard, DeleteFormStyle.CREDITCARD))
 
     def delete_creditcard(self, _: ft.ControlEvent) -> None:
         # New query

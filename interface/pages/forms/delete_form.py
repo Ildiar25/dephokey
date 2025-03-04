@@ -1,6 +1,9 @@
 import flet as ft
 from enum import Enum
-from typing import Callable
+from typing import Union
+
+from features.models.user import User
+from features.models import *
 
 from .base_form import BaseForm
 from interface.controls import CustomElevatedButton, ButtonStyle
@@ -9,83 +12,110 @@ from shared.utils.colors import *
 
 
 class DeleteFormStyle(Enum):
+    USER = "user"
+    SITE = "site"
     CREDITCARD = "creditcard"
     NOTE = "note"
     PASS_REQ = "pass_req"
-    SITE = "site"
-    USER = "user"
 
 
 class DeleteForm(BaseForm):
-    def __init__(self, page: ft.Page, delete_function: Callable[[ft.ControlEvent], None],
+    def __init__(self, page: ft.Page, item: Union[User, Site, CreditCard, Note, PasswordRequest],
                  style: DeleteFormStyle) -> None:
         super().__init__()
 
         # General attributes
         self.page = page
-        self.delete_function = delete_function
-        self.text_title = self.__update_form_title(style)
+        self.item = item
+        self.style = style
 
         # Form settings
-        self.modal = True
+        self.submit_button = CustomElevatedButton(name="Eliminar", style=ButtonStyle.DELETE, on_click=self.__delete)
+        self.cancel_button.on_click = lambda _: self.page.close(self)
 
-        # Form content
+        # Form title
         self.title = ft.Row(
             alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
             controls=[
-                ft.Text(
-                    value=f"Eliminar {self.text_title}",
-                    font_family="AlbertSansB",
-                    size=20
-                ),
-                ft.IconButton(
-                    ft.Icons.CLOSE_ROUNDED,
-                    icon_color=iconAccentGeneralFormColor,
-                    on_click=lambda _: self.page.close(self),
-                    highlight_color=selectedIconGeneralFormColor,
-                    hover_color=hoverIconGeneralFormColor
-                )
+                ft.Text(value="", font_family="AlbertSansB", size=20, color=primaryTextColor),
+                self.close_button
             ]
         )
-        self.content = ft.Container(
-            width=380,
-            height=60,
-            content=ft.Text(
-                value="¿Desea eliminar este registro? Esta acción ",
-                font_family="AlbertSansL",
-                size=16,
-                spans=[
-                    ft.TextSpan(text="no se puede deshacer.", style=ft.TextStyle(font_family="AlbertSansB"))
-                ]
-            )
-        )
-        self.actions = [
-            CustomElevatedButton(name="Cancelar", style=ButtonStyle.CANCEL, on_click=lambda _: self.page.close(self)),
-            CustomElevatedButton(name="Eliminar", style=ButtonStyle.DELETE, on_click=self.delete)
-        ]
 
-        # Form design
-        self.shape = ft.RoundedRectangleBorder(4)
-        self.bgcolor = bgGeneralFormColor
+        # Form content
+        self.content = ft.Container(width=380, height=70)
+        self.actions = [self.cancel_button, self.submit_button]
 
-    @staticmethod
-    def __update_form_title(style: DeleteFormStyle) -> str:
-        title = ""
+        self.__update_appearance()
 
-        match style:
+    def __update_appearance(self) -> None:
+        match self.style:
             case DeleteFormStyle.CREDITCARD:
-                title = "tarjeta de crédito"
+                # Content
+                self.title.controls[0].value = "Eliminar tarjeta de crédito"
+                self.content.content = ft.Text(
+                    value="¿Desea eliminar esta tarjeta? Esta acción ",
+                    font_family="AlbertSansL",
+                    size=16,
+                    spans=[
+                        ft.TextSpan(text="no se puede deshacer.", style=ft.TextStyle(font_family="AlbertSansB"))
+                    ]
+                )
+
             case DeleteFormStyle.NOTE:
-                title = "nota segura"
+                # Content
+                self.title.controls[0].value = "Eliminar nota segura"
+                self.content.content = ft.Text(
+                    value="¿Desea eliminar esta nota? Esta acción ",
+                    font_family="AlbertSansL",
+                    size=16,
+                    spans=[
+                        ft.TextSpan(text="no se puede deshacer.", style=ft.TextStyle(font_family="AlbertSansB"))
+                    ]
+                )
+
             case DeleteFormStyle.PASS_REQ:
-                title = "registro de cambio"
+                # Content
+                self.title.controls[0].value = "Eliminar registro"
+                self.content.content = ft.Text(
+                    value="¿Desea eliminar este registro? Esta acción ",
+                    font_family="AlbertSansL",
+                    size=16,
+                    spans=[
+                        ft.TextSpan(text="no se puede deshacer.", style=ft.TextStyle(font_family="AlbertSansB"))
+                    ]
+                )
+
             case DeleteFormStyle.SITE:
-                title = "sitio"
+                # Content
+                self.title.controls[0].value = "Eliminar sitio web"
+                self.content.content = ft.Text(
+                    value="¿Desea eliminar esta dirección web? Esta acción ",
+                    font_family="AlbertSansL",
+                    size=16,
+                    spans=[
+                        ft.TextSpan(text="no se puede deshacer.", style=ft.TextStyle(font_family="AlbertSansB"))
+                    ]
+                )
+
             case DeleteFormStyle.USER:
-                title = "usuario"
+                self.submit_button.on_click = self.__delete_user
 
-        return title
+                # Content
+                self.title.controls[0].value = "Eliminar usuario"
+                self.content.content = ft.Text(
+                    value="¿Desea eliminar suc cuenta? Esta acción ",
+                    font_family="AlbertSansL",
+                    size=16,
+                    spans=[
+                        ft.TextSpan(
+                            text="eliminará todos los elementos que estén asociados a ella.",
+                            style=ft.TextStyle(font_family="AlbertSansB"))
+                    ]
+                )
 
-    def delete(self, e: ft.ControlEvent) -> None:
-        self.delete_function(e)
+    def __delete(self, _: ft.ControlEvent) -> None:
+        self.page.close(self)
+
+    def __delete_user(self) -> None:
         self.page.close(self)

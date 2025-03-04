@@ -140,7 +140,7 @@ class SiteWidget(ft.Card):
         )
 
     def open_delete_form(self, _: ft.ControlEvent) -> None:
-        self.page.open(DeleteForm(self.page, self.delete_site, DeleteFormStyle.SITE))
+        self.page.open(DeleteForm(self.page, self.site, DeleteFormStyle.SITE))
 
     def delete_site(self, _: ft.ControlEvent) -> None:
         # New query
