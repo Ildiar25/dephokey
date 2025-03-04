@@ -30,7 +30,7 @@ class Note(Base):
     created: Mapped[datetime]
 
     # Relationship settings
-    user: Mapped["User"] = relationship(argument="User", back_populates="notes", cascade="all,delete")
+    user: Mapped["User"] = relationship(argument="User", back_populates="notes")
 
     # Initializer
     def __init__(self, content: str, user: User, title: str | None = None) -> None:

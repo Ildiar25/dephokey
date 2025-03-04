@@ -34,7 +34,7 @@ class CreditCard(Base):
     created: Mapped[datetime]
 
     # Relationship settings
-    user: Mapped["User"] = relationship(argument="User", back_populates="creditcards", cascade="all,delete")
+    user: Mapped["User"] = relationship(argument="User", back_populates="creditcards")
 
     # Initializer
     def __init__(self, cardholder: str, number: str, cvc: str, valid_until: datetime,

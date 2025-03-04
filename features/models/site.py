@@ -32,7 +32,7 @@ class Site(Base):
     created: Mapped[datetime]
 
     # Relationship settings
-    user: Mapped["User"] = relationship(argument="User", back_populates="sites", cascade="all,delete")
+    user: Mapped["User"] = relationship(argument="User", back_populates="sites")
 
     # Initializer
     def __init__(self, address: str, username: str, password: str, user: User, name: str | None = None) -> None:

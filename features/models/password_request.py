@@ -29,7 +29,7 @@ class PasswordRequest(Base):
     created: Mapped[datetime]
 
     # Relationship settings
-    user: Mapped["User"] = relationship(argument="User", back_populates="password_requests", cascade="all,delete")
+    user: Mapped["User"] = relationship(argument="User", back_populates="password_requests")
 
     # Initializer
     def __init__(self, code: str, user: User) -> None:
