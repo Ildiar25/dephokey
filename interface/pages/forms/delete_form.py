@@ -1,12 +1,14 @@
 import flet as ft
 from enum import Enum
-from typing import Union
+from typing import Union, Callable
+
+from data.db_orm import session
 
 from features.models.user import User
 from features.models import *
 
 from .base_form import BaseForm
-from interface.controls import CustomElevatedButton, ButtonStyle
+from interface.controls import CustomElevatedButton, ButtonStyle, Snackbar, SnackbarStyle
 
 from shared.utils.colors import *
 
@@ -21,13 +23,16 @@ class DeleteFormStyle(Enum):
 
 class DeleteForm(BaseForm):
     def __init__(self, page: ft.Page, item: Union[User, Site, CreditCard, Note, PasswordRequest],
-                 style: DeleteFormStyle) -> None:
+                 style: DeleteFormStyle, update_changes: Callable[[], None] | None = None,
+                 snackbar: Snackbar | None = None) -> None:
         super().__init__()
 
         # General attributes
         self.page = page
         self.item = item
         self.style = style
+        self.snackbar = snackbar
+        self.update_changes = update_changes
 
         # Form settings
         self.submit_button = CustomElevatedButton(name="Eliminar", style=ButtonStyle.DELETE, on_click=self.__delete)
@@ -99,12 +104,12 @@ class DeleteForm(BaseForm):
                 )
 
             case DeleteFormStyle.USER:
-                self.submit_button.on_click = self.__delete_user
+                self.submit_button.on_click = self.__delete
 
                 # Content
                 self.title.controls[0].value = "Eliminar usuario"
                 self.content.content = ft.Text(
-                    value="¿Desea eliminar suc cuenta? Esta acción ",
+                    value="¿Desea eliminar su cuenta? Esta acción ",
                     font_family="AlbertSansL",
                     size=16,
                     spans=[
@@ -115,7 +120,19 @@ class DeleteForm(BaseForm):
                 )
 
     def __delete(self, _: ft.ControlEvent) -> None:
-        self.page.close(self)
 
-    def __delete_user(self) -> None:
+        item = session.query(self.item.__class__).filter_by(id=self.item.id).first()
+        session.delete(item)
+        session.commit()
+
+        if self.item.__class__ == User:
+            self.snackbar.change_style(
+                msg="Usuario borrado con éxito.\nCuando salga no podrá volver a entrar.",
+                style=SnackbarStyle.SUCCESS)
+            self.snackbar.update()
+            self.page.close(self)
+            return
+
+        # Update content view
+        self.update_changes()
         self.page.close(self)
