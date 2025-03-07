@@ -127,10 +127,11 @@ class DeleteForm(BaseForm):
 
         if self.item.__class__ == User:
             self.snackbar.change_style(
-                msg="Usuario borrado con éxito.\nCuando salga no podrá volver a entrar.",
+                msg="Usuario borrado con éxito.\nCerrando sesión...",
                 style=SnackbarStyle.SUCCESS)
             self.snackbar.update()
             self.page.close(self)
+            self.page.session.clear()
             return
 
         # Update content view
