@@ -192,7 +192,7 @@ class SettingsPage(ft.Row):
 
     def __open_delete_form(self, _: ft.ControlEvent) -> None:
         self.page.open(
-            DeleteForm(self.page, self.user, DeleteFormStyle.USER)
+            DeleteForm(self.page, self.user, DeleteFormStyle.USER, snackbar=self.snackbar)
         )
 
     def __change_password(self, _: ft.ControlEvent) -> None:
