@@ -176,7 +176,11 @@ class CreditCardWidget(ft.Card):
         )
 
     def open_delete_form(self, _: ft.ControlEvent) -> None:
-        self.page.open(DeleteForm(self.page, self.creditcard, DeleteFormStyle.CREDITCARD))
+        self.page.open(
+            DeleteForm(
+                self.page, self.creditcard, DeleteFormStyle.CREDITCARD, self.update_appearance
+            )
+        )
 
     def delete_creditcard(self, _: ft.ControlEvent) -> None:
         # New query

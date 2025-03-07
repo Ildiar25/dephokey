@@ -110,7 +110,11 @@ class NoteWidget(ft.Card):
         )
 
     def open_delete_form(self, _: ft.ControlEvent) -> None:
-        self.page.open(DeleteForm(self.page, self.note, DeleteFormStyle.NOTE))
+        self.page.open(
+            DeleteForm(
+                self.page, self.note, DeleteFormStyle.NOTE, self.update_appearance
+            )
+        )
 
     def delete_note(self, _: ft.ControlEvent) -> None:
         # New query
