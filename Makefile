@@ -10,7 +10,7 @@ test: ## Run tests
 	python -m unittest discover -s tests
 
 lint: ## Run linter
-	python -m flake8
+	python -m ruff check .
 
 format: ## Format code
 	python -m black .
