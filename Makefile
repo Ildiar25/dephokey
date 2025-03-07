@@ -6,6 +6,9 @@ help: ## Show this help
 install: ## Install dependencies
 	pip install -r requirements.txt
 
+run: ## Run app
+	@flet run app.py
+
 test: ## Run tests
 	python -m unittest discover -s tests
 
@@ -20,5 +23,6 @@ up: ## Start services
 
 down: ## Stop services
 	docker-compose -f compose.yaml down
+
 
 .DEFAULT_GOAL := help
