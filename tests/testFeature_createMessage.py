@@ -24,7 +24,7 @@ class TestCreateMessage(unittest.TestCase):
         log.info("Preparing CREATE MESSAGE instance...")
 
         # Create comparable items
-        self.receiver = "User Test Name"
+        self.name = "User Test Name"
         self.code = "ABC1234"
         self.text_plain = ("Hola User Test Name!\nPor favor, introduce en el programa el código de siete caracteres "
                            "proporcionado\npara poder actualizar tu contraseña:\n\nABC1234\n\nSi no has "
@@ -47,17 +47,17 @@ class TestCreateMessage(unittest.TestCase):
         self.assertIsInstance(self.message, CreateMessage, msg="Create message MUST BE create message type.")
         log.info(">>> Confirm if CREATE MESSAGE is instance of CREATE MESSAGE...   OK")
 
-    def test_createMessageReceiverExists(self) -> None:
-        self.assertIsNotNone(self.message.receiver, msg="Create message MUST HAVE receiver.")
-        log.info(">>> Confirm if CREATE MESSAGE has RECEIVER...   OK")
+    def test_createMessageNameExists(self) -> None:
+        self.assertIsNotNone(self.message.name, msg="Create message MUST HAVE name.")
+        log.info(">>> Confirm if CREATE MESSAGE has NAME...   OK")
 
-    def test_createMessageReceiverType(self) -> None:
-        self.assertIsInstance(self.message.receiver, str, msg="Receiver MUST BE string type.")
-        log.info(">>> Confirm if RECEIVER is instance of STRING...   OK")
+    def test_createMessageNameType(self) -> None:
+        self.assertIsInstance(self.message.name, str, msg="Name MUST BE string type.")
+        log.info(">>> Confirm if NAME is instance of STRING...   OK")
 
-    def test_createMessageReceiverComparison(self) -> None:
-        self.assertEqual(self.receiver, self.message.receiver, msg="Receiver content MUST BE equal.")
-        log.info(">>> Confirm if RECEIVER is setted right...   OK")
+    def test_createMessageNameComparison(self) -> None:
+        self.assertEqual(self.name, self.message.name, msg="Name content MUST BE equal.")
+        log.info(">>> Confirm if NAME is setted right...   OK")
 
     def test_createMessageTokenExists(self) -> None:
         self.assertIsNotNone(self.message.token, msg="Create message MUST HAVE token.")
