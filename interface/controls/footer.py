@@ -19,6 +19,9 @@ class Footer(ft.BottomAppBar):
         # Content
         self.content = ft.Row(
             controls=[
-                ft.Text("DephoKey © 2025 · Todos los derechos reservados", color=textFooterColor)
+                ft.Text(
+                    "DephoKey © 2025 · Todos los derechos reservados",
+                    color=textFooterColor,
+                )
             ]
         )

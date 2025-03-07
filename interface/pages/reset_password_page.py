@@ -18,7 +18,9 @@ class ResetPasswordPage(ft.Container):
 
         # ResetPassword attributes
         self.main_field = CustomTextField(label="Correo Electrónico", on_change=None)
-        self.submit_email = CustomElevatedButton(name="¡Vamos!", style=ButtonStyle.DEFAULT, on_click=self.open_form)
+        self.submit_email = CustomElevatedButton(
+            name="¡Vamos!", style=ButtonStyle.DEFAULT, on_click=self.open_form
+        )
 
         # Page design
         self.expand = True
@@ -35,16 +37,14 @@ class ResetPasswordPage(ft.Container):
                             icon_color=primaryCorporateColor,
                             on_click=lambda _: self.page.go("/login"),
                             highlight_color=neutral20,
-                            hover_color=neutral10
+                            hover_color=neutral10,
                         )
                     ]
                 ),
                 ft.Row(
                     alignment=ft.MainAxisAlignment.CENTER,
-                    controls=[
-                        self.main_field, self.submit_email, self.snackbar
-                    ]
-                )
+                    controls=[self.main_field, self.submit_email, self.snackbar],
+                ),
             ]
         )
 
@@ -52,5 +52,7 @@ class ResetPasswordPage(ft.Container):
 
     def open_form(self, _: ft.ControlEvent) -> None:
         self.page.open(
-            ChangePasswordForm(self.page, self.snackbar, FormStyle.RESET, self.main_field.value)
+            ChangePasswordForm(
+                self.page, self.snackbar, FormStyle.RESET, self.main_field.value
+            )
         )

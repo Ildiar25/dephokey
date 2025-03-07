@@ -24,7 +24,9 @@ class Site(Base):
 
     # Column settings
     id: Mapped[str] = mapped_column(primary_key=True)
-    user_id: Mapped[str] = mapped_column(ForeignKey(column="user.id", ondelete="CASCADE"), nullable=False, index=True)
+    user_id: Mapped[str] = mapped_column(
+        ForeignKey(column="user.id", ondelete="CASCADE"), nullable=False, index=True
+    )
     name: Mapped[str | None]
     address: Mapped[str]
     username: Mapped[str]
@@ -35,7 +37,14 @@ class Site(Base):
     user: Mapped["User"] = relationship(argument="User", back_populates="sites")
 
     # Initializer
-    def __init__(self, address: str, username: str, password: str, user: User, name: str | None = None) -> None:
+    def __init__(
+        self,
+        address: str,
+        username: str,
+        password: str,
+        user: User,
+        name: str | None = None,
+    ) -> None:
         super().__init__()
 
         self.id: str = GenerateID.short_id()
@@ -50,6 +59,8 @@ class Site(Base):
         log.info(f"Instancia de SITE creada por {repr(mask_email(self.user.email))}.")
 
     def __str__(self) -> str:
-        return (f"<class Site(id={repr(self.id)}, name={repr(self.name)}, address={repr(self.address)}, username="
-                f"{repr(mask_username(self.username))}, encrypted_password={repr(mask_text(self.encrypted_password))}, "
-                f"user={repr(self.user.fullname)}, created={repr(self.created.strftime('%Y-%m-%dT%H:%M:%S'))})>")
+        return (
+            f"<class Site(id={repr(self.id)}, name={repr(self.name)}, address={repr(self.address)}, username="
+            f"{repr(mask_username(self.username))}, encrypted_password={repr(mask_text(self.encrypted_password))}, "
+            f"user={repr(self.user.fullname)}, created={repr(self.created.strftime('%Y-%m-%dT%H:%M:%S'))})>"
+        )

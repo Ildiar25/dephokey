@@ -8,6 +8,15 @@ from .appbar import CustomAppbar
 from .sidebar import CustomSidebar
 
 __all__ = [
-    "CustomElevatedButton", "ButtonStyle", "CustomTextField", "Snackbar", "SnackbarStyle", "CustomSwitch",
-    "TextLink", "IconLink", "IconLinkStyle", "CustomAppbar", "CustomSidebar"
+    "CustomElevatedButton",
+    "ButtonStyle",
+    "CustomTextField",
+    "Snackbar",
+    "SnackbarStyle",
+    "CustomSwitch",
+    "TextLink",
+    "IconLink",
+    "IconLinkStyle",
+    "CustomAppbar",
+    "CustomSidebar",
 ]

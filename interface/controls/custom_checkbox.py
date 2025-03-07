@@ -14,7 +14,7 @@ class CustomCheckbox(ft.Checkbox):
         self.shape = ft.CircleBorder()
         self.fill_color = {
             ft.ControlState.DEFAULT: defaultFillCheckboxColor,
-            ft.ControlState.SELECTED: selectedFillCheckboxColor
+            ft.ControlState.SELECTED: selectedFillCheckboxColor,
         }
         self.hover_color = transparentColor
         self.border_side = {

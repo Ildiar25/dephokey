@@ -7,6 +7,12 @@ from .note_form import NoteForm
 from .change_password_form import ChangePasswordForm
 
 __all__ = [
-    "FormStyle", "DeleteFormStyle", "DeleteForm", "GenerateForm", "SiteForm", "CreditCardForm", "NoteForm",
-    "ChangePasswordForm"
+    "FormStyle",
+    "DeleteFormStyle",
+    "DeleteForm",
+    "GenerateForm",
+    "SiteForm",
+    "CreditCardForm",
+    "NoteForm",
+    "ChangePasswordForm",
 ]

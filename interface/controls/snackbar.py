@@ -13,7 +13,9 @@ class SnackbarStyle(Enum):
 
 
 class Snackbar(ft.SnackBar):
-    def __init__(self, content: str = "", style: SnackbarStyle = SnackbarStyle.RESET) -> None:
+    def __init__(
+        self, content: str = "", style: SnackbarStyle = SnackbarStyle.RESET
+    ) -> None:
         super().__init__(ft.Text(content, text_align=ft.TextAlign.CENTER))
 
         # Sets style & Update

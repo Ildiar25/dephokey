@@ -11,7 +11,11 @@ from shared.logger_setup import test_log as log
 class UserBuilder:
     def __init__(self) -> None:
         """Helps to create a User instance."""
-        self.__user = User(fullname="UserTest Name", email="user.email@example.com", password="User_1234")
+        self.__user = User(
+            fullname="UserTest Name",
+            email="user.email@example.com",
+            password="User_1234",
+        )
 
     def with_role(self, new_role: UserRole) -> "UserBuilder":
         self.__user.role = new_role
@@ -24,7 +28,9 @@ class UserBuilder:
 class NoteBuilder:
     def __init__(self) -> None:
         """Helps to create Note instance."""
-        self.__note = Note(title=None, content="Testing Note content...", user=UserBuilder().build())
+        self.__note = Note(
+            title=None, content="Testing Note content...", user=UserBuilder().build()
+        )
 
     def with_title(self, new_title: str) -> "NoteBuilder":
         self.__note.title = new_title
@@ -66,10 +72,14 @@ class TestNote(unittest.TestCase):
 
     def test_noteTitleType(self) -> None:
         if self.note.title is not None:
-            self.assertIsInstance(self.note.title, str, msg="Note title MUST BE none | string type.")
+            self.assertIsInstance(
+                self.note.title, str, msg="Note title MUST BE none | string type."
+            )
             log.info(">>> Confirm if NOTE TITLE is instance of STRING...   OK")
             return
-        self.assertIsInstance(self.note.title, NoneType, msg="Note title MUST BE none | string type.")
+        self.assertIsInstance(
+            self.note.title, NoneType, msg="Note title MUST BE none | string type."
+        )
         log.info(">>> Confirm if NOTE TITLE is instance of NONE...   OK")
 
     def test_contentExists(self) -> None:
@@ -77,11 +87,17 @@ class TestNote(unittest.TestCase):
         log.info(">>> Confirm if NOTE has CONTENT...   OK")
 
     def test_contentType(self) -> None:
-        self.assertIsInstance(self.content, str, msg="Note content MUST BE string type.")
+        self.assertIsInstance(
+            self.content, str, msg="Note content MUST BE string type."
+        )
         log.info(">>> Confirm if NOTE CONTENT is instance of STRING...   OK")
 
     def test_noteContentEncrypted(self) -> None:
-        self.assertEqual(self.content, decrypt_data(self.note.encrypted_content), msg="Note content MUST BE equal.")
+        self.assertEqual(
+            self.content,
+            decrypt_data(self.note.encrypted_content),
+            msg="Note content MUST BE equal.",
+        )
         log.info(">>> Confirm if NOTE CONTENT is ENCRYPTED...   OK")
 
     @staticmethod

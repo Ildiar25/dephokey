@@ -12,16 +12,25 @@ class IconLinkStyle(Enum):
 
 
 class IconLink(ft.Container):
-    def __init__(self, icon: ft.Icons, style: IconLinkStyle, function: Callable[[Any], None] | None = None, **kwargs):
+    def __init__(
+        self,
+        icon: ft.Icons,
+        style: IconLinkStyle,
+        function: Callable[[Any], None] | None = None,
+        **kwargs,
+    ):
         super().__init__(**kwargs)
 
         # Sets style & Update
         self.style = style
         self.on_hover = self.toggle_focus_link
         self.badge = ft.Badge(
-            bgcolor=neutralSuccessLight, text_color=successTextColor, offset=ft.Offset(-25, -20),
-            label_visible=False, padding=ft.padding.symmetric(horizontal=10),
-            text_style=ft.TextStyle(font_family="AlbertSansR", size=12)
+            bgcolor=neutralSuccessLight,
+            text_color=successTextColor,
+            offset=ft.Offset(-25, -20),
+            label_visible=False,
+            padding=ft.padding.symmetric(horizontal=10),
+            text_style=ft.TextStyle(font_family="AlbertSansR", size=12),
         )
         self.__update_appareance(icon)
 
@@ -52,7 +61,7 @@ class IconLink(ft.Container):
                     cursor.control.content.color = tertiaryIconColor
                 cursor.control.update()
 
-    def show_badge(self, msg: str  = "¡copiado!") -> None:
+    def show_badge(self, msg: str = "¡copiado!") -> None:
         self.badge.text = msg
         self.badge.label_visible = True
         self.update()

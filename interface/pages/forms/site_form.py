@@ -15,9 +15,15 @@ from shared.utils.colors import *
 
 
 class SiteForm(BaseForm):
-    def __init__(self,
-                 title: str, page: ft.Page, style: FormStyle, snackbar: Snackbar | None = None,
-                 site: Site | None = None, update_changes: Callable[[], None] = None) -> None:
+    def __init__(
+        self,
+        title: str,
+        page: ft.Page,
+        style: FormStyle,
+        snackbar: Snackbar | None = None,
+        site: Site | None = None,
+        update_changes: Callable[[], None] = None,
+    ) -> None:
         super().__init__()
 
         # General attributes
@@ -31,14 +37,29 @@ class SiteForm(BaseForm):
         self.user: User = self.page.session.get("session")
 
         # Form fields
-        self.s_name = CustomTextField(hint_text="Dale un nombre a la dirección web",
-            on_change=self.__update_field_inputs, max_length=30)
-        self.s_address = CustomTextField(hint_text="Escribe la dirección", max_length=50,
-            prefix_style=ft.TextStyle(color=primaryTextColor), on_change=self.__update_field_inputs)
-        self.s_username = CustomTextField(hint_text="Añade el usuario con el que te has registrado",
-            on_change=self.__update_field_inputs, max_length=30)
-        self.s_password = CustomTextField(hint_text="Escribe la contraseña", max_length=30,
-            on_change=self.__update_field_inputs, password=True, can_reveal_password=True)
+        self.s_name = CustomTextField(
+            hint_text="Dale un nombre a la dirección web",
+            on_change=self.__update_field_inputs,
+            max_length=30,
+        )
+        self.s_address = CustomTextField(
+            hint_text="Escribe la dirección",
+            max_length=50,
+            prefix_style=ft.TextStyle(color=primaryTextColor),
+            on_change=self.__update_field_inputs,
+        )
+        self.s_username = CustomTextField(
+            hint_text="Añade el usuario con el que te has registrado",
+            on_change=self.__update_field_inputs,
+            max_length=30,
+        )
+        self.s_password = CustomTextField(
+            hint_text="Escribe la contraseña",
+            max_length=30,
+            on_change=self.__update_field_inputs,
+            password=True,
+            can_reveal_password=True,
+        )
 
         # Form settings
         self.cancel_button.on_click = lambda _: self.page.close(self)
@@ -47,8 +68,11 @@ class SiteForm(BaseForm):
         self.title = ft.Row(
             alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
             controls=[
-                ft.Text(title, font_family="AlbertSansB", size=20, color=primaryTextColor), self.close_button
-            ]
+                ft.Text(
+                    title, font_family="AlbertSansB", size=20, color=primaryTextColor
+                ),
+                self.close_button,
+            ],
         )
 
         self.__update_appearance()
@@ -63,26 +87,54 @@ class SiteForm(BaseForm):
                 self.content.content = ft.Column(
                     spacing=14,
                     controls=[
-                        ft.Column(spacing=6, controls=[
-                            ft.Text(value="Nombre", font_family="AlbertSansR", color=primaryTextColor),
-                            self.s_name
-                        ]),
-                        ft.Column(spacing=6, controls=[
-                            ft.Text(value="Dirección", font_family="AlbertSansR", color=primaryTextColor,
-                                    spans=[self.span]),
-                            self.s_address
-                        ]),
-                        ft.Column(spacing=6, controls=[
-                            ft.Text(value="Usuario", font_family="AlbertSansR", color=primaryTextColor,
-                                    spans=[self.span]),
-                            self.s_username
-                        ]),
-                        ft.Column(spacing=6, controls=[
-                            ft.Text(value="Contraseña", font_family="AlbertSansR", color=primaryTextColor,
-                                    spans=[self.span]),
-                            self.s_password
-                        ])
-                    ]
+                        ft.Column(
+                            spacing=6,
+                            controls=[
+                                ft.Text(
+                                    value="Nombre",
+                                    font_family="AlbertSansR",
+                                    color=primaryTextColor,
+                                ),
+                                self.s_name,
+                            ],
+                        ),
+                        ft.Column(
+                            spacing=6,
+                            controls=[
+                                ft.Text(
+                                    value="Dirección",
+                                    font_family="AlbertSansR",
+                                    color=primaryTextColor,
+                                    spans=[self.span],
+                                ),
+                                self.s_address,
+                            ],
+                        ),
+                        ft.Column(
+                            spacing=6,
+                            controls=[
+                                ft.Text(
+                                    value="Usuario",
+                                    font_family="AlbertSansR",
+                                    color=primaryTextColor,
+                                    spans=[self.span],
+                                ),
+                                self.s_username,
+                            ],
+                        ),
+                        ft.Column(
+                            spacing=6,
+                            controls=[
+                                ft.Text(
+                                    value="Contraseña",
+                                    font_family="AlbertSansR",
+                                    color=primaryTextColor,
+                                    spans=[self.span],
+                                ),
+                                self.s_password,
+                            ],
+                        ),
+                    ],
                 )
 
             case FormStyle.EDIT:
@@ -97,31 +149,63 @@ class SiteForm(BaseForm):
                 self.content.content = ft.Column(
                     spacing=14,
                     controls=[
-                        ft.Column(spacing=6, controls=[
-                            ft.Text(value="Nombre", font_family="AlbertSansR", color=primaryTextColor),
-                            self.s_name
-                        ]),
-                        ft.Column(spacing=6, controls=[
-                            ft.Text(value="Dirección", font_family="AlbertSansR", color=primaryTextColor,
-                                    spans=[self.span]),
-                            self.s_address
-                        ]),
-                        ft.Column(spacing=6, controls=[
-                            ft.Text(value="Usuario", font_family="AlbertSansR", color=primaryTextColor,
-                                    spans=[self.span]),
-                            self.s_username
-                        ]),
-                        ft.Column(spacing=6, controls=[
-                            ft.Text(value="Contraseña", font_family="AlbertSansR", color=primaryTextColor,
-                                    spans=[self.span]),
-                            self.s_password
-                        ])
-                    ]
+                        ft.Column(
+                            spacing=6,
+                            controls=[
+                                ft.Text(
+                                    value="Nombre",
+                                    font_family="AlbertSansR",
+                                    color=primaryTextColor,
+                                ),
+                                self.s_name,
+                            ],
+                        ),
+                        ft.Column(
+                            spacing=6,
+                            controls=[
+                                ft.Text(
+                                    value="Dirección",
+                                    font_family="AlbertSansR",
+                                    color=primaryTextColor,
+                                    spans=[self.span],
+                                ),
+                                self.s_address,
+                            ],
+                        ),
+                        ft.Column(
+                            spacing=6,
+                            controls=[
+                                ft.Text(
+                                    value="Usuario",
+                                    font_family="AlbertSansR",
+                                    color=primaryTextColor,
+                                    spans=[self.span],
+                                ),
+                                self.s_username,
+                            ],
+                        ),
+                        ft.Column(
+                            spacing=6,
+                            controls=[
+                                ft.Text(
+                                    value="Contraseña",
+                                    font_family="AlbertSansR",
+                                    color=primaryTextColor,
+                                    spans=[self.span],
+                                ),
+                                self.s_password,
+                            ],
+                        ),
+                    ],
                 )
 
     def __update_field_inputs(self, cursor: ft.ControlEvent) -> None:
         self.s_address.reset_error()
-        self.fields = [self.s_address.value, self.s_username.value, self.s_password.value]
+        self.fields = [
+            self.s_address.value,
+            self.s_username.value,
+            self.s_password.value,
+        ]
         self.toggle_submit_button_state(cursor)
 
     @staticmethod
@@ -136,7 +220,11 @@ class SiteForm(BaseForm):
 
     def __update_site(self, _: ft.ControlEvent) -> None:
 
-        new_name = self.s_name.value.capitalize().strip() if self.s_name.value else "Nueva dirección web"
+        new_name = (
+            self.s_name.value.capitalize().strip()
+            if self.s_name.value
+            else "Nueva dirección web"
+        )
         new_address = self.rename_address(self.s_address.value.strip())
         new_username = self.s_username.value.strip()
         new_password = self.s_password.value.strip()
@@ -157,7 +245,11 @@ class SiteForm(BaseForm):
 
     def __add_site(self, _: ft.ControlEvent) -> None:
 
-        new_name = self.s_name.value.capitalize().strip() if self.s_name.value else "Nueva dirección web"
+        new_name = (
+            self.s_name.value.capitalize().strip()
+            if self.s_name.value
+            else "Nueva dirección web"
+        )
         new_address = self.rename_address(self.s_address.value.strip())
         new_username = self.s_username.value.strip()
         new_password = self.s_password.value.strip()
@@ -172,6 +264,8 @@ class SiteForm(BaseForm):
         session.commit()
 
         self.update_changes()
-        self.snackbar.change_style(msg=f"¡{new_name} añadida!", style=SnackbarStyle.SUCCESS)
+        self.snackbar.change_style(
+            msg=f"¡{new_name} añadida!", style=SnackbarStyle.SUCCESS
+        )
         self.snackbar.update()
         self.page.close(self)

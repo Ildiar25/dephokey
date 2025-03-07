@@ -14,9 +14,15 @@ from shared.utils.colors import *
 
 
 class NoteForm(BaseForm):
-    def __init__(self,
-                 title: str, page: ft.Page, style: FormStyle, snackbar: Snackbar | None = None,
-                 note: Note | None = None, update_changes: Callable[[], None] = None) -> None:
+    def __init__(
+        self,
+        title: str,
+        page: ft.Page,
+        style: FormStyle,
+        snackbar: Snackbar | None = None,
+        note: Note | None = None,
+        update_changes: Callable[[], None] = None,
+    ) -> None:
         super().__init__()
 
         # General attributes
@@ -30,11 +36,19 @@ class NoteForm(BaseForm):
         self.user: User = self.page.session.get("session")
 
         # Form fields
-        self.n_title = CustomTextField(hint_text="Añade un título", max_length=30,
-            on_change=self.__update_field_inputs
+        self.n_title = CustomTextField(
+            hint_text="Añade un título",
+            max_length=30,
+            on_change=self.__update_field_inputs,
         )
-        self.n_content = CustomTextField(hint_text="Agrega contenido importante", can_reveal_password=True,
-            password=True, on_change=self.__update_field_inputs, max_lines=10, min_lines=10, max_length=324,
+        self.n_content = CustomTextField(
+            hint_text="Agrega contenido importante",
+            can_reveal_password=True,
+            password=True,
+            on_change=self.__update_field_inputs,
+            max_lines=10,
+            min_lines=10,
+            max_length=324,
         )
 
         # Form settings
@@ -44,8 +58,11 @@ class NoteForm(BaseForm):
         self.title = ft.Row(
             alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
             controls=[
-                ft.Text(title, font_family="AlbertSansB", size=20, color=primaryTextColor), self.close_button
-            ]
+                ft.Text(
+                    title, font_family="AlbertSansB", size=20, color=primaryTextColor
+                ),
+                self.close_button,
+            ],
         )
 
         self.__update_appearance()
@@ -59,16 +76,30 @@ class NoteForm(BaseForm):
                 self.content.content = ft.Column(
                     spacing=14,
                     controls=[
-                        ft.Column(spacing=6, controls=[
-                            ft.Text(value="Título de la nota", font_family="AlbertSansR", color=primaryTextColor),
-                            self.n_title
-                        ]),
-                        ft.Column(spacing=6, controls=[
-                            ft.Text(value="Contenido", font_family="AlbertSansR", color=primaryTextColor,
-                                    spans=[self.span]),
-                            self.n_content
-                        ])
-                    ]
+                        ft.Column(
+                            spacing=6,
+                            controls=[
+                                ft.Text(
+                                    value="Título de la nota",
+                                    font_family="AlbertSansR",
+                                    color=primaryTextColor,
+                                ),
+                                self.n_title,
+                            ],
+                        ),
+                        ft.Column(
+                            spacing=6,
+                            controls=[
+                                ft.Text(
+                                    value="Contenido",
+                                    font_family="AlbertSansR",
+                                    color=primaryTextColor,
+                                    spans=[self.span],
+                                ),
+                                self.n_content,
+                            ],
+                        ),
+                    ],
                 )
 
             case FormStyle.EDIT:
@@ -80,16 +111,30 @@ class NoteForm(BaseForm):
                 self.content.content = ft.Column(
                     spacing=14,
                     controls=[
-                        ft.Column(spacing=6, controls=[
-                            ft.Text(value="Título de la nota", font_family="AlbertSansR", color=primaryTextColor),
-                            self.n_title
-                        ]),
-                        ft.Column(spacing=6, controls=[
-                            ft.Text(value="Contenido", font_family="AlbertSansR", color=primaryTextColor,
-                                    spans=[self.span]),
-                            self.n_content
-                        ])
-                    ]
+                        ft.Column(
+                            spacing=6,
+                            controls=[
+                                ft.Text(
+                                    value="Título de la nota",
+                                    font_family="AlbertSansR",
+                                    color=primaryTextColor,
+                                ),
+                                self.n_title,
+                            ],
+                        ),
+                        ft.Column(
+                            spacing=6,
+                            controls=[
+                                ft.Text(
+                                    value="Contenido",
+                                    font_family="AlbertSansR",
+                                    color=primaryTextColor,
+                                    spans=[self.span],
+                                ),
+                                self.n_content,
+                            ],
+                        ),
+                    ],
                 )
 
     def __update_field_inputs(self, cursor: ft.ControlEvent) -> None:
@@ -99,7 +144,11 @@ class NoteForm(BaseForm):
 
     def __update_note(self, _: ft.ControlEvent) -> None:
 
-        new_title = self.n_title.value.capitalize().strip() if self.n_title.value else "Nueva nota"
+        new_title = (
+            self.n_title.value.capitalize().strip()
+            if self.n_title.value
+            else "Nueva nota"
+        )
         new_content = self.n_content.value.strip()
 
         if not new_content:
@@ -116,7 +165,11 @@ class NoteForm(BaseForm):
 
     def __add_note(self, _: ft.ControlEvent) -> None:
 
-        new_title = self.n_title.value.capitalize().strip() if self.n_title.value else "Nueva nota"
+        new_title = (
+            self.n_title.value.capitalize().strip()
+            if self.n_title.value
+            else "Nueva nota"
+        )
         new_content = self.n_content.value.strip()
 
         if not new_content:
@@ -129,6 +182,8 @@ class NoteForm(BaseForm):
         session.commit()
 
         self.update_changes()
-        self.snackbar.change_style(msg=f"¡{new_title} añadida!", style=SnackbarStyle.SUCCESS)
+        self.snackbar.change_style(
+            msg=f"¡{new_title} añadida!", style=SnackbarStyle.SUCCESS
+        )
         self.snackbar.update()
         self.page.close(self)

@@ -23,13 +23,17 @@ class Logger:
     Documentation:
         https://docs.python.org/3/library/logging.html
     """
+
     def __init__(self, filename: str, level: str = "DEBUG") -> None:
         self.logger = logging.getLogger(BASE_DIR.joinpath(filename).__str__())
         self.logger.setLevel(self.__get_level(level))
 
         # Create a rotating file handler
         handler = RotatingFileHandler(
-            filename=BASE_DIR.joinpath(filename).__str__(), maxBytes=1_000_000, backupCount=1, encoding="utf-8"
+            filename=BASE_DIR.joinpath(filename).__str__(),
+            maxBytes=1_000_000,
+            backupCount=1,
+            encoding="utf-8",
         )
         handler.setLevel(self.__get_level(level))
 
@@ -40,10 +44,16 @@ class Logger:
         # Set formats
         file_date_format = "%Y-%m-%dT%H:%M:%S%z"
         file_log_format = "[%(asctime)s] ::: %(levelname)8s at line %(lineno)d from <%(module)s>: %(message)s"
-        file_formatter = logging.Formatter(fmt=file_log_format, datefmt=file_date_format)
+        file_formatter = logging.Formatter(
+            fmt=file_log_format, datefmt=file_date_format
+        )
         console_date_format = "%H:%M:%S"
-        console_log_format = "[%(asctime)s] | %(levelname)8s | Module: [%(name)s] | %(message)s"
-        console_formatter = logging.Formatter(fmt=console_log_format, datefmt=console_date_format)
+        console_log_format = (
+            "[%(asctime)s] | %(levelname)8s | Module: [%(name)s] | %(message)s"
+        )
+        console_formatter = logging.Formatter(
+            fmt=console_log_format, datefmt=console_date_format
+        )
 
         handler.setFormatter(file_formatter)
         console.setFormatter(console_formatter)
@@ -77,7 +87,7 @@ class Logger:
             "INFO": logging.INFO,
             "WARNING": logging.WARNING,
             "ERROR": logging.ERROR,
-            "CRITICAL": logging.CRITICAL
+            "CRITICAL": logging.CRITICAL,
         }
         return levels[level]
 

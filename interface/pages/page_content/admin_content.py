@@ -5,7 +5,9 @@ from interface.controls import Snackbar
 
 
 class AdminPage(ft.Column):
-    def __init__(self, page: ft.Page, snackbar: Snackbar, update_changes: Callable[[], None]) -> None:
+    def __init__(
+        self, page: ft.Page, snackbar: Snackbar, update_changes: Callable[[], None]
+    ) -> None:
         super().__init__()
 
         # General attributes

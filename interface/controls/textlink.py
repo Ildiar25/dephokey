@@ -23,7 +23,7 @@ class TextLink(ft.Container):
             cursor.control.content.color = secondaryTextColor
             cursor.control.content.style = ft.TextStyle(
                 decoration=ft.TextDecoration.UNDERLINE,
-                decoration_color=secondaryTextColor
+                decoration_color=secondaryTextColor,
             )
         else:
             cursor.control.content.color = accentTextColor

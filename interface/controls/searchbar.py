@@ -25,7 +25,12 @@ class CustomSearchBar(ft.Container):
             spacing=10,
             vertical_alignment=ft.CrossAxisAlignment.CENTER,
             controls=[
-                ft.Icon(ft.Icons.SEARCH_ROUNDED, size=17, color=ft.Colors.BLACK, opacity=0.85),
+                ft.Icon(
+                    ft.Icons.SEARCH_ROUNDED,
+                    size=17,
+                    color=ft.Colors.BLACK,
+                    opacity=0.85,
+                ),
                 ft.TextField(
                     expand=True,
                     border_color=ft.Colors.TRANSPARENT,
@@ -37,9 +42,9 @@ class CustomSearchBar(ft.Container):
                     color=ft.Colors.BLACK,
                     hint_text="Buscar",
                     on_change=self.function,
-                    max_length=100
-                )
-            ]
+                    max_length=100,
+                ),
+            ],
         )
 
     def toggle_bar_opacity(self, event: ft.ControlEvent) -> None:

@@ -8,7 +8,12 @@ from features.models.user import User
 from features.models import *
 
 from .base_form import BaseForm
-from interface.controls import CustomElevatedButton, ButtonStyle, Snackbar, SnackbarStyle
+from interface.controls import (
+    CustomElevatedButton,
+    ButtonStyle,
+    Snackbar,
+    SnackbarStyle,
+)
 
 from shared.utils.colors import *
 
@@ -22,9 +27,14 @@ class DeleteFormStyle(Enum):
 
 
 class DeleteForm(BaseForm):
-    def __init__(self, page: ft.Page, item: Union[User, Site, CreditCard, Note, PasswordRequest],
-                 style: DeleteFormStyle, update_changes: Callable[[], None] | None = None,
-                 snackbar: Snackbar | None = None) -> None:
+    def __init__(
+        self,
+        page: ft.Page,
+        item: Union[User, Site, CreditCard, Note, PasswordRequest],
+        style: DeleteFormStyle,
+        update_changes: Callable[[], None] | None = None,
+        snackbar: Snackbar | None = None,
+    ) -> None:
         super().__init__()
 
         # General attributes
@@ -35,16 +45,20 @@ class DeleteForm(BaseForm):
         self.update_changes = update_changes
 
         # Form settings
-        self.submit_button = CustomElevatedButton(name="Eliminar", style=ButtonStyle.DELETE, on_click=self.__delete)
+        self.submit_button = CustomElevatedButton(
+            name="Eliminar", style=ButtonStyle.DELETE, on_click=self.__delete
+        )
         self.cancel_button.on_click = lambda _: self.page.close(self)
 
         # Form title
         self.title = ft.Row(
             alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
             controls=[
-                ft.Text(value="", font_family="AlbertSansB", size=20, color=primaryTextColor),
-                self.close_button
-            ]
+                ft.Text(
+                    value="", font_family="AlbertSansB", size=20, color=primaryTextColor
+                ),
+                self.close_button,
+            ],
         )
 
         # Form content
@@ -63,8 +77,11 @@ class DeleteForm(BaseForm):
                     font_family="AlbertSansL",
                     size=16,
                     spans=[
-                        ft.TextSpan(text="no se puede deshacer.", style=ft.TextStyle(font_family="AlbertSansB"))
-                    ]
+                        ft.TextSpan(
+                            text="no se puede deshacer.",
+                            style=ft.TextStyle(font_family="AlbertSansB"),
+                        )
+                    ],
                 )
 
             case DeleteFormStyle.NOTE:
@@ -75,8 +92,11 @@ class DeleteForm(BaseForm):
                     font_family="AlbertSansL",
                     size=16,
                     spans=[
-                        ft.TextSpan(text="no se puede deshacer.", style=ft.TextStyle(font_family="AlbertSansB"))
-                    ]
+                        ft.TextSpan(
+                            text="no se puede deshacer.",
+                            style=ft.TextStyle(font_family="AlbertSansB"),
+                        )
+                    ],
                 )
 
             case DeleteFormStyle.PASS_REQ:
@@ -87,8 +107,11 @@ class DeleteForm(BaseForm):
                     font_family="AlbertSansL",
                     size=16,
                     spans=[
-                        ft.TextSpan(text="no se puede deshacer.", style=ft.TextStyle(font_family="AlbertSansB"))
-                    ]
+                        ft.TextSpan(
+                            text="no se puede deshacer.",
+                            style=ft.TextStyle(font_family="AlbertSansB"),
+                        )
+                    ],
                 )
 
             case DeleteFormStyle.SITE:
@@ -99,8 +122,11 @@ class DeleteForm(BaseForm):
                     font_family="AlbertSansL",
                     size=16,
                     spans=[
-                        ft.TextSpan(text="no se puede deshacer.", style=ft.TextStyle(font_family="AlbertSansB"))
-                    ]
+                        ft.TextSpan(
+                            text="no se puede deshacer.",
+                            style=ft.TextStyle(font_family="AlbertSansB"),
+                        )
+                    ],
                 )
 
             case DeleteFormStyle.USER:
@@ -115,8 +141,9 @@ class DeleteForm(BaseForm):
                     spans=[
                         ft.TextSpan(
                             text="eliminará todos los elementos que estén asociados a ella.",
-                            style=ft.TextStyle(font_family="AlbertSansB"))
-                    ]
+                            style=ft.TextStyle(font_family="AlbertSansB"),
+                        )
+                    ],
                 )
 
     def __delete(self, _: ft.ControlEvent) -> None:
@@ -128,7 +155,8 @@ class DeleteForm(BaseForm):
         if self.item.__class__ == User:
             self.snackbar.change_style(
                 msg="Usuario borrado con éxito.\nCerrando sesión...",
-                style=SnackbarStyle.SUCCESS)
+                style=SnackbarStyle.SUCCESS,
+            )
             self.snackbar.update()
             self.page.close(self)
             self.page.session.clear()

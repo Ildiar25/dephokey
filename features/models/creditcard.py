@@ -24,7 +24,9 @@ class CreditCard(Base):
 
     # Column settings
     id: Mapped[str] = mapped_column(primary_key=True)
-    user_id: Mapped[str] = mapped_column(ForeignKey(column="user.id", ondelete="CASCADE"), nullable=False, index=True)
+    user_id: Mapped[str] = mapped_column(
+        ForeignKey(column="user.id", ondelete="CASCADE"), nullable=False, index=True
+    )
     cardholder: Mapped[str]
     encrypted_number: Mapped[str]
     encrypted_cvc: Mapped[str]
@@ -37,8 +39,15 @@ class CreditCard(Base):
     user: Mapped["User"] = relationship(argument="User", back_populates="creditcards")
 
     # Initializer
-    def __init__(self, cardholder: str, number: str, cvc: str, valid_until: datetime,
-                 user: User, alias: str | None = None) -> None:
+    def __init__(
+        self,
+        cardholder: str,
+        number: str,
+        cvc: str,
+        valid_until: datetime,
+        user: User,
+        alias: str | None = None,
+    ) -> None:
         super().__init__()
 
         self.id: str = GenerateID.short_id()
@@ -52,11 +61,15 @@ class CreditCard(Base):
         self.created: datetime = datetime.today()
 
         # Logs new creditcard
-        log.info(f"Instancia de CREDITCARD creada por {repr(mask_email(self.user.email))}.")
+        log.info(
+            f"Instancia de CREDITCARD creada por {repr(mask_email(self.user.email))}."
+        )
 
     def __str__(self) -> str:
-        return (f"<class Creditcard(id={repr(self.id)}, cardholder={repr(self.cardholder)}, "
-                f"encrypted_number={repr(mask_text(self.encrypted_number))}, encrypted_cvc"
-                f"={repr(mask_text(self.encrypted_cvc))}, valid_until={repr(self.valid_until.strftime('%Y-%m'))}, "
-                f"expired={repr(self.expired)}, alias={repr(self.alias)}, user={repr(mask_email(self.user.email))}, "
-                f"created={repr(self.created.strftime('%Y-%m-%dT%H:%M:%S'))})>")
+        return (
+            f"<class Creditcard(id={repr(self.id)}, cardholder={repr(self.cardholder)}, "
+            f"encrypted_number={repr(mask_text(self.encrypted_number))}, encrypted_cvc"
+            f"={repr(mask_text(self.encrypted_cvc))}, valid_until={repr(self.valid_until.strftime('%Y-%m'))}, "
+            f"expired={repr(self.expired)}, alias={repr(self.alias)}, user={repr(mask_email(self.user.email))}, "
+            f"created={repr(self.created.strftime('%Y-%m-%dT%H:%M:%S'))})>"
+        )

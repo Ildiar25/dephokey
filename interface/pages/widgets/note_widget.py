@@ -15,7 +15,9 @@ from shared.utils.colors import *
 
 
 class NoteWidget(ft.Card):
-    def __init__(self, note: Note, page: ft.Page, update_appearance: Callable[[], None]) -> None:
+    def __init__(
+        self, note: Note, page: ft.Page, update_appearance: Callable[[], None]
+    ) -> None:
         super().__init__()
 
         # General attributes
@@ -30,16 +32,22 @@ class NoteWidget(ft.Card):
         self.animate_scale = ft.animation.Animation(200, ft.AnimationCurve.EASE_IN_OUT)
 
         # NoteWidget elements
-        self.note_title = ft.Text(self.note.title if self.note.title else "Sin título", font_family="AlbertSansB",
-            size=18, color=titleNoteWidgetColor)
-        self.note_content = ft.Text(mask_text(decrypt_data(self.note.encrypted_content)))
+        self.note_title = ft.Text(
+            self.note.title if self.note.title else "Sin título",
+            font_family="AlbertSansB",
+            size=18,
+            color=titleNoteWidgetColor,
+        )
+        self.note_content = ft.Text(
+            mask_text(decrypt_data(self.note.encrypted_content))
+        )
 
         # Widget design
         self.color = bgNoteWidgetColor
         self.shape = ft.RoundedRectangleBorder(4)
 
         # Widget content
-        self.content=ft.Container(
+        self.content = ft.Container(
             on_hover=self.scale_widget,
             padding=ft.padding.all(24),
             expand=True,
@@ -58,16 +66,21 @@ class NoteWidget(ft.Card):
                                         content=ft.Row(
                                             spacing=8,
                                             controls=[
-                                                IconLink(ft.Icons.EDIT_OUTLINED, IconLinkStyle.LIGHT,
-                                                         function=self.open_edit_note_form),
-                                                IconLink(ft.Icons.DELETE_OUTLINED, IconLinkStyle.LIGHT,
-                                                         function=self.open_delete_form)
-                                            ]
+                                                IconLink(
+                                                    ft.Icons.EDIT_OUTLINED,
+                                                    IconLinkStyle.LIGHT,
+                                                    function=self.open_edit_note_form,
+                                                ),
+                                                IconLink(
+                                                    ft.Icons.DELETE_OUTLINED,
+                                                    IconLinkStyle.LIGHT,
+                                                    function=self.open_delete_form,
+                                                ),
+                                            ],
                                         )
-                                    )
-                                ]
+                                    ),
+                                ],
                             ),
-
                             # Body
                             ft.Row(
                                 wrap=True,
@@ -75,18 +88,15 @@ class NoteWidget(ft.Card):
                                     ft.Container(
                                         on_hover=self.show_content,
                                         content=ft.Row(
-                                            wrap=True,
-                                            controls=[
-                                                self.note_content
-                                            ]
-                                        )
+                                            wrap=True, controls=[self.note_content]
+                                        ),
                                     )
-                                ]
-                            )
+                                ],
+                            ),
                         ]
                     )
-                ]
-            )
+                ],
+            ),
         )
 
     def scale_widget(self, cursor: ft.ControlEvent) -> None:
@@ -97,16 +107,25 @@ class NoteWidget(ft.Card):
         self.update()
 
     def show_content(self, cursor: ft.ControlEvent) -> None:
-        if cursor and self.note_content.value == mask_text(decrypt_data(self.note.encrypted_content)):
+        if cursor and self.note_content.value == mask_text(
+            decrypt_data(self.note.encrypted_content)
+        ):
             self.note_content.value = decrypt_data(self.note.encrypted_content)
         else:
-            self.note_content.value = mask_text(decrypt_data(self.note.encrypted_content))
+            self.note_content.value = mask_text(
+                decrypt_data(self.note.encrypted_content)
+            )
         self.note_content.update()
 
     def open_edit_note_form(self, _: ft.ControlEvent) -> None:
         self.page.open(
-            NoteForm(title=f"Editando {self.note.title}", page=self.page, style=FormStyle.EDIT,
-                     note=self.note, update_changes=self.update_appearance)
+            NoteForm(
+                title=f"Editando {self.note.title}",
+                page=self.page,
+                style=FormStyle.EDIT,
+                note=self.note,
+                update_changes=self.update_appearance,
+            )
         )
 
     def open_delete_form(self, _: ft.ControlEvent) -> None:

@@ -55,7 +55,9 @@ class TestValidate(unittest.TestCase):
         log.info(">>> Confirm if VALIDATE exists...   OK")
 
     def test_validateType(self) -> None:
-        self.assertIsInstance(self.validate, Validate, msg="Validate MUST BE validate type.")
+        self.assertIsInstance(
+            self.validate, Validate, msg="Validate MUST BE validate type."
+        )
         log.info(">>> Confirm if VALIDATE is instance of VALIDATE...   OK")
 
     def test_validateEmailExists(self) -> None:
@@ -64,77 +66,110 @@ class TestValidate(unittest.TestCase):
         log.info(">>> Confirm if EMAIL exists...   OK")
 
     def test_validateEmailType(self) -> None:
-        self.assertIsInstance(StringBuilder().build("email"), str, msg="Email MUST BE string type.")
+        self.assertIsInstance(
+            StringBuilder().build("email"), str, msg="Email MUST BE string type."
+        )
         log.info(">>> Confirm if EMAIL is instance of STRING...   OK")
 
     def test_validateValidEmal(self) -> None:
-        self.assertTrue(self.validate.is_valid_email(StringBuilder().build("email")),
-                        msg="Email MUST BE a valid email.")
+        self.assertTrue(
+            self.validate.is_valid_email(StringBuilder().build("email")),
+            msg="Email MUST BE a valid email.",
+        )
         log.info(">>> Confirm if EMAIL is VALID...   OK")
 
     def test_validateNotValidEmail(self) -> None:
         self.log_string(self.bad_email)
-        self.assertFalse(self.validate.is_valid_email(self.bad_email), msg="Bad email MUST BE an invalid emal.")
+        self.assertFalse(
+            self.validate.is_valid_email(self.bad_email),
+            msg="Bad email MUST BE an invalid emal.",
+        )
         log.info(">>> Confirm if BAD EMAIL is INVALID...   OK")
 
     def test_validatePasswordExists(self) -> None:
         self.log_string(StringBuilder().build("password"))
-        self.assertIsNotNone(StringBuilder().build("password"), msg="PASSWORD doesn't exist.")
+        self.assertIsNotNone(
+            StringBuilder().build("password"), msg="PASSWORD doesn't exist."
+        )
         log.info(">>> Confirm if PASSWORD exists...   OK")
 
     def test_validatePasswordType(self) -> None:
-        self.assertIsInstance(StringBuilder().build("password"), str, msg="Password MUST BE string type.")
+        self.assertIsInstance(
+            StringBuilder().build("password"), str, msg="Password MUST BE string type."
+        )
         log.info(">>> Confirm if PASSWORD is instance of STRING...   OK")
 
     def test_validateValidPassword(self) -> None:
-        self.assertTrue(self.validate.is_valid_password(StringBuilder().build("password")),
-                        msg="Password MUST BE a valid password.")
+        self.assertTrue(
+            self.validate.is_valid_password(StringBuilder().build("password")),
+            msg="Password MUST BE a valid password.",
+        )
         log.info(">>> Confirm if PASSWORD is VALID...   OK")
 
     def test_validateInvalidPassword(self) -> None:
         self.log_string(self.bad_password)
-        self.assertFalse(self.validate.is_valid_password(self.bad_password),
-                         msg="Bad password MUST BE an invalid password.")
+        self.assertFalse(
+            self.validate.is_valid_password(self.bad_password),
+            msg="Bad password MUST BE an invalid password.",
+        )
         log.info(">>> Confirm if BAD PASSWORD is INVALID...   OK")
 
     def test_validateAddressExists(self) -> None:
         self.log_string(StringBuilder().build("address"))
-        self.assertIsNotNone(StringBuilder().build("address"), msg="ADDRESS doesn't exist.")
+        self.assertIsNotNone(
+            StringBuilder().build("address"), msg="ADDRESS doesn't exist."
+        )
         log.info(">>> Confirm if ADDRESS exists...   OK")
 
     def test_validateAddressType(self) -> None:
-        self.assertIsInstance(StringBuilder().build("address"), str, msg="Address MUST BE string type.")
+        self.assertIsInstance(
+            StringBuilder().build("address"), str, msg="Address MUST BE string type."
+        )
         log.info(">>> Confirm if ADDRESS is instance of STRING...   OK")
 
     def test_validateValidAddress(self) -> None:
-        self.assertTrue(self.validate.is_valid_address(StringBuilder().build("address")),
-                        msg="Address MUST BE a valid address.")
+        self.assertTrue(
+            self.validate.is_valid_address(StringBuilder().build("address")),
+            msg="Address MUST BE a valid address.",
+        )
         log.info(">>> Confirm if ADDRESS is VALID...   OK")
 
     def test_validateInvalidAddress(self) -> None:
         self.log_string(self.bad_address)
-        self.assertFalse(self.validate.is_valid_address(self.bad_address),
-                         msg="Bad address MUST BE an invalid address.")
+        self.assertFalse(
+            self.validate.is_valid_address(self.bad_address),
+            msg="Bad address MUST BE an invalid address.",
+        )
         log.info(">>> Confirm if BAD ADDRESS is INVALID...   OK")
 
     def test_validateNumberExists(self) -> None:
         self.log_string(StringBuilder().build("number"))
-        self.assertIsNotNone(StringBuilder().build("number"), msg="CREDITCARD NUMBER doesn't exist.")
+        self.assertIsNotNone(
+            StringBuilder().build("number"), msg="CREDITCARD NUMBER doesn't exist."
+        )
         log.info(">>> Confirm if CREDITCARD NUMBER exists...   OK")
 
     def test_validateNumberType(self) -> None:
-        self.assertIsInstance(StringBuilder().build("number"), str, msg="Creditcard number MUST BE string type.")
+        self.assertIsInstance(
+            StringBuilder().build("number"),
+            str,
+            msg="Creditcard number MUST BE string type.",
+        )
         log.info(">>> Confirm if CREDITCARD NUMBER is instance of STRING...   OK")
 
     def test_validateValidNumber(self) -> None:
-        self.assertTrue(self.validate.is_valid_creditcard_number(StringBuilder().build("number")),
-                        msg="Creditcard number MUST BE a valid creditcard number.")
+        self.assertTrue(
+            self.validate.is_valid_creditcard_number(StringBuilder().build("number")),
+            msg="Creditcard number MUST BE a valid creditcard number.",
+        )
         log.info(">>> Confirm if CREDITCARD NUMBER is VALID...   OK")
 
     def test_validateInvalidNumber(self) -> None:
         self.log_string(self.bad_number)
-        self.assertFalse(self.validate.is_valid_creditcard_number(self.bad_number),
-                         msg="Bad creditcard number MUST BE an invalid creditcard number.")
+        self.assertFalse(
+            self.validate.is_valid_creditcard_number(self.bad_number),
+            msg="Bad creditcard number MUST BE an invalid creditcard number.",
+        )
         log.info(">>> Confirm if BAD CREDITCARD NUMBER is INVALID...   OK")
 
     def test_validateDateExists(self) -> None:
@@ -143,18 +178,24 @@ class TestValidate(unittest.TestCase):
         log.info(">>> Confirm if DATE exists...   OK")
 
     def test_validateDateType(self) -> None:
-        self.assertIsInstance(StringBuilder().build("date"), str, msg="Date MUST BE string type.")
+        self.assertIsInstance(
+            StringBuilder().build("date"), str, msg="Date MUST BE string type."
+        )
         log.info(">>> Confirm if DATE is instance of STRING...   OK")
 
     def test_validateValidDate(self) -> None:
-        self.assertTrue(self.validate.is_valid_date(StringBuilder().build("date")),
-                        msg="Date MUST BE a valid format date (mm-yy).")
+        self.assertTrue(
+            self.validate.is_valid_date(StringBuilder().build("date")),
+            msg="Date MUST BE a valid format date (mm-yy).",
+        )
         log.info(">>> Confirm if DATE is VALID...   OK")
 
     def test_validateInvalidDate(self) -> None:
         self.log_string(self.bad_date)
-        self.assertFalse(self.validate.is_valid_date(self.bad_date),
-                         msg="Bad date MUST BE an invalid date.")
+        self.assertFalse(
+            self.validate.is_valid_date(self.bad_date),
+            msg="Bad date MUST BE an invalid date.",
+        )
         log.info(">>> Confirm if BAD DATE is INVALID...   OK")
 
     @staticmethod

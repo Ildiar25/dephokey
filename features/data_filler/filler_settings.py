@@ -11,23 +11,33 @@ from shared.logger_setup import main_log as log
 
 def fill_with_data(user: User) -> None:
     log.info(f"Añadiendo elementos de prueba al usuario {user.email}...")
-    fake = Faker('es_ES')
+    fake = Faker("es_ES")
     some_sites = []
     for _ in range(10):
         some_sites.append(
-            Site(address=fake.url(), username=user.email, password=fake.password(length=12),
-                 user=user, name=fake.domain_name().capitalize())
+            Site(
+                address=fake.url(),
+                username=user.email,
+                password=fake.password(length=12),
+                user=user,
+                name=fake.domain_name().capitalize(),
+            )
         )
     session.add_all(some_sites)
 
     some_cards = []
     for _ in range(10):
-        fake_date = fake.date_time_between(datetime(year=2020, month=1, day=1), datetime(year=2040, month=1, day=1))
+        fake_date = fake.date_time_between(
+            datetime(year=2020, month=1, day=1), datetime(year=2040, month=1, day=1)
+        )
         some_cards.append(
             CreditCard(
-                cardholder=fake.name().title(), number=fake.credit_card_number(),
-                cvc=fake.credit_card_security_code(), user=user, alias=fake.word().capitalize(),
-                valid_until=fake_date
+                cardholder=fake.name().title(),
+                number=fake.credit_card_number(),
+                cvc=fake.credit_card_security_code(),
+                user=user,
+                alias=fake.word().capitalize(),
+                valid_until=fake_date,
             )
         )
     session.add_all(some_cards)
@@ -44,8 +54,10 @@ def fill_with_data(user: User) -> None:
 
 def create_admin_account() -> None:
     admin = User(
-        fullname="Jefazo Administrativo Supremo", email="admin.24@gmail.com",
-        password="Admin1234", user_role=UserRole.ADMIN
+        fullname="Jefazo Administrativo Supremo",
+        email="admin.24@gmail.com",
+        password="Admin1234",
+        user_role=UserRole.ADMIN,
     )
     session.add(admin)
     session.commit()
@@ -53,8 +65,10 @@ def create_admin_account() -> None:
 
 def create_client_account() -> None:
     client = User(
-        fullname="Cliente Tester Morenazo", email="client.24@gmail.com",
-        password="Client1234", user_role=UserRole.CLIENT
+        fullname="Cliente Tester Morenazo",
+        email="client.24@gmail.com",
+        password="Client1234",
+        user_role=UserRole.CLIENT,
     )
     session.add(client)
     session.commit()

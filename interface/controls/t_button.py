@@ -15,6 +15,5 @@ class CustomTextButton(ft.TextButton):
 
         # Button design settings
         self.style = ft.ButtonStyle(
-            color=textColorTextButton,
-            overlay_color=overlayColorTextButton
+            color=textColorTextButton, overlay_color=overlayColorTextButton
         )

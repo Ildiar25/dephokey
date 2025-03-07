@@ -52,7 +52,7 @@ def main(page: ft.Page) -> None:
         "AlbertSansB": "interface/assets/fonts/albert-sans/albert-sans-bold.ttf",
         "AlbertSansL": "interface/assets/fonts/albert-sans/albert-sans-light.ttf",
         "AlbertSansI": "interface/assets/fonts/albert-sans/albert-sans-italic.ttf",
-        "IcelandR": "interface/assets/fonts/iceland/iceland-regular.ttf"
+        "IcelandR": "interface/assets/fonts/iceland/iceland-regular.ttf",
     }
 
     # Page design
@@ -64,7 +64,8 @@ def main(page: ft.Page) -> None:
 
     # Page behavior
     page.theme = ft.Theme(
-        font_family="AlbertSansR", page_transitions=ft.PageTransitionsTheme(ft.PageTransitionTheme.NONE)
+        font_family="AlbertSansR",
+        page_transitions=ft.PageTransitionsTheme(ft.PageTransitionTheme.NONE),
     )
 
     # Page elements
@@ -96,5 +97,5 @@ def main(page: ft.Page) -> None:
     page.go("/login")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     ft.app(target=main, assets_dir="interface/assets")

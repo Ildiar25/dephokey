@@ -8,5 +8,12 @@ from .settings_content import SettingsPage
 from .results_content import ResultsPage
 
 __all__ = [
-    "HomePage", "AdminPage", "SitesPage", "CreditcCardsPage", "NotesPage", "AboutPage", "SettingsPage", "ResultsPage"
+    "HomePage",
+    "AdminPage",
+    "SitesPage",
+    "CreditcCardsPage",
+    "NotesPage",
+    "AboutPage",
+    "SettingsPage",
+    "ResultsPage",
 ]

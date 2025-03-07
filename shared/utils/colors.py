@@ -18,13 +18,13 @@ secondaryCorporate00 = "#FDD29F"
 
 
 # General greyscale Colors
-neutral00 = Colors.WHITE      # #FFFFFF
-neutral05 = Colors.GREY_200   # #F2F2F2
-neutral10 = Colors.GREY_300   # #E6E6E6
-neutral20 = Colors.GREY_400   # #CDCDCD
-neutral40 = Colors.BLACK38    # #9A9A9A
-neutral60 = Colors.GREY_700   # #686868
-neutral80 = Colors.GREY_900   # #333333
+neutral00 = Colors.WHITE  # #FFFFFF
+neutral05 = Colors.GREY_200  # #F2F2F2
+neutral10 = Colors.GREY_300  # #E6E6E6
+neutral20 = Colors.GREY_400  # #CDCDCD
+neutral40 = Colors.BLACK38  # #9A9A9A
+neutral60 = Colors.GREY_700  # #686868
+neutral80 = Colors.GREY_900  # #333333
 
 
 # Neutral colors

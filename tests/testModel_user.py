@@ -9,7 +9,11 @@ from shared.logger_setup import test_log as log
 class UserBuilder:
     def __init__(self) -> None:
         """Helps to create a User instance."""
-        self.__user = User(fullname="UserTest Name", email="user.email@example.com", password="User_1234")
+        self.__user = User(
+            fullname="UserTest Name",
+            email="user.email@example.com",
+            password="User_1234",
+        )
 
     def with_role(self, new_role: UserRole) -> "UserBuilder":
         self.__user.role = new_role
@@ -46,7 +50,9 @@ class TestUser(unittest.TestCase):
         log.info(">>> Confirm if USER has FULLNAME...   OK")
 
     def test_userFullnameType(self) -> None:
-        self.assertIsInstance(self.user.fullname, str, msg="Fullname MUST BE string type.")
+        self.assertIsInstance(
+            self.user.fullname, str, msg="Fullname MUST BE string type."
+        )
         log.info(">>> Confirm if USER NAME is instance of STRING...   OK")
 
     def test_userPasswordExists(self) -> None:
@@ -54,11 +60,17 @@ class TestUser(unittest.TestCase):
         log.info(">>> Confirm if USER has PASSWORD...   OK")
 
     def test_userPasswordType(self) -> None:
-        self.assertIsInstance(self.user.hashed_password, str, msg="Password MUST BE string type.")
+        self.assertIsInstance(
+            self.user.hashed_password, str, msg="Password MUST BE string type."
+        )
         log.info(">>> Confirm if USER PASSWORD is instance of STRING...   OK")
 
     def test_userPasswordHashed(self):
-        self.assertEqual(self.user.hashed_password, self.hashed_password, msg="Password MUST BE hashed.")
+        self.assertEqual(
+            self.user.hashed_password,
+            self.hashed_password,
+            msg="Password MUST BE hashed.",
+        )
         log.info(">>> Confirm if PASSWORD is HASHED...   OK")
 
     def test_userRole(self) -> None:

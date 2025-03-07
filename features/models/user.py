@@ -36,8 +36,12 @@ class User(Base):
     created: Mapped[datetime]
 
     # Relationship settings
-    notes: Mapped[list["Note"]] = relationship(argument="Note", back_populates="user", cascade="all, delete")
-    sites: Mapped[list["Site"]] = relationship(argument="Site", back_populates="user", cascade="all, delete")
+    notes: Mapped[list["Note"]] = relationship(
+        argument="Note", back_populates="user", cascade="all, delete"
+    )
+    sites: Mapped[list["Site"]] = relationship(
+        argument="Site", back_populates="user", cascade="all, delete"
+    )
     creditcards: Mapped[list["CreditCard"]] = relationship(
         argument="CreditCard", back_populates="user", cascade="all, delete"
     )
@@ -46,7 +50,13 @@ class User(Base):
     )
 
     # Initializer
-    def __init__(self, fullname: str, email: str, password: str, user_role: UserRole = UserRole.CLIENT) -> None:
+    def __init__(
+        self,
+        fullname: str,
+        email: str,
+        password: str,
+        user_role: UserRole = UserRole.CLIENT,
+    ) -> None:
         super().__init__()
 
         self.id: str = GenerateID.short_id()
@@ -60,6 +70,8 @@ class User(Base):
         log.info(f"Instancia de USER creada por {repr(mask_email(self.email))}.")
 
     def __str__(self) -> str:
-        return (f"<class User(id={repr(self.id)}, role={repr(self.role)}, fullname={repr(self.fullname)}, "
-                f"email={repr(mask_email(self.email))}, hashed_password={repr(mask_text(self.hashed_password))}, "
-                f"created={repr(self.created.strftime('%Y-%m-%dT%H:%M:%S'))})>")
+        return (
+            f"<class User(id={repr(self.id)}, role={repr(self.role)}, fullname={repr(self.fullname)}, "
+            f"email={repr(mask_email(self.email))}, hashed_password={repr(mask_text(self.hashed_password))}, "
+            f"created={repr(self.created.strftime('%Y-%m-%dT%H:%M:%S'))})>"
+        )

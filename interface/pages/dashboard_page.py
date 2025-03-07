@@ -1,6 +1,6 @@
 import flet as ft
 
-from features.models.user import UserRole,User
+from features.models.user import UserRole, User
 
 from interface.pages.content_manager import BodyContent
 from interface.controls import CustomAppbar, CustomSidebar, Snackbar
@@ -34,12 +34,14 @@ class Dashboard(ft.Container):
                     expand=True,
                     height=1000,
                     bgcolor=bgSidebarColor,
-                    content=self.sidebar
+                    content=self.sidebar,
                 )
-            ]
+            ],
         )
 
-        self.sidebar_location.visible = True if self.user.role == UserRole.CLIENT else False
+        self.sidebar_location.visible = (
+            True if self.user.role == UserRole.CLIENT else False
+        )
 
         # Page design
         self.expand = True
@@ -54,12 +56,15 @@ class Dashboard(ft.Container):
             content=ft.Stack(
                 controls=[
                     ft.Container(
-                        image=ft.DecorationImage("interface/assets/bgimage-home-page.png",
-                                                 fit=ft.ImageFit.COVER, opacity=0.5)
+                        image=ft.DecorationImage(
+                            "interface/assets/bgimage-home-page.png",
+                            fit=ft.ImageFit.COVER,
+                            opacity=0.5,
+                        )
                     ),
-                    self.body_content
+                    self.body_content,
                 ]
-            )
+            ),
         )
         self.content = ft.Column(
             expand=True,
@@ -67,17 +72,18 @@ class Dashboard(ft.Container):
             controls=[
                 # Divider
                 ft.Divider(height=1, thickness=1, color=neutral05),
-
                 # Sidebar & Bodycontent
                 ft.Row(
                     vertical_alignment=ft.CrossAxisAlignment.START,
                     expand=True,
                     spacing=0,
                     controls=[
-                        self.sidebar_location, self.active_content, self.snackbar
-                    ]
-                )
-            ]
+                        self.sidebar_location,
+                        self.active_content,
+                        self.snackbar,
+                    ],
+                ),
+            ],
         )
 
         log.info("Página 'DASHBOARD' creada.")

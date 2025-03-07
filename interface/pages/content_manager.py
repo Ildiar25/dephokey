@@ -24,21 +24,29 @@ class ContentStyle(Enum):
 
 
 class BodyContent(ft.Column):
-    def __init__(self, page: ft.Page, snackbar: Snackbar, style: ContentStyle = ContentStyle.EMPTY,
-                 title: str = "", buttons: Union[List[ft.Control], None] = None) -> None:
+    def __init__(
+        self,
+        page: ft.Page,
+        snackbar: Snackbar,
+        style: ContentStyle = ContentStyle.EMPTY,
+        title: str = "",
+        buttons: Union[List[ft.Control], None] = None,
+    ) -> None:
         super().__init__()
 
         # General attributes
         self.page = page
         self.snackbar = snackbar
         self.style = style
-        self.title = ft.Text(value=title, font_family="AlbertSansB", color=primaryTextColor, size=24)
+        self.title = ft.Text(
+            value=title, font_family="AlbertSansB", color=primaryTextColor, size=24
+        )
 
         # BodyContent attributes
         self.user: User = self.page.session.get("session")
         self.header = ft.Row(
             alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
-            controls=[self.title, ft.Row(spacing=16, controls=buttons)]
+            controls=[self.title, ft.Row(spacing=16, controls=buttons)],
         )
         self.body = ft.Row(expand=True, wrap=True, spacing=16)
         self.results_style = None
@@ -68,7 +76,9 @@ class BodyContent(ft.Column):
         match self.style:
             case ContentStyle.HOME:
                 if not isinstance(self.home_content, HomePage):
-                    self.home_content = HomePage(self.page, self.snackbar, self.update_changes)
+                    self.home_content = HomePage(
+                        self.page, self.snackbar, self.update_changes
+                    )
                     self.body.controls = [self.home_content]
                     log.info("Página 'HOME' creada.")
                 self.home_content.update_content()
@@ -77,7 +87,9 @@ class BodyContent(ft.Column):
 
             case ContentStyle.ADMIN:
                 if not isinstance(self.admin_content, AdminPage):
-                    self.admin_content = AdminPage(self.page, self.snackbar, self.update_changes)
+                    self.admin_content = AdminPage(
+                        self.page, self.snackbar, self.update_changes
+                    )
                     self.body.controls = [self.admin_content]
                     log.info("Página 'ADMIN' creada.")
                 self.admin_content.update_content()
@@ -86,7 +98,9 @@ class BodyContent(ft.Column):
 
             case ContentStyle.SITES:
                 if not isinstance(self.sites_content, SitesPage):
-                    self.sites_content = SitesPage(self.page, self.snackbar, self.update_changes)
+                    self.sites_content = SitesPage(
+                        self.page, self.snackbar, self.update_changes
+                    )
                     self.body.controls = [self.sites_content]
                     log.info("Página 'SITES' creada.")
                 self.sites_content.update_content()
@@ -95,7 +109,9 @@ class BodyContent(ft.Column):
 
             case ContentStyle.CREDITCARDS:
                 if not isinstance(self.creditcards_content, CreditcCardsPage):
-                    self.creditcards_content = CreditcCardsPage(self.page, self.snackbar, self.update_changes)
+                    self.creditcards_content = CreditcCardsPage(
+                        self.page, self.snackbar, self.update_changes
+                    )
                     self.body.controls = [self.creditcards_content]
                     log.info("Página 'CREDITCARDS' creada.")
                 self.creditcards_content.update_content()
@@ -104,7 +120,9 @@ class BodyContent(ft.Column):
 
             case ContentStyle.NOTES:
                 if not isinstance(self.notes_content, NotesPage):
-                    self.notes_content = NotesPage(self.page, self.snackbar, self.update_changes)
+                    self.notes_content = NotesPage(
+                        self.page, self.snackbar, self.update_changes
+                    )
                     self.body.controls = [self.notes_content]
                     log.info("Página 'NOTES' creada.")
                 self.notes_content.update_content()
@@ -113,7 +131,9 @@ class BodyContent(ft.Column):
 
             case ContentStyle.ABOUT:
                 if not isinstance(self.about_content, AboutPage):
-                    self.about_content = AboutPage(self.page, self.snackbar, self.update_changes)
+                    self.about_content = AboutPage(
+                        self.page, self.snackbar, self.update_changes
+                    )
                     self.body.controls = [self.about_content]
                     log.info("Página 'ABOUT' creada.")
                 self.about_content.update_content()
@@ -131,7 +151,9 @@ class BodyContent(ft.Column):
 
             case ContentStyle.RESULTS:
                 if not isinstance(self.results_content, ResultsPage):
-                    self.results_content = ResultsPage(self.page, self.snackbar, self.update_changes)
+                    self.results_content = ResultsPage(
+                        self.page, self.snackbar, self.update_changes
+                    )
                     self.body.controls = [self.results_content]
                     log.info("Página 'RESULTS' creada.")
                 self.results_content.get_user_input(user_input)
@@ -143,7 +165,12 @@ class BodyContent(ft.Column):
                 self.header.controls[1].controls.clear()
                 self.body.controls.clear()
 
-    def change_content(self, title: str, style: ContentStyle, buttons: Union[List[ft.Control], None] = None) -> None:
+    def change_content(
+        self,
+        title: str,
+        style: ContentStyle,
+        buttons: Union[List[ft.Control], None] = None,
+    ) -> None:
         self.style = style
         self.title.value = title
         self.header.controls[1].controls = buttons

@@ -11,7 +11,11 @@ from shared.logger_setup import test_log as log
 class UserBuilder:
     def __init__(self) -> None:
         """Helps to create a User instance."""
-        self.__user = User(fullname="UserTest Name", email="user.email@example.com", password="User_1234")
+        self.__user = User(
+            fullname="UserTest Name",
+            email="user.email@example.com",
+            password="User_1234",
+        )
 
     def with_role(self, new_role: UserRole) -> "UserBuilder":
         self.__user.role = new_role
@@ -24,8 +28,13 @@ class UserBuilder:
 class SiteBuilder:
     def __init__(self) -> None:
         """Helps to create Site instance."""
-        self.__site = Site(address="www.address.com", name=None, username="PepitoContento25",
-                           password="User_1234", user=UserBuilder().build())
+        self.__site = Site(
+            address="www.address.com",
+            name=None,
+            username="PepitoContento25",
+            password="User_1234",
+            user=UserBuilder().build(),
+        )
 
     def with_name(self, new_name: str) -> "SiteBuilder":
         self.__site.name = new_name
@@ -70,15 +79,21 @@ class TestSite(unittest.TestCase):
         log.info(">>> Confirm if SITE has ADDRESS...   OK")
 
     def test_siteAddressType(self) -> None:
-        self.assertIsInstance(self.site.address, str, msg="Site address MUST BE string type.")
+        self.assertIsInstance(
+            self.site.address, str, msg="Site address MUST BE string type."
+        )
         log.info(">>> Confirm if SITE ADDRESS is instance of STRING...   OK")
 
     def test_siteNameType(self) -> None:
         if self.site.name is not None:
-            self.assertIsInstance(self.site.name, str, msg="Site name MUST BE none | string type.")
+            self.assertIsInstance(
+                self.site.name, str, msg="Site name MUST BE none | string type."
+            )
             log.info(">>> Confirm if SITE NAME is instance of STRING...   OK")
             return
-        self.assertIsInstance(self.site.name, NoneType, msg="Site name MUST BE none | string type")
+        self.assertIsInstance(
+            self.site.name, NoneType, msg="Site name MUST BE none | string type"
+        )
         log.info(f">>> Confirm if SITE NAME is instance of NONE...   OK")
 
     def test_siteUsernameExists(self) -> None:
@@ -86,19 +101,29 @@ class TestSite(unittest.TestCase):
         log.info(">>> Confirm if SITE has USERNAME...   OK")
 
     def test_siteUsernameType(self) -> None:
-        self.assertIsInstance(self.site.username, str, msg="Site username MUST BE string type.")
+        self.assertIsInstance(
+            self.site.username, str, msg="Site username MUST BE string type."
+        )
         log.info(">>> Confirm if SITE NAME is instance of STRING...   OK")
 
     def test_sitePasswordExists(self) -> None:
-        self.assertIsNotNone(self.site.encrypted_password, msg="Site MUST HAVE a password.")
+        self.assertIsNotNone(
+            self.site.encrypted_password, msg="Site MUST HAVE a password."
+        )
         log.info(">>> Confirm if SITE has PASSWORD...   OK")
 
     def test_sitePasswordType(self) -> None:
-        self.assertIsInstance(self.site.encrypted_password, str, msg="Site password MUST BE string type.")
+        self.assertIsInstance(
+            self.site.encrypted_password, str, msg="Site password MUST BE string type."
+        )
         log.info(">>> Confirm if SITE PASSWORD is instance of STRING...   OK")
 
     def test_sitePasswordEncrypted(self) -> None:
-        self.assertEqual(self.password, decrypt_data(self.site.encrypted_password), msg="Site password MUST BE equal.")
+        self.assertEqual(
+            self.password,
+            decrypt_data(self.site.encrypted_password),
+            msg="Site password MUST BE equal.",
+        )
         log.info(">>> Confirm if SITE PASSWORD is ENCRYPTED...   OK")
 
     @staticmethod

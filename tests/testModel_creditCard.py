@@ -12,7 +12,11 @@ from shared.logger_setup import test_log as log
 class UserBuilder:
     def __init__(self) -> None:
         """Helps to create a User instance."""
-        self.__user = User(fullname="UserTest Name", email="user.email@example.com", password="User_1234")
+        self.__user = User(
+            fullname="UserTest Name",
+            email="user.email@example.com",
+            password="User_1234",
+        )
 
     def with_role(self, new_role: UserRole) -> "UserBuilder":
         self.__user.role = new_role
@@ -25,8 +29,13 @@ class UserBuilder:
 class CreditCardBuilder:
     def __init__(self) -> None:
         """Helps to create a CreditCard instance."""
-        self.__creditcard = CreditCard(cardholder="UserTest Name", number="1234123412341234", cvc="123",
-                                       valid_until=dt.datetime(year=2032, month=4, day=1), user=UserBuilder().build())
+        self.__creditcard = CreditCard(
+            cardholder="UserTest Name",
+            number="1234123412341234",
+            cvc="123",
+            valid_until=dt.datetime(year=2032, month=4, day=1),
+            user=UserBuilder().build(),
+        )
 
     def with_alias(self, new_alias: str) -> "CreditCardBuilder":
         self.__creditcard.alias = new_alias
@@ -56,7 +65,9 @@ class TestCreditCard(unittest.TestCase):
         log.info(">>> Confirm if CREDITCARD exists...   OK")
 
     def test_creditcardType(self) -> None:
-        self.assertIsInstance(self.creditcard, CreditCard, msg="Creditcard MUST BE creditcard type.")
+        self.assertIsInstance(
+            self.creditcard, CreditCard, msg="Creditcard MUST BE creditcard type."
+        )
         log.info(">>> Confirm if CREDITCARD is instance of CREDITCARD...   OK")
 
     def test_creditcardUserExists(self) -> None:
@@ -64,52 +75,89 @@ class TestCreditCard(unittest.TestCase):
         log.info(">>> Confirm if CREDITCARD has USER...   OK")
 
     def test_creditcardUserType(self) -> None:
-        self.assertIsInstance(self.creditcard.user, User, msg="Creditcard user MUST BE user type.")
+        self.assertIsInstance(
+            self.creditcard.user, User, msg="Creditcard user MUST BE user type."
+        )
         log.info(">>> Confirm if CREDITCARD USER is instance of USER...   OK")
 
     def test_creditcardCardholderExists(self) -> None:
-        self.assertIsNotNone(self.creditcard.cardholder, msg="Creditcard MUST HAVE cardholder.")
+        self.assertIsNotNone(
+            self.creditcard.cardholder, msg="Creditcard MUST HAVE cardholder."
+        )
         log.info(">>> Confirm if CREDITCARD has CARDHOLDER...   OK")
 
     def test_creditcardCardholderType(self) -> None:
-        self.assertIsInstance(self.creditcard.cardholder, str, msg="Creditcard cardholder MUST BE string type.")
+        self.assertIsInstance(
+            self.creditcard.cardholder,
+            str,
+            msg="Creditcard cardholder MUST BE string type.",
+        )
         log.info(">>> Confirm if CREDITCARD CARDHOLDER is instance of STRING...   OK")
 
     def test_creditcardNumberExists(self) -> None:
-        self.assertIsNotNone(self.creditcard.encrypted_number, msg="Creditcard MUST HAVE number.")
+        self.assertIsNotNone(
+            self.creditcard.encrypted_number, msg="Creditcard MUST HAVE number."
+        )
         log.info(">>> Confirm if CREDITCARD has NUMBER...   OK")
 
     def test_creditcardNumberEncrypted(self) -> None:
-        self.assertEqual(self.number, decrypt_data(self.creditcard.encrypted_number), msg="Creditcard number MUST BE "
-                                                                                          "equal.")
+        self.assertEqual(
+            self.number,
+            decrypt_data(self.creditcard.encrypted_number),
+            msg="Creditcard number MUST BE " "equal.",
+        )
         log.info(">>> Confirm if CREDITCARD NUMBER is ENCRYPTED...   OK")
 
     def test_creditcardCVCExists(self) -> None:
-        self.assertIsNotNone(self.creditcard.encrypted_cvc, msg="Creditcard MUST HAVE cvc.")
+        self.assertIsNotNone(
+            self.creditcard.encrypted_cvc, msg="Creditcard MUST HAVE cvc."
+        )
         log.info(">>> Confirm if CREDITCARD has CVC...   OK")
 
     def test_creditcardCVCType(self) -> None:
-        self.assertIsInstance(self.creditcard.encrypted_cvc, str, msg="Creditcard cvc MUST BE string type.")
+        self.assertIsInstance(
+            self.creditcard.encrypted_cvc,
+            str,
+            msg="Creditcard cvc MUST BE string type.",
+        )
         log.info(">>> Confirm if CREDITCARD CVC is instance of STRING...   OK")
 
     def test_creditcardCVCEncrypted(self) -> None:
-        self.assertEqual(self.cvc, decrypt_data(self.creditcard.encrypted_cvc), msg="Creditcard cvc MUST BE equal.")
+        self.assertEqual(
+            self.cvc,
+            decrypt_data(self.creditcard.encrypted_cvc),
+            msg="Creditcard cvc MUST BE equal.",
+        )
         log.info(">>> Confirm if CREDITCARD CVC is ENCRYPTED...   OK")
 
     def test_creditcardDateExists(self) -> None:
-        self.assertIsNotNone(self.creditcard.valid_until, msg="Creditcard MUST HAVE expires date.")
+        self.assertIsNotNone(
+            self.creditcard.valid_until, msg="Creditcard MUST HAVE expires date."
+        )
         log.info(">>> Confirm if CREDITCARD has EXPIRES DATE...   OK")
 
     def test_creditcardDateType(self) -> None:
-        self.assertIsInstance(self.creditcard.valid_until, dt.datetime, msg="Creditcard date MUST BE datetime type.")
+        self.assertIsInstance(
+            self.creditcard.valid_until,
+            dt.datetime,
+            msg="Creditcard date MUST BE datetime type.",
+        )
         log.info(">>> Confirm if CREDITCARD CVC is instance of DATETIME...   OK")
 
     def test_creditcardAliasType(self) -> None:
         if self.creditcard.alias is not None:
-            self.assertIsInstance(self.creditcard.alias, str, msg="Creditcard alias MUST BE none | string type.")
+            self.assertIsInstance(
+                self.creditcard.alias,
+                str,
+                msg="Creditcard alias MUST BE none | string type.",
+            )
             log.info(">>> Confirm if CREDITCARD CARD is instance of STRING...   OK")
             return
-        self.assertIsInstance(self.creditcard.alias, NoneType, msg="Creditcard alias MUST BE none | string type.")
+        self.assertIsInstance(
+            self.creditcard.alias,
+            NoneType,
+            msg="Creditcard alias MUST BE none | string type.",
+        )
         log.info(">>> Confirm if CREDITCARD ALIAS is instance of NONE...   OK")
 
     @staticmethod

@@ -9,6 +9,7 @@ class Validate:
     This class helps to validate any element with different methods using regular expressions.
     Other formulas can be implemented in the future.
     """
+
     @staticmethod
     def is_valid_email(email: str) -> bool:
         """
@@ -40,8 +41,10 @@ class Validate:
         :return: boolean
         """
         # This pattern allows to validate a password
-        sequence = (r"((http)?s?:?(\/\/)?(www)?\.?)[a-zA-Z0-9-]+\.[a-z]{2,3}\/?([a-zA-Z0-9\~\@\#\$\%\^\&\*\("
-                   r"\)_\-\=\+\\\/\?\.\:\;\'\,]*)?")
+        sequence = (
+            r"((http)?s?:?(\/\/)?(www)?\.?)[a-zA-Z0-9-]+\.[a-z]{2,3}\/?([a-zA-Z0-9\~\@\#\$\%\^\&\*\("
+            r"\)_\-\=\+\\\/\?\.\:\;\'\,]*)?"
+        )
         return True if re.match(sequence, site_address) else False
 
     @staticmethod
@@ -59,9 +62,11 @@ class Validate:
             list_numbers = [int(number) for number in creditcard_number]
 
         except ValueError as error_message:
-            log.error(f"{type(error_message).__name__} | "
-                      f"No se han podido castear los datos a número entero: Datos introducidos "
-                      f"{repr(mask_number(creditcard_number))} | {error_message}")
+            log.error(
+                f"{type(error_message).__name__} | "
+                f"No se han podido castear los datos a número entero: Datos introducidos "
+                f"{repr(mask_number(creditcard_number))} | {error_message}"
+            )
             return False
 
         else:
@@ -72,10 +77,15 @@ class Validate:
             list_numbers.reverse()
 
             # Duplicate odd index number
-            list_numbers = [number * 2 if index % 2 == 0 else number for index, number in enumerate(list_numbers)]
+            list_numbers = [
+                number * 2 if index % 2 == 0 else number
+                for index, number in enumerate(list_numbers)
+            ]
 
             # Substract 9 to numbers over 9:
-            list_numbers = [number - 9 if number > 9 else number for number in list_numbers]
+            list_numbers = [
+                number - 9 if number > 9 else number for number in list_numbers
+            ]
 
             # Add control digit again
             list_numbers.append(control_digit)

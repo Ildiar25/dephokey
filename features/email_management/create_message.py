@@ -15,9 +15,11 @@ class CreateMessage:
         self.html_message: str | None = self.__html_text()
 
     def __plain_text(self) -> str:
-        return (f"Hola {self.name}!\nPor favor, introduce en el programa el código de siete caracteres "
-                f"proporcionado\npara poder actualizar tu contraseña:\n\n{self.token}\n\nSi no has realizado la "
-                f"petición, puedes ignorar este email.\n\nAtentamente,\nEl equipo Dephokey")
+        return (
+            f"Hola {self.name}!\nPor favor, introduce en el programa el código de siete caracteres "
+            f"proporcionado\npara poder actualizar tu contraseña:\n\n{self.token}\n\nSi no has realizado la "
+            f"petición, puedes ignorar este email.\n\nAtentamente,\nEl equipo Dephokey"
+        )
 
     def __html_text(self) -> str | None:
         # Loads file directory
@@ -32,12 +34,18 @@ class CreateMessage:
             return html_doc
 
         except TemplateNotFound as not_template:
-            log.error(f"{type(not_template).__name__} | No se ha encontrado la plantilla HTML: {not_template}")
+            log.error(
+                f"{type(not_template).__name__} | No se ha encontrado la plantilla HTML: {not_template}"
+            )
         except Exception as unknown:
-            log.error(f"{type(unknown).__name__} | Un error inesperado ha ocurrido al procesar la platilla "
-                      f"HTML: {unknown}")
+            log.error(
+                f"{type(unknown).__name__} | Un error inesperado ha ocurrido al procesar la platilla "
+                f"HTML: {unknown}"
+            )
 
     def __repr__(self) -> str:
-        return (f"<class CreateEmail(name={repr(self.name)}, code={repr(mask_text(self.token))}, "
-                f"text_message={repr(mask_text(self.text_message))}, "
-                f"html_message={repr(mask_text(self.html_message))})>")
+        return (
+            f"<class CreateEmail(name={repr(self.name)}, code={repr(mask_text(self.token))}, "
+            f"text_message={repr(mask_text(self.text_message))}, "
+            f"html_message={repr(mask_text(self.html_message))})>"
+        )

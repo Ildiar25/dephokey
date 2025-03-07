@@ -11,7 +11,9 @@ from interface.pages.widgets import NoteWidget
 
 
 class NotesPage(ft.Column):
-    def __init__(self, page: ft.Page, snackbar: Snackbar, update_changes: Callable[[], None]) -> None:
+    def __init__(
+        self, page: ft.Page, snackbar: Snackbar, update_changes: Callable[[], None]
+    ) -> None:
         super().__init__()
 
         # General attributes
@@ -36,4 +38,6 @@ class NotesPage(ft.Column):
     def __populate_row(self, notes: List[Note]) -> None:
         self.notes_row.controls.clear()
         for note in notes:
-            self.notes_row.controls.append(NoteWidget(note, self.page, self.update_changes))
+            self.notes_row.controls.append(
+                NoteWidget(note, self.page, self.update_changes)
+            )

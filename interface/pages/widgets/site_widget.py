@@ -15,7 +15,9 @@ from shared.utils.colors import *
 
 
 class SiteWidget(ft.Card):
-    def __init__(self, site: Site, page: ft.Page, update_appearance: Callable[[], None]) -> None:
+    def __init__(
+        self, site: Site, page: ft.Page, update_appearance: Callable[[], None]
+    ) -> None:
         super().__init__()
 
         # General attributes
@@ -30,11 +32,20 @@ class SiteWidget(ft.Card):
         self.animate_scale = ft.animation.Animation(200, ft.AnimationCurve.EASE_IN_OUT)
 
         # SiteWidget elements
-        self.site_title = ft.Text(self.site.name if self.site.name else "Sin título", font_family="AlbertSansB",
-                                  size=18, color=titleSiteWidgetColor)
-        self.site_link = TextLink(text=self.site.address, function=lambda _: self.page.launch_url(self.site.address))
+        self.site_title = ft.Text(
+            self.site.name if self.site.name else "Sin título",
+            font_family="AlbertSansB",
+            size=18,
+            color=titleSiteWidgetColor,
+        )
+        self.site_link = TextLink(
+            text=self.site.address,
+            function=lambda _: self.page.launch_url(self.site.address),
+        )
         self.site_username = ft.Text(self.site.username, color=textSiteWidgetColor)
-        self.site_password = ft.Text(mask_password(decrypt_data(self.site.encrypted_password)))
+        self.site_password = ft.Text(
+            mask_password(decrypt_data(self.site.encrypted_password))
+        )
 
         # Widget design
         self.color = bgSiteWidgetColor
@@ -57,38 +68,38 @@ class SiteWidget(ft.Card):
                                 content=ft.Row(
                                     spacing=8,
                                     controls=[
-                                        IconLink(ft.Icons.EDIT_OUTLINED, IconLinkStyle.LIGHT,
-                                                 function=self.open_edit_site_form),
-                                        IconLink(ft.Icons.DELETE_OUTLINED, IconLinkStyle.LIGHT,
-                                                 function=self.open_delete_form)
-                                    ]
+                                        IconLink(
+                                            ft.Icons.EDIT_OUTLINED,
+                                            IconLinkStyle.LIGHT,
+                                            function=self.open_edit_site_form,
+                                        ),
+                                        IconLink(
+                                            ft.Icons.DELETE_OUTLINED,
+                                            IconLinkStyle.LIGHT,
+                                            function=self.open_delete_form,
+                                        ),
+                                    ],
                                 )
-                            )
-                        ]
+                            ),
+                        ],
                     ),
-
                     # Body
                     ft.Row(
                         spacing=8,
                         controls=[
-                            ft.Icon(
-                                ft.Icons.LINK_ROUNDED,
-                                color=primaryIconColor
-                            ),
-                            self.site_link
-                        ]
+                            ft.Icon(ft.Icons.LINK_ROUNDED, color=primaryIconColor),
+                            self.site_link,
+                        ],
                     ),
                     ft.Row(
                         spacing=8,
                         controls=[
                             ft.Icon(
-                                ft.Icons.ACCOUNT_CIRCLE_ROUNDED,
-                                color=primaryIconColor
+                                ft.Icons.ACCOUNT_CIRCLE_ROUNDED, color=primaryIconColor
                             ),
-                            self.site_username
-                        ]
+                            self.site_username,
+                        ],
                     ),
-
                     # Footer
                     ft.Row(
                         alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
@@ -100,18 +111,22 @@ class SiteWidget(ft.Card):
                                     controls=[
                                         ft.Icon(
                                             ft.Icons.PASSWORD_ROUNDED,
-                                            color=primaryIconColor
+                                            color=primaryIconColor,
                                         ),
-                                        self.site_password
-                                    ]
-                                )
+                                        self.site_password,
+                                    ],
+                                ),
                             ),
-                            IconLink(ft.Icons.COPY_ROUNDED, style=IconLinkStyle.LIGHT, function=self.copy_text,
-                                     tooltip="copiar contraseña")
-                        ]
-                    )
-                ]
-            )
+                            IconLink(
+                                ft.Icons.COPY_ROUNDED,
+                                style=IconLinkStyle.LIGHT,
+                                function=self.copy_text,
+                                tooltip="copiar contraseña",
+                            ),
+                        ],
+                    ),
+                ],
+            ),
         )
 
     def scale_widget(self, cursor: ft.ControlEvent) -> None:
@@ -126,17 +141,25 @@ class SiteWidget(ft.Card):
         cursor.control.show_badge()
 
     def show_password(self, cursor: ft.ControlEvent) -> None:
-        if cursor and self.site_password.value == mask_password(decrypt_data(self.site.encrypted_password)):
+        if cursor and self.site_password.value == mask_password(
+            decrypt_data(self.site.encrypted_password)
+        ):
             self.site_password.value = decrypt_data(self.site.encrypted_password)
         else:
-            self.site_password.value = mask_password(decrypt_data(self.site.encrypted_password))
+            self.site_password.value = mask_password(
+                decrypt_data(self.site.encrypted_password)
+            )
         self.site_password.update()
 
     def open_edit_site_form(self, _: ft.ControlEvent) -> None:
         self.page.open(
             SiteForm(
-                title=f"Editando {self.site.name}", page=self.page, style=FormStyle.EDIT,
-                site=self.site, update_changes=self.update_appearance)
+                title=f"Editando {self.site.name}",
+                page=self.page,
+                style=FormStyle.EDIT,
+                site=self.site,
+                update_changes=self.update_appearance,
+            )
         )
 
     def open_delete_form(self, _: ft.ControlEvent) -> None:

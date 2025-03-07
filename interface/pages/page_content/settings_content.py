@@ -5,7 +5,13 @@ from data.db_orm import session
 
 from features.models.user import User
 
-from interface.controls import CustomElevatedButton, ButtonStyle, CustomTextField, Snackbar, SnackbarStyle
+from interface.controls import (
+    CustomElevatedButton,
+    ButtonStyle,
+    CustomTextField,
+    Snackbar,
+    SnackbarStyle,
+)
 from interface.pages.forms.base_form import FormStyle
 from interface.pages.forms import ChangePasswordForm, DeleteForm, DeleteFormStyle
 from interface.pages.loading_page import LoadingPage
@@ -26,11 +32,20 @@ class SettingsPage(ft.Row):
         # Settings attributes
         self.user: User = self.page.session.get("session")
         self.fullname = CustomTextField(
-            value=self.user.fullname, expand=True, on_change=self.toggle_empty_fields, max_length=30)
+            value=self.user.fullname,
+            expand=True,
+            on_change=self.toggle_empty_fields,
+            max_length=30,
+        )
         self.email = CustomTextField(
-            value=self.user.email, expand=True, on_change=self.toggle_empty_fields, max_length=30)
+            value=self.user.email,
+            expand=True,
+            on_change=self.toggle_empty_fields,
+            max_length=30,
+        )
         self.password = CustomTextField(
-            value="*" * 17, expand=True, password=True, read_only=True)
+            value="*" * 17, expand=True, password=True, read_only=True
+        )
 
         # Design settings
         self.spacing = 32
@@ -44,7 +59,9 @@ class SettingsPage(ft.Row):
                 border_radius=4,
                 padding=ft.padding.all(24),
                 shadow=ft.BoxShadow(
-                    blur_radius=0.9, offset=(0.0, 0.5), color=ft.Colors.with_opacity(opacity=0.3, color=neutral80)
+                    blur_radius=0.9,
+                    offset=(0.0, 0.5),
+                    color=ft.Colors.with_opacity(opacity=0.3, color=neutral80),
                 ),
                 content=ft.Column(
                     spacing=24,
@@ -53,7 +70,9 @@ class SettingsPage(ft.Row):
                         ft.Row(
                             controls=[
                                 ft.Text(
-                                    value="Información general", size=24, color=accentTextColor
+                                    value="Información general",
+                                    size=24,
+                                    color=accentTextColor,
                                 )
                             ]
                         ),
@@ -64,16 +83,20 @@ class SettingsPage(ft.Row):
                                     spacing=8,
                                     controls=[
                                         ft.Text(
-                                            value="Nombre completo:", font_family="AlbertSansL",
-                                            size=16, color=primaryTextColor
+                                            value="Nombre completo:",
+                                            font_family="AlbertSansL",
+                                            size=16,
+                                            color=primaryTextColor,
                                         ),
                                         ft.Row(controls=[self.fullname]),
                                         ft.Text(
-                                            value="Correo electrónico:", font_family="AlbertSansL",
-                                            size=16, color=primaryTextColor
+                                            value="Correo electrónico:",
+                                            font_family="AlbertSansL",
+                                            size=16,
+                                            color=primaryTextColor,
                                         ),
-                                        ft.Row(controls=[self.email])
-                                    ]
+                                        ft.Row(controls=[self.email]),
+                                    ],
                                 )
                             ]
                         ),
@@ -81,12 +104,14 @@ class SettingsPage(ft.Row):
                             alignment=ft.MainAxisAlignment.END,
                             controls=[
                                 CustomElevatedButton(
-                                    name="Guardar", style=ButtonStyle.DEFAULT, on_click=self.save_changes
+                                    name="Guardar",
+                                    style=ButtonStyle.DEFAULT,
+                                    on_click=self.save_changes,
                                 )
-                            ]
-                        )
-                    ]
-                )
+                            ],
+                        ),
+                    ],
+                ),
             ),
             ft.Container(
                 height=334,
@@ -95,7 +120,9 @@ class SettingsPage(ft.Row):
                 border_radius=4,
                 padding=ft.padding.all(24),
                 shadow=ft.BoxShadow(
-                    blur_radius=0.9, offset=(0.0, 0.5), color=ft.Colors.with_opacity(opacity=0.3, color=neutral80)
+                    blur_radius=0.9,
+                    offset=(0.0, 0.5),
+                    color=ft.Colors.with_opacity(opacity=0.3, color=neutral80),
                 ),
                 content=ft.Column(
                     spacing=24,
@@ -115,42 +142,46 @@ class SettingsPage(ft.Row):
                                     spacing=8,
                                     controls=[
                                         ft.Text(
-                                            value="Contraseña:", font_family="AlbertSansL",
-                                            size=16, color=primaryTextColor
+                                            value="Contraseña:",
+                                            font_family="AlbertSansL",
+                                            size=16,
+                                            color=primaryTextColor,
                                         ),
                                         ft.Row(controls=[self.password]),
                                         ft.Text(
-                                            value="", font_family="AlbertSansL",
-                                            size=16, color=primaryTextColor
+                                            value="",
+                                            font_family="AlbertSansL",
+                                            size=16,
+                                            color=primaryTextColor,
                                         ),
                                         ft.Row(
                                             alignment=ft.MainAxisAlignment.END,
                                             controls=[
                                                 CustomElevatedButton(
-                                                    name="Cambiar contraseña", style=ButtonStyle.CANCEL,
-                                                    on_click=self.__change_password
+                                                    name="Cambiar contraseña",
+                                                    style=ButtonStyle.CANCEL,
+                                                    on_click=self.__change_password,
                                                 )
-                                            ]
-                                        )
-                                    ]
+                                            ],
+                                        ),
+                                    ],
                                 )
                             ]
                         ),
                         ft.Row(
                             alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
                             controls=[
-                                ft.Text(
-                                    value="Cuenta", size=24, color=accentTextColor
-                                ),
+                                ft.Text(value="Cuenta", size=24, color=accentTextColor),
                                 CustomElevatedButton(
-                                    name="Eliminar cuenta", style=ButtonStyle.DEFAULT,
-                                    on_click=self.__open_delete_form
-                                )
-                            ]
-                        )
-                    ]
-                )
-            )
+                                    name="Eliminar cuenta",
+                                    style=ButtonStyle.DEFAULT,
+                                    on_click=self.__open_delete_form,
+                                ),
+                            ],
+                        ),
+                    ],
+                ),
+            ),
         ]
 
         self.update_content()
@@ -165,7 +196,8 @@ class SettingsPage(ft.Row):
 
         if self.user.fullname == new_fullname and self.user.email == new_email:
             self.snackbar.change_style(
-                msg="¡No se ha realizado ningún cambio!\nLos datos guardados son iguales.", style=SnackbarStyle.INFO
+                msg="¡No se ha realizado ningún cambio!\nLos datos guardados son iguales.",
+                style=SnackbarStyle.INFO,
             )
             self.snackbar.update()
             return
@@ -187,17 +219,23 @@ class SettingsPage(ft.Row):
             self.update()
 
             # Notifes the user
-            self.snackbar.change_style(msg="¡Datos actualizados!", style=SnackbarStyle.SUCCESS)
+            self.snackbar.change_style(
+                msg="¡Datos actualizados!", style=SnackbarStyle.SUCCESS
+            )
             self.snackbar.update()
 
     def __open_delete_form(self, _: ft.ControlEvent) -> None:
         self.page.open(
-            DeleteForm(self.page, self.user, DeleteFormStyle.USER, snackbar=self.snackbar)
+            DeleteForm(
+                self.page, self.user, DeleteFormStyle.USER, snackbar=self.snackbar
+            )
         )
 
     def __change_password(self, _: ft.ControlEvent) -> None:
         self.page.open(
-            ChangePasswordForm(page=self.page, snackbar=self.snackbar, style=FormStyle.EDIT)
+            ChangePasswordForm(
+                page=self.page, snackbar=self.snackbar, style=FormStyle.EDIT
+            )
         )
 
     def __delete_account(self, _: ft.ControlEvent) -> None:

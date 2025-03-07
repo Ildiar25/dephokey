@@ -24,7 +24,9 @@ class Note(Base):
 
     # Column settings
     id: Mapped[str] = mapped_column(primary_key=True)
-    user_id: Mapped[str] = mapped_column(ForeignKey(column="user.id", ondelete="CASCADE"), nullable=False, index=True)
+    user_id: Mapped[str] = mapped_column(
+        ForeignKey(column="user.id", ondelete="CASCADE"), nullable=False, index=True
+    )
     title: Mapped[str | None]
     encrypted_content: Mapped[str]
     created: Mapped[datetime]
@@ -46,7 +48,9 @@ class Note(Base):
         log.info(f"Instancia de NOTE creada por {repr(mask_email(self.user.email))}.")
 
     def __str__(self) -> str:
-        return (f"<class Note(id={repr(self.id)}, title={repr(self.title)}, "
-                f"content_encrypted={repr(mask_text(self.encrypted_content))}, "
-                f"user={repr(mask_email(self.user.email))}, "
-                f"created={repr(self.created.strftime('%Y-%m-%dT%H:%M:%S'))})>")
+        return (
+            f"<class Note(id={repr(self.id)}, title={repr(self.title)}, "
+            f"content_encrypted={repr(mask_text(self.encrypted_content))}, "
+            f"user={repr(mask_email(self.user.email))}, "
+            f"created={repr(self.created.strftime('%Y-%m-%dT%H:%M:%S'))})>"
+        )

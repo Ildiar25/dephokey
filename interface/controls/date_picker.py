@@ -25,9 +25,7 @@ class DatePicker(ft.AlertDialog):
             expand=True,
             label="Nueva fecha",
             hint_text="dd-mm-aaaa",
-            error_style=ft.TextStyle(
-                color=dangerTextColor
-            )
+            error_style=ft.TextStyle(color=dangerTextColor),
         )
 
         # Form settings
@@ -37,7 +35,7 @@ class DatePicker(ft.AlertDialog):
         self.title = ft.Text(
             value=self.selected_date.strftime("%A, %d de %B de %Y").capitalize(),
             font_family="AlbertSansB",
-            size=20
+            size=20,
         )
 
         self.content = ft.Container(
@@ -50,17 +48,13 @@ class DatePicker(ft.AlertDialog):
                             ft.Text(
                                 value="Introduce una fecha válida:",
                                 font_family="AlbertSansL",
-                                size=16
+                                size=16,
                             )
                         ]
                     ),
-                    ft.Row(
-                        controls=[
-                            self.date_input
-                        ]
-                    )
+                    ft.Row(controls=[self.date_input]),
                 ]
-            )
+            ),
         )
 
         self.actions = [
@@ -69,7 +63,7 @@ class DatePicker(ft.AlertDialog):
                 width=84,
                 foreground_color=secondaryTextColor,
                 on_click=lambda _: self.page.close(self),
-                border_size=-1
+                border_size=-1,
             ),
             CustomElevatedButton(
                 name="Aceptar",
@@ -77,8 +71,8 @@ class DatePicker(ft.AlertDialog):
                 foreground_color=tertiaryTextColor,
                 bg_color=primaryCorporateColor,
                 on_click=self.validate_date,
-                border_size=-1
-            )
+                border_size=-1,
+            ),
         ]
 
         # Form design
@@ -102,8 +96,12 @@ class DatePicker(ft.AlertDialog):
             nyear = int(nyear)
 
         except ValueError as err:
-            main_logger.debug(f"El usuario ha introducido '{self.date_input.value}' en el formulario.")
-            main_logger.error(f"No se ha podido castear a entero el número introducido: {err}")
+            main_logger.debug(
+                f"El usuario ha introducido '{self.date_input.value}' en el formulario."
+            )
+            main_logger.error(
+                f"No se ha podido castear a entero el número introducido: {err}"
+            )
 
         else:
             # Reset values to an empty field

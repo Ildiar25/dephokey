@@ -12,8 +12,12 @@ class TestLog(unittest.TestCase):
         self.main_log = main_log
 
         # Main info message
-        self.test_log.info(f"Logger inicializado en nivel: {logging.getLevelName(self.test_log.get_current_level())}")
-        self.main_log.info(f"Logger inicializado en nivel: {logging.getLevelName(self.main_log.get_current_level())}")
+        self.test_log.info(
+            f"Logger inicializado en nivel: {logging.getLevelName(self.test_log.get_current_level())}"
+        )
+        self.main_log.info(
+            f"Logger inicializado en nivel: {logging.getLevelName(self.main_log.get_current_level())}"
+        )
 
     def test_all_levels(self) -> None:
         # Test log file (LEVEL DEBUG)

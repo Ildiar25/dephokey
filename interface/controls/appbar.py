@@ -12,7 +12,9 @@ from shared.utils.colors import *
 
 
 class CustomAppbar(ft.AppBar):
-    def __init__(self, page: ft.Page, snackbar: ft.SnackBar, content: BodyContent) -> None:
+    def __init__(
+        self, page: ft.Page, snackbar: ft.SnackBar, content: BodyContent
+    ) -> None:
         super().__init__()
 
         # General settings
@@ -35,7 +37,7 @@ class CustomAppbar(ft.AppBar):
             on_click=self.go_back,
             highlight_color=neutral20,
             hover_color=neutral10,
-            visible=False
+            visible=False,
         )
 
         # Design settings
@@ -45,7 +47,9 @@ class CustomAppbar(ft.AppBar):
         self.leading_width = 230
         self.leading = ft.Container(
             margin=ft.margin.only(left=24, right=64),
-            content=ft.Image(src="interface/assets/logotype-color.svg", fit=ft.ImageFit.FIT_WIDTH)
+            content=ft.Image(
+                src="interface/assets/logotype-color.svg", fit=ft.ImageFit.FIT_WIDTH
+            ),
         )
 
         # Title (Search bar)
@@ -64,17 +68,17 @@ class CustomAppbar(ft.AppBar):
                             icon_color=iconAppbarColor,
                             on_click=self.show_settings,
                             highlight_color=selectedIconAppbarColor,
-                            hover_color=neutral60
+                            hover_color=neutral60,
                         ),
                         ft.IconButton(
                             ft.Icons.EXIT_TO_APP_ROUNDED,
                             icon_color=iconAppbarColor,
                             on_click=self.logout,
                             highlight_color=selectedIconAppbarColor,
-                            hover_color=neutral60
-                        )
+                            hover_color=neutral60,
+                        ),
                     ]
-                )
+                ),
             )
         ]
 
@@ -87,16 +91,20 @@ class CustomAppbar(ft.AppBar):
                 on_click=self.go_back,
                 highlight_color=neutral20,
                 hover_color=neutral10,
-                visible=False if self.user.role == UserRole.CLIENT else True
+                visible=False if self.user.role == UserRole.CLIENT else True,
             )
         ]
-        self.body_content.change_content(title="Configuración", style=ContentStyle.SETTINGS, buttons=buttons)
+        self.body_content.change_content(
+            title="Configuración", style=ContentStyle.SETTINGS, buttons=buttons
+        )
         self.body_content.update()
 
     def go_back(self, _: ft.ControlEvent) -> None:
         log.info("Redirigiendo a ADMIN.")
         self.body_content.change_content(
-            title=f"Bienvenido {self.user.fullname.split(' ')[0]}!", style=ContentStyle.ADMIN)
+            title=f"Bienvenido {self.user.fullname.split(' ')[0]}!",
+            style=ContentStyle.ADMIN,
+        )
         self.body_content.update()
 
     def search_results(self, result: ft.ControlEvent) -> None:
@@ -117,14 +125,14 @@ class CustomAppbar(ft.AppBar):
         self.page.update()
 
         # Load sound
-        close_session = ft.Audio(src="interface/assets/effects/close-session.mp3", autoplay=True)
+        close_session = ft.Audio(
+            src="interface/assets/effects/close-session.mp3", autoplay=True
+        )
         self.page.overlay.append(close_session)
         self.page.update()
 
         # Show page loading
-        self.page.overlay.append(
-            LoadingPage()
-        )
+        self.page.overlay.append(LoadingPage())
         self.page.update()
 
         # Load login page
