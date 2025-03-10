@@ -32,8 +32,8 @@ class SendEmail:
         msg["To"] = self.recipient
         msg["Subject"] = "Tu token para Dephokey está listo"
 
-        first_part = msg.attach(MIMEText(self.body.with_text, "plain"))
-        second_part = msg.attach(MIMEText(self.body.with_html, "html"))
+        msg.attach(MIMEText(self.body.with_text, "plain"))
+        msg.attach(MIMEText(self.body.with_html, "html"))
 
         try:
             smtp = smtplib.SMTP(self.smtp_host, self.smtp_port)
@@ -41,8 +41,15 @@ class SendEmail:
             smtp.quit()
             return True
 
+        except ConnectionRefusedError as not_allowed:
+            log.error(f"{type(not_allowed).__name__} | Se ha denegado la conexión: {not_allowed}.")
+            return False
+        except ConnectionError as not_connected:
+            log.error(f"{type(not_connected).__name__} | No se ha podido establecer la conexión: {not_connected}.")
+            return False
         except Exception as unknown:
-            log.error(f"{type(unknown).__name__} | Un error inesperado ha ocurrido al enviar el correo: {unknown}")
+            log.error(f"{type(unknown).__name__} | Un error inesperado ha ocurrido al tratar de enviar el correo: "
+                      f"{unknown}.")
             return False
 
     def __str__(self) -> str:
