@@ -26,7 +26,7 @@ class TestCreateMessage(unittest.TestCase):
         # Create comparable items
         self.name = "User Test Name"
         self.code = "ABC1234"
-        self.text_plain = ("Hola User Test Name!\nPor favor, introduce en el programa el código de siete caracteres "
+        self.text = ("Hola User Test Name!\nPor favor, introduce en el programa el código de siete caracteres "
                            "proporcionado\npara poder actualizar tu contraseña:\n\nABC1234\n\nSi no has "
                            "realizado la petición, puedes ignorar este email.\n\nAtentamente,\nEl equipo Dephokey")
 
@@ -72,15 +72,15 @@ class TestCreateMessage(unittest.TestCase):
         log.info(">>> Confirm if TOKEN LENGTH is VALID...   OK")
 
     def test_createMessageTextMessageExists(self) -> None:
-        self.assertIsNotNone(self.message.text_message, msg="Create message MUST HAVE text content.")
+        self.assertIsNotNone(self.message.with_text, msg="Create message MUST HAVE text content.")
         log.info(">>> Confirm if CREATE MESSAGE has TEXT CONTENT...   OK")
 
     def test_createMessageTextMessateType(self) -> None:
-        self.assertIsInstance(self.message.text_message, str, msg="Text message MUST BE string type.")
+        self.assertIsInstance(self.message.with_text, str, msg="Text message MUST BE string type.")
         log.info(">>> Confirm if TEXT CONTENT is instance of STRING...   OK")
 
     def test_createMessageTextMessageComparison(self) -> None:
-        self.assertEqual(self.text_plain, self.message.text_message, msg="Text plain content MUST BE equal.")
+        self.assertEqual(self.text, self.message.with_text, msg="Text plain content MUST BE equal.")
         log.info(">>> Confirm if TEXT PLAIN is EQUAL...   OK")
 
     @staticmethod

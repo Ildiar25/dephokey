@@ -11,8 +11,8 @@ class CreateMessage:
     def __init__(self, name: str, token: str) -> None:
         self.name = name
         self.token: str = token
-        self.text_message: str = self.__plain_text()
-        self.html_message: str | None = self.__html_text()
+        self.with_text: str = self.__plain_text()
+        self.with_html: str | None = self.__html_text()
 
     def __plain_text(self) -> str:
         return (f"Hola {self.name}!\nPor favor, introduce en el programa el código de siete caracteres "
@@ -39,5 +39,4 @@ class CreateMessage:
 
     def __repr__(self) -> str:
         return (f"<class CreateEmail(name={repr(self.name)}, code={repr(mask_text(self.token))}, "
-                f"text_message={repr(mask_text(self.text_message))}, "
-                f"html_message={repr(mask_text(self.html_message))})>")
+                f"with_text={repr(mask_text(self.with_text))}, with_html={repr(mask_text(self.with_html))})>")
