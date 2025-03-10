@@ -67,7 +67,7 @@ class ResetPasswordPage(ft.Container):
             name="¡Enviar!", style=ButtonStyle.DEFAULT, on_click=self.__send_email, height=45
         )
         self.expires_at: datetime.datetime | None = None
-        self.countdown = CountDown(seconds=60, page=self.page)
+        self.countdown = CountDown(seconds=300, page=self.page)
 
         # Page design
         self.expand = True
@@ -133,7 +133,7 @@ class ResetPasswordPage(ft.Container):
                         ft.IconButton(
                             ft.Icons.KEYBOARD_DOUBLE_ARROW_LEFT_ROUNDED,
                             icon_color=primaryCorporateColor,
-                            on_click=lambda _: self.page.go("/login"),
+                            on_click=self.__go_back,
                             highlight_color=neutral20,
                             hover_color=neutral10
                         )
@@ -170,6 +170,7 @@ class ResetPasswordPage(ft.Container):
         self.change_content.visible = False
         self.change_content.update()
         self.countdown.stop()
+        self.page.go("/login")
 
     def __send_email(self, _: ft.ControlEvent) -> None:
         email = self.main_field.value.strip().lower()
