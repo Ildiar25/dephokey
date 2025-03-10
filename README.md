@@ -110,6 +110,6 @@ flet run app.py
 
 ### Close server
 Once you finished, you can close the server with next command:
-```
+```bash
 docker-compose -f compose.yaml down
 ```
