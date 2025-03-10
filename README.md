@@ -10,6 +10,13 @@ respecting its privacy.
 _\*how to use this app\*_
 
 ## Installation guide
+First be sure to have Python & Docker installed on your computer
+You can download it from this urls:
+
+
+
+[![Static Badge](https://img.shields.io/badge/Python-Download-blue)](https://www.python.org/downloads/)
+[![Static Badge](https://img.shields.io/badge/Docker-Download-blue)](https://www.docker.com/)
 
 ### Folder
 Open your favorite IDE, create a new folder and go inside
@@ -54,7 +61,7 @@ Once it is created, activate with the following instructions:
 ```
 
 That's because windows has script execution disabled by default.
-You can solve this problem opening Windows PowerShell in administrator mode and running the next comand. Then answer 
+You can solve this problem opening Windows PowerShell in administrator mode and running the next command. Then answer 
 _'yes'_:
 ```
 Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted
@@ -73,9 +80,17 @@ pip install -r requirements.txt
 
 ---
 
+### Open email server
+This command open 1025 port on localhost
+```
+docker-compose -f compose.yaml up -d
+```
+
+---
+
 ### Run tests
 Before application use, you will need to check if all features are working correctly. To do that, you must run 
-python tests with the following comand:
+python tests with the following command:
 
 ```bash
 python -m unittest discover tests
@@ -88,4 +103,12 @@ Now, our app is ready to run. Enjoy it!
 
 ```bash
 flet run app.py
+```
+
+---
+
+### Close server
+Once you finished, you can close the server with next command:
+```
+docker-compose -f compose.yaml down
 ```
