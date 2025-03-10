@@ -82,7 +82,8 @@ pip install -r requirements.txt
 
 ### Open email server
 This command open 1025 port on localhost
-```
+
+```bash
 docker-compose -f compose.yaml up -d
 ```
 
