@@ -200,38 +200,6 @@ class SettingsPage(ft.Row):
             ChangePasswordForm(page=self.page, snackbar=self.snackbar, style=FormStyle.EDIT)
         )
 
-    def __delete_account(self, _: ft.ControlEvent) -> None:
-        user = session.query(User).filter_by(id=self.user.id).first()
-        session.delete(user)
-        session.commit()
-
-        # log.info("Usuario eliminado. Redirigiendo a LOGIN.")
-        # # Close session
-        # self.page.session.clear()
-        #
-        # # Hide menus
-        # self.page.appbar.visible = False
-        # self.page.bottom_appbar.visible = False
-        # self.page.bgcolor = primaryCorporate100
-        # self.page.clean()
-        # self.page.update()
-        #
-        # # Load sound
-        # close_session = ft.Audio(src="interface/assets/effects/close-session.mp3", autoplay=True)
-        # self.page.overlay.append(close_session)
-        # self.page.update()
-        #
-        # # Show page loading
-        # self.page.overlay.append(
-        #     LoadingPage()
-        # )
-        # self.page.update()
-        #
-        # # Load login page
-        # time.sleep(2.5)
-        # self.page.overlay.clear()
-        # self.page.go("/login")
-
     @staticmethod
     def toggle_empty_fields(field: ft.ControlEvent) -> None:
         if field and not field.control.value:

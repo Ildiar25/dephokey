@@ -1,6 +1,7 @@
 import flet as ft
 from enum import Enum
 from typing import Union, Callable
+import time
 
 from data.db_orm import session
 
@@ -9,6 +10,7 @@ from features.models import *
 
 from .base_form import BaseForm
 from interface.controls import CustomElevatedButton, ButtonStyle, Snackbar, SnackbarStyle
+from interface.pages.loading_page import LoadingPage
 
 from shared.utils.colors import *
 
@@ -126,12 +128,34 @@ class DeleteForm(BaseForm):
         session.commit()
 
         if self.item.__class__ == User:
-            self.snackbar.change_style(
-                msg="Usuario borrado con éxito.\nCerrando sesión...",
-                style=SnackbarStyle.SUCCESS)
-            self.snackbar.update()
             self.page.close(self)
+            time.sleep(0.4)
+            # Close session
             self.page.session.clear()
+
+            # Hide menus
+            self.page.appbar.visible = False
+            self.page.bottom_appbar.visible = False
+            self.page.bgcolor = primaryCorporate100
+            self.page.clean()
+            self.page.update()
+
+            # Load sound
+            close_session = ft.Audio(src="interface/assets/effects/close-session.mp3", autoplay=True)
+            self.page.overlay.append(close_session)
+            self.page.update()
+
+            # Show page loading
+            self.page.overlay.append(
+                LoadingPage()
+            )
+            self.page.update()
+
+            # Load login page
+            time.sleep(2.5)
+            self.page.overlay.clear()
+            self.page.go("/login")
+
             return
 
         # Update content view
