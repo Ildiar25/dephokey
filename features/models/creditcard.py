@@ -47,7 +47,7 @@ class CreditCard(Base):
         self.encrypted_cvc: str = encrypt_data(cvc)
         self.valid_until: datetime = valid_until
         self.expired: bool = True if self.valid_until < datetime.today() else False
-        self.alias: str | None = alias
+        self.alias: str | None = alias if not self.expired else alias + " (Caducada)"
         self.user: User = user
         self.created: datetime = datetime.today()
 

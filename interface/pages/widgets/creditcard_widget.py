@@ -38,8 +38,7 @@ class CreditCardWidget(ft.Card):
         self.animate_scale = ft.animation.Animation(200, ft.AnimationCurve.EASE_IN_OUT)
 
         # CreditCardWidget elements
-        self.alias = self.creditcard.alias if self.creditcard.alias else "Alias"
-        self.card_alias = ft.Text(self.alias if not self.creditcard.expired else self.alias + " (Caducada)",
+        self.card_alias = ft.Text(self.creditcard.alias if self.creditcard.alias else "Alias",
             font_family="AlbertSansB", size=18, color=titleCreditcardWidgetColor
         )
         self.card_number = ft.Row(
@@ -116,7 +115,9 @@ class CreditCardWidget(ft.Card):
             content=ft.Column(
                 spacing=0,
                 controls=[
-                    ft.Container(height=42, bgcolor=primaryCorporate100),
+                    ft.Container(height=42,
+                                 bgcolor=primaryCorporate100 if not self.creditcard.expired else neutralDangerDark
+                                 ),
                     ft.Container(
                         height=40,
                         margin=ft.margin.symmetric(vertical=15, horizontal=24),
