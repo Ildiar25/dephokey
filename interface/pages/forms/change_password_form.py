@@ -59,28 +59,31 @@ class ChangePasswordForm(BaseForm):
                     controls=[
                         ft.Row(wrap=True,
                             controls=[
-                                ft.Text(value="¡Atención!", color=primaryTextColor, font_family="AlbertSansB",
+                                ft.Text(value="¡Atención! ", color=primaryTextColor, font_family="AlbertSansB",
                                     spans=[
                                         ft.TextSpan(
-                                            text=" Si olvidas la contraseña deberás restaurarla desde el principio."
-                                                 " Por tu seguridad,",
+                                            text="Si olvidas la contraseña deberás restaurarla desde el principio."
+                                                 " Por tu seguridad, ",
                                             style=ft.TextStyle(font_family="AlbertSansL")),
                                         ft.TextSpan(
-                                            text=" las contraseñas no se almacenan en la base de datos,",
+                                            text="las contraseñas no se almacenan en la base de datos, ",
                                             style=ft.TextStyle(font_family="AlbertSansB")),
                                         ft.TextSpan(
-                                            text=" por lo que",
+                                            text="por lo que ",
                                             style=ft.TextStyle(font_family="AlbertSansL")),
                                         ft.TextSpan(
-                                            text=" es importante que la recuerdes.\n\n",
+                                            text="es importante que la recuerdes.\n\n",
                                             style=ft.TextStyle(font_family="AlbertSansB")),
                                         ft.TextSpan(
                                             text="Puedes introducir tu nueva contraseña de forma manual o generarla "
-                                                 "automáticamente desde el botón",
+                                                 "automáticamente desde el botón ",
                                             style=ft.TextStyle(font_family="AlbertSansL")),
                                         ft.TextSpan(
-                                            text=" Generar Contraseña.",
-                                            style=ft.TextStyle(font_family="AlbertSansI"))
+                                            text="Generar Contraseña. ",
+                                            style=ft.TextStyle(font_family="AlbertSansI")),
+                                        ft.TextSpan(
+                                            text="Aunque te recomendamos que utilices la tuya propia.",
+                                            style=ft.TextStyle(font_family="AlbertSansL")),
                                     ])
                             ]
                         ),
@@ -110,18 +113,52 @@ class ChangePasswordForm(BaseForm):
                 self.submit_button.on_click = self.__reset_password
 
                 # Content
-                self.content.content = ft.Column(
+                self.content.content = ft.Column(alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
                     controls=[
+                        ft.Row(wrap=True,
+                            controls=[
+                                ft.Text(value="¡Atención!", color=primaryTextColor, font_family="AlbertSansB",
+                                    spans=[
+                                        ft.TextSpan(
+                                            text=f" Estas cambiando la contraseña de la cuenta ",
+                                            style=ft.TextStyle(font_family="AlbertSansL")),
+                                        ft.TextSpan(
+                                            text=f"{repr(self.email)}. ",
+                                            style=ft.TextStyle(font_family="AlbertSansB")),
+                                        ft.TextSpan(
+                                            text="Por tu seguridad, ",
+                                            style=ft.TextStyle(font_family="AlbertSansL")),
+                                        ft.TextSpan(
+                                            text="las contraseñas no se almacenan en la base de datos, ",
+                                            style=ft.TextStyle(font_family="AlbertSansB")),
+                                        ft.TextSpan(
+                                            text="por lo que ",
+                                            style=ft.TextStyle(font_family="AlbertSansL")),
+                                        ft.TextSpan(
+                                            text="es importante que la recuerdes.\n\n",
+                                            style=ft.TextStyle(font_family="AlbertSansB")),
+                                        ft.TextSpan(
+                                            text="Puedes introducir tu nueva contraseña de forma manual o generarla "
+                                                 "automáticamente desde el botón ",
+                                            style=ft.TextStyle(font_family="AlbertSansL")),
+                                        ft.TextSpan(
+                                            text="Generar Contraseña. ",
+                                            style=ft.TextStyle(font_family="AlbertSansI")),
+                                        ft.TextSpan(
+                                            text="Aunque te recomendamos que utilices la tuya propia.",
+                                            style=ft.TextStyle(font_family="AlbertSansL")),
+                                    ])
+                            ]
+                        ),
                         ft.Row(
                             controls=[
                                 ft.Column(spacing=8, expand=True,
                                     controls=[
-                                        ft.Text(value="Contraseña", font_family="AlbertSansR",
-                                            color=primaryTextColor,
-                                            spans=[self.span]),
+                                        ft.Text(value="Contraseña", font_family="AlbertSansR", color=primaryTextColor,
+                                                spans=[self.span]),
                                         self.main_pw,
                                         ft.Text(value="Repite la contraseña", font_family="AlbertSansR",
-                                            color=primaryTextColor, spans=[self.span]),
+                                                color=primaryTextColor, spans=[self.span]),
                                         self.auxiliar_pw
                                     ]
                                 )
