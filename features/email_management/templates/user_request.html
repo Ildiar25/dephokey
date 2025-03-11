@@ -11,7 +11,7 @@
         p {padding-bottom: 16px}
 
         .main-table-position {
-            max-width: 500px; border-collapse: collapse; border: 0px; border-spacing: 0px;
+            max-width: 600px; border-collapse: collapse; border: 0px; border-spacing: 0px;
             margin-left: auto; margin-right: auto; text-align: left
         }
         .left-align {text-align: left}
@@ -40,13 +40,8 @@
                     <!-- Body content -->
                     <div class="content-design">
                         <div id="main-content" class="left-align">
-                            <h1>Código de Verificación</h1>
-                            <p>Hola {{ mail_title }}!<br>Por favor, introduce en el programa
-                                el código de siete caracteres proporcionado para poder actualizar tu contraseña:</p>
-                            <p id="code" class="center-align">
-                                    <strong style="font-size: 180%;">{{ mail_message }}</strong></p>
-                            <p>Si no has realizado la petición, puedes ignorar este email.</p>
-                            <p>Atentamente,<br>El equipo Dephokey</p>
+                            <h1>{{ mail_title }}</h1>
+                            <p>{{ mail_message }}</p>
                         </div>
                     </div>
                     <div class="footer">
