@@ -8,6 +8,7 @@ from data.db_orm import session
 
 from features.models.user import User
 from features.models import PasswordRequest
+from features.email_management.create_message import MessageStyle
 from features.email_management.send_email import SendEmail
 from features.data_encryption.core import decrypt_data
 
@@ -209,8 +210,18 @@ class ResetPasswordPage(ft.Container):
         self.countdown.start()
 
         # Send email
-        new_email = SendEmail(token=token, user=self.user)
-        new_email.send()
+        new_email = SendEmail(
+            msg_style=MessageStyle.RESET,
+            send_to=self.user.email,
+            name=self.user.fullname.split(" ")[0],
+            token=token
+        )
+
+        if not new_email.send():
+            self.snackbar.change_style(
+                msg="Ha habido un problema durante el envío del mensaje.\nContacta con el Servicio de Asistencia",
+                style=SnackbarStyle.DANGER)
+            self.snackbar.update()
 
     def __verify_token(self, _: ft.ControlEvent) -> None:
         new_request = session.query(PasswordRequest).order_by(PasswordRequest.created.desc()).filter_by(
