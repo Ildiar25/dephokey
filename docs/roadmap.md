@@ -39,8 +39,9 @@
   * [x] Login Page
   * [x] Signin Page
   * [x] Reset Password Page
-  * [x] Home
+  * [x] Home Page
   * [ ] Admin Page
+  * [x] About Page
 
 * Navigation
   * [x] Home Content
@@ -50,6 +51,7 @@
   * [x] Notes Content
   * [x] Searchbar Results
   * [x] Settings
+  * [x] About
 
 * Forms
   * [x] Add Item
