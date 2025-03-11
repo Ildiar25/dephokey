@@ -1,6 +1,7 @@
 import flet as ft
 from enum import Enum
 from typing import Union, Callable
+from types import NoneType
 import time
 
 from data.db_orm import session
@@ -26,15 +27,19 @@ class DeleteFormStyle(Enum):
 class DeleteForm(BaseForm):
     def __init__(self, page: ft.Page, item: Union[User, Site, CreditCard, Note, PasswordRequest],
                  style: DeleteFormStyle, update_changes: Callable[[], None] | None = None,
-                 snackbar: Snackbar | None = None) -> None:
+                 snackbar: Snackbar | None = None, update_dropdown: Callable[[], None] | None = None) -> None:
         super().__init__()
 
         # General attributes
         self.page = page
-        self.item = item
-        self.style = style
         self.snackbar = snackbar
+        self.style = style
+
+        # Form attributes
+        self.user: User = self.page.session.get("session")
+        self.item = item
         self.update_changes = update_changes
+        self.update_dropdown = update_dropdown
 
         # Form settings
         self.submit_button = CustomElevatedButton(name="Eliminar", style=ButtonStyle.DELETE, on_click=self.__delete)
@@ -127,37 +132,40 @@ class DeleteForm(BaseForm):
         session.delete(item)
         session.commit()
 
-        if self.item.__class__ == User:
-            self.page.close(self)
-            time.sleep(0.4)
-            # Close session
-            self.page.session.clear()
+        if isinstance(self.item, User):
+            if self.item.id == self.user.id:
+                self.page.close(self)
+                time.sleep(0.4)
 
-            # Hide menus
-            self.page.appbar.visible = False
-            self.page.bottom_appbar.visible = False
-            self.page.bgcolor = primaryCorporate100
-            self.page.clean()
-            self.page.update()
+                # Close session
+                self.page.session.clear()
 
-            # Load sound
-            close_session = ft.Audio(src="interface/assets/effects/close-session.mp3", autoplay=True)
-            self.page.overlay.append(close_session)
-            self.page.update()
+                # Hide menus
+                self.page.appbar.visible = False
+                self.page.bottom_appbar.visible = False
+                self.page.bgcolor = primaryCorporate100
+                self.page.clean()
+                self.page.update()
 
-            # Show page loading
-            self.page.overlay.append(
-                LoadingPage()
-            )
-            self.page.update()
+                # Load sound
+                close_session = ft.Audio(src="interface/assets/effects/close-session.mp3", autoplay=True)
+                self.page.overlay.append(close_session)
+                self.page.update()
 
-            # Load login page
-            time.sleep(2.5)
-            self.page.overlay.clear()
-            self.page.go("/login")
+                # Show page loading
+                self.page.overlay.append(
+                    LoadingPage()
+                )
+                self.page.update()
 
-            return
+                # Load login page
+                time.sleep(2.5)
+                self.page.overlay.clear()
+                self.page.go("/login")
+                return
 
         # Update content view
         self.update_changes()
+        if not isinstance(self.update_dropdown, NoneType):
+            self.update_dropdown()
         self.page.close(self)
