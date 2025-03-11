@@ -38,8 +38,9 @@ class CreditCardWidget(ft.Card):
         self.animate_scale = ft.animation.Animation(200, ft.AnimationCurve.EASE_IN_OUT)
 
         # CreditCardWidget elements
-        self.card_alias = ft.Text(self.creditcard.alias if self.creditcard.alias else "Alias tarjeta de crédito",
-            font_family = "AlbertSansB", size = 18, color=titleCreditcardWidgetColor
+        self.alias = self.creditcard.alias if self.creditcard.alias else "Alias"
+        self.card_alias = ft.Text(self.alias if not self.creditcard.expired else self.alias + " (Caducada)",
+            font_family="AlbertSansB", size=18, color=titleCreditcardWidgetColor
         )
         self.card_number = ft.Row(
             spacing=18,
@@ -55,7 +56,7 @@ class CreditCardWidget(ft.Card):
         )
 
         # Widget design
-        self.color = bgCreditcardWidgetColor
+        self.color = bgCreditcardWidgetColor if not self.creditcard.expired else neutralDangerMedium
         self.shape = ft.RoundedRectangleBorder(24)
         self.tooltip = "Clickea para voltear la tarjeta"
 
