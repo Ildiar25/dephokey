@@ -1,7 +1,7 @@
 import unittest
 
 from features.models.user import User, UserRole
-from features.email_management.create_message import CreateMessage
+from features.email_management.create_message import CreateMessage, MessageStyle
 
 from shared.logger_setup import test_log as log
 
@@ -31,7 +31,12 @@ class TestCreateMessage(unittest.TestCase):
                            "realizado la petición, puedes ignorar este email.\n\nAtentamente,\nEl equipo Dephokey")
 
         # Create new instance
-        self.message = CreateMessage(UserBuilder().build().fullname, token="ABC1234")
+        self.message = CreateMessage(
+            MessageStyle.RESET,
+            send_to=UserBuilder().build().email,
+            name=UserBuilder().build().fullname,
+            token="ABC1234"
+        ).create()
 
         log.info("CREATE MESSAGE ready for test...")
 
@@ -85,7 +90,7 @@ class TestCreateMessage(unittest.TestCase):
 
     @staticmethod
     def log_instance(email: CreateMessage) -> None:
-        log.debug(email)
+        log.debug(email.__str__())
 
 
 if __name__ == "__main__":

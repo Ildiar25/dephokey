@@ -1,6 +1,7 @@
 import unittest
 
 from features.models.user import User, UserRole
+from features.email_management.create_message import CreateMessage, MessageStyle
 from features.email_management.send_email import SendEmail
 
 from shared.logger_setup import test_log as log
@@ -27,7 +28,12 @@ class TestSendEmail(unittest.TestCase):
         self.token = "ABC1234"
 
         # Create send email instance
-        self.email = SendEmail(UserBuilder().build(), self.token)
+        self.email = SendEmail(
+            msg_style=MessageStyle.RESET,
+            send_to=UserBuilder().build().email,
+            name=UserBuilder().build().fullname,
+            token=self.token
+        )
 
     def tearDown(self) -> None:
         del self.email
