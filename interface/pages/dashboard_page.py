@@ -1,8 +1,8 @@
 import flet as ft
 
-from features.models.user import UserRole,User
+from features.models.user import UserRole, User
 
-from interface.pages.content_manager import BodyContent
+from interface.pages.content_manager import BodyContent, ContentStyle
 from interface.controls import CustomAppbar, CustomSidebar, Snackbar
 
 from shared.logger_setup import main_log as log
@@ -32,7 +32,7 @@ class Dashboard(ft.Container):
             controls=[
                 ft.Container(
                     expand=True,
-                    height=1000,
+                    height=3000,
                     bgcolor=bgSidebarColor,
                     content=self.sidebar
                 )
@@ -80,4 +80,9 @@ class Dashboard(ft.Container):
             ]
         )
 
-        log.info("Página 'DASHBOARD' creada.")
+        if self.user.role == UserRole.ADMIN:
+            self.body_content.change_content(
+                title=f"Bienvenido {self.user.fullname.split(' ')[0]}!", style=ContentStyle.ADMIN
+            )
+
+        log.info("Página 'DASHBOARD' inicializada.")
