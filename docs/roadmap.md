@@ -14,7 +14,7 @@
 
 * Features
   * [x] Data Encryption
-  * [ ] Email Management
+  * [x] Email Management
 
 ## 2nd Sprint
 
@@ -38,7 +38,7 @@
 * User Interface
   * [x] Login Page
   * [x] Signin Page
-  * [ ] Reset Password Page
+  * [x] Reset Password Page
   * [x] Home
   * [ ] Admin Page
 
@@ -62,8 +62,8 @@
 ## 2nd Sprint
 
 * HTML
-  * [ ] Email Template Design
-  * [ ] Token Generator
+  * [x] Email Template Design
+  * [x] Token Generator
 
 * User Session
   * [x] Session monitoring
