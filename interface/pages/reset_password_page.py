@@ -186,11 +186,6 @@ class ResetPasswordPage(ft.Container):
             return
 
         self.expires_at = datetime.datetime.now() + timedelta(minutes=5)
-        self.snackbar.change_style(
-            msg=f"De acuerdo, {self.user.fullname}. Se te ha enviado un correo con 7 caracteres.\n¡Tienes 5 minutos "
-                f"para introducirlos en los campos que han aparecido!",
-            style=SnackbarStyle.SUCCESS)
-        self.snackbar.update()
 
         # Save new password request
         token = GenerateToken.tokenize()
@@ -222,6 +217,19 @@ class ResetPasswordPage(ft.Container):
                 msg="Ha habido un problema durante el envío del mensaje.\nContacta con el Servicio de Asistencia",
                 style=SnackbarStyle.DANGER)
             self.snackbar.update()
+
+            self.countdown.stop()
+            self.change_content.visible = False
+            self.change_content.update()
+            self.submit_email.disabled = False
+            self.submit_email.update()
+            return
+
+        self.snackbar.change_style(
+            msg=f"De acuerdo, {self.user.fullname}. Se te ha enviado un correo con 7 caracteres.\n¡Tienes 5 minutos "
+                f"para introducirlos en los campos que han aparecido!",
+            style=SnackbarStyle.SUCCESS)
+        self.snackbar.update()
 
     def __verify_token(self, _: ft.ControlEvent) -> None:
         new_request = session.query(PasswordRequest).order_by(PasswordRequest.created.desc()).filter_by(
