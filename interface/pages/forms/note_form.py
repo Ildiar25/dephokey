@@ -30,7 +30,7 @@ class NoteForm(BaseForm):
         self.user: User = self.page.session.get("session")
 
         # Form fields
-        self.n_title = CustomTextField(hint_text="Añade un título", max_length=30,
+        self.n_title = CustomTextField(hint_text="Añade un título", max_length=24,
             on_change=self.__update_field_inputs
         )
         self.n_content = CustomTextField(hint_text="Agrega contenido importante", can_reveal_password=True,
