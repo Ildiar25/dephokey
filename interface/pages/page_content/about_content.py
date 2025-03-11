@@ -1,9 +1,11 @@
 import flet as ft
 from typing import Callable
 
+from features.email_management.send_email import SendEmail
+from features.email_management.create_message import MessageStyle
 from features.models.user import User
 
-from interface.controls import Snackbar, CustomTextField, CustomElevatedButton, ButtonStyle, TextLink
+from interface.controls import Snackbar, SnackbarStyle, CustomTextField, CustomElevatedButton, ButtonStyle, TextLink
 
 from shared.utils.colors import *
 
@@ -270,14 +272,17 @@ class AboutPage(ft.Row):
         pass
 
     def __submit_email(self, _: ft.ControlEvent) -> None:
-        if not self.query_reason.value:
+        reason = self.query_reason.value.strip().capitalize()
+        message = self.body_message.value.strip()
+
+        if not reason:
             self.body_message.reset_error()
             self.body_message.update()
             self.query_reason.show_error("¡Debes indicar un motivo!")
             self.query_reason.update()
             return
 
-        if not self.body_message.value:
+        if not message:
             self.query_reason.reset_error()
             self.query_reason.update()
             self.body_message.show_error("El contenido del mensaje debe rellenarse")
@@ -288,3 +293,27 @@ class AboutPage(ft.Row):
         self.body_message.update()
         self.query_reason.reset_error()
         self.query_reason.update()
+
+        new_email = SendEmail(
+            msg_style=MessageStyle.QUERY,
+            send_from=self.user.email,
+            subject=reason,
+            content=message
+        )
+
+        if not new_email.send():
+            self.snackbar.change_style(
+                msg="Ha habido un problema durante el envío del mensaje.\nContacta con el Servicio de Asistencia",
+                style=SnackbarStyle.DANGER)
+            self.snackbar.update()
+            return
+
+        self.query_reason.value = ""
+        self.query_reason.update()
+        self.body_message.value = ""
+        self.body_message.update()
+
+        self.snackbar.change_style(
+            msg="¡Gracias por tus comentarios!\nTrabajaremos lo más rápido posible para hacerte llegar los resultados.",
+            style=SnackbarStyle.SUCCESS)
+        self.snackbar.update()
