@@ -1,4 +1,6 @@
 import smtplib
+from email import encoders
+from email.mime.base import MIMEBase
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
@@ -31,6 +33,21 @@ class SendEmail:
         msg["From"] = self.sender
         msg["To"] = self.recipient
         msg["Subject"] = "Tu token para Dephokey está listo"
+
+        # Image attachment
+        try:
+            with open("features/email_management/templates/assets/logotype.png", "rb") as image:
+                img = MIMEBase("logotype", "png")
+                img.set_payload(image.read())
+                encoders.encode_base64(img)
+                img.add_header("Content-ID", "<logotype.png>")
+                img.add_header("Content-Disposition", "inline", filename="logotype.png")
+                msg.attach(img)
+
+        except FileNotFoundError as not_found:
+            log.error(f"{type(not_found).__name__} | No se ha encontrado el logotipo para el email: {not_found}.")
+        except PermissionError as not_allowed:
+            log.error(f"{type(not_allowed).__name__} | No se tienen permisos para leer el archivo: {not_allowed}.")
 
         msg.attach(MIMEText(self.body.with_text, "plain"))
         msg.attach(MIMEText(self.body.with_html, "html"))
