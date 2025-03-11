@@ -48,8 +48,6 @@ class CountDown(ft.Text):
             self.seconds -= 1
         self.value = "00:00"
         self.update()
-        await asyncio.sleep(3)
-        self.page.go("/login")
 
 
 class ResetPasswordPage(ft.Container):
