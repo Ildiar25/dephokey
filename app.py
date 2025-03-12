@@ -28,11 +28,17 @@ async def back_to_login_page(page: ft.Page) -> None:
     log.info("Sesión expirada. Redirigiendo a LOGIN.")
     page.session.clear()
 
-    if isinstance(page.controls[0], Dashboard):
-        # Hide menus
-        page.appbar.visible = False
-        page.bottom_appbar.visible = False
-        page.bgcolor = primaryCorporate100
+    if len(page.controls) != 0:
+        if isinstance(page.controls[0], Dashboard):
+            # Hide menus
+            page.appbar.visible = False
+            page.bottom_appbar.visible = False
+            page.bgcolor = primaryCorporate100
+            page.clean()
+            page.update()
+            page.go("/login")
+            return
+
         page.clean()
         page.update()
         page.go("/login")
