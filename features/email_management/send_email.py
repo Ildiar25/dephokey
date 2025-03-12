@@ -1,9 +1,7 @@
 import smtplib
 
-from features.models.user import User
 from .create_message import CreateMessage, MessageStyle
 
-from shared.utils.masker import mask_number, mask_email
 from shared.logger_setup import main_log as log
 
 
