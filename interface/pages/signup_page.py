@@ -184,7 +184,9 @@ class Signup(ft.Container):
         session.commit()
 
         # Notifies to the user
-        self.snackbar.change_style(msg=f"¡Bienvenido/a {new_user.fullname}!", style=SnackbarStyle.SUCCESS)
+        self.snackbar.change_style(
+            msg=f"¡Bienvenido/a a Dephokey, {new_user.fullname}!\n¡Ahora ya puedes iniciar sesión!",
+            style=SnackbarStyle.SUCCESS)
         self.snackbar.update()
 
         # Report loading page
