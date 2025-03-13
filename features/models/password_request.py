@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from sqlalchemy import ForeignKey
+from sqlalchemy import ForeignKey, String
 
 from data.db_orm import Base
 
@@ -23,21 +23,22 @@ class PasswordRequest(Base):
     __tablename__: str = "password_change_request"
 
     # Column settings
-    id: Mapped[str] = mapped_column(primary_key=True)
-    user_id: Mapped[str] = mapped_column(ForeignKey(column="user.id", ondelete="CASCADE"), nullable=False, index=True)
-    encrypted_code: Mapped[str]
+    id: Mapped[str] = mapped_column(String(15), primary_key=True)
+    user_id: Mapped[str] = mapped_column(
+        String(15), ForeignKey(column="user.id", ondelete="CASCADE"), nullable=False, index=True)
+    encrypted_code: Mapped[str] = mapped_column(String(4100))
     created: Mapped[datetime]
 
     # Relationship settings
     user: Mapped["User"] = relationship(argument="User", back_populates="password_requests")
 
     # Initializer
-    def __init__(self, code: str, user: User) -> None:
+    def __init__(self, code: str, user: "User") -> None:
         super().__init__()
 
         self.id: str = GenerateID.short_id()
         self.encrypted_code: str = encrypt_data(code)
-        self.user: User = user
+        self.user: "User" = user
         self.created: datetime = datetime.today()
 
         # Logs new note

@@ -3,6 +3,7 @@ from enum import Enum
 from hashlib import sha256
 
 from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy import String
 
 from data.db_orm import Base
 
@@ -28,11 +29,11 @@ class User(Base):
     __tablename__: str = "user"
 
     # Column settings
-    id: Mapped[str] = mapped_column(primary_key=True)
+    id: Mapped[str] = mapped_column(String(15), primary_key=True)
     role: Mapped[UserRole]
-    fullname: Mapped[str]
-    email: Mapped[str]
-    hashed_password: Mapped[str]
+    fullname: Mapped[str] = mapped_column(String(250))
+    email: Mapped[str] = mapped_column(String(250))
+    hashed_password: Mapped[str] = mapped_column(String(100))
     created: Mapped[datetime]
 
     # Relationship settings

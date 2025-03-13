@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from sqlalchemy import ForeignKey
+from sqlalchemy import ForeignKey, String
 
 from data.db_orm import Base
 
@@ -23,23 +23,24 @@ class Note(Base):
     __tablename__: str = "note"
 
     # Column settings
-    id: Mapped[str] = mapped_column(primary_key=True)
-    user_id: Mapped[str] = mapped_column(ForeignKey(column="user.id", ondelete="CASCADE"), nullable=False, index=True)
-    title: Mapped[str | None]
-    encrypted_content: Mapped[str]
+    id: Mapped[str] = mapped_column(String(15), primary_key=True)
+    user_id: Mapped[str] = mapped_column(
+        String(15), ForeignKey(column="user.id", ondelete="CASCADE"), nullable=False, index=True)
+    title: Mapped[str | None] = mapped_column(String(250))
+    encrypted_content: Mapped[str] = mapped_column(String(4100))
     created: Mapped[datetime]
 
     # Relationship settings
     user: Mapped["User"] = relationship(argument="User", back_populates="notes")
 
     # Initializer
-    def __init__(self, content: str, user: User, title: str | None = None) -> None:
+    def __init__(self, content: str, user: "User", title: str | None = None) -> None:
         super().__init__()
 
         self.id: str = GenerateID.short_id()
         self.title: str | None = title
         self.encrypted_content: str = encrypt_data(content)
-        self.user: User = user
+        self.user: "User" = user
         self.created: datetime = datetime.today()
 
         # Logs new note

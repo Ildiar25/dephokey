@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from sqlalchemy import ForeignKey
+from sqlalchemy import ForeignKey, String
 
 from data.db_orm import Base
 
@@ -23,19 +23,20 @@ class Site(Base):
     __tablename__: str = "site"
 
     # Column settings
-    id: Mapped[str] = mapped_column(primary_key=True)
-    user_id: Mapped[str] = mapped_column(ForeignKey(column="user.id", ondelete="CASCADE"), nullable=False, index=True)
-    name: Mapped[str | None]
-    address: Mapped[str]
-    username: Mapped[str]
-    encrypted_password: Mapped[str]
+    id: Mapped[str] = mapped_column(String(15), primary_key=True)
+    user_id: Mapped[str] = mapped_column(
+        String(15), ForeignKey(column="user.id", ondelete="CASCADE"), nullable=False, index=True)
+    name: Mapped[str | None] = mapped_column(String(250))
+    address: Mapped[str] = mapped_column(String(4100))
+    username: Mapped[str] = mapped_column(String(250))
+    encrypted_password: Mapped[str] = mapped_column(String(4100))
     created: Mapped[datetime]
 
     # Relationship settings
     user: Mapped["User"] = relationship(argument="User", back_populates="sites")
 
     # Initializer
-    def __init__(self, address: str, username: str, password: str, user: User, name: str | None = None) -> None:
+    def __init__(self, address: str, username: str, password: str, user: "User", name: str | None = None) -> None:
         super().__init__()
 
         self.id: str = GenerateID.short_id()
@@ -43,7 +44,7 @@ class Site(Base):
         self.address: str = address
         self.username: str = username
         self.encrypted_password: str = encrypt_data(password)
-        self.user: User = user
+        self.user: "User" = user
         self.created: datetime = datetime.today()
 
         # Logs new note
