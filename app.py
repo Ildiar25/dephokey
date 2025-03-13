@@ -39,8 +39,6 @@ async def back_to_login_page(page: ft.Page) -> None:
             page.go("/login")
             return
 
-        page.clean()
-        page.update()
         page.go("/login")
 
 
