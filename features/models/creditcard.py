@@ -58,10 +58,11 @@ class CreditCard(Base):
         log.info(f"Instancia de CREDITCARD creada por {repr(mask_email(self.user.email))}.")
 
     def __update_alias(self) -> None:
-        if self.expired and " (caducada)" not in self.alias:
-            self.alias += " (caducada)"
-        else:
-            self.alias = self.alias.replace(" (caducada)", "")
+        if self.alias is not None:
+            if self.expired and " (caducada)" not in self.alias:
+                self.alias += " (caducada)"
+            else:
+                self.alias = self.alias.replace(" (caducada)", "")
 
     def update_expired(self) -> None:
         self.expired = self.valid_until < datetime.today()
