@@ -166,6 +166,7 @@ class CreditCardForm(BaseForm):
         self.creditcard.encrypted_number = encrypt_data(new_number)
         self.creditcard.valid_until = datetime.strptime(new_date, "%m/%y")
         self.creditcard.encrypted_cvc = encrypt_data(new_cvc)
+        self.creditcard.update_expired()
 
         session.commit()
         self.update_changes()
