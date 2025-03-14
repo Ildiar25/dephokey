@@ -8,9 +8,9 @@
 * Models
   * [x] User
   * [x] Site
-  * [x] CreditCard
+  * [x] Credit Card
   * [x] Note
-  * [x] PasswordRequest
+  * [x] Password Request
 
 * Features
   * [x] Data Encryption
@@ -20,9 +20,9 @@
 
 * Database
   * [x] Implement ORM SQLAlchemy
-  * [x] SQLite language
+  * [x] SQLite Language
   * [x] Data Filler
-  * [x] Implement item search
+  * [x] Implement Item Search
 
 * Authentication
   * [x] Roles
@@ -37,17 +37,17 @@
 
 * User Interface
   * [x] Login Page
-  * [x] Signin Page
+  * [x] Sign Up Page
   * [x] Reset Password Page
   * [x] Home Page
-  * [ ] Admin Page
+  * [x] Admin Page
   * [x] About Page
 
 * Navigation
   * [x] Home Content
   * [ ] Admin Content
   * [x] Sites Content
-  * [x] Creditcards Content
+  * [x] Credit Cards Content
   * [x] Notes Content
   * [x] Searchbar Results
   * [x] Settings
@@ -68,7 +68,7 @@
   * [x] Token Generator
 
 * User Session
-  * [x] Session monitoring
+  * [x] Session Monitoring
 
 ---
 
@@ -76,7 +76,7 @@
 
 # Clients (Platform)
 
-Currently, Dephokey is only supported by **Windows Operative System**.
+Currently, Dephokey is only supported by **Windows Operating System**.
 
 * [x] Windows OS
 * [ ] MacOS
@@ -88,97 +88,129 @@ Currently, Dephokey is only supported by **Windows Operative System**.
 # All Models
 
 ### ◈ User
-¿What is?
-Attributes:
-- ID:
-- Role:
-- Fullname:
-- Email:
-- Hashed Password:
-- created:
+This model allows to create a user instance to work with. 
+
+Parameters:
+- ID: str || ID with 15 random characters
+- Role: UserRole || Enum from different roles
+- Fullname: str || The user's name
+- Email: str || The user's email
+- Hashed Password: str || Hashed user's password
+- created: datetime || Timestamp when instance is created
+
+Return:
+- None
 
 Methods:
 - None
 
 ### ◈ Site
-¿What is?
-Properties:
-- ID:
-- Name:
-- Address:
-- Username:
-- Encrypted Password:
-- User:
-- Created:
+This model allows to create a site instance to work with. 
+
+Parameters:
+- ID: str || ID with 15 random characters
+- Name: str | None || The web's name
+- Address: str || Web address
+- Username: str || User's username
+- Encrypted Password: str || Encrypted user's site password
+- User: User || Needs User instance (user session)
+- Created: datetime || Timestamp when instance is created
+
+Return:
+- None
 
 Methods:
 - None
 
 ### ◈ Note
-¿What is?
-Properties:
-- ID:
-- Title:
-- Encrypted Content:
-- User:
-- Created
+This model allows to create a note instance to work with. 
+
+Parameters:
+- ID: str || ID with 15 random characters
+- Title: str | None || Note's title
+- Encrypted Content: str || Encrypted note content
+- User: User || Needs User instance (user session)
+- Created: datetime || Timestamp when instance is created
+
+Return:
+- None
 
 Methods:
 - None
 
-### ◈ CreditCard
-¿What is?
-Properties:
-- ID:
-- Cardholder:
-- Encrypted Number:
-- Encrypted CVC:
-- Valid Until:
-- Expired:
-- Alias:
-- User:
-- Created:
+### ◈ Credit Card
+This model allows to create a credit card instance to work with. 
+
+Parameters:
+- ID: str || ID with 15 random characters
+- Cardholder: str || Credit card owner's name
+- Encrypted Number: str || Encrypted credit card number
+- Encrypted CVC: str || Encrypted credit card CVC
+- Valid Until: datetime || Date when credit card expires
+- Expired: bool || If it is expired, value is equal to True
+- Alias: str | None || Credit card alias
+- User: User || Needs User instance (user session)
+- Created: datetime || Timestamp when instance is created
+
+Return:
+- None
 
 Methods:
 - None
 
-### ◈ PasswordRequest
-¿What is?
-Properties:
-- ID:
-- Encrypted Code:
-- User:
-- Created:
+### ◈ Password Request
+This model allows to create a password request instance to work with. 
+
+Parameters:
+- ID: str || ID with 15 random characters
+- Encrypted Code: str || Encrypted token
+- User: User || Needs User instance (user session)
+- Created: datetime || Timestamp when instance is created
+
+Return:
+- None
 
 Methods:
 - None
 
-### ◈ CreateEmail
-¿What is?
-Properties:
-- ...
+### ◈ Create Message
+This model allows to create a message instance to work with.
+
+Parameters:
+- Style: MessageStyle || Enum from different messages
+- Sender: str || User's email or app email
+- Recipient: str || User's email or app email
+- Subject: str | None || Message title
+- Token: str | None || User's token
+- Name: str | None || User's name
+- Content: str | None || Body message content
+
+Return:
+- MIMEMultipart (CreateMessage) || Message with an image, plain text and HTML variations
 
 Methods:
-- ...
+- Create: Callable[[], MIMEMultipart] || Returns a MIMEMultipart message object
 
 ### ◈ SendEmail
-¿What is?
-Properties:
-- ...
+This model allows to send a message.
+
+Attributes:
+- Host: str || The host name or IP
+- Port: int || Just the port
+- Message: CreateMessage || The message itself
 
 Methods:
-- ...
-
----
+- Send: Callable[[], bool] || Tries to connect with the given server and send the email. If sending is successful, 
+  returns True, otherwise returns False.
 
 ---
 
 # Future Changes
-* [ ] Add modify date to main models.
-* [ ] Add a generic Key on Keyring. Each user will have its own encrypted key by using Generic Key.
-* [ ] Admin can change creation & modify date.
-* [ ] Send welcome mail and verify user email.
+* [ ] Add modification date to main models.
+* [ ] Add a main key in the system's keyring. Each user will have its own encrypted key by using main key.
+* [ ] Admin can change creation & modification date.
+* [ ] Send a welcome email and verify user email.
 * [ ] Create Login class. Add third-party credentials to login (as Google, GitHub and others).
 * [ ] Save database on system's directory.
-* [ ] Add many creditcard types (as Debit or Credit).
+* [ ] Support multiple credit card types (as Debit or Credit).
 * [ ] Add password security level.
