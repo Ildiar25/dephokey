@@ -98,7 +98,7 @@ class AdminPage(ft.Column):
         self.n_title = CustomTextField(hint_text="Añade un título", max_length=25)
         self.n_content = CustomTextField(
             hint_text="Agrega contenido importante", can_reveal_password=True,
-            password=True, max_lines=4, min_lines=4, max_length=324
+            password=True, max_lines=5, min_lines=5, max_length=324
         )
         self.n_submit = CustomElevatedButton(name="Añadir nota", style=ButtonStyle.ICON, on_click=self.add_new_note)
 
@@ -111,7 +111,7 @@ class AdminPage(ft.Column):
 
         # Admin Forms
         self.user_form = ft.Container(
-            height=600,
+            height=632,
             expand=True,
             bgcolor=bgGeneralFormColor,
             border_radius=4,
@@ -155,7 +155,7 @@ class AdminPage(ft.Column):
             )
         )
         self.site_form = ft.Container(
-            height=600,
+            height=632,
             expand=True,
             bgcolor=bgGeneralFormColor,
             border_radius=4,
@@ -208,7 +208,7 @@ class AdminPage(ft.Column):
             )
         )
         self.creditcard_form = ft.Container(
-            height=600,
+            height=632,
             expand=True,
             bgcolor=bgGeneralFormColor,
             border_radius=4,
@@ -267,7 +267,7 @@ class AdminPage(ft.Column):
             )
         )
         self.note_form = ft.Container(
-            height=600,
+            height=632,
             expand=True,
             bgcolor=bgGeneralFormColor,
             border_radius=4,
