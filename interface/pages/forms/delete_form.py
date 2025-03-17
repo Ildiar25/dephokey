@@ -10,7 +10,7 @@ from features.models.user import User
 from features.models import *
 
 from .base_form import BaseForm
-from interface.controls import CustomElevatedButton, ButtonStyle, Snackbar, SnackbarStyle
+from interface.controls import CustomElevatedButton, ButtonStyle, Snackbar
 from interface.pages.loading_page import LoadingPage
 
 from shared.utils.colors import *

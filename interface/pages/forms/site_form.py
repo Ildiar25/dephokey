@@ -1,5 +1,6 @@
 import flet as ft
 from typing import Callable
+from types import NoneType
 
 from data.db_orm import session
 
@@ -17,18 +18,20 @@ from shared.utils.colors import *
 class SiteForm(BaseForm):
     def __init__(self,
                  title: str, page: ft.Page, style: FormStyle, snackbar: Snackbar | None = None,
-                 site: Site | None = None, update_changes: Callable[[], None] = None) -> None:
+                 site: Site | None = None, update_changes: Callable[[], None] = None,
+                 update_dropdown: Callable[[], None] | None = None) -> None:
         super().__init__()
 
         # General attributes
         self.page = page
         self.snackbar = snackbar
         self.style = style
-        self.site = site
-        self.update_changes = update_changes
 
         # Form attributes
         self.user: User = self.page.session.get("session")
+        self.site = site
+        self.update_changes = update_changes
+        self.update_dropdown = update_dropdown
 
         # Form fields
         self.s_name = CustomTextField(hint_text="Dale un nombre a la dirección web",
@@ -153,6 +156,8 @@ class SiteForm(BaseForm):
 
         session.commit()
         self.update_changes()
+        if not isinstance(self.update_dropdown, NoneType):
+            self.update_dropdown()
         self.page.close(self)
 
     def __add_site(self, _: ft.ControlEvent) -> None:

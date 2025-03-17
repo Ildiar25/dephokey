@@ -1,5 +1,6 @@
 import flet as ft
 from typing import Callable
+from types import NoneType
 from datetime import datetime
 
 from data.db_orm import session
@@ -19,25 +20,27 @@ from shared.utils.colors import *
 class CreditCardForm(BaseForm):
     def __init__(self,
                  title: str, page: ft.Page, style: FormStyle, snackbar: Snackbar | None = None,
-                 creditcard: CreditCard | None = None, update_changes: Callable[[], None] = None) -> None:
+                 creditcard: CreditCard | None = None, update_changes: Callable[[], None] = None,
+                 update_dropdown: Callable[[], None] | None = None) -> None:
         super().__init__()
 
         # General attributes
         self.page = page
         self.snackbar = snackbar
         self.style = style
-        self.creditcard = creditcard
-        self.update_changes = update_changes
 
         # Form attributes
         self.user: User = self.page.session.get("session")
+        self.creditcard = creditcard
+        self.update_changes = update_changes
+        self.update_dropdown = update_dropdown
 
         # Form fields
         self.cc_alias = CustomTextField(hint_text="Agrega un alias",
-            on_change=self.__update_field_inputs
+            on_change=self.__update_field_inputs, max_length=30
         )
         self.cc_holder = CustomTextField(hint_text="Introduce el nombre del titular",
-            on_change=self.__update_field_inputs
+            on_change=self.__update_field_inputs, max_length=30
         )
         self.cc_number = CustomTextField(hint_text="Añade el número de tarjeta", can_reveal_password=True,
             max_length=19, password=True, input_filter=ft.NumbersOnlyInputFilter(),
@@ -170,6 +173,8 @@ class CreditCardForm(BaseForm):
 
         session.commit()
         self.update_changes()
+        if not isinstance(self.update_dropdown, NoneType):
+            self.update_dropdown()
         self.page.close(self)
 
 
