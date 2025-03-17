@@ -34,7 +34,8 @@ class CustomElevatedButton(ft.ElevatedButton):
                 self.bgcolor = {
                     ft.ControlState.DISABLED: bgDissabledEButtonColor,
                     ft.ControlState.DEFAULT: bgEButtonColor,
-                    ft.ControlState.HOVERED: bgHoverEButtonColor
+                    ft.ControlState.HOVERED: bgHoverEButtonColor,
+                    ft.ControlState.FOCUSED: bgHoverEButtonColor
                 }
                 self.style = ft.ButtonStyle(
                     padding={
