@@ -7,7 +7,8 @@ from features.models import *
 from features.data_encryption.core import decrypt_data
 
 from interface.controls import IconLink, IconLinkStyle
-from interface.pages.forms import DeleteForm, DeleteFormStyle
+from interface.pages.forms.base_form import FormStyle
+from interface.pages.forms import DeleteForm, DeleteFormStyle, SiteForm, CreditCardForm, NoteForm, UserForm, ResetPasswordForm
 
 
 class RowStyle(Enum):
@@ -118,15 +119,33 @@ class AdminRow(ft.Container):
     def open_edit_item_form(self, _: ft.ControlEvent) -> None:
         match self.style:
             case RowStyle.USER:
-                pass
+                self.page.open(
+                    UserForm(title=f"Editando {self.item.fullname}", user=self.item, page=self.page,
+                             style=FormStyle.EDIT, update_changes=self.update_appearance,
+                             update_dropdown=self.update_dropdown)
+                )
             case RowStyle.SITE:
-                pass
+                self.page.open(
+                    SiteForm(title=f"Editando {self.item.name}", site= self.item, page=self.page, style=FormStyle.EDIT,
+                             update_changes=self.update_appearance, update_dropdown=self.update_dropdown)
+                )
             case RowStyle.CREDITCARD:
-                pass
+                self.page.open(
+                    CreditCardForm(title=f"Editando {self.item.alias}", page=self.page, style=FormStyle.EDIT,
+                                   update_changes=self.update_appearance, update_dropdown=self.update_dropdown,
+                                   creditcard=self.item)
+                )
             case RowStyle.NOTE:
-                pass
+                self.page.open(
+                    NoteForm(title=f"Editando {self.item.title}", page=self.page, style=FormStyle.EDIT, note=self.item,
+                             update_changes=self.update_appearance, update_dropdown=self.update_dropdown)
+                )
             case RowStyle.PASS_REQUEST:
-                pass
+                self.page.open(
+                    ResetPasswordForm(title="Editando Token", page=self.page, style=FormStyle.EDIT,
+                                      password_request=self.item, update_changes=self.update_appearance,
+                                      update_dropdown=self.update_dropdown)
+                )
 
     def open_delete_form(self, _: ft.ControlEvent) -> None:
         match self.style:
