@@ -74,7 +74,8 @@ class CustomElevatedButton(ft.ElevatedButton):
                 self.bgcolor = {
                     ft.ControlState.DISABLED: bgDissabledEButtonColor,
                     ft.ControlState.DEFAULT: bgEButtonColor,
-                    ft.ControlState.HOVERED: bgHoverEButtonColor
+                    ft.ControlState.HOVERED: bgHoverEButtonColor,
+                    ft.ControlState.FOCUSED: bgHoverEButtonColor
                 }
                 self.style = ft.ButtonStyle(
                     padding={
@@ -112,7 +113,8 @@ class CustomElevatedButton(ft.ElevatedButton):
                 self.bgcolor = {
                     ft.ControlState.DISABLED: bgDissabledEButtonColor,
                     ft.ControlState.DEFAULT: transparentColor,
-                    ft.ControlState.HOVERED: bgHoverEButtonColor
+                    ft.ControlState.HOVERED: bgHoverEButtonColor,
+                    ft.ControlState.FOCUSED: bgHoverEButtonColor
                 }
                 self.style = ft.ButtonStyle(
                     padding={
@@ -155,7 +157,8 @@ class CustomElevatedButton(ft.ElevatedButton):
                 self.bgcolor = {
                     ft.ControlState.DISABLED: bgDissabledEButtonColor,
                     ft.ControlState.DEFAULT: transparentColor,
-                    ft.ControlState.HOVERED: bgDissabledEButtonColor
+                    ft.ControlState.HOVERED: bgDissabledEButtonColor,
+                    ft.ControlState.FOCUSED: bgDissabledEButtonColor
                 }
                 self.style = ft.ButtonStyle(
                     padding={
@@ -193,7 +196,8 @@ class CustomElevatedButton(ft.ElevatedButton):
                 self.bgcolor = {
                     ft.ControlState.DISABLED: bgDissabledEButtonColor,
                     ft.ControlState.DEFAULT: neutralDangerMedium,
-                    ft.ControlState.HOVERED: neutralDangerDark
+                    ft.ControlState.HOVERED: neutralDangerDark,
+                    ft.ControlState.FOCUSED: neutralDangerDark
                 }
                 self.style = ft.ButtonStyle(
                     padding={
