@@ -5,7 +5,6 @@ from hashlib import sha256
 
 from data.db_orm import session
 
-from features.data_encryption.core import decrypt_data, encrypt_data
 from features.models.user import User
 from shared.validate import Validate
 
