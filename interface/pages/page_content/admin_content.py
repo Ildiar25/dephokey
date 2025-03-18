@@ -1,17 +1,27 @@
-import flet as ft
-from typing import Callable, List
+from collections.abc import Callable
 from datetime import datetime
 
+import flet as ft
+
 from data.db_orm import session
-
+from features.models import CreditCard, Note, PasswordRequest, Site
 from features.models.user import User, UserRole
-from features.models import *
-
-from interface.controls import Snackbar, CustomTextField, CustomSwitch, CustomElevatedButton, ButtonStyle, SnackbarStyle
-from interface.pages.widgets import AdminRow, RowStyle
-
+from interface.controls import CustomElevatedButton, CustomSwitch, CustomTextField
+from interface.controls.e_button import ButtonStyle
+from interface.controls.snackbar import Snackbar, SnackbarStyle
+from interface.pages.widgets import AdminRow
+from interface.pages.widgets.admin_row import RowStyle
+from shared.utils.colors import (
+    accentTextColor,
+    bgGeneralFormColor,
+    dangerTextColor,
+    neutral20,
+    neutral80,
+    primaryCorporateColor,
+    primaryTextColor,
+    secondaryTextColor,
+)
 from shared.validate import Validate
-from shared.utils.colors import *
 
 
 class AdminPage(ft.Column):
@@ -24,11 +34,11 @@ class AdminPage(ft.Column):
         self.update_changes = update_changes
 
         # Admin attributes
-        self.users: List[User] = []
-        self.sites: List[Site] = []
-        self.creditcards: List[CreditCard] = []
-        self.notes: List[Note] = []
-        self.pass_requests: List[PasswordRequest] = []
+        self.users: list[User] = []
+        self.sites: list[Site] = []
+        self.creditcards: list[CreditCard] = []
+        self.notes: list[Note] = []
+        self.pass_requests: list[PasswordRequest] = []
         self.span = ft.TextSpan(text="*", style=ft.TextStyle(font_family="AlbertSansB", color=dangerTextColor))
         self.site_dropdown = ft.Dropdown(
             label="Selecciona un correo",
@@ -644,8 +654,8 @@ class AdminPage(ft.Column):
         self.update_content()
         self.update_dropdown()
 
-    def __populate_rows(self, users: List[User], sites: List[Site], creditcards: List[CreditCard],
-                        notes: List[Note], pass_requests: List[PasswordRequest]) -> None:
+    def __populate_rows(self, users: list[User], sites: list[Site], creditcards: list[CreditCard],
+                        notes: list[Note], pass_requests: list[PasswordRequest]) -> None:
         self.__clear_rows()
         for user in users:
             self.user_rows.controls.append(

@@ -1,9 +1,16 @@
-import flet as ft
 from enum import Enum
 
-from interface.controls import CustomElevatedButton, ButtonStyle
+import flet as ft
 
-from shared.utils.colors import *
+from interface.controls import CustomElevatedButton
+from interface.controls.e_button import ButtonStyle
+from shared.utils.colors import (
+    bgGeneralFormColor,
+    dangerTextColor,
+    hoverIconGeneralFormColor,
+    iconAccentGeneralFormColor,
+    selectedIconGeneralFormColor,
+)
 
 
 class FormStyle(Enum):

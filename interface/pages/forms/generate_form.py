@@ -1,13 +1,16 @@
-from string import ascii_lowercase, ascii_uppercase, digits, punctuation
-from faker import Faker
-import flet as ft
 import random
+from string import ascii_lowercase, ascii_uppercase, digits, punctuation
+
+import flet as ft
+from faker import Faker
+
+from interface.controls import CustomElevatedButton, CustomSwitch, CustomTextField, IconLink
+from interface.controls.e_button import ButtonStyle
+from interface.controls.iconlink import IconLinkStyle
+from shared.logger_setup import main_log as log
+from shared.utils.colors import primaryTextColor
 
 from .base_form import BaseForm, FormStyle
-from interface.controls import CustomElevatedButton, ButtonStyle, CustomSwitch, CustomTextField, IconLink, IconLinkStyle
-
-from shared.logger_setup import main_log as log
-from shared.utils.colors import *
 
 
 class GenerateForm(BaseForm):

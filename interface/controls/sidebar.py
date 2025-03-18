@@ -1,13 +1,14 @@
 import flet as ft
 
 from features.models.user import User, UserRole
-
-from interface.controls import *
-from interface.pages.forms import FormStyle, SiteForm, CreditCardForm, NoteForm, GenerateForm
+from interface.controls import CustomElevatedButton
+from interface.controls.e_button import ButtonStyle
+from interface.controls.snackbar import Snackbar
 from interface.pages.content_manager import BodyContent, ContentStyle
-
+from interface.pages.forms import CreditCardForm, GenerateForm, NoteForm, SiteForm
+from interface.pages.forms.base_form import FormStyle
 from shared.logger_setup import main_log as log
-from shared.utils.colors import *
+from shared.utils.colors import bgSidebarColor, iconSidebarColor, selectSidebarColor, textSidebarColor
 
 
 class CustomSidebar(ft.NavigationRail):

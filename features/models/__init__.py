@@ -1,6 +1,11 @@
-from .note import Note
-from .site import Site
 from .creditcard import CreditCard
+from .note import Note
 from .password_request import PasswordRequest
+from .site import Site
 
-__all__ = ["Note", "Site", "CreditCard", "PasswordRequest"]
+__all__ = [
+    "CreditCard",
+    "Note",
+    "PasswordRequest",
+    "Site",
+]

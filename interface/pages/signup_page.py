@@ -1,17 +1,17 @@
-import flet as ft
 import time
 
+import flet as ft
+
 from data.db_orm import session
-
 from features.models.user import User
-
+from interface.controls import CustomElevatedButton, CustomTextField, TextLink
+from interface.controls.e_button import ButtonStyle
+from interface.controls.snackbar import Snackbar, SnackbarStyle
 from interface.pages.loading_page import LoadingPage
-from interface.controls import *
-
-from shared.validate import Validate
 from shared.logger_setup import main_log as log
+from shared.utils.colors import accentTextColor, bgGeneralFormColor
 from shared.utils.masker import mask_email, mask_password
-from shared.utils.colors import *
+from shared.validate import Validate
 
 
 class Signup(ft.Container):

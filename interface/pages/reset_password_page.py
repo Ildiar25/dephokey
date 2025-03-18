@@ -1,25 +1,24 @@
+import asyncio
+import datetime
 from datetime import timedelta
 
 import flet as ft
-import datetime
-import asyncio
 
 from data.db_orm import session
-
-from features.models.user import User
-from features.models import PasswordRequest
+from features.data_encryption.core import decrypt_data
 from features.email_management.create_message import MessageStyle
 from features.email_management.send_email import SendEmail
-from features.data_encryption.core import decrypt_data
-
-from interface.pages.forms.base_form import FormStyle
+from features.models import PasswordRequest
+from features.models.user import User
+from interface.controls import CustomElevatedButton, CustomTextField
+from interface.controls.e_button import ButtonStyle
+from interface.controls.snackbar import Snackbar, SnackbarStyle
 from interface.pages.forms import ChangePasswordForm
-from interface.controls import *
-
-from shared.logger_setup import main_log as log
-from shared.utils.colors import *
-from shared.validate import Validate
+from interface.pages.forms.base_form import FormStyle
 from shared.generators import GenerateToken
+from shared.logger_setup import main_log as log
+from shared.utils.colors import accentTextColor, bgGeneralFormColor, neutral10, neutral20, primaryCorporateColor
+from shared.validate import Validate
 
 
 class CountDown(ft.Text):

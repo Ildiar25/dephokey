@@ -1,12 +1,12 @@
 import flet as ft
 
-from features.models.user import UserRole, User
-
+from features.models.user import User, UserRole
+from interface.controls.appbar import CustomAppbar
+from interface.controls.sidebar import CustomSidebar
+from interface.controls.snackbar import Snackbar
 from interface.pages.content_manager import BodyContent, ContentStyle
-from interface.controls import CustomAppbar, CustomSidebar, Snackbar
-
 from shared.logger_setup import main_log as log
-from shared.utils.colors import *
+from shared.utils.colors import bgSidebarColor, neutral05
 
 
 class Dashboard(ft.Container):

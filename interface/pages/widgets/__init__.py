@@ -1,6 +1,11 @@
-from .site_widget import SiteWidget
-from .note_widget import NoteWidget
+from .admin_row import AdminRow
 from .creditcard_widget import CreditCardWidget
-from .admin_row import AdminRow, RowStyle
+from .note_widget import NoteWidget
+from .site_widget import SiteWidget
 
-__all__ = ["SiteWidget", "NoteWidget", "CreditCardWidget", "AdminRow", "RowStyle"]
+__all__ = [
+    "AdminRow",
+    "CreditCardWidget",
+    "NoteWidget",
+    "SiteWidget",
+]

@@ -1,13 +1,21 @@
+from collections.abc import Callable
+
 import flet as ft
-from typing import Callable
 
-from features.email_management.send_email import SendEmail
 from features.email_management.create_message import MessageStyle
+from features.email_management.send_email import SendEmail
 from features.models.user import User
-
-from interface.controls import Snackbar, SnackbarStyle, CustomTextField, CustomElevatedButton, ButtonStyle, TextLink
-
-from shared.utils.colors import *
+from interface.controls import CustomElevatedButton, CustomTextField, TextLink
+from interface.controls.e_button import ButtonStyle
+from interface.controls.snackbar import Snackbar, SnackbarStyle
+from shared.utils.colors import (
+    accentTextColor,
+    bgGeneralFormColor,
+    dangerTextColor,
+    neutral80,
+    primaryTextColor,
+    secondaryTextColor,
+)
 
 
 class AboutPage(ft.Row):

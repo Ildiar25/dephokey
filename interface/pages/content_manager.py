@@ -1,14 +1,21 @@
-import flet as ft
-from typing import List, Union
 from enum import Enum
 
+import flet as ft
+
 from features.models.user import User
-
 from interface.controls.snackbar import Snackbar
-from interface.pages.page_content import *
-
+from interface.pages.page_content import (
+    AboutPage,
+    AdminPage,
+    CreditcCardsPage,
+    HomePage,
+    NotesPage,
+    ResultsPage,
+    SettingsPage,
+    SitesPage,
+)
 from shared.logger_setup import main_log as log
-from shared.utils.colors import *
+from shared.utils.colors import primaryTextColor
 
 
 class ContentStyle(Enum):
@@ -25,7 +32,7 @@ class ContentStyle(Enum):
 
 class BodyContent(ft.Column):
     def __init__(self, page: ft.Page, snackbar: Snackbar, style: ContentStyle = ContentStyle.EMPTY,
-                 title: str = "", buttons: Union[List[ft.Control], None] = None) -> None:
+                 title: str = "", buttons: list[ft.Control] | None = None) -> None:
         super().__init__()
 
         # General attributes
@@ -143,7 +150,7 @@ class BodyContent(ft.Column):
                 self.header.controls[1].controls.clear()
                 self.body.controls.clear()
 
-    def change_content(self, title: str, style: ContentStyle, buttons: Union[List[ft.Control], None] = None) -> None:
+    def change_content(self, title: str, style: ContentStyle, buttons: list[ft.Control] | None = None) -> None:
         self.style = style
         self.title.value = title
         self.header.controls[1].controls = buttons

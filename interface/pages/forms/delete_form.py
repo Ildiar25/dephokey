@@ -1,19 +1,21 @@
-import flet as ft
-from enum import Enum
-from typing import Union, Callable
-from types import NoneType
 import time
+from collections.abc import Callable
+from enum import Enum
+from types import NoneType
+from typing import Union
+
+import flet as ft
 
 from data.db_orm import session
-
+from features.models import CreditCard, Note, PasswordRequest, Site
 from features.models.user import User
-from features.models import *
+from interface.controls import CustomElevatedButton
+from interface.controls.e_button import ButtonStyle
+from interface.controls.snackbar import Snackbar
+from interface.pages.loading_page import LoadingPage
+from shared.utils.colors import primaryCorporate100, primaryTextColor
 
 from .base_form import BaseForm
-from interface.controls import CustomElevatedButton, ButtonStyle, Snackbar
-from interface.pages.loading_page import LoadingPage
-
-from shared.utils.colors import *
 
 
 class DeleteFormStyle(Enum):

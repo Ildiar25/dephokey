@@ -1,20 +1,19 @@
-import flet as ft
-from typing import Callable
-from types import NoneType
+from collections.abc import Callable
 from datetime import datetime
+from types import NoneType
+
+import flet as ft
 
 from data.db_orm import session
-
 from features.data_encryption.core import decrypt_data, encrypt_data
-from features.models.user import User
 from features.models import CreditCard
+from features.models.user import User
+from interface.controls import CustomTextField
+from interface.controls.snackbar import Snackbar, SnackbarStyle
+from shared.utils.colors import primaryTextColor
+from shared.validate import Validate
 
 from .base_form import BaseForm, FormStyle
-from interface.controls import CustomTextField, Snackbar, SnackbarStyle
-
-from shared.validate import Validate
-from shared.utils.colors import *
-
 
 
 class CreditCardForm(BaseForm):

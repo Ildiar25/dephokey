@@ -1,12 +1,11 @@
-import flet as ft
 import time
 
-from features.models.user import User, UserRole
+import flet as ft
 
+from features.models.user import User, UserRole
 from interface.controls.searchbar import CustomSearchBar
 from interface.pages.content_manager import BodyContent, ContentStyle
 from interface.pages.loading_page import LoadingPage
-
 from shared.logger_setup import main_log as log
 from shared.utils.colors import *
 

@@ -1,17 +1,17 @@
-import flet as ft
 import random
 from hashlib import sha256
 from string import ascii_letters, digits
 
-from data.db_orm import session
+import flet as ft
 
+from data.db_orm import session
 from features.models.user import User
+from interface.controls import CustomTextField, TextLink
+from interface.controls.snackbar import Snackbar, SnackbarStyle
+from shared.utils.colors import primaryTextColor
+from shared.validate import Validate
 
 from .base_form import BaseForm, FormStyle
-from interface.controls import Snackbar, SnackbarStyle, CustomTextField, TextLink
-
-from shared.validate import Validate
-from shared.utils.colors import *
 
 
 class ChangePasswordForm(BaseForm):

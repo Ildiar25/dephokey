@@ -1,18 +1,18 @@
-import flet as ft
-from typing import Callable
+from collections.abc import Callable
 from types import NoneType
 
-from data.db_orm import session
+import flet as ft
 
+from data.db_orm import session
 from features.data_encryption.core import decrypt_data, encrypt_data
-from features.models.user import User
 from features.models import Site
+from features.models.user import User
+from interface.controls import CustomTextField
+from interface.controls.snackbar import Snackbar, SnackbarStyle
+from shared.utils.colors import primaryTextColor
+from shared.validate import Validate
 
 from .base_form import BaseForm, FormStyle
-from interface.controls import CustomTextField, Snackbar, SnackbarStyle
-
-from shared.validate import Validate
-from shared.utils.colors import *
 
 
 class SiteForm(BaseForm):

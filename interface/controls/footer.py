@@ -1,6 +1,6 @@
 import flet as ft
 
-from shared.utils.colors import *
+from shared.utils.colors import bgFooterColor, textFooterColor
 
 
 class Footer(ft.BottomAppBar):
