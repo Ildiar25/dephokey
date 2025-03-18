@@ -1,15 +1,13 @@
-import flet as ft
 import asyncio
 
+import flet as ft
+
 from data.db_orm import Base, engine
-
 from features.data_filler.filler_settings import fill_with_users
-
-from interface.pages import *
 from interface.controls.footer import Footer
-
-from shared.utils.colors import *
+from interface.pages import Dashboard, Login, ResetPasswordPage, Signup
 from shared.logger_setup import main_log as log
+from shared.utils.colors import primaryCorporate100
 
 
 async def check_session_is_expired(page: ft.Page) -> None:
@@ -56,7 +54,7 @@ def main(page: ft.Page) -> None:
         "AlbertSansB": "interface/assets/fonts/albert-sans/albert-sans-bold.ttf",
         "AlbertSansL": "interface/assets/fonts/albert-sans/albert-sans-light.ttf",
         "AlbertSansI": "interface/assets/fonts/albert-sans/albert-sans-italic.ttf",
-        "IcelandR": "interface/assets/fonts/iceland/iceland-regular.ttf"
+        "IcelandR": "interface/assets/fonts/iceland/iceland-regular.ttf",
     }
 
     # Page design
@@ -68,7 +66,8 @@ def main(page: ft.Page) -> None:
 
     # Page behavior
     page.theme = ft.Theme(
-        font_family="AlbertSansR", page_transitions=ft.PageTransitionsTheme(ft.PageTransitionTheme.NONE)
+        font_family="AlbertSansR",
+        page_transitions=ft.PageTransitionsTheme(ft.PageTransitionTheme.NONE),
     )
 
     # Page elements
