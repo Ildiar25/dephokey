@@ -1,5 +1,4 @@
 import flet as ft
-import time
 
 from data.db_orm import session
 
@@ -8,10 +7,8 @@ from features.models.user import User
 from interface.controls import CustomElevatedButton, ButtonStyle, CustomTextField, Snackbar, SnackbarStyle
 from interface.pages.forms.base_form import FormStyle
 from interface.pages.forms import ChangePasswordForm, DeleteForm, DeleteFormStyle
-from interface.pages.loading_page import LoadingPage
 
 from shared.validate import Validate
-from shared.logger_setup import main_log as log
 from shared.utils.colors import *
 
 
@@ -57,6 +54,7 @@ class SettingsPage(ft.Row):
                                 )
                             ]
                         ),
+                        ft.Divider(color=transparentColor),
                         ft.Row(
                             controls=[
                                 ft.Column(
@@ -77,6 +75,7 @@ class SettingsPage(ft.Row):
                                 )
                             ]
                         ),
+                        ft.Column(expand=True),
                         ft.Row(
                             alignment=ft.MainAxisAlignment.END,
                             controls=[
@@ -108,9 +107,11 @@ class SettingsPage(ft.Row):
                                 )
                             ]
                         ),
+                        ft.Divider(color=transparentColor),
                         ft.Row(
                             controls=[
                                 ft.Column(
+                                    alignment=ft.MainAxisAlignment.START,
                                     expand=True,
                                     spacing=8,
                                     controls=[
@@ -119,32 +120,21 @@ class SettingsPage(ft.Row):
                                             size=16, color=primaryTextColor
                                         ),
                                         ft.Row(controls=[self.password]),
-                                        ft.Text(
-                                            value="", font_family="AlbertSansL",
-                                            size=16, color=primaryTextColor
-                                        ),
-                                        ft.Row(
-                                            alignment=ft.MainAxisAlignment.END,
-                                            controls=[
-                                                CustomElevatedButton(
-                                                    name="Cambiar contraseña", style=ButtonStyle.CANCEL,
-                                                    on_click=self.__change_password
-                                                )
-                                            ]
-                                        )
                                     ]
                                 )
                             ]
                         ),
+                        ft.Column(expand=True),
                         ft.Row(
                             alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
                             controls=[
-                                ft.Text(
-                                    value="Cuenta", size=24, color=accentTextColor
-                                ),
                                 CustomElevatedButton(
                                     name="Eliminar cuenta", style=ButtonStyle.DEFAULT,
                                     on_click=self.__open_delete_form
+                                ),
+                                CustomElevatedButton(
+                                    name="Cambiar contraseña", style=ButtonStyle.CANCEL,
+                                    on_click=self.__change_password
                                 )
                             ]
                         )
