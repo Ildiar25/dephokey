@@ -96,7 +96,7 @@ class CustomSidebar(ft.NavigationRail):
         # Sidebar design
         self.bgcolor = bgSidebarColor
         self.indicator_color = selectSidebarColor
-        self.indicator_shape = ft.RoundedRectangleBorder(2)
+        self.indicator_shape = ft.RoundedRectangleBorder(4)
         self.expand = True
 
         # Destinations

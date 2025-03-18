@@ -134,7 +134,8 @@ class ResetPasswordPage(ft.Container):
                             icon_color=primaryCorporateColor,
                             on_click=self.__go_back,
                             highlight_color=neutral20,
-                            hover_color=neutral10
+                            hover_color=neutral10,
+                            focus_color=neutral10
                         )
                     ]
                 ),

@@ -64,14 +64,16 @@ class CustomAppbar(ft.AppBar):
                             icon_color=iconAppbarColor,
                             on_click=self.show_settings,
                             highlight_color=selectedIconAppbarColor,
-                            hover_color=neutral60
+                            hover_color=neutral60,
+                            focus_color=neutral60
                         ),
                         ft.IconButton(
                             ft.Icons.EXIT_TO_APP_ROUNDED,
                             icon_color=iconAppbarColor,
                             on_click=self.logout,
                             highlight_color=selectedIconAppbarColor,
-                            hover_color=neutral60
+                            hover_color=neutral60,
+                            focus_color=neutral60
                         )
                     ]
                 )
@@ -87,6 +89,7 @@ class CustomAppbar(ft.AppBar):
                 on_click=self.go_back,
                 highlight_color=neutral20,
                 hover_color=neutral10,
+                focus_color=neutral10,
                 visible=False if self.user.role == UserRole.CLIENT else True
             )
         ]
