@@ -1,4 +1,6 @@
 import datetime
+import random
+from datetime import timedelta
 
 from faker import Faker
 
@@ -8,27 +10,47 @@ from features.models.note import Note
 from features.models.site import Site
 from features.models.user import User, UserRole
 from shared.logger_setup import main_log as log
+from shared.validate import Validate
+
+FAKE = Faker('es_ES')
+
+
+def test_number_validation() -> str:
+    number = ""
+    while not Validate.is_valid_creditcard_number(number):
+        number = FAKE.credit_card_number()
+    return number
 
 
 def fill_with_data(user: User) -> None:
     log.info(f"Añadiendo elementos de prueba al usuario {user.email}...")
-    fake = Faker('es_ES')
+
     some_sites = []
     for _ in range(10):
         some_sites.append(
-            Site(address=fake.url(), username=user.email, password=fake.password(length=12),
-                 user=user, name=fake.domain_name().capitalize())
+            Site(
+                address=FAKE.url(),
+                username=user.email,
+                password=FAKE.password(length=18, special_chars=False),
+                user=user,
+                name=FAKE.domain_name().capitalize()
+            )
         )
     session.add_all(some_sites)
 
     some_cards = []
     for _ in range(10):
-        fake_date = fake.date_time_between(datetime.datetime(year=2020, month=1, day=1), datetime.datetime(year=2040,
-                                                                                                      month=1, day=1))
+        fake_date = FAKE.date_time_between(
+            datetime.datetime.today() - timedelta(weeks=260),
+            datetime.datetime.today() + timedelta(weeks=260)
+        )
         some_cards.append(
             CreditCard(
-                cardholder=fake.name().title(), number=fake.credit_card_number(),
-                cvc=fake.credit_card_security_code(), user=user, alias=fake.word().capitalize(),
+                cardholder=FAKE.name().title(),
+                number=test_number_validation(),
+                cvc=str(random.randint(a=100, b=9999)),
+                user=user,
+                alias=FAKE.word().capitalize(),
                 valid_until=fake_date
             )
         )
@@ -37,17 +59,24 @@ def fill_with_data(user: User) -> None:
     some_notes = []
     for _ in range(10):
         some_notes.append(
-            Note(content=fake.text(), user=user, title=fake.name().capitalize())
+            Note(
+                content=FAKE.text(max_nb_chars=324),
+                user=user,
+                title=FAKE.word().capitalize()
+            )
         )
     session.add_all(some_notes)
 
+    # Save changes
     session.commit()
 
 
 def create_admin_account() -> None:
     admin = User(
-        fullname="Jefazo Administrativo Supremo", email="admin.24@gmail.com",
-        password="Admin1234", user_role=UserRole.ADMIN
+        fullname="Sergio Administrativo Muñoz",
+        email="admin.24@gmail.com",
+        password="Admin1234",
+        user_role=UserRole.ADMIN
     )
     session.add(admin)
     session.commit()
@@ -55,8 +84,10 @@ def create_admin_account() -> None:
 
 def create_client_account() -> None:
     client = User(
-        fullname="Cliente Tester Morenazo", email="client.24@gmail.com",
-        password="Client1234", user_role=UserRole.CLIENT
+        fullname="Manuel Tester García",
+        email="client.24@gmail.com",
+        password="Client1234",
+        user_role=UserRole.CLIENT
     )
     session.add(client)
     session.commit()
