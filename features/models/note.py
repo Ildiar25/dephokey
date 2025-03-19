@@ -24,29 +24,41 @@ class Note(Base):
     # Column settings
     id: Mapped[str] = mapped_column(String(15), primary_key=True)
     user_id: Mapped[str] = mapped_column(
-        String(15), ForeignKey(column="user.id", ondelete="CASCADE"), nullable=False, index=True)
+        String(15),
+        ForeignKey(column="user.id", ondelete="CASCADE"),
+        nullable=False,
+        index=True
+    )
     title: Mapped[str | None] = mapped_column(String(250))
     encrypted_content: Mapped[str] = mapped_column(String(4100))
     created: Mapped[datetime]
 
     # Relationship settings
-    user: Mapped["User"] = relationship(argument="User", back_populates="notes")
+    user: Mapped[User] = relationship(
+        argument="User",
+        back_populates="notes"
+    )
 
     # Initializer
-    def __init__(self, content: str, user: "User", title: str | None = None) -> None:
+    def __init__(self, content: str, user: User, title: str | None = None) -> None:
         super().__init__()
 
         self.id: str = GenerateID.short_id()
         self.title: str | None = title
         self.encrypted_content: str = encrypt_data(content)
-        self.user: "User" = user
+        self.user: User = user
         self.created: datetime = datetime.today()
 
         # Logs new note
         log.info(f"Instancia de NOTE creada por {repr(mask_email(self.user.email))}.")
 
     def __str__(self) -> str:
-        return (f"<class Note(id={repr(self.id)}, title={repr(self.title)}, "
+        return (
+            f"<class Note("
+                f"id={repr(self.id)}, "
+                f"title={repr(self.title)}, "
                 f"content_encrypted={repr(mask_text(self.encrypted_content))}, "
                 f"user={repr(mask_email(self.user.email))}, "
-                f"created={repr(self.created.strftime('%Y-%m-%dT%H:%M:%S'))})>")
+                f"created={repr(self.created.strftime('%Y-%m-%dT%H:%M:%S'))}, "
+            f")>"
+        )
