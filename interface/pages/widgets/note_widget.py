@@ -10,7 +10,7 @@ from interface.controls.iconlink import IconLinkStyle
 from interface.pages.forms import DeleteForm, NoteForm
 from interface.pages.forms.base_form import FormStyle
 from interface.pages.forms.delete_form import DeleteFormStyle
-from shared.utils.colors import bgNoteWidgetColor, titleNoteWidgetColor
+from shared.utils.colors import neutral00, primaryTextColor
 from shared.utils.masker import mask_text
 
 
@@ -31,11 +31,11 @@ class NoteWidget(ft.Card):
 
         # NoteWidget elements
         self.note_title = ft.Text(self.note.title if self.note.title else "Sin título", font_family="AlbertSansB",
-            size=18, color=titleNoteWidgetColor)
+            size=18, color=primaryTextColor)
         self.note_content = ft.Text(mask_text(decrypt_data(self.note.encrypted_content)))
 
         # Widget design
-        self.color = bgNoteWidgetColor
+        self.color = neutral00
         self.shape = ft.RoundedRectangleBorder(4)
 
         # Widget content

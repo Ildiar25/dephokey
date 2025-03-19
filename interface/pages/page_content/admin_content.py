@@ -13,8 +13,8 @@ from interface.pages.widgets import AdminRow
 from interface.pages.widgets.admin_row import RowStyle
 from shared.utils.colors import (
     accentTextColor,
-    bgGeneralFormColor,
     dangerTextColor,
+    neutral00,
     neutral20,
     neutral80,
     primaryCorporateColor,
@@ -46,7 +46,7 @@ class AdminPage(ft.Column):
             label_style=ft.TextStyle(color=secondaryTextColor),
             select_icon=ft.Icons.KEYBOARD_ARROW_DOWN_ROUNDED,
             icon_enabled_color=primaryCorporateColor,
-            bgcolor=bgGeneralFormColor,
+            bgcolor=neutral00,
             border_color=neutral20,
             focused_border_color=primaryCorporateColor,
             border_radius=4,
@@ -57,7 +57,7 @@ class AdminPage(ft.Column):
             label_style=ft.TextStyle(color=secondaryTextColor),
             select_icon=ft.Icons.KEYBOARD_ARROW_DOWN_ROUNDED,
             icon_enabled_color=primaryCorporateColor,
-            bgcolor=bgGeneralFormColor,
+            bgcolor=neutral00,
             border_color=neutral20,
             focused_border_color=primaryCorporateColor,
             border_radius=4,
@@ -68,7 +68,7 @@ class AdminPage(ft.Column):
             label_style=ft.TextStyle(color=secondaryTextColor),
             select_icon=ft.Icons.KEYBOARD_ARROW_DOWN_ROUNDED,
             icon_enabled_color=primaryCorporateColor,
-            bgcolor=bgGeneralFormColor,
+            bgcolor=neutral00,
             border_color=neutral20,
             focused_border_color=primaryCorporateColor,
             border_radius=4,
@@ -123,7 +123,7 @@ class AdminPage(ft.Column):
         self.user_form = ft.Container(
             height=632,
             expand=True,
-            bgcolor=bgGeneralFormColor,
+            bgcolor=neutral00,
             border_radius=4,
             padding=ft.padding.all(24),
             shadow=ft.BoxShadow(
@@ -167,7 +167,7 @@ class AdminPage(ft.Column):
         self.site_form = ft.Container(
             height=632,
             expand=True,
-            bgcolor=bgGeneralFormColor,
+            bgcolor=neutral00,
             border_radius=4,
             padding=ft.padding.all(24),
             shadow=ft.BoxShadow(
@@ -220,7 +220,7 @@ class AdminPage(ft.Column):
         self.creditcard_form = ft.Container(
             height=632,
             expand=True,
-            bgcolor=bgGeneralFormColor,
+            bgcolor=neutral00,
             border_radius=4,
             padding=ft.padding.all(24),
             shadow=ft.BoxShadow(
@@ -279,7 +279,7 @@ class AdminPage(ft.Column):
         self.note_form = ft.Container(
             height=632,
             expand=True,
-            bgcolor=bgGeneralFormColor,
+            bgcolor=neutral00,
             border_radius=4,
             padding=ft.padding.all(24),
             shadow=ft.BoxShadow(
@@ -322,7 +322,7 @@ class AdminPage(ft.Column):
 
         self.all_users = ft.Container(
             expand=True,
-            bgcolor=bgGeneralFormColor,
+            bgcolor=neutral00,
             border_radius=4,
             shadow=ft.BoxShadow(
                 blur_radius=0.9, offset=(0.0, 0.5),
@@ -334,14 +334,14 @@ class AdminPage(ft.Column):
                 shape=ft.RoundedRectangleBorder(4),
                 collapsed_shape=ft.RoundedRectangleBorder(4),
                 min_tile_height=44,
-                bgcolor=bgGeneralFormColor,
-                collapsed_bgcolor=bgGeneralFormColor,
+                bgcolor=neutral00,
+                collapsed_bgcolor=neutral00,
                 controls=[self.user_rows]
             )
         )
         self.all_sites = ft.Container(
             expand=True,
-            bgcolor=bgGeneralFormColor,
+            bgcolor=neutral00,
             border_radius=4,
             shadow=ft.BoxShadow(
                 blur_radius=0.9, offset=(0.0, 0.5),
@@ -353,14 +353,14 @@ class AdminPage(ft.Column):
                 shape=ft.RoundedRectangleBorder(4),
                 collapsed_shape=ft.RoundedRectangleBorder(4),
                 min_tile_height=44,
-                bgcolor=bgGeneralFormColor,
-                collapsed_bgcolor=bgGeneralFormColor,
+                bgcolor=neutral00,
+                collapsed_bgcolor=neutral00,
                 controls=[self.site_rows]
             )
         )
         self.all_creditcards = ft.Container(
             expand=True,
-            bgcolor=bgGeneralFormColor,
+            bgcolor=neutral00,
             border_radius=4,
             shadow=ft.BoxShadow(
                 blur_radius=0.9, offset=(0.0, 0.5),
@@ -372,14 +372,14 @@ class AdminPage(ft.Column):
                 shape=ft.RoundedRectangleBorder(4),
                 collapsed_shape=ft.RoundedRectangleBorder(4),
                 min_tile_height=44,
-                bgcolor=bgGeneralFormColor,
-                collapsed_bgcolor=bgGeneralFormColor,
+                bgcolor=neutral00,
+                collapsed_bgcolor=neutral00,
                 controls=[self.creditcard_rows]
             )
         )
         self.all_notes = ft.Container(
             expand=True,
-            bgcolor=bgGeneralFormColor,
+            bgcolor=neutral00,
             border_radius=4,
             shadow=ft.BoxShadow(
                 blur_radius=0.9, offset=(0.0, 0.5),
@@ -391,14 +391,14 @@ class AdminPage(ft.Column):
                 shape=ft.RoundedRectangleBorder(4),
                 collapsed_shape=ft.RoundedRectangleBorder(4),
                 min_tile_height=44,
-                bgcolor=bgGeneralFormColor,
-                collapsed_bgcolor=bgGeneralFormColor,
+                bgcolor=neutral00,
+                collapsed_bgcolor=neutral00,
                 controls=[self.note_rows]
             )
         )
         self.all_requests = ft.Container(
             expand=True,
-            bgcolor=bgGeneralFormColor,
+            bgcolor=neutral00,
             border_radius=4,
             shadow=ft.BoxShadow(
                 blur_radius=0.9, offset=(0.0, 0.5),
@@ -410,8 +410,8 @@ class AdminPage(ft.Column):
                 shape=ft.RoundedRectangleBorder(4),
                 collapsed_shape=ft.RoundedRectangleBorder(4),
                 min_tile_height=44,
-                bgcolor=bgGeneralFormColor,
-                collapsed_bgcolor=bgGeneralFormColor,
+                bgcolor=neutral00,
+                collapsed_bgcolor=neutral00,
                 controls=[self.pass_request_rows]
             )
         )

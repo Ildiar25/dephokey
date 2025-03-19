@@ -1,11 +1,9 @@
 import flet as ft
 
 from shared.utils.colors import (
-    cursorTextfieldColor,
+    neutral20,
+    primaryCorporateColor,
     secondaryTextColor,
-    selectCursorTextfieldColor,
-    selectedBorderTextfieldColor,
-    staticBorderTextfieldColor,
 )
 
 
@@ -17,15 +15,15 @@ class CustomTextField(ft.TextField):
         self.error_text = error
 
         # Text design settings
-        self.cursor_color = cursorTextfieldColor
-        self.selection_color = selectCursorTextfieldColor
+        self.cursor_color = primaryCorporateColor
+        self.selection_color = secondaryTextColor
         self.label_style = ft.TextStyle(color=secondaryTextColor)
         self.hint_style = ft.TextStyle(color=secondaryTextColor)
 
         # Field design settings
         self.border_radius = 4
-        self.border_color = staticBorderTextfieldColor
-        self.focused_border_color = selectedBorderTextfieldColor
+        self.border_color = neutral20
+        self.focused_border_color = primaryCorporateColor
 
     def reset_error(self) -> None:
         self.error_text = None

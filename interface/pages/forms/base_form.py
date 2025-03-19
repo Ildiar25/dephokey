@@ -5,11 +5,11 @@ import flet as ft
 from interface.controls import CustomElevatedButton
 from interface.controls.e_button import ButtonStyle
 from shared.utils.colors import (
-    bgGeneralFormColor,
     dangerTextColor,
-    hoverIconGeneralFormColor,
-    iconAccentGeneralFormColor,
-    selectedIconGeneralFormColor,
+    neutral00,
+    neutral20,
+    neutral40,
+    neutral80,
 )
 
 
@@ -31,8 +31,8 @@ class BaseForm(ft.AlertDialog):
         self.cancel_button = CustomElevatedButton(name="Cancelar", style=ButtonStyle.CANCEL)
         self.span = ft.TextSpan(text="*", style=ft.TextStyle(font_family="AlbertSansB", color=dangerTextColor))
         self.close_button = ft.IconButton(
-            ft.Icons.CLOSE_ROUNDED, icon_color=iconAccentGeneralFormColor, on_click=lambda _: self.page.close(self),
-            highlight_color=selectedIconGeneralFormColor, hover_color=hoverIconGeneralFormColor
+            ft.Icons.CLOSE_ROUNDED, icon_color=neutral80, on_click=lambda _: self.page.close(self),
+            highlight_color=neutral40, hover_color=neutral20
         )
 
         # Form general settings
@@ -44,7 +44,7 @@ class BaseForm(ft.AlertDialog):
 
         # Form general design
         self.shape = ft.RoundedRectangleBorder(4)
-        self.bgcolor = bgGeneralFormColor
+        self.bgcolor = neutral00
 
     def toggle_submit_button_state(self, cursor: ft.ControlEvent) -> None:
         if cursor and all(self.fields):

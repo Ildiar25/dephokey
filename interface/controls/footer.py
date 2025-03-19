@@ -1,6 +1,6 @@
 import flet as ft
 
-from shared.utils.colors import bgFooterColor, textFooterColor
+from shared.utils.colors import primaryCorporateColor, tertiaryTextColor
 
 
 class Footer(ft.BottomAppBar):
@@ -14,11 +14,11 @@ class Footer(ft.BottomAppBar):
         self.padding = ft.padding.symmetric(vertical=16, horizontal=24)
 
         # Design settings
-        self.bgcolor = bgFooterColor
+        self.bgcolor = primaryCorporateColor
 
         # Content
         self.content = ft.Row(
             controls=[
-                ft.Text("DephoKey © 2025 · Todos los derechos reservados", color=textFooterColor)
+                ft.Text("DephoKey © 2025 · Todos los derechos reservados", color=tertiaryTextColor)
             ]
         )

@@ -8,7 +8,7 @@ from interface.controls.snackbar import Snackbar, SnackbarStyle
 from interface.pages.forms import ChangePasswordForm, DeleteForm
 from interface.pages.forms.base_form import FormStyle
 from interface.pages.forms.delete_form import DeleteFormStyle
-from shared.utils.colors import accentTextColor, bgGeneralFormColor, neutral80, primaryTextColor, transparentColor
+from shared.utils.colors import accentTextColor, neutral00, neutral80, primaryTextColor, transparentColor
 from shared.validate import Validate
 
 
@@ -37,7 +37,7 @@ class SettingsPage(ft.Row):
             ft.Container(
                 height=334,
                 expand=True,
-                bgcolor=bgGeneralFormColor,
+                bgcolor=neutral00,
                 border_radius=4,
                 padding=ft.padding.all(24),
                 shadow=ft.BoxShadow(
@@ -90,7 +90,7 @@ class SettingsPage(ft.Row):
             ft.Container(
                 height=334,
                 expand=True,
-                bgcolor=bgGeneralFormColor,
+                bgcolor=neutral00,
                 border_radius=4,
                 padding=ft.padding.all(24),
                 shadow=ft.BoxShadow(

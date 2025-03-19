@@ -6,7 +6,7 @@ from interface.controls.sidebar import CustomSidebar
 from interface.controls.snackbar import Snackbar
 from interface.pages.content_manager import BodyContent, ContentStyle
 from shared.logger_setup import main_log as log
-from shared.utils.colors import bgSidebarColor, neutral05
+from shared.utils.colors import neutral05, neutral80
 
 
 class Dashboard(ft.Container):
@@ -32,8 +32,8 @@ class Dashboard(ft.Container):
             controls=[
                 ft.Container(
                     expand=True,
-                    height=3000,
-                    bgcolor=bgSidebarColor,
+                    height=4000,
+                    bgcolor=neutral80,
                     content=self.sidebar
                 )
             ]

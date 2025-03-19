@@ -8,14 +8,13 @@ from interface.pages.content_manager import BodyContent, ContentStyle
 from interface.pages.loading_page import LoadingPage
 from shared.logger_setup import main_log as log
 from shared.utils.colors import (
-    bgAppbarColor,
-    iconAppbarColor,
+    neutral05,
     neutral10,
     neutral20,
     neutral60,
+    neutral80,
     primaryCorporate100,
     primaryCorporateColor,
-    selectedIconAppbarColor,
 )
 
 
@@ -47,7 +46,7 @@ class CustomAppbar(ft.AppBar):
         )
 
         # Design settings
-        self.bgcolor = bgAppbarColor
+        self.bgcolor = neutral80
 
         # Leading (Logo)
         self.leading_width = 230
@@ -69,17 +68,17 @@ class CustomAppbar(ft.AppBar):
                     controls=[
                         ft.IconButton(
                             ft.Icons.SETTINGS_ROUNDED,
-                            icon_color=iconAppbarColor,
+                            icon_color=neutral05,
                             on_click=self.show_settings,
-                            highlight_color=selectedIconAppbarColor,
+                            highlight_color=primaryCorporateColor,
                             hover_color=neutral60,
                             focus_color=neutral60
                         ),
                         ft.IconButton(
                             ft.Icons.EXIT_TO_APP_ROUNDED,
-                            icon_color=iconAppbarColor,
+                            icon_color=neutral05,
                             on_click=self.logout,
-                            highlight_color=selectedIconAppbarColor,
+                            highlight_color=primaryCorporateColor,
                             hover_color=neutral60,
                             focus_color=neutral60
                         )

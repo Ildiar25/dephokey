@@ -17,7 +17,7 @@ from interface.pages.forms import ChangePasswordForm
 from interface.pages.forms.base_form import FormStyle
 from shared.generators import GenerateToken
 from shared.logger_setup import main_log as log
-from shared.utils.colors import accentTextColor, bgGeneralFormColor, neutral10, neutral20, primaryCorporateColor
+from shared.utils.colors import accentTextColor, neutral00, neutral10, neutral20, primaryCorporateColor
 from shared.validate import Validate
 
 
@@ -69,7 +69,7 @@ class ResetPasswordPage(ft.Container):
 
         # Page design
         self.expand = True
-        self.bgcolor = bgGeneralFormColor
+        self.bgcolor = neutral00
         self.padding = ft.padding.symmetric(vertical=56, horizontal=32)
 
         # Invisible content
@@ -188,7 +188,7 @@ class ResetPasswordPage(ft.Container):
         self.expires_at = datetime.datetime.now() + timedelta(minutes=5)
 
         # Save new password request
-        token = GenerateToken.tokenize()
+        token = GenerateToken.generate()
         password_request = PasswordRequest(code=token, user=self.user)
         session.add(password_request)
         session.commit()

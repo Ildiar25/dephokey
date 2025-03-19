@@ -13,14 +13,13 @@ from interface.pages.forms import CreditCardForm, DeleteForm
 from interface.pages.forms.base_form import FormStyle
 from interface.pages.forms.delete_form import DeleteFormStyle
 from shared.utils.colors import (
-    bgCreditcardWidgetColor,
-    bgGeneralFormColor,
+    neutral00,
+    neutral20,
     neutralDangerDark,
     neutralDangerMedium,
     primaryCorporate100,
-    staticBorderTextfieldColor,
+    primaryCorporateColor,
     tertiaryTextColor,
-    titleCreditcardWidgetColor,
 )
 from shared.utils.masker import mask_number
 
@@ -48,7 +47,7 @@ class CreditCardWidget(ft.Card):
 
         # CreditCardWidget elements
         self.card_alias = ft.Text(self.creditcard.alias if self.creditcard.alias else "Alias",
-            font_family="AlbertSansB", size=18, color=titleCreditcardWidgetColor
+            font_family="AlbertSansB", size=18, color=tertiaryTextColor
         )
         self.card_number = ft.Row(
             spacing=18,
@@ -64,7 +63,7 @@ class CreditCardWidget(ft.Card):
         )
 
         # Widget design
-        self.color = bgCreditcardWidgetColor if not self.creditcard.expired else neutralDangerMedium
+        self.color = primaryCorporateColor if not self.creditcard.expired else neutralDangerMedium
         self.shape = ft.RoundedRectangleBorder(24)
         self.tooltip = "Clickea para voltear la tarjeta"
 
@@ -131,9 +130,9 @@ class CreditCardWidget(ft.Card):
                         height=40,
                         margin=ft.margin.symmetric(vertical=15, horizontal=24),
                         padding=ft.padding.symmetric(horizontal=8),
-                        bgcolor=bgGeneralFormColor,
+                        bgcolor=neutral00,
                         border_radius=4,
-                        border=ft.border.all(width=1, color=staticBorderTextfieldColor),
+                        border=ft.border.all(width=1, color=neutral20),
                         content=self.card_cvc,
                         alignment=ft.alignment.center_right,
                         on_hover=self.show_cvc,

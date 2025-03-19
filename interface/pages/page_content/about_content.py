@@ -10,8 +10,8 @@ from interface.controls.e_button import ButtonStyle
 from interface.controls.snackbar import Snackbar, SnackbarStyle
 from shared.utils.colors import (
     accentTextColor,
-    bgGeneralFormColor,
     dangerTextColor,
+    neutral00,
     neutral80,
     primaryTextColor,
     secondaryTextColor,
@@ -47,7 +47,7 @@ class AboutPage(ft.Row):
                     # App info
                     ft.Container(
                         expand=True,
-                        bgcolor=bgGeneralFormColor,
+                        bgcolor=neutral00,
                         border_radius=4,
                         padding=ft.padding.all(24),
                         shadow=ft.BoxShadow(
@@ -79,7 +79,7 @@ class AboutPage(ft.Row):
                     # Feedback form
                     ft.Container(
                         expand=True,
-                        bgcolor=bgGeneralFormColor,
+                        bgcolor=neutral00,
                         border_radius=4,
                         padding=ft.padding.all(24),
                         shadow=ft.BoxShadow(
@@ -128,7 +128,7 @@ class AboutPage(ft.Row):
                     # Technical Specifications
                     ft.Container(
                         expand=True,
-                        bgcolor=bgGeneralFormColor,
+                        bgcolor=neutral00,
                         border_radius=4,
                         padding=ft.padding.all(24),
                         shadow=ft.BoxShadow(

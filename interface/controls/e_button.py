@@ -4,19 +4,16 @@ from enum import Enum
 import flet as ft
 
 from shared.utils.colors import (
-    accentIconColor,
     accentTextColor,
-    bgDissabledEButtonColor,
-    bgEButtonColor,
-    bgHoverEButtonColor,
-    borderDissabledEButtonColor,
-    borderEButtonColor,
-    borderHoverEButtonColor,
+    neutral00,
+    neutral10,
+    neutral20,
+    neutral40,
     neutralDangerDark,
     neutralDangerMedium,
-    secondaryIconColor,
+    primaryCorporate25,
+    primaryCorporateColor,
     secondaryTextColor,
-    tertiaryIconColor,
     tertiaryTextColor,
     transparentColor,
 )
@@ -48,10 +45,10 @@ class CustomElevatedButton(ft.ElevatedButton):
         match style:
             case ButtonStyle.DEFAULT:
                 self.bgcolor = {
-                    ft.ControlState.DISABLED: bgDissabledEButtonColor,
-                    ft.ControlState.DEFAULT: bgEButtonColor,
-                    ft.ControlState.HOVERED: bgHoverEButtonColor,
-                    ft.ControlState.FOCUSED: bgHoverEButtonColor
+                    ft.ControlState.DISABLED: neutral10,
+                    ft.ControlState.DEFAULT: primaryCorporateColor,
+                    ft.ControlState.HOVERED: primaryCorporate25,
+                    ft.ControlState.FOCUSED: primaryCorporate25
                 }
                 self.style = ft.ButtonStyle(
                     padding={
@@ -65,19 +62,19 @@ class CustomElevatedButton(ft.ElevatedButton):
                         ft.ControlState.HOVERED: tertiaryTextColor
                     },
                     icon_color={
-                        ft.ControlState.DEFAULT: tertiaryIconColor,
-                        ft.ControlState.DISABLED: tertiaryIconColor,
-                        ft.ControlState.HOVERED: tertiaryIconColor,
+                        ft.ControlState.DEFAULT: neutral00,
+                        ft.ControlState.DISABLED: neutral00,
+                        ft.ControlState.HOVERED: neutral00,
                     },
                     side={
                         ft.ControlState.DEFAULT: ft.BorderSide(
                             width=-1,
-                            color=borderEButtonColor,
+                            color=primaryCorporateColor,
                             stroke_align=ft.BorderSideStrokeAlign.INSIDE
                         ),
                         ft.ControlState.HOVERED: ft.BorderSide(
                             width=1.8,
-                            color=bgHoverEButtonColor,
+                            color=primaryCorporate25,
                             stroke_align=ft.BorderSideStrokeAlign.INSIDE
                         )
                     },
@@ -88,10 +85,10 @@ class CustomElevatedButton(ft.ElevatedButton):
             case ButtonStyle.ICON:
                 self.icon=ft.Icons.ADD_ROUNDED
                 self.bgcolor = {
-                    ft.ControlState.DISABLED: bgDissabledEButtonColor,
-                    ft.ControlState.DEFAULT: bgEButtonColor,
-                    ft.ControlState.HOVERED: bgHoverEButtonColor,
-                    ft.ControlState.FOCUSED: bgHoverEButtonColor
+                    ft.ControlState.DISABLED: neutral10,
+                    ft.ControlState.DEFAULT: primaryCorporateColor,
+                    ft.ControlState.HOVERED: primaryCorporate25,
+                    ft.ControlState.FOCUSED: primaryCorporate25
                 }
                 self.style = ft.ButtonStyle(
                     padding={
@@ -105,19 +102,19 @@ class CustomElevatedButton(ft.ElevatedButton):
                         ft.ControlState.HOVERED: tertiaryTextColor
                     },
                     icon_color={
-                        ft.ControlState.DEFAULT: tertiaryIconColor,
-                        ft.ControlState.DISABLED: tertiaryIconColor,
-                        ft.ControlState.HOVERED: tertiaryIconColor,
+                        ft.ControlState.DEFAULT: neutral00,
+                        ft.ControlState.DISABLED: neutral00,
+                        ft.ControlState.HOVERED: neutral00,
                     },
                     side={
                         ft.ControlState.DEFAULT: ft.BorderSide(
                             width=-1,
-                            color=borderEButtonColor,
+                            color=primaryCorporateColor,
                             stroke_align=ft.BorderSideStrokeAlign.INSIDE
                         ),
                         ft.ControlState.HOVERED: ft.BorderSide(
                             width=1.8,
-                            color=bgHoverEButtonColor,
+                            color=primaryCorporate25,
                             stroke_align=ft.BorderSideStrokeAlign.INSIDE
                         )
                     },
@@ -127,10 +124,10 @@ class CustomElevatedButton(ft.ElevatedButton):
 
             case ButtonStyle.BORDER:
                 self.bgcolor = {
-                    ft.ControlState.DISABLED: bgDissabledEButtonColor,
+                    ft.ControlState.DISABLED: neutral10,
                     ft.ControlState.DEFAULT: transparentColor,
-                    ft.ControlState.HOVERED: bgHoverEButtonColor,
-                    ft.ControlState.FOCUSED: bgHoverEButtonColor
+                    ft.ControlState.HOVERED: primaryCorporate25,
+                    ft.ControlState.FOCUSED: primaryCorporate25
                 }
                 self.style = ft.ButtonStyle(
                     padding={
@@ -144,24 +141,24 @@ class CustomElevatedButton(ft.ElevatedButton):
                         ft.ControlState.HOVERED: tertiaryTextColor
                     },
                     icon_color={
-                        ft.ControlState.DEFAULT: accentIconColor,
-                        ft.ControlState.DISABLED: tertiaryIconColor,
-                        ft.ControlState.HOVERED: tertiaryIconColor,
+                        ft.ControlState.DEFAULT: primaryCorporateColor,
+                        ft.ControlState.DISABLED: neutral00,
+                        ft.ControlState.HOVERED: neutral00,
                     },
                     side={
                         ft.ControlState.DEFAULT: ft.BorderSide(
                             width=1.8,
-                            color=borderEButtonColor,
+                            color=primaryCorporateColor,
                             stroke_align=ft.BorderSideStrokeAlign.INSIDE
                         ),
                         ft.ControlState.DISABLED: ft.BorderSide(
                             width=1.8,
-                            color=borderDissabledEButtonColor,
+                            color=neutral20,
                             stroke_align=ft.BorderSideStrokeAlign.INSIDE
                         ),
                         ft.ControlState.HOVERED: ft.BorderSide(
                             width=1.8,
-                            color=borderHoverEButtonColor,
+                            color=primaryCorporate25,
                             stroke_align=ft.BorderSideStrokeAlign.INSIDE
                         )
                     },
@@ -171,10 +168,10 @@ class CustomElevatedButton(ft.ElevatedButton):
 
             case ButtonStyle.CANCEL:
                 self.bgcolor = {
-                    ft.ControlState.DISABLED: bgDissabledEButtonColor,
+                    ft.ControlState.DISABLED: neutral10,
                     ft.ControlState.DEFAULT: transparentColor,
-                    ft.ControlState.HOVERED: bgDissabledEButtonColor,
-                    ft.ControlState.FOCUSED: bgDissabledEButtonColor
+                    ft.ControlState.HOVERED: neutral10,
+                    ft.ControlState.FOCUSED: neutral10
                 }
                 self.style = ft.ButtonStyle(
                     padding={
@@ -188,19 +185,19 @@ class CustomElevatedButton(ft.ElevatedButton):
                         ft.ControlState.HOVERED: secondaryTextColor
                     },
                     icon_color={
-                        ft.ControlState.DEFAULT: secondaryIconColor,
-                        ft.ControlState.DISABLED: secondaryIconColor,
-                        ft.ControlState.HOVERED: secondaryIconColor,
+                        ft.ControlState.DEFAULT: neutral40,
+                        ft.ControlState.DISABLED: neutral40,
+                        ft.ControlState.HOVERED: neutral40,
                     },
                     side={
                         ft.ControlState.DEFAULT: ft.BorderSide(
                             width=-1,
-                            color=borderEButtonColor,
+                            color=primaryCorporateColor,
                             stroke_align=ft.BorderSideStrokeAlign.INSIDE
                         ),
                         ft.ControlState.HOVERED: ft.BorderSide(
                             width=1.8,
-                            color=bgDissabledEButtonColor,
+                            color=neutral10,
                             stroke_align=ft.BorderSideStrokeAlign.INSIDE
                         )
                     },
@@ -210,7 +207,7 @@ class CustomElevatedButton(ft.ElevatedButton):
 
             case ButtonStyle.DELETE:
                 self.bgcolor = {
-                    ft.ControlState.DISABLED: bgDissabledEButtonColor,
+                    ft.ControlState.DISABLED: neutral10,
                     ft.ControlState.DEFAULT: neutralDangerMedium,
                     ft.ControlState.HOVERED: neutralDangerDark,
                     ft.ControlState.FOCUSED: neutralDangerDark
@@ -227,9 +224,9 @@ class CustomElevatedButton(ft.ElevatedButton):
                         ft.ControlState.HOVERED: tertiaryTextColor
                     },
                     icon_color={
-                        ft.ControlState.DEFAULT: tertiaryIconColor,
-                        ft.ControlState.DISABLED: tertiaryIconColor,
-                        ft.ControlState.HOVERED: tertiaryIconColor,
+                        ft.ControlState.DEFAULT: neutral00,
+                        ft.ControlState.DISABLED: neutral00,
+                        ft.ControlState.HOVERED: neutral00,
                     },
                     side={
                         ft.ControlState.DEFAULT: ft.BorderSide(

@@ -3,12 +3,12 @@ from enum import Enum
 import flet as ft
 
 from shared.utils.colors import (
-    bgSnackbarDangerColor,
-    bgSnackbarInfoColor,
-    bgSnackbarSuccessColor,
-    bgSnackbarWarningColor,
     dangerTextColor,
     infoTextColor,
+    neutralDangerLight,
+    neutralSuccessLight,
+    neutralWarningLight,
+    primaryCorporate25,
     successTextColor,
     warningTextColor,
 )
@@ -38,22 +38,22 @@ class Snackbar(ft.SnackBar):
     def __update_appearance(self) -> None:
         match self.style:
             case SnackbarStyle.INFO:
-                self.bgcolor = bgSnackbarInfoColor
+                self.bgcolor = primaryCorporate25
                 self.content.color = infoTextColor
                 self.open = True
 
             case SnackbarStyle.WARNING:
-                self.bgcolor = bgSnackbarWarningColor
+                self.bgcolor = neutralWarningLight
                 self.content.color = warningTextColor
                 self.open = True
 
             case SnackbarStyle.DANGER:
-                self.bgcolor = bgSnackbarDangerColor
+                self.bgcolor = neutralDangerLight
                 self.content.color = dangerTextColor
                 self.open = True
 
             case SnackbarStyle.SUCCESS:
-                self.bgcolor = bgSnackbarSuccessColor
+                self.bgcolor = neutralSuccessLight
                 self.content.color = successTextColor
                 self.open = True
 

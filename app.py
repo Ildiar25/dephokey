@@ -14,10 +14,12 @@ async def check_session_is_expired(page: ft.Page) -> None:
     """Monitores if session is expired every 30 seconds"""
     log.info("Monitoreo de la sesión inicializado.")
     current_session = True
+
     while current_session:
         await asyncio.sleep(30)
         if page.session.contains_key("session"):
             continue
+
         current_session = False
         await back_to_login_page(page)
 

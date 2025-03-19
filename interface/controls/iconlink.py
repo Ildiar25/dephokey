@@ -6,12 +6,12 @@ from typing import Any
 import flet as ft
 
 from shared.utils.colors import (
-accentIconColor,
-neutralSuccessLight,
-primaryIconColor,
-secondaryIconColor,
-successTextColor,
-tertiaryIconColor,
+    neutral00,
+    neutral40,
+    neutral80,
+    neutralSuccessLight,
+    primaryCorporateColor,
+    successTextColor,
 )
 
 
@@ -40,25 +40,25 @@ class IconLink(ft.Container):
     def __update_appareance(self, icon: ft.Icons) -> None:
         match self.style:
             case IconLinkStyle.LIGHT:
-                self.content = ft.Icon(name=icon, color=accentIconColor)
+                self.content = ft.Icon(name=icon, color=primaryCorporateColor)
 
             case IconLinkStyle.DARK:
-                self.content = ft.Icon(name=icon, color=tertiaryIconColor)
+                self.content = ft.Icon(name=icon, color=neutral00)
 
     def toggle_focus_link(self, cursor: ft.ControlEvent) -> None:
         match self.style:
             case IconLinkStyle.LIGHT:
-                if cursor and cursor.control.content.color == accentIconColor:
-                    cursor.control.content.color = primaryIconColor
+                if cursor and cursor.control.content.color == primaryCorporateColor:
+                    cursor.control.content.color = neutral80
                 else:
-                    cursor.control.content.color = accentIconColor
+                    cursor.control.content.color = primaryCorporateColor
                 cursor.control.update()
 
             case IconLinkStyle.DARK:
-                if cursor and cursor.control.content.color == tertiaryIconColor:
-                    cursor.control.content.color = secondaryIconColor
+                if cursor and cursor.control.content.color == neutral00:
+                    cursor.control.content.color = neutral40
                 else:
-                    cursor.control.content.color = tertiaryIconColor
+                    cursor.control.content.color = neutral00
                 cursor.control.update()
 
     def show_badge(self, msg: str  = "¡copiado!") -> None:

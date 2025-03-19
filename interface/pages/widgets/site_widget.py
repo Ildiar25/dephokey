@@ -10,7 +10,7 @@ from interface.controls.iconlink import IconLinkStyle
 from interface.pages.forms import DeleteForm, SiteForm
 from interface.pages.forms.base_form import FormStyle
 from interface.pages.forms.delete_form import DeleteFormStyle
-from shared.utils.colors import bgSiteWidgetColor, primaryIconColor, textSiteWidgetColor, titleSiteWidgetColor
+from shared.utils.colors import neutral00, neutral60, neutral80, primaryTextColor
 from shared.utils.masker import mask_password
 
 
@@ -31,13 +31,13 @@ class SiteWidget(ft.Card):
 
         # SiteWidget elements
         self.site_title = ft.Text(self.site.name if self.site.name else "Sin título", font_family="AlbertSansB",
-                                  size=18, color=titleSiteWidgetColor)
+                                  size=18, color=primaryTextColor)
         self.site_link = TextLink(text=self.site.address, function=lambda _: self.page.launch_url(self.site.address))
-        self.site_username = ft.Text(self.site.username, color=textSiteWidgetColor)
+        self.site_username = ft.Text(self.site.username, color=neutral60)
         self.site_password = ft.Text(mask_password(decrypt_data(self.site.encrypted_password)))
 
         # Widget design
-        self.color = bgSiteWidgetColor
+        self.color = neutral00
         self.shape = ft.RoundedRectangleBorder(4)
 
         # Widget content
@@ -73,7 +73,7 @@ class SiteWidget(ft.Card):
                         controls=[
                             ft.Icon(
                                 ft.Icons.LINK_ROUNDED,
-                                color=primaryIconColor
+                                color=neutral80
                             ),
                             self.site_link
                         ]
@@ -83,7 +83,7 @@ class SiteWidget(ft.Card):
                         controls=[
                             ft.Icon(
                                 ft.Icons.ACCOUNT_CIRCLE_ROUNDED,
-                                color=primaryIconColor
+                                color=neutral80
                             ),
                             self.site_username
                         ]
@@ -100,7 +100,7 @@ class SiteWidget(ft.Card):
                                     controls=[
                                         ft.Icon(
                                             ft.Icons.PASSWORD_ROUNDED,
-                                            color=primaryIconColor
+                                            color=neutral80
                                         ),
                                         self.site_password
                                     ]

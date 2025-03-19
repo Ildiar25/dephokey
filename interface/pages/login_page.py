@@ -10,7 +10,7 @@ from interface.controls.e_button import ButtonStyle
 from interface.controls.snackbar import Snackbar, SnackbarStyle
 from interface.pages.loading_page import LoadingPage
 from shared.logger_setup import main_log as log
-from shared.utils.colors import accentTextColor, bgGeneralFormColor
+from shared.utils.colors import accentTextColor, neutral00
 from shared.utils.masker import mask_email, mask_password
 from shared.validate import Validate
 
@@ -43,7 +43,7 @@ class Login(ft.Container):
                 # Login form
                 ft.Container(
                     expand=True,
-                    bgcolor=bgGeneralFormColor,
+                    bgcolor=neutral00,
                     content=ft.Column(
                         horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                         alignment=ft.MainAxisAlignment.CENTER,
