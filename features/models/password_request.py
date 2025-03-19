@@ -1,16 +1,15 @@
 from datetime import datetime
 
-from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import ForeignKey, String
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from data.db_orm import Base
-
-from features.models.user import User
 from features.data_encryption.core import encrypt_data
-
-from shared.utils.masker import mask_email, mask_text
 from shared.generators import GenerateID
-from shared.logger_setup import test_log as log
+from shared.logger_setup import main_log as log
+from shared.utils.masker import mask_email, mask_text
+
+from .user import User
 
 
 class PasswordRequest(Base):

@@ -2,16 +2,13 @@ from datetime import datetime
 from enum import Enum
 from hashlib import sha256
 
-from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import String
+from sqlalchemy.orm import Mapped, mapped_column
 
 from data.db_orm import Base
-
-from features.models import *
-
-from shared.utils.masker import mask_email, mask_text
 from shared.generators import GenerateID
-from shared.logger_setup import test_log as log
+from shared.logger_setup import main_log as log
+from shared.utils.masker import mask_email, mask_text
 
 
 class UserRole(Enum):
@@ -35,16 +32,6 @@ class User(Base):
     email: Mapped[str] = mapped_column(String(250))
     hashed_password: Mapped[str] = mapped_column(String(100))
     created: Mapped[datetime]
-
-    # Relationship settings
-    notes: Mapped[list["Note"]] = relationship(argument="Note", back_populates="user", cascade="all, delete")
-    sites: Mapped[list["Site"]] = relationship(argument="Site", back_populates="user", cascade="all, delete")
-    creditcards: Mapped[list["CreditCard"]] = relationship(
-        argument="CreditCard", back_populates="user", cascade="all, delete"
-    )
-    password_requests: Mapped[list["PasswordRequest"]] = relationship(
-        argument="PasswordRequest", back_populates="user", cascade="all, delete"
-    )
 
     # Initializer
     def __init__(self, fullname: str, email: str, password: str, user_role: UserRole = UserRole.CLIENT) -> None:
