@@ -1,12 +1,11 @@
+from collections.abc import Callable
+
 import flet as ft
-from typing import Callable, List
 
 from data.db_orm import session
-
-from features.models.user import User
 from features.models import Site
-
-from interface.controls import Snackbar
+from features.models.user import User
+from interface.controls.snackbar import Snackbar
 from interface.pages.widgets import SiteWidget
 
 
@@ -33,7 +32,7 @@ class SitesPage(ft.Column):
         self.sites = session.query(Site).filter_by(user_id=self.user.id).all()
         self.__populate_row(self.sites)
 
-    def __populate_row(self, sites: List[Site]) -> None:
+    def __populate_row(self, sites: list[Site]) -> None:
         self.sites_row.controls.clear()
         for site in sites:
             self.sites_row.controls.append(SiteWidget(site, self.page, self.update_changes))

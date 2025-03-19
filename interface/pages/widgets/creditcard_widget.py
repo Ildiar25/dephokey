@@ -1,19 +1,28 @@
-import flet as ft
 import textwrap
+from collections.abc import Callable
 from enum import Enum
-from typing import Callable
+
+import flet as ft
 
 from data.db_orm import session
-
-from features.models import CreditCard
 from features.data_encryption.core import decrypt_data
-
-from interface.controls import IconLink, IconLinkStyle
+from features.models import CreditCard
+from interface.controls import IconLink
+from interface.controls.iconlink import IconLinkStyle
+from interface.pages.forms import CreditCardForm, DeleteForm
 from interface.pages.forms.base_form import FormStyle
-from interface.pages.forms import DeleteFormStyle, DeleteForm, CreditCardForm
-
+from interface.pages.forms.delete_form import DeleteFormStyle
+from shared.utils.colors import (
+    bgCreditcardWidgetColor,
+    bgGeneralFormColor,
+    neutralDangerDark,
+    neutralDangerMedium,
+    primaryCorporate100,
+    staticBorderTextfieldColor,
+    tertiaryTextColor,
+    titleCreditcardWidgetColor,
+)
 from shared.utils.masker import mask_number
-from shared.utils.colors import *
 
 
 class CreditCardStyle(Enum):

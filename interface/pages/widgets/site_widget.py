@@ -1,17 +1,17 @@
+from collections.abc import Callable
+
 import flet as ft
-from typing import Callable
 
 from data.db_orm import session
-
-from features.models import Site
 from features.data_encryption.core import decrypt_data
-
-from interface.controls import TextLink, IconLink, IconLinkStyle
+from features.models import Site
+from interface.controls import IconLink, TextLink
+from interface.controls.iconlink import IconLinkStyle
+from interface.pages.forms import DeleteForm, SiteForm
 from interface.pages.forms.base_form import FormStyle
-from interface.pages.forms import DeleteFormStyle, DeleteForm, SiteForm
-
+from interface.pages.forms.delete_form import DeleteFormStyle
+from shared.utils.colors import bgSiteWidgetColor, primaryIconColor, textSiteWidgetColor, titleSiteWidgetColor
 from shared.utils.masker import mask_password
-from shared.utils.colors import *
 
 
 class SiteWidget(ft.Card):

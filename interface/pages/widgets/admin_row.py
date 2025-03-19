@@ -1,14 +1,16 @@
-import flet as ft
+from collections.abc import Callable
 from enum import Enum
-from typing import Union, Callable
 
-from features.models.user import User
-from features.models import *
+import flet as ft
+
 from features.data_encryption.core import decrypt_data
-
-from interface.controls import IconLink, IconLinkStyle
+from features.models import CreditCard, Note, PasswordRequest, Site
+from features.models.user import User
+from interface.controls import IconLink
+from interface.controls.iconlink import IconLinkStyle
+from interface.pages.forms import CreditCardForm, DeleteForm, NoteForm, ResetPasswordForm, SiteForm, UserForm
 from interface.pages.forms.base_form import FormStyle
-from interface.pages.forms import DeleteForm, DeleteFormStyle, SiteForm, CreditCardForm, NoteForm, UserForm, ResetPasswordForm
+from interface.pages.forms.delete_form import DeleteFormStyle
 
 
 class RowStyle(Enum):
@@ -21,7 +23,7 @@ class RowStyle(Enum):
 
 class AdminRow(ft.Container):
     def __init__(self, page: ft.Page,
-                 item: Union[User, Site, CreditCard, Note, PasswordRequest], style: RowStyle,
+                 item: User | Site | CreditCard | Note | PasswordRequest, style: RowStyle,
                  update_appearance: Callable[[], None], update_dropdown: Callable[[], None]) -> None:
         super().__init__()
 

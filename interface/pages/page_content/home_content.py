@@ -1,13 +1,12 @@
+from collections.abc import Callable
+
 import flet as ft
-from typing import Callable, List
 
 from data.db_orm import session
-
+from features.models import CreditCard, Note, Site
 from features.models.user import User
-from features.models import Site, CreditCard, Note
-
-from interface.controls import Snackbar
-from interface.pages.widgets import *
+from interface.controls.snackbar import Snackbar
+from interface.pages.widgets import CreditCardWidget, NoteWidget, SiteWidget
 
 
 class HomePage(ft.Row):
@@ -69,7 +68,7 @@ class HomePage(ft.Row):
 
         self.update_content()
 
-    def __populate_columns(self, sites: List[Site], creditcards: List[CreditCard], notes: List[Note]) -> None:
+    def __populate_columns(self, sites: list[Site], creditcards: list[CreditCard], notes: list[Note]) -> None:
         self.__clear_columns()
         for site in sites:
             self.sites_column.controls.append(SiteWidget(site, self.page, self.update_changes))

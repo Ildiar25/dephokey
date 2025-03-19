@@ -1,17 +1,17 @@
+from collections.abc import Callable
+
 import flet as ft
-from typing import Callable
 
 from data.db_orm import session
-
-from features.models import Note
 from features.data_encryption.core import decrypt_data
-
-from interface.controls import IconLink, IconLinkStyle
+from features.models import Note
+from interface.controls import IconLink
+from interface.controls.iconlink import IconLinkStyle
+from interface.pages.forms import DeleteForm, NoteForm
 from interface.pages.forms.base_form import FormStyle
-from interface.pages.forms import DeleteFormStyle, DeleteForm, NoteForm
-
+from interface.pages.forms.delete_form import DeleteFormStyle
+from shared.utils.colors import bgNoteWidgetColor, titleNoteWidgetColor
 from shared.utils.masker import mask_text
-from shared.utils.colors import *
 
 
 class NoteWidget(ft.Card):

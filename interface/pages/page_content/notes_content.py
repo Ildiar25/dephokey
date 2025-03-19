@@ -1,12 +1,11 @@
+from collections.abc import Callable
+
 import flet as ft
-from typing import Callable, List
 
 from data.db_orm import session
-
-from features.models.user import User
 from features.models import Note
-
-from interface.controls import Snackbar
+from features.models.user import User
+from interface.controls.snackbar import Snackbar
 from interface.pages.widgets import NoteWidget
 
 
@@ -33,7 +32,7 @@ class NotesPage(ft.Column):
         self.notes = session.query(Note).filter_by(user_id=self.user.id).all()
         self.__populate_row(self.notes)
 
-    def __populate_row(self, notes: List[Note]) -> None:
+    def __populate_row(self, notes: list[Note]) -> None:
         self.notes_row.controls.clear()
         for note in notes:
             self.notes_row.controls.append(NoteWidget(note, self.page, self.update_changes))

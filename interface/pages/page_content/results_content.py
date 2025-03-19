@@ -1,14 +1,12 @@
+from collections.abc import Callable
+
 import flet as ft
-from typing import Callable, List
 
 from data.db_orm import session
-
-from features.models import Site, CreditCard, Note
-
-from interface.controls import Snackbar
-from interface.pages.widgets import SiteWidget, CreditCardWidget, NoteWidget
-
-from shared.utils.colors import *
+from features.models import CreditCard, Note, Site
+from interface.controls.snackbar import Snackbar
+from interface.pages.widgets import CreditCardWidget, NoteWidget, SiteWidget
+from shared.utils.colors import primaryCorporateColor, primaryTextColor
 
 
 class ResultsPage(ft.Column):
@@ -53,7 +51,7 @@ class ResultsPage(ft.Column):
         self.user_input = user_input if user_input is not None else self.user_input
         self.update_content()
 
-    def __populate_rows(self, sites: List[Site], creditcards: List[CreditCard], notes: List[Note]) -> None:
+    def __populate_rows(self, sites: list[Site], creditcards: list[CreditCard], notes: list[Note]) -> None:
         self.__clear_rows()
         for site in sites:
             self.ss_row.controls.append(SiteWidget(site, self.page, self.update_changes))
