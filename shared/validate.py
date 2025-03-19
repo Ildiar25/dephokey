@@ -9,47 +9,32 @@ class Validate:
     This class helps to validate any element with different methods using regular expressions.
     Other formulas can be implemented in the future.
     """
-    @staticmethod
-    def is_valid_email(email: str) -> bool:
-        """
-        Email must have local-part and domain separated by an @ sign.
-        :param email: email user input
-        :return: boolean
-        """
-        # This pattern allows to validate an email
-        sequence = r"^([\w]+\.?)+@+[\w]+\.+[\w]{2,3}$"
-        return True if re.match(sequence, email) else False
-
-    @staticmethod
-    def is_valid_password(password: str) -> bool:
-        """
-        Password must have at least one uppercase, one lowercase and one number.
-        :param password: password user input
-        :return: boolean
-        """
-        # This pattern allows to validate a password
-        sequence = r"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$"
-        return True if re.match(sequence, password) else False
 
     @staticmethod
     def is_valid_address(site_address: str) -> bool:
         """
         Site addres must have scheme, subdomain, domain and top-level domain.
         The subdirectory is not necessary.
-        :param site_address: address user input
-        :return: boolean
+        :param site_address: str | address user input
+        :return: boolean |
         """
-        # This pattern allows to validate a password
-        sequence = (r"((http)?s?:?(\/\/)?(www)?\.?)[a-zA-Z0-9-]+\.[a-z]{2,3}\/?([a-zA-Z0-9\~\@\#\$\%\^\&\*\("
-                   r"\)_\-\=\+\\\/\?\.\:\;\'\,]*)?")
-        return True if re.match(sequence, site_address) else False
+
+        protocol = r"((http)?s?:?(\/\/)?(www)?\.?)"
+        domain_name = r"[a-zA-Z0-9-]+\."
+        domain_extension = r"[a-z]{2,3}"
+        path = r"\/?([a-zA-Z0-9\~\@\#\$\%\^\&\*\(\)_\-\=\+\\\/\?\.\:\;\'\,]*)?"
+
+        # Creates pattern
+        pattern = protocol + domain_name + domain_extension + path
+
+        return bool(re.match(pattern, site_address))
 
     @staticmethod
     def is_valid_creditcard_number(creditcard_number: str) -> bool:
         """
         Creditcard number must be tested by The Luhn Formula.
-        :param creditcard_number: creditcard number input
-        :return: boolean
+        :param creditcard_number: str | creditcard number input
+        :return: boolean |
         """
         if len(creditcard_number) < 16 or len(creditcard_number) > 19:
             return False
@@ -85,15 +70,61 @@ class Validate:
             return total % 10 == 0
 
     @staticmethod
+    def is_valid_email(email: str) -> bool:
+        """
+        Email must have local-part and domain separated by an @ sign.
+        :param email: str | email user input
+        :return: boolean |
+        """
+
+        local_name = r"^([\w]+\.?)+"
+        domain = r"@+[\w]+\."
+        extension = r"+[\w]{2,3}$"
+
+        # Creates pattern
+        pattern = local_name + domain + extension
+        return bool(re.match(pattern, email))
+
+    @staticmethod
+    def is_valid_password(password: str) -> bool:
+        """
+        Password must have at least one uppercase, one lowercase and one number.
+        :param password: str | password user input
+        :return: boolean |
+        """
+
+        has_digit = r"^(?=.*\d)"
+        has_lowercase = r"(?=.*[a-z])"
+        has_uppercase = r"(?=.*[A-Z])"
+        min_length = r".{8,}$"
+
+        # Creates pattern
+        pattern = has_digit + has_lowercase + has_uppercase + min_length
+        return bool(re.match(pattern, password))
+
+    @staticmethod
     def is_valid_date(new_date: str) -> bool:
         """
         Date must have the next format: 'mm/yy'.
-        :param new_date: date user input
-        :return: boolean
+        :param new_date: str | date user input
+        :return: boolean |
         """
-        # This pattern allows to validate a date
-        sequence = r"^(0[1-9]|1[0-2])\/([0-9][0-9])$"
-        return True if re.match(sequence, new_date) else False
+
+        month = r"^(0[1-9]|1[0-2])"
+        sep = r"\/"
+        year = r"([0-9][0-9])$"
+
+        # Creates pattern
+        pattern = month + sep + year
+        return bool(re.match(pattern, new_date))
 
     def __str__(self) -> str:
-        return f"<class Validate({dir(self)})>"
+        return (
+            f"<class Validate("
+                f"method={repr(self.is_valid_address.__name__)}, "
+                f"method={repr(self.is_valid_creditcard_number.__name__)}, "
+                f"method={repr(self.is_valid_email.__name__)}, "
+                f"method={repr(self.is_valid_password.__name__)}, "
+                f"method={repr(self.is_valid_date.__name__)}, "
+            f")>"
+        )

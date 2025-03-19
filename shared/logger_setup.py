@@ -28,7 +28,10 @@ class Logger:
 
         # Create a rotating file handler
         handler = RotatingFileHandler(
-            filename=BASE_DIR.joinpath(filename).__str__(), maxBytes=1_000_000, backupCount=1, encoding="utf-8"
+            filename=BASE_DIR.joinpath(filename).__str__(),
+            maxBytes=1_000_000,
+            backupCount=1,
+            encoding="utf-8"
         )
         handler.setLevel(self.__get_level(level))
 
@@ -76,7 +79,7 @@ class Logger:
             "INFO": logging.INFO,
             "WARNING": logging.WARNING,
             "ERROR": logging.ERROR,
-            "CRITICAL": logging.CRITICAL
+            "CRITICAL": logging.CRITICAL,
         }
         return levels[level]
 
