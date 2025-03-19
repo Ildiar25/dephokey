@@ -16,7 +16,7 @@ class Validate:
         Site addres must have scheme, subdomain, domain and top-level domain.
         The subdirectory is not necessary.
         :param site_address: str | address user input
-        :return: boolean |
+        :return: boolean | True if value is valid else False
         """
 
         protocol = r"((http)?s?:?(\/\/)?(www)?\.?)"
@@ -34,7 +34,7 @@ class Validate:
         """
         Creditcard number must be tested by The Luhn Formula.
         :param creditcard_number: str | creditcard number input
-        :return: boolean |
+        :return: boolean | True if value is valid else False
         """
         if len(creditcard_number) < 16 or len(creditcard_number) > 19:
             return False
@@ -74,7 +74,7 @@ class Validate:
         """
         Email must have local-part and domain separated by an @ sign.
         :param email: str | email user input
-        :return: boolean |
+        :return: boolean | True if value is valid else False
         """
 
         local_name = r"^([\w]+\.?)+"
@@ -90,7 +90,7 @@ class Validate:
         """
         Password must have at least one uppercase, one lowercase and one number.
         :param password: str | password user input
-        :return: boolean |
+        :return: boolean | True if value is valid else False
         """
 
         has_digit = r"^(?=.*\d)"
@@ -107,7 +107,7 @@ class Validate:
         """
         Date must have the next format: 'mm/yy'.
         :param new_date: str | date user input
-        :return: boolean |
+        :return: boolean | True if value is valid else False
         """
 
         month = r"^(0[1-9]|1[0-2])"

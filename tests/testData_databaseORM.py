@@ -3,7 +3,7 @@ import unittest
 from sqlalchemy import inspect
 from sqlalchemy.orm import Mapped, mapped_column
 
-from data.db_orm import Base, test_engine, test_session
+from data.db_orm import Base, test_database, test_session
 from shared.logger_setup import test_log as log
 
 ##### WARNING: We cannot implement delete testing because unittest does not run tests in a specific order.
@@ -38,10 +38,10 @@ class TestDatabase(unittest.TestCase):
         log.info("Preparing DATATABLE...")
 
         # Create table
-        Base.metadata.create_all(bind=test_engine)
+        Base.metadata.create_all(bind=test_database.engine)
 
         # Helps to get info
-        self.inspector = inspect(test_engine)
+        self.inspector = inspect(test_database.engine)
 
         log.info("DATATABLE ready for test...")
 

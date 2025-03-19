@@ -2,7 +2,7 @@ import asyncio
 
 import flet as ft
 
-from data.db_orm import Base, engine
+from data.db_orm import Base, main_database
 from features.data_filler.filler_settings import fill_with_users
 from interface.controls.footer import Footer
 from interface.pages import Dashboard, Login, ResetPasswordPage, Signup
@@ -43,7 +43,7 @@ async def back_to_login_page(page: ft.Page) -> None:
 def main(page: ft.Page) -> None:
 
     # Create all tables
-    Base.metadata.create_all(bind=engine)
+    Base.metadata.create_all(bind=main_database.engine)
     log.info("¡BASE DE DATOS cargada con éxito!")
     fill_with_users()
 
