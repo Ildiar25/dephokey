@@ -1,12 +1,12 @@
 import unittest
+
 from sqlalchemy import inspect
 from sqlalchemy.orm import Mapped, mapped_column
 
 from data.db_orm import Base, test_engine, test_session
-
 from shared.logger_setup import test_log as log
 
-##### NOTE: It can't be implemented 'deleting' tests because unittest does not run tests in order.
+##### WARNING: We cannot reliably implement test deletion because unittest does not run tests in a specific order.
 
 class TableBuilder(Base):
     __tablename__ = "test_table"

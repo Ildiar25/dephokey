@@ -1,7 +1,17 @@
-import flet as ft
 from enum import Enum
 
-from shared.utils.colors import *
+import flet as ft
+
+from shared.utils.colors import (
+    bgSnackbarDangerColor,
+    bgSnackbarInfoColor,
+    bgSnackbarSuccessColor,
+    bgSnackbarWarningColor,
+    dangerTextColor,
+    infoTextColor,
+    successTextColor,
+    warningTextColor,
+)
 
 
 class SnackbarStyle(Enum):

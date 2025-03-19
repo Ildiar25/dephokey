@@ -1,16 +1,15 @@
-import flet as ft
-from typing import Callable
+from collections.abc import Callable
 from types import NoneType
 
-from data.db_orm import session
+import flet as ft
 
+from data.db_orm import session
 from features.data_encryption.core import decrypt_data, encrypt_data
 from features.models import PasswordRequest
+from interface.controls import CustomTextField
+from shared.utils.colors import primaryTextColor
 
 from .base_form import BaseForm, FormStyle
-from interface.controls import CustomTextField
-
-from shared.utils.colors import *
 
 
 class ResetPasswordForm(BaseForm):

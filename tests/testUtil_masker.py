@@ -1,7 +1,7 @@
 import unittest
 
 from shared.logger_setup import test_log as log
-from shared.utils.masker import *
+from shared.utils.masker import mask_email, mask_number, mask_password, mask_phone, mask_text, mask_username
 
 
 class StringBuilder:

@@ -1,9 +1,25 @@
-import flet as ft
+from collections.abc import Callable
 from enum import Enum
 
-from typing import Callable
+import flet as ft
 
-from shared.utils.colors import *
+from shared.utils.colors import (
+    accentIconColor,
+    accentTextColor,
+    bgDissabledEButtonColor,
+    bgEButtonColor,
+    bgHoverEButtonColor,
+    borderDissabledEButtonColor,
+    borderEButtonColor,
+    borderHoverEButtonColor,
+    neutralDangerDark,
+    neutralDangerMedium,
+    secondaryIconColor,
+    secondaryTextColor,
+    tertiaryIconColor,
+    tertiaryTextColor,
+    transparentColor,
+)
 
 
 class ButtonStyle(Enum):

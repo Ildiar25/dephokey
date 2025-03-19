@@ -2,7 +2,6 @@ import unittest
 from hashlib import sha256
 
 from features.models.user import User, UserRole
-
 from shared.logger_setup import test_log as log
 
 

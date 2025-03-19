@@ -1,6 +1,12 @@
 import flet as ft
 
-from shared.utils.colors import *
+from shared.utils.colors import (
+    cursorTextfieldColor,
+    secondaryTextColor,
+    selectCursorTextfieldColor,
+    selectedBorderTextfieldColor,
+    staticBorderTextfieldColor,
+)
 
 
 class CustomTextField(ft.TextField):

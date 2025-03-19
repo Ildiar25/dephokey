@@ -1,6 +1,6 @@
 import flet as ft
 
-from shared.utils.colors import *
+from shared.utils.colors import neutral00, secondaryCorporateColor
 
 
 class LoadingPage(ft.Container):

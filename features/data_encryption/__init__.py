@@ -1,5 +1,6 @@
-from pathlib import Path
 import os
+from pathlib import Path
+
 from cryptography.fernet import Fernet
 
 from shared.logger_setup import main_log as log

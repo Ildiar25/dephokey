@@ -1,7 +1,8 @@
-import flet as ft
-from typing import Callable
+from collections.abc import Callable
 
-from shared.utils.colors import *
+import flet as ft
+
+from shared.utils.colors import neutralSuccessMedium, secondaryTextColor
 
 
 class CustomSwitch(ft.Container):

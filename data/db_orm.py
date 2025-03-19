@@ -1,17 +1,17 @@
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, DeclarativeBase
 from pathlib import Path
 
+from sqlalchemy import create_engine
+from sqlalchemy.orm import DeclarativeBase, sessionmaker
 
 # Create database path
 DB_PATH = Path(__file__).parent.joinpath("database")
 DB_FILENAME = "database.db"
 
+# TODO: make a session class from all of this
 
 # Base class transform attributes to mapped data and link them to database table.
 class Base(DeclarativeBase):
     pass
-
 
 # Prepare test database settings
 test_engine = create_engine("sqlite:///:memory:", echo=True)

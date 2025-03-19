@@ -1,7 +1,7 @@
 import unittest
 
-from shared.validate import Validate
 from shared.logger_setup import test_log as log
+from shared.validate import Validate
 
 
 class StringBuilder:

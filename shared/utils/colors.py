@@ -1,129 +1,112 @@
 from flet import Colors
 
+# TODO: Rename colors base on first color names
 
 # Corporate colors
-primaryCorporateColor = "#4860B5"
-secondaryCorporateColor = "#FB9820"
+primaryCorporateColor: str = "#4860B5"
+secondaryCorporateColor: str = "#FB9820"
 
 
 # Corporate variants
-primaryCorporate100 = "#0E2060"
-primaryCorporate75 = "#32548C"
-primaryCorporate25 = "#95A6E1"
-primaryCorporate00 = "#CBD4F4"
-secondaryCorporate100 = "#802305"
-secondaryCorporate75 = "#BF5610"
-secondaryCorporate25 = "#FFB55B"
-secondaryCorporate00 = "#FDD29F"
+primaryCorporate100: str = "#0E2060"
+primaryCorporate75: str = "#32548C"
+primaryCorporate25: str = "#95A6E1"
+primaryCorporate00: str = "#CBD4F4"
+secondaryCorporate100: str = "#802305"
+secondaryCorporate75: str = "#BF5610"
+secondaryCorporate25: str = "#FFB55B"
+secondaryCorporate00: str = "#FDD29F"
 
 
 # General greyscale Colors
-neutral00 = Colors.WHITE      # #FFFFFF
-neutral05 = Colors.GREY_200   # #F2F2F2
-neutral10 = Colors.GREY_300   # #E6E6E6
-neutral20 = Colors.GREY_400   # #CDCDCD
-neutral40 = Colors.BLACK38    # #9A9A9A
-neutral60 = Colors.GREY_700   # #686868
-neutral80 = Colors.GREY_900   # #333333
+neutral00: Colors = Colors.WHITE      # #FFFFFF
+neutral05: Colors = Colors.GREY_200   # #F2F2F2
+neutral10: Colors = Colors.GREY_300   # #E6E6E6
+neutral20: Colors = Colors.GREY_400   # #CDCDCD
+neutral40: Colors = Colors.BLACK38    # #9A9A9A
+neutral60: Colors = Colors.GREY_700   # #686868
+neutral80: Colors = Colors.GREY_900   # #333333
 
 
 # Neutral colors
-neutralSuccessDark = "#217B21"
-neutralSuccessMedium = "#32B832"
-neutralSuccessLight = "#B7EAB7"
-neutralInfoDark = primaryCorporate100
-neutralInfoMedium = primaryCorporateColor
-neutralInfoLight = primaryCorporate25
-neutralDangerDark = "#9C001C"
-neutralDangerMedium = "#D80027"
-neutralDangerLight = "#F6A8B3"
-neutralWarningMedium = Colors.AMBER_600
-neutralWarningLight = Colors.AMBER_300
-transparentColor = Colors.TRANSPARENT
+neutralSuccessDark: str = "#217B21"
+neutralSuccessMedium: str = "#32B832"
+neutralSuccessLight: str = "#B7EAB7"
+neutralInfoDark: str = primaryCorporate100
+neutralInfoMedium: str = primaryCorporateColor
+neutralInfoLight: str = primaryCorporate25
+neutralDangerDark: str = "#9C001C"
+neutralDangerMedium: str = "#D80027"
+neutralDangerLight: str = "#F6A8B3"
+neutralWarningMedium: Colors = Colors.AMBER_600
+neutralWarningLight: Colors = Colors.AMBER_300
+transparentColor: Colors = Colors.TRANSPARENT
 
 
 # Text colors
-primaryTextColor = neutral80
-secondaryTextColor = neutral40
-tertiaryTextColor = neutral00
-accentTextColor = primaryCorporateColor
-successTextColor = neutralSuccessDark
-infoTextColor = neutralInfoDark
-warningTextColor = neutralWarningMedium
-dangerTextColor = neutralDangerDark
+primaryTextColor: Colors = neutral80
+secondaryTextColor: Colors = neutral40
+tertiaryTextColor: Colors = neutral00
+accentTextColor: str = primaryCorporateColor
+successTextColor: str = neutralSuccessDark
+infoTextColor: str = neutralInfoDark
+warningTextColor: Colors = neutralWarningMedium
+dangerTextColor: str = neutralDangerDark
 
 
 # Icon-text colors
-primaryIconColor = neutral80
-secondaryIconColor = neutral40
-tertiaryIconColor = neutral00
-accentIconColor = primaryCorporateColor
+primaryIconColor: Colors = neutral80
+secondaryIconColor: Colors = neutral40
+tertiaryIconColor: Colors = neutral00
+accentIconColor: str = primaryCorporateColor
 
 
 # Appbar colors
-bgAppbarColor = neutral80
-iconAppbarColor = neutral05
-selectedIconAppbarColor = primaryCorporateColor
+bgAppbarColor: Colors = neutral80
+iconAppbarColor: Colors = neutral05
+selectedIconAppbarColor: str = primaryCorporateColor
 
 
 # Sidebar colors
-bgSidebarColor = neutral80
-selectSidebarColor = primaryCorporateColor
-iconSidebarColor = neutral05
-textSidebarColor = tertiaryTextColor
+bgSidebarColor: Colors = neutral80
+selectSidebarColor: str = primaryCorporateColor
+iconSidebarColor: Colors = neutral05
+textSidebarColor: Colors = tertiaryTextColor
 
 
 # Footer colors
-bgFooterColor = primaryCorporateColor
-textFooterColor = tertiaryTextColor
+bgFooterColor: str = primaryCorporateColor
+textFooterColor: Colors = tertiaryTextColor
 
 
 # Snackbar colors
-bgSnackbarDangerColor = neutralDangerLight
-bgSnackbarInfoColor = neutralInfoLight
-bgSnackbarSuccessColor = neutralSuccessLight
-bgSnackbarWarningColor = neutralWarningLight
-
-
-# Checkbox colors
-selectedBorderCheckboxColor = Colors.PURPLE_600
-defaultFillCheckboxColor = Colors.GREY_300
-selectedFillCheckboxColor = Colors.PURPLE_400
+bgSnackbarDangerColor:str = neutralDangerLight
+bgSnackbarInfoColor: str = primaryCorporate25
+bgSnackbarSuccessColor: str = neutralSuccessLight
+bgSnackbarWarningColor: Colors = neutralWarningLight
 
 
 # Textfield colors
-cursorTextfieldColor = accentTextColor
-selectCursorTextfieldColor = secondaryTextColor
-staticBorderTextfieldColor = neutral20
-selectedBorderTextfieldColor = primaryCorporateColor
-
-
-# T-button colors
-dissabledTButtonColor = neutral10
-textColorTextButton = Colors.PURPLE_600
-overlayColorTextButton = Colors.GREY_300
+cursorTextfieldColor: str = primaryCorporateColor
+selectCursorTextfieldColor: Colors = secondaryTextColor
+staticBorderTextfieldColor: Colors = neutral20
+selectedBorderTextfieldColor: str = primaryCorporateColor
 
 
 # E-button colors
-bgEButtonColor = primaryCorporateColor
-bgHoverEButtonColor = primaryCorporate25
-bgDissabledEButtonColor = neutral10
-borderEButtonColor = primaryCorporateColor
-borderDissabledEButtonColor = neutral20
-borderHoverEButtonColor = primaryCorporate25
-
-
-# F-button
-bgFloatingButtonColor = Colors.DEEP_PURPLE_100
-fgFloatingButtonColor = Colors.DEEP_PURPLE_600
-focusFloatingButtonColor = Colors.DEEP_PURPLE_600
+bgEButtonColor: str = primaryCorporateColor
+bgHoverEButtonColor: str = primaryCorporate25
+bgDissabledEButtonColor: Colors = neutral10
+borderEButtonColor: str = primaryCorporateColor
+borderDissabledEButtonColor: Colors = neutral20
+borderHoverEButtonColor: str = primaryCorporate25
 
 
 # Sitewidget colors
-bgSiteWidgetColor = neutral00
-titleSiteWidgetColor = primaryTextColor
-textSiteWidgetColor = neutral60
-accentSiteWidgetColor = tertiaryTextColor
+bgSiteWidgetColor: Colors = neutral00
+titleSiteWidgetColor: Colors = primaryTextColor
+textSiteWidgetColor: Colors = neutral60
+accentSiteWidgetColor: Colors = tertiaryTextColor
 
 
 # Creditcardwidget colors

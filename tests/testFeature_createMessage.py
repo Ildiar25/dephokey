@@ -1,8 +1,7 @@
 import unittest
 
-from features.models.user import User, UserRole
 from features.email_management.create_message import CreateMessage, MessageStyle
-
+from features.models.user import User, UserRole
 from shared.logger_setup import test_log as log
 
 

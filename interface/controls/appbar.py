@@ -7,7 +7,16 @@ from interface.controls.searchbar import CustomSearchBar
 from interface.pages.content_manager import BodyContent, ContentStyle
 from interface.pages.loading_page import LoadingPage
 from shared.logger_setup import main_log as log
-from shared.utils.colors import *
+from shared.utils.colors import (
+    bgAppbarColor,
+    iconAppbarColor,
+    neutral10,
+    neutral20,
+    neutral60,
+    primaryCorporate100,
+    primaryCorporateColor,
+    selectedIconAppbarColor,
+)
 
 
 class CustomAppbar(ft.AppBar):

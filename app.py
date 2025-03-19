@@ -37,8 +37,6 @@ async def back_to_login_page(page: ft.Page) -> None:
             page.go("/login")
             return
 
-        page.go("/login")
-
 
 def main(page: ft.Page) -> None:
 

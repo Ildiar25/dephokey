@@ -1,5 +1,6 @@
-from string import ascii_lowercase, digits, ascii_uppercase
 import random
+from string import ascii_lowercase, ascii_uppercase, digits
+
 import nanoid
 
 

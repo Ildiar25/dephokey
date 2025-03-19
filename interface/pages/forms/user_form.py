@@ -1,17 +1,16 @@
-import flet as ft
-from typing import Callable
-from types import NoneType
+from collections.abc import Callable
 from hashlib import sha256
+from types import NoneType
+
+import flet as ft
 
 from data.db_orm import session
-
 from features.models.user import User
+from interface.controls import CustomTextField
+from shared.utils.colors import primaryTextColor
 from shared.validate import Validate
 
 from .base_form import BaseForm, FormStyle
-from interface.controls import CustomTextField
-
-from shared.utils.colors import *
 
 
 class UserForm(BaseForm):

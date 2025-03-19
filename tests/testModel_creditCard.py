@@ -1,11 +1,10 @@
+import datetime as dt
 import unittest
 from types import NoneType
-import datetime as dt
 
 from features.data_encryption.core import decrypt_data
-from features.models.user import User, UserRole
 from features.models.creditcard import CreditCard
-
+from features.models.user import User, UserRole
 from shared.logger_setup import test_log as log
 
 

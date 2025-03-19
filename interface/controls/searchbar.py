@@ -1,5 +1,6 @@
+from collections.abc import Callable
+
 import flet as ft
-from typing import Callable
 
 
 class CustomSearchBar(ft.Container):

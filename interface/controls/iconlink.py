@@ -1,9 +1,18 @@
-import flet as ft
 import time
+from collections.abc import Callable
 from enum import Enum
-from typing import Callable, Any
+from typing import Any
 
-from shared.utils.colors import *
+import flet as ft
+
+from shared.utils.colors import (
+accentIconColor,
+neutralSuccessLight,
+primaryIconColor,
+secondaryIconColor,
+successTextColor,
+tertiaryIconColor,
+)
 
 
 class IconLinkStyle(Enum):

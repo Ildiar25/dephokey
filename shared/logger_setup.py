@@ -1,8 +1,7 @@
-from logging.handlers import RotatingFileHandler
-from pathlib import Path
 import logging
 import os
-
+from logging.handlers import RotatingFileHandler
+from pathlib import Path
 
 # Set logger settings
 BASE_DIR = Path(__file__).parent.parent.joinpath("tests/logs")

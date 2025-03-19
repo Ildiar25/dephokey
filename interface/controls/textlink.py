@@ -1,7 +1,9 @@
-import flet as ft
-from typing import Callable, Any
+from collections.abc import Callable
+from typing import Any
 
-from shared.utils.colors import *
+import flet as ft
+
+from shared.utils.colors import accentTextColor, secondaryTextColor
 
 
 class TextLink(ft.Container):

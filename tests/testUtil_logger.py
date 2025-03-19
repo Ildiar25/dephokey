@@ -1,7 +1,6 @@
 import unittest
 
-from shared.logger_setup import logging
-from shared.logger_setup import test_log, main_log
+from shared.logger_setup import logging, main_log, test_log
 
 
 class TestLog(unittest.TestCase):

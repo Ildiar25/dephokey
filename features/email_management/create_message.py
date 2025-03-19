@@ -1,14 +1,15 @@
+from email import encoders
+from email.mime.base import MIMEBase
+from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from enum import Enum
-from email.mime.multipart import MIMEMultipart
-from email.mime.base import MIMEBase
-from email import encoders
 from pathlib import Path
-from jinja2.exceptions import TemplateNotFound
-from jinja2 import Environment, FileSystemLoader
 
-from shared.utils.masker import mask_text, mask_email
+from jinja2 import Environment, FileSystemLoader
+from jinja2.exceptions import TemplateNotFound
+
 from shared.logger_setup import main_log as log
+from shared.utils.masker import mask_email, mask_text
 
 
 class MessageStyle(Enum):

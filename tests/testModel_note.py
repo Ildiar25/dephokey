@@ -2,9 +2,8 @@ import unittest
 from types import NoneType
 
 from features.data_encryption.core import decrypt_data
-from features.models.user import User, UserRole
 from features.models.note import Note
-
+from features.models.user import User, UserRole
 from shared.logger_setup import test_log as log
 
 

@@ -1,11 +1,12 @@
-from datetime import datetime
+import datetime
+
 from faker import Faker
 
 from data.db_orm import session
-
+from features.models.creditcard import CreditCard
+from features.models.note import Note
+from features.models.site import Site
 from features.models.user import User, UserRole
-from features.models import Site, CreditCard, Note
-
 from shared.logger_setup import main_log as log
 
 
@@ -22,7 +23,8 @@ def fill_with_data(user: User) -> None:
 
     some_cards = []
     for _ in range(10):
-        fake_date = fake.date_time_between(datetime(year=2020, month=1, day=1), datetime(year=2040, month=1, day=1))
+        fake_date = fake.date_time_between(datetime.datetime(year=2020, month=1, day=1), datetime.datetime(year=2040,
+                                                                                                      month=1, day=1))
         some_cards.append(
             CreditCard(
                 cardholder=fake.name().title(), number=fake.credit_card_number(),

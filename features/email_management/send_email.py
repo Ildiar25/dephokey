@@ -1,8 +1,8 @@
 import smtplib
 
-from .create_message import CreateMessage, MessageStyle
-
 from shared.logger_setup import main_log as log
+
+from .create_message import CreateMessage, MessageStyle
 
 
 class SendEmail:
