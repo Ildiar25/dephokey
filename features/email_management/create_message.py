@@ -11,6 +11,7 @@ from jinja2.exceptions import TemplateNotFound
 from shared.logger_setup import main_log as log
 from shared.utils.masker import mask_email, mask_text
 
+MAIN_PATH = Path(__file__).parent
 
 class MessageStyle(Enum):
     RESET = "reset"
@@ -18,9 +19,16 @@ class MessageStyle(Enum):
 
 
 class CreateMessage(MIMEMultipart):
-    def __init__(self, style: MessageStyle, send_from: str | None = None, send_to: str | None = None,
-                 subject: str | None = None, token: str | None = None, name: str | None = None,
-                 content: str | None = None) -> None:
+    def __init__(
+            self,
+            style: MessageStyle,
+            send_from: str | None = None,
+            send_to: str | None = None,
+            subject: str | None = None,
+            token: str | None = None,
+            name: str | None = None,
+            content: str | None = None
+    ) -> None:
         super().__init__()
 
         # General attributes
@@ -42,17 +50,22 @@ class CreateMessage(MIMEMultipart):
     def __update_appearance(self) -> None:
         match self.style:
             case MessageStyle.RESET:
-                self.with_text = (f"Hola {self.name}!\nPor favor, introduce en el programa el código de siete "
-                                  f"caracteres proporcionado\npara poder actualizar tu contraseña:\n\n{self.token}\n\n"
-                                  f"Si no has realizado la petición, puedes ignorar este email.\n\nAtentamente,\n"
-                                  f"El equipo Dephokey")
+                self.with_text = (
+                    f"Hola {self.name}!\nPor favor, introduce en el programa el código de siete caracteres "
+                    f"proporcionado\npara poder actualizar tu contraseña:\n\n{self.token}\n\nSi no has realizado "
+                    f"la petición, puedes ignorar este email.\n\nAtentamente,\nEl equipo Dephokey"
+                )
                 self.with_html = self.__load_template(
-                    template_name="reset_password.html", title=self.name, message=self.token
+                    template_name="reset_password.html",
+                    title=self.name,
+                    message=self.token
                 )
 
             case MessageStyle.QUERY:
                 self.with_html = self.__load_template(
-                    template_name="user_request.html", title=self["subject"], message=self.with_text
+                    template_name="user_request.html",
+                    title=self["subject"],
+                    message=self.with_text
                 )
 
     def __load_image(self) -> MIMEBase | None:
@@ -60,7 +73,11 @@ class CreateMessage(MIMEMultipart):
             with open(self.path_img, "rb") as img:
                 logo = MIMEBase("logotype", "png")
                 logo.set_payload(img.read())
+
+                # Encode image
                 encoders.encode_base64(logo)
+
+                # Asign headers
                 logo.add_header("Content-ID", "<logotype.png>")
                 logo.add_header("Content-Disposition", "inline", filename="logotype.png")
                 return logo
@@ -75,8 +92,7 @@ class CreateMessage(MIMEMultipart):
     @staticmethod
     def __load_template(template_name: str, title: str, message: str) -> str | None:
         # Loads file directory
-        main_path = Path(__file__).parent
-        env = Environment(loader=FileSystemLoader(f"{main_path}/templates"))
+        env = Environment(loader=FileSystemLoader(f"{MAIN_PATH}/templates"))
 
         try:
             new_template = env.get_template(template_name)
@@ -85,8 +101,9 @@ class CreateMessage(MIMEMultipart):
         except TemplateNotFound as not_template:
             log.error(f"{type(not_template).__name__} | No se ha encontrado la plantilla HTML: {not_template}")
         except Exception as unknown:
-            log.error(f"{type(unknown).__name__} | Un error inesperado ha ocurrido al procesar la platilla "
-                      f"HTML: {unknown}")
+            log.error(
+                f"{type(unknown).__name__} | Un error inesperado ha ocurrido al procesar la platilla HTML: {unknown}"
+            )
 
     def create(self) -> "CreateMessage":
         if self.img:
@@ -99,6 +116,12 @@ class CreateMessage(MIMEMultipart):
             self.attach(html_part)
         return self
 
-    def __repr__(self) -> str:
-        return (f"<class CreateEmail(from={repr(mask_email(self['From']))}, to={repr(mask_email(self['To']))}, "
-                f"subject={repr(self['Subject'])}, content={repr(mask_text(self.with_text))})>")
+    def custom_repr(self) -> str:
+        return (
+            f"<class CreateEmail("
+                f"from={repr(mask_email(self['From']))}, "
+                f"to={repr(mask_email(self['To']))}, "
+                f"subject={repr(self['Subject'])}, "
+                f"content={repr(mask_text(self.with_text))}"
+            f")>"
+        )

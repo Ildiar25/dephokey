@@ -17,6 +17,13 @@ class GenerateID:
         """
         return nanoid.generate(alphabet=ascii_lowercase + digits, size=15)
 
+    def __str__(self) -> str:
+        return (
+            f"<class GenerateID("
+            f"method={repr(self.short_id.__name__)}, "
+            f")>"
+        )
+
 
 class GenerateToken:
     """
@@ -30,3 +37,10 @@ class GenerateToken:
         :return: str | New token
         """
         return "".join(random.choices(population=ascii_uppercase + digits, k=7))
+
+    def __str__(self) -> str:
+        return (
+            f"<class GenerateToken("
+            f"method={repr(self.generate.__name__)}, "
+            f")>"
+        )
