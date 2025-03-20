@@ -2,7 +2,6 @@ from collections.abc import Callable
 
 import flet as ft
 
-from data.db_orm import session
 from features.data_encryption.core import decrypt_data
 from features.models import Site
 from interface.controls import IconLink, TextLink
@@ -15,6 +14,7 @@ from shared.utils.masker import mask_password
 
 
 class SiteWidget(ft.Card):
+    """This class displays all site data"""
     def __init__(self, site: Site, page: ft.Page, update_appearance: Callable[[], None]) -> None:
         super().__init__()
 
@@ -30,9 +30,16 @@ class SiteWidget(ft.Card):
         self.animate_scale = ft.animation.Animation(200, ft.AnimationCurve.EASE_IN_OUT)
 
         # SiteWidget elements
-        self.site_title = ft.Text(self.site.name if self.site.name else "Sin título", font_family="AlbertSansB",
-                                  size=18, color=primaryTextColor)
-        self.site_link = TextLink(text=self.site.address, function=lambda _: self.page.launch_url(self.site.address))
+        self.site_title = ft.Text(
+            value=self.site.name if self.site.name else "Sin título",
+            font_family="AlbertSansB",
+            size=18,
+            color=primaryTextColor
+        )
+        self.site_link = TextLink(
+            text=self.site.address,
+            function=lambda _: self.page.launch_url(self.site.address)
+        )
         self.site_username = ft.Text(self.site.username, color=neutral60)
         self.site_password = ft.Text(mask_password(decrypt_data(self.site.encrypted_password)))
 
@@ -42,7 +49,7 @@ class SiteWidget(ft.Card):
 
         # Widget content
         self.content = ft.Container(
-            on_hover=self.scale_widget,
+            on_hover=self.__scale_widget,
             padding=ft.padding.all(24),
             expand=True,
             content=ft.Column(
@@ -57,16 +64,21 @@ class SiteWidget(ft.Card):
                                 content=ft.Row(
                                     spacing=8,
                                     controls=[
-                                        IconLink(ft.Icons.EDIT_OUTLINED, IconLinkStyle.LIGHT,
-                                                 function=self.open_edit_site_form),
-                                        IconLink(ft.Icons.DELETE_OUTLINED, IconLinkStyle.LIGHT,
-                                                 function=self.open_delete_form)
+                                        IconLink(
+                                            icon=ft.Icons.EDIT_OUTLINED,
+                                            style=IconLinkStyle.LIGHT,
+                                            function=self.__open_edit_site_form
+                                        ),
+                                        IconLink(
+                                            icon=ft.Icons.DELETE_OUTLINED,
+                                            style=IconLinkStyle.LIGHT,
+                                            function=self.__open_delete_form
+                                        ),
                                     ]
                                 )
-                            )
+                            ),
                         ]
                     ),
-
                     # Body
                     ft.Row(
                         spacing=8,
@@ -75,7 +87,7 @@ class SiteWidget(ft.Card):
                                 ft.Icons.LINK_ROUNDED,
                                 color=neutral80
                             ),
-                            self.site_link
+                            self.site_link,
                         ]
                     ),
                     ft.Row(
@@ -85,16 +97,15 @@ class SiteWidget(ft.Card):
                                 ft.Icons.ACCOUNT_CIRCLE_ROUNDED,
                                 color=neutral80
                             ),
-                            self.site_username
+                            self.site_username,
                         ]
                     ),
-
                     # Footer
                     ft.Row(
                         alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
                         controls=[
                             ft.Container(
-                                on_hover=self.show_password,
+                                on_hover=self.__show_password,
                                 content=ft.Row(
                                     spacing=8,
                                     controls=[
@@ -102,52 +113,58 @@ class SiteWidget(ft.Card):
                                             ft.Icons.PASSWORD_ROUNDED,
                                             color=neutral80
                                         ),
-                                        self.site_password
+                                        self.site_password,
                                     ]
                                 )
                             ),
-                            IconLink(ft.Icons.COPY_ROUNDED, style=IconLinkStyle.LIGHT, function=self.copy_text,
-                                     tooltip="copiar contraseña")
+                            IconLink(
+                                icon=ft.Icons.COPY_ROUNDED,
+                                style=IconLinkStyle.LIGHT,
+                                function=self.__copy_text,
+                                tooltip="copiar contraseña"
+                            ),
                         ]
-                    )
+                    ),
                 ]
             )
         )
 
-    def scale_widget(self, cursor: ft.ControlEvent) -> None:
+    def __scale_widget(self, cursor: ft.ControlEvent) -> None:
         if cursor and self.scale == 1.05:
             self.scale = 1
         else:
             self.scale = 1.05
+
         self.update()
 
-    def copy_text(self, cursor: ft.ControlEvent) -> None:
+    def __copy_text(self, cursor: ft.ControlEvent) -> None:
         self.page.set_clipboard(decrypt_data(self.site.encrypted_password))
         cursor.control.show_badge()
 
-    def show_password(self, cursor: ft.ControlEvent) -> None:
+    def __show_password(self, cursor: ft.ControlEvent) -> None:
         if cursor and self.site_password.value == mask_password(decrypt_data(self.site.encrypted_password)):
             self.site_password.value = decrypt_data(self.site.encrypted_password)
         else:
             self.site_password.value = mask_password(decrypt_data(self.site.encrypted_password))
+
         self.site_password.update()
 
-    def open_edit_site_form(self, _: ft.ControlEvent) -> None:
+    def __open_edit_site_form(self, _: ft.ControlEvent) -> None:
         self.page.open(
             SiteForm(
-                title=f"Editando {self.site.name}", page=self.page, style=FormStyle.EDIT,
-                site=self.site, update_changes=self.update_appearance)
+                title=f"Editando {self.site.name}",
+                page=self.page,
+                style=FormStyle.EDIT,
+                site=self.site,
+                update_changes=self.update_appearance)
         )
 
-    def open_delete_form(self, _: ft.ControlEvent) -> None:
+    def __open_delete_form(self, _: ft.ControlEvent) -> None:
         self.page.open(
             DeleteForm(
-                self.page, self.site, DeleteFormStyle.SITE, self.update_appearance
+                page=self.page,
+                item=self.site,
+                style=DeleteFormStyle.SITE,
+                update_changes=self.update_appearance
             )
         )
-
-    def delete_site(self, _: ft.ControlEvent) -> None:
-        # New query
-        session.query(Site).filter(Site.id == self.site.id).delete()
-        session.commit()
-        self.update_appearance()

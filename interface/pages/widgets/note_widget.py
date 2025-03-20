@@ -2,7 +2,6 @@ from collections.abc import Callable
 
 import flet as ft
 
-from data.db_orm import session
 from features.data_encryption.core import decrypt_data
 from features.models import Note
 from interface.controls import IconLink
@@ -15,6 +14,7 @@ from shared.utils.masker import mask_text
 
 
 class NoteWidget(ft.Card):
+    """This class displays all note data"""
     def __init__(self, note: Note, page: ft.Page, update_appearance: Callable[[], None]) -> None:
         super().__init__()
 
@@ -30,8 +30,12 @@ class NoteWidget(ft.Card):
         self.animate_scale = ft.animation.Animation(200, ft.AnimationCurve.EASE_IN_OUT)
 
         # NoteWidget elements
-        self.note_title = ft.Text(self.note.title if self.note.title else "Sin título", font_family="AlbertSansB",
-            size=18, color=primaryTextColor)
+        self.note_title = ft.Text(
+            value=self.note.title if self.note.title else "Sin título",
+            font_family="AlbertSansB",
+            size=18,
+            color=primaryTextColor
+        )
         self.note_content = ft.Text(mask_text(decrypt_data(self.note.encrypted_content)))
 
         # Widget design
@@ -40,7 +44,7 @@ class NoteWidget(ft.Card):
 
         # Widget content
         self.content=ft.Container(
-            on_hover=self.scale_widget,
+            on_hover=self.__scale_widget,
             padding=ft.padding.all(24),
             expand=True,
             content=ft.Column(
@@ -58,66 +62,75 @@ class NoteWidget(ft.Card):
                                         content=ft.Row(
                                             spacing=8,
                                             controls=[
-                                                IconLink(ft.Icons.EDIT_OUTLINED, IconLinkStyle.LIGHT,
-                                                         function=self.open_edit_note_form),
-                                                IconLink(ft.Icons.DELETE_OUTLINED, IconLinkStyle.LIGHT,
-                                                         function=self.open_delete_form)
+                                                IconLink(
+                                                    icon=ft.Icons.EDIT_OUTLINED,
+                                                    style=IconLinkStyle.LIGHT,
+                                                    function=self.__open_edit_note_form
+                                                ),
+                                                IconLink(
+                                                    icon=ft.Icons.DELETE_OUTLINED,
+                                                    style=IconLinkStyle.LIGHT,
+                                                    function=self.__open_delete_form
+                                                ),
                                             ]
                                         )
-                                    )
+                                    ),
                                 ]
                             ),
-
                             # Body
                             ft.Row(
                                 wrap=True,
                                 controls=[
                                     ft.Container(
-                                        on_hover=self.show_content,
+                                        on_hover=self.__show_content,
                                         content=ft.Row(
                                             wrap=True,
                                             controls=[
-                                                self.note_content
+                                                self.note_content,
                                             ]
                                         )
-                                    )
+                                    ),
                                 ]
-                            )
+                            ),
                         ]
-                    )
+                    ),
                 ]
             )
         )
 
-    def scale_widget(self, cursor: ft.ControlEvent) -> None:
+    def __scale_widget(self, cursor: ft.ControlEvent) -> None:
         if cursor and self.scale == 1.05:
             self.scale = 1
         else:
             self.scale = 1.05
+
         self.update()
 
-    def show_content(self, cursor: ft.ControlEvent) -> None:
+    def __show_content(self, cursor: ft.ControlEvent) -> None:
         if cursor and self.note_content.value == mask_text(decrypt_data(self.note.encrypted_content)):
             self.note_content.value = decrypt_data(self.note.encrypted_content)
         else:
             self.note_content.value = mask_text(decrypt_data(self.note.encrypted_content))
+
         self.note_content.update()
 
-    def open_edit_note_form(self, _: ft.ControlEvent) -> None:
+    def __open_edit_note_form(self, _: ft.ControlEvent) -> None:
         self.page.open(
-            NoteForm(title=f"Editando {self.note.title}", page=self.page, style=FormStyle.EDIT,
-                     note=self.note, update_changes=self.update_appearance)
-        )
-
-    def open_delete_form(self, _: ft.ControlEvent) -> None:
-        self.page.open(
-            DeleteForm(
-                self.page, self.note, DeleteFormStyle.NOTE, self.update_appearance
+            NoteForm(
+                title=f"Editando {self.note.title}",
+                page=self.page,
+                style=FormStyle.EDIT,
+                note=self.note,
+                update_changes=self.update_appearance
             )
         )
 
-    def delete_note(self, _: ft.ControlEvent) -> None:
-        # New query
-        session.query(Note).filter(Note.id == self.note.id).delete()
-        session.commit()
-        self.update_appearance()
+    def __open_delete_form(self, _: ft.ControlEvent) -> None:
+        self.page.open(
+            DeleteForm(
+                page=self.page,
+                item=self.note,
+                style=DeleteFormStyle.NOTE,
+                update_changes=self.update_appearance
+            )
+        )

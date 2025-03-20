@@ -4,7 +4,6 @@ from enum import Enum
 
 import flet as ft
 
-from data.db_orm import session
 from features.data_encryption.core import decrypt_data
 from features.models import CreditCard
 from interface.controls import IconLink
@@ -30,6 +29,7 @@ class CreditCardStyle(Enum):
 
 
 class CreditCardWidget(ft.Card):
+    """This class displays all creditcard data"""
     def __init__(self, creditcard: CreditCard, page: ft.Page, update_appearance: Callable[[], None]) -> None:
         super().__init__()
 
@@ -46,15 +46,21 @@ class CreditCardWidget(ft.Card):
         self.animate_scale = ft.animation.Animation(200, ft.AnimationCurve.EASE_IN_OUT)
 
         # CreditCardWidget elements
-        self.card_alias = ft.Text(self.creditcard.alias if self.creditcard.alias else "Alias",
-            font_family="AlbertSansB", size=18, color=tertiaryTextColor
+        self.card_alias = ft.Text(
+            value=self.creditcard.alias if self.creditcard.alias else "Alias",
+            font_family="AlbertSansB",
+            size=18,
+            color=tertiaryTextColor
         )
         self.card_number = ft.Row(
             spacing=18,
             expand=True,
             controls=[
                 ft.Text(
-                    group, font_family="IcelandR", color=tertiaryTextColor, size=20
+                    value=group,
+                    font_family="IcelandR",
+                    color=tertiaryTextColor,
+                    size=20
                 ) for group in textwrap.wrap(decrypt_data(self.creditcard.encrypted_number), width=4)
             ]
         )
@@ -82,13 +88,19 @@ class CreditCardWidget(ft.Card):
                                 content=ft.Row(
                                     spacing=8,
                                     controls=[
-                                        IconLink(ft.Icons.EDIT_OUTLINED, IconLinkStyle.DARK,
-                                                 function=self.open_edit_creditcard_form),
-                                        IconLink(ft.Icons.DELETE_OUTLINED, IconLinkStyle.DARK,
-                                                 function=self.open_delete_form)
+                                        IconLink(
+                                            icon=ft.Icons.EDIT_OUTLINED,
+                                            style=IconLinkStyle.DARK,
+                                            function=self.__open_edit_creditcard_form
+                                        ),
+                                        IconLink(
+                                            icon=ft.Icons.DELETE_OUTLINED,
+                                            style=IconLinkStyle.DARK,
+                                            function=self.__open_delete_form
+                                        ),
                                     ]
                                 )
-                            )
+                            ),
                         ]
                     ),
                     # Body
@@ -96,25 +108,33 @@ class CreditCardWidget(ft.Card):
                     ft.Row(
                         alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
                         controls=[
-                            self.card_number, IconLink(ft.Icons.COPY_ROUNDED, style=IconLinkStyle.DARK,
-                                                       function=self.copy_text, tooltip="copiar número")
+                            self.card_number,
+                            IconLink(
+                                icon=ft.Icons.COPY_ROUNDED,
+                                style=IconLinkStyle.DARK,
+                                function=self.__copy_text,
+                                tooltip="copiar número"
+                            ),
                         ]
                     ),
-
                     # Footer
                     ft.Row(
                         alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
                         controls=[
                             ft.Text(
-                                self.creditcard.cardholder if self.creditcard.cardholder else "Titular",
-                                font_family="AlbertSansL", size=16, color=tertiaryTextColor
+                                value=self.creditcard.cardholder if self.creditcard.cardholder else "Titular",
+                                font_family="AlbertSansL",
+                                size=16,
+                                color=tertiaryTextColor
                             ),
                             ft.Text(
-                                self.creditcard.valid_until.strftime("%m/%y"),
-                                font_family="IcelandR", size=18, color=tertiaryTextColor
-                            )
+                                value=self.creditcard.valid_until.strftime("%m/%y"),
+                                font_family="IcelandR",
+                                size=18,
+                                color=tertiaryTextColor
+                            ),
                         ]
-                    )
+                    ),
                 ]
             )
         )
@@ -123,9 +143,10 @@ class CreditCardWidget(ft.Card):
             content=ft.Column(
                 spacing=0,
                 controls=[
-                    ft.Container(height=42,
-                                 bgcolor=primaryCorporate100 if not self.creditcard.expired else neutralDangerDark
-                                 ),
+                    ft.Container(
+                        height=42,
+                        bgcolor=primaryCorporate100 if not self.creditcard.expired else neutralDangerDark
+                    ),
                     ft.Container(
                         height=40,
                         margin=ft.margin.symmetric(vertical=15, horizontal=24),
@@ -135,8 +156,8 @@ class CreditCardWidget(ft.Card):
                         border=ft.border.all(width=1, color=neutral20),
                         content=self.card_cvc,
                         alignment=ft.alignment.center_right,
-                        on_hover=self.show_cvc,
-                    )
+                        on_hover=self.__show_cvc,
+                    ),
                 ]
             )
         )
@@ -144,7 +165,7 @@ class CreditCardWidget(ft.Card):
         # Widget main content
         self.content = ft.Container(
             on_click=self.__flip_card,
-            on_hover=self.scale_widget,
+            on_hover=self.__scale_widget,
             content=self.front_content
         )
 
@@ -156,44 +177,48 @@ class CreditCardWidget(ft.Card):
             case CreditCardStyle.BACK:
                 self.content.content = self.back_content
 
+    def __scale_widget(self, cursor: ft.ControlEvent) -> None:
+        if cursor and self.scale == 1.05:
+            self.scale = 1
+        else:
+            self.scale = 1.05
+
+        self.update()
+
     def __flip_card(self, _: ft.ControlEvent) -> None:
         self.style = CreditCardStyle.BACK if self.style == CreditCardStyle.FRONT else CreditCardStyle.FRONT
         self.__update_face()
         self.update()
 
-    def scale_widget(self, cursor: ft.ControlEvent) -> None:
-        if cursor and self.scale == 1.05:
-            self.scale = 1
-        else:
-            self.scale = 1.05
-        self.update()
-
-    def show_cvc(self, cursor: ft.ControlEvent) -> None:
+    def __show_cvc(self, cursor: ft.ControlEvent) -> None:
         if cursor and self.card_cvc.value == mask_number(decrypt_data(self.creditcard.encrypted_cvc)):
             self.card_cvc.value = decrypt_data(self.creditcard.encrypted_cvc)
         else:
             self.card_cvc.value = mask_number(decrypt_data(self.creditcard.encrypted_cvc))
+
         self.card_cvc.update()
 
-    def copy_text(self, cursor: ft.ControlEvent) -> None:
+    def __copy_text(self, cursor: ft.ControlEvent) -> None:
         self.page.set_clipboard(decrypt_data(self.creditcard.encrypted_number))
         cursor.control.show_badge()
 
-    def open_edit_creditcard_form(self, _: ft.ControlEvent) -> None:
+    def __open_edit_creditcard_form(self, _: ft.ControlEvent) -> None:
         self.page.open(
-            CreditCardForm(title=f"Editando {self.creditcard.alias}", page=self.page, style=FormStyle.EDIT,
-                           creditcard=self.creditcard, update_changes=self.update_appearance)
-        )
-
-    def open_delete_form(self, _: ft.ControlEvent) -> None:
-        self.page.open(
-            DeleteForm(
-                self.page, self.creditcard, DeleteFormStyle.CREDITCARD, self.update_appearance
+            CreditCardForm(
+                title=f"Editando {self.creditcard.alias}",
+                page=self.page,
+                style=FormStyle.EDIT,
+                creditcard=self.creditcard,
+                update_changes=self.update_appearance
             )
         )
 
-    def delete_creditcard(self, _: ft.ControlEvent) -> None:
-        # New query
-        session.query(CreditCard).filter(CreditCard.id == self.creditcard.id).delete()
-        session.commit()
-        self.update_appearance()
+    def __open_delete_form(self, _: ft.ControlEvent) -> None:
+        self.page.open(
+            DeleteForm(
+                page=self.page,
+                item=self.creditcard,
+                style=DeleteFormStyle.CREDITCARD,
+                update_changes=self.update_appearance
+            )
+        )
