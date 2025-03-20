@@ -25,6 +25,7 @@ from shared.validate import Validate
 
 
 class AdminPage(ft.Column):
+    """Displays admin permissions and allows to modify every database element."""
     def __init__(self, page: ft.Page, snackbar: Snackbar, update_changes: Callable[[], None]) -> None:
         super().__init__()
 
@@ -74,50 +75,106 @@ class AdminPage(ft.Column):
             border_radius=4,
         )
 
-        # Admin Userform attributes
-        self.u_fullname = CustomTextField(hint_text="Introduce el nombre completo del usuario", max_length=150)
-        self.u_email = CustomTextField(hint_text="Añade su dirección de correo", max_length=50)
+        # User form fields
+        self.u_fullname = CustomTextField(
+            hint_text="Introduce el nombre completo del usuario",
+            max_length=150
+        )
+        self.u_email = CustomTextField(
+            hint_text="Añade su dirección de correo",
+            max_length=50
+        )
         self.u_password = CustomTextField(
-            hint_text="Incluye una contraseña segura", max_length=50, password=True, can_reveal_password=True
+            hint_text="Incluye una contraseña segura",
+            max_length=50,
+            password=True,
+            can_reveal_password=True
         )
-        self.u_switch = CustomSwitch(title="Selecciona si el usuario es ADMIN")
-        self.u_submit = CustomElevatedButton(name="Añadir usuario", style=ButtonStyle.ICON, on_click=self.add_new_user)
+        self.u_switch = CustomSwitch(title="Rol de usuario: ADMIN")
+        self.u_submit = CustomElevatedButton(
+            name="Añadir usuario",
+            style=ButtonStyle.ICON,
+            on_click=self.__add_new_user
+        )
 
-        self.s_name = CustomTextField(hint_text="Dale un nombre a la dirección",max_length=30)
-        self.s_address = CustomTextField(hint_text="Escribe la dirección", max_length=50, prefix_text="http://")
-        self.s_username = CustomTextField(hint_text="Añade el usuario con el que te has registrado", max_length=30)
+        # Site form fields
+        self.s_name = CustomTextField(
+            hint_text="Dale un nombre a la dirección",
+            max_length=30
+        )
+        self.s_address = CustomTextField(
+            hint_text="Escribe la dirección",
+            max_length=50,
+            prefix_text="http://"
+        )
+        self.s_username = CustomTextField(
+            hint_text="Añade el usuario con el que te has registrado",
+            max_length=30
+        )
         self.s_password = CustomTextField(
-            hint_text="Escribe la contraseña", max_length=30, password=True, can_reveal_password=True
+            hint_text="Escribe la contraseña",
+            max_length=30,
+            password=True,
+            can_reveal_password=True
         )
-        self.s_submit = CustomElevatedButton(name="Añadir sitio", style=ButtonStyle.ICON, on_click=self.add_new_site)
+        self.s_submit = CustomElevatedButton(
+            name="Añadir sitio",
+            style=ButtonStyle.ICON,
+            on_click=self.__add_new_site
+        )
 
-        self.cc_alias = CustomTextField(hint_text="Agrega un alias", max_length=30)
-        self.cc_holder = CustomTextField(hint_text="Introduce el nombre del titular", max_length=30)
+        # Creditcard form fields
+        self.cc_alias = CustomTextField(
+            hint_text="Agrega un alias",
+            max_length=30
+        )
+        self.cc_holder = CustomTextField(
+            hint_text="Introduce el nombre del titular",
+            max_length=30
+        )
         self.cc_number = CustomTextField(
-            hint_text="Añade el número de tarjeta", can_reveal_password=True,max_length=19, password=True,
+            hint_text="Añade el número de tarjeta",
+            can_reveal_password=True,
+            max_length=19,
+            password=True,
             input_filter=ft.NumbersOnlyInputFilter()
         )
         self.cc_cvc = CustomTextField(
-            hint_text="cvc", width=104, password=True, can_reveal_password=True, max_length=4,
+            hint_text="cvc",
+            width=104,
+            password=True,
+            can_reveal_password=True,
+            max_length=4,
             input_filter=ft.NumbersOnlyInputFilter()
         )
-        self.cc_date = CustomTextField(hint_text="mm/yy", max_length=5)
-        self.cc_submit = CustomElevatedButton(name="Añadir tarjeta", style=ButtonStyle.ICON,
-                                              on_click=self.add_new_creditcard)
-
-        self.n_title = CustomTextField(hint_text="Añade un título", max_length=25)
-        self.n_content = CustomTextField(
-            hint_text="Agrega contenido importante", can_reveal_password=True,
-            password=True, max_lines=5, min_lines=5, max_length=324
+        self.cc_date = CustomTextField(
+            hint_text="mm/yy",
+            max_length=5
         )
-        self.n_submit = CustomElevatedButton(name="Añadir nota", style=ButtonStyle.ICON, on_click=self.add_new_note)
+        self.cc_submit = CustomElevatedButton(
+            name="Añadir tarjeta",
+            style=ButtonStyle.ICON,
+            on_click=self.__add_new_creditcard
+        )
 
-        # Body content
-        self.user_rows = ft.Column()
-        self.site_rows = ft.Column()
-        self.creditcard_rows = ft.Column()
-        self.note_rows = ft.Column()
-        self.pass_request_rows = ft.Column()
+        # Note form fields
+        self.n_title = CustomTextField(
+            hint_text="Añade un título",
+            max_length=25
+        )
+        self.n_content = CustomTextField(
+            hint_text="Agrega contenido importante",
+            can_reveal_password=True,
+            password=True,
+            max_lines=5,
+            min_lines=5,
+            max_length=324
+        )
+        self.n_submit = CustomElevatedButton(
+            name="Añadir nota",
+            style=ButtonStyle.ICON,
+            on_click=self.__add_new_note
+        )
 
         # Admin Forms
         self.user_form = ft.Container(
@@ -127,7 +184,8 @@ class AdminPage(ft.Column):
             border_radius=4,
             padding=ft.padding.all(24),
             shadow=ft.BoxShadow(
-                blur_radius=0.9, offset=(0.0, 0.5),
+                blur_radius=0.9,
+                offset=(0.0, 0.5),
                 color=ft.Colors.with_opacity(opacity=0.3, color=neutral80)
             ),
             content=ft.Row(
@@ -137,30 +195,61 @@ class AdminPage(ft.Column):
                         expand=True,
                         spacing=16,
                         controls=[
-                            ft.Row(controls=[
-                                ft.Text(value="Añadir usuario", font_family="AlbertSansR",
-                                        size=18, color=accentTextColor),
-                            ]),
-                            ft.Column(spacing=8, controls=[
-                                ft.Text(value="Nombre completo", font_family="AlbertSansR",
-                                        color=primaryTextColor, spans=[self.span]),
-                                self.u_fullname
-                            ]),
-                            ft.Column(spacing=8, controls=[
-                                ft.Text(value="Correo electrónico", font_family="AlbertSansR",
-                                        color=primaryTextColor, spans=[self.span]),
-                                self.u_email
-                            ]),
-                            ft.Column(spacing=8, controls=[
-                                ft.Text(value="Contraseña", font_family="AlbertSansR",
-                                        color=primaryTextColor, spans=[self.span]),
-                                self.u_password
-                            ]),
+                            ft.Row(
+                                controls=[
+                                    ft.Text(
+                                        value="Añadir usuario",
+                                        font_family="AlbertSansR",
+                                        size=18,
+                                        color=accentTextColor
+                                    ),
+                                ]
+                            ),
+                            ft.Column(
+                                spacing=8,
+                                controls=[
+                                    ft.Text(
+                                        value="Nombre completo",
+                                        font_family="AlbertSansR",
+                                        color=primaryTextColor,
+                                        spans=[self.span, ]
+                                    ),
+                                    self.u_fullname,
+                                ]
+                            ),
+                            ft.Column(
+                                spacing=8,
+                                controls=[
+                                    ft.Text(
+                                        value="Correo electrónico",
+                                        font_family="AlbertSansR",
+                                        color=primaryTextColor,
+                                        spans=[self.span, ]
+                                    ),
+                                    self.u_email,
+                                ]
+                            ),
+                            ft.Column(
+                                spacing=8,
+                                controls=[
+                                    ft.Text(
+                                        value="Contraseña",
+                                        font_family="AlbertSansR",
+                                        color=primaryTextColor,
+                                        spans=[self.span, ]
+                                    ),
+                                    self.u_password,
+                                ]
+                            ),
                             self.u_switch,
-                            ft.Column(expand=True),
-                            ft.Row(controls=[self.u_submit], alignment=ft.MainAxisAlignment.END)
+                            ft.Column(
+                                expand=True
+                            ),
+                            ft.Row(alignment=ft.MainAxisAlignment.END,
+                                controls=[self.u_submit, ]
+                            ),
                         ]
-                    )
+                    ),
                 ]
             )
         )
@@ -171,7 +260,8 @@ class AdminPage(ft.Column):
             border_radius=4,
             padding=ft.padding.all(24),
             shadow=ft.BoxShadow(
-                blur_radius=0.9, offset=(0.0, 0.5),
+                blur_radius=0.9,
+                offset=(0.0, 0.5),
                 color=ft.Colors.with_opacity(opacity=0.3, color=neutral80)
             ),
             content=ft.Row(
@@ -181,39 +271,84 @@ class AdminPage(ft.Column):
                         expand=True,
                         spacing=16,
                         controls=[
-                            ft.Row(controls=[
-                                ft.Text(value="Añadir sitio web", font_family="AlbertSansR",
-                                        size=18, color=accentTextColor),
-                            ]),
-                            ft.Column(spacing=8, controls=[
-                                ft.Text(value="Usuario asociado", font_family="AlbertSansR",
-                                        color=primaryTextColor, spans=[self.span]),
-                                self.site_dropdown
-                            ]),
-                            ft.Column(spacing=8, controls=[
-                                ft.Text(value="Nombre del sitio", font_family="AlbertSansR",
-                                        color=primaryTextColor, spans=[]),
-                                self.s_name
-                            ]),
-                            ft.Column(spacing=8, controls=[
-                                ft.Text(value="Dirección web", font_family="AlbertSansR",
-                                        color=primaryTextColor, spans=[self.span]),
-                                self.s_address
-                            ]),
-                            ft.Column(spacing=8, controls=[
-                                ft.Text(value="Nombre de usuario", font_family="AlbertSansR",
-                                        color=primaryTextColor, spans=[self.span]),
-                                self.s_username
-                            ]),
-                            ft.Column(spacing=8, controls=[
-                                ft.Text(value="Contraseña", font_family="AlbertSansR",
-                                        color=primaryTextColor, spans=[self.span]),
-                                self.s_password
-                            ]),
-                            ft.Column(expand=True),
-                            ft.Row(controls=[self.s_submit], alignment=ft.MainAxisAlignment.END)
+                            ft.Row(
+                                controls=[
+                                    ft.Text(
+                                        value="Añadir sitio web",
+                                        font_family="AlbertSansR",
+                                        size=18,
+                                        color=accentTextColor
+                                    ),
+                                ]
+                            ),
+                            ft.Column(
+                                spacing=8,
+                                controls=[
+                                    ft.Text(
+                                        value="Usuario asociado",
+                                        font_family="AlbertSansR",
+                                        color=primaryTextColor,
+                                        spans=[self.span, ]
+                                    ),
+                                    self.site_dropdown,
+                                ]
+                            ),
+                            ft.Column(
+                                spacing=8,
+                                controls=[
+                                    ft.Text(
+                                        value="Nombre del sitio",
+                                        font_family="AlbertSansR",
+                                        color=primaryTextColor,
+                                    ),
+                                    self.s_name,
+                                ]
+                            ),
+                            ft.Column(
+                                spacing=8,
+                                controls=[
+                                    ft.Text(
+                                        value="Dirección web",
+                                        font_family="AlbertSansR",
+                                        color=primaryTextColor,
+                                        spans=[self.span, ]
+                                    ),
+                                    self.s_address,
+                                ]
+                            ),
+                            ft.Column(
+                                spacing=8,
+                                controls=[
+                                    ft.Text(
+                                        value="Nombre de usuario",
+                                        font_family="AlbertSansR",
+                                        color=primaryTextColor,
+                                        spans=[self.span, ]
+                                    ),
+                                    self.s_username,
+                                ]
+                            ),
+                            ft.Column(
+                                spacing=8,
+                                controls=[
+                                    ft.Text(
+                                        value="Contraseña",
+                                        font_family="AlbertSansR",
+                                        color=primaryTextColor,
+                                        spans=[self.span, ]
+                                    ),
+                                    self.s_password,
+                                ]
+                            ),
+                            ft.Column(
+                                expand=True
+                            ),
+                            ft.Row(
+                                alignment=ft.MainAxisAlignment.END,
+                                controls=[self.s_submit, ]
+                            ),
                         ]
-                    )
+                    ),
                 ]
             )
         )
@@ -224,7 +359,8 @@ class AdminPage(ft.Column):
             border_radius=4,
             padding=ft.padding.all(24),
             shadow=ft.BoxShadow(
-                blur_radius=0.9, offset=(0.0, 0.5),
+                blur_radius=0.9,
+                offset=(0.0, 0.5),
                 color=ft.Colors.with_opacity(opacity=0.3, color=neutral80)
             ),
             content=ft.Row(
@@ -234,43 +370,101 @@ class AdminPage(ft.Column):
                         expand=True,
                         spacing=16,
                         controls=[
-                            ft.Row(controls=[
-                                ft.Text(value="Añadir tarjeta de crédito", font_family="AlbertSansR",
-                                        size=18, color=accentTextColor),
-                            ]),
-                            ft.Column(spacing=8, controls=[
-                                ft.Text(value="Usuario asociado", font_family="AlbertSansR",
-                                        color=primaryTextColor, spans=[self.span]),
-                                self.creditcard_dropdown
-                            ]),
-                            ft.Column(spacing=8, controls=[
-                                ft.Text(value="Alias", font_family="AlbertSansR", color=primaryTextColor),
-                                self.cc_alias
-                            ]),
-                            ft.Column(spacing=8, controls=[
-                                ft.Text(value="Nombre del titular", font_family="AlbertSansR", color=primaryTextColor),
-                                self.cc_number
-                            ]),
-                            ft.Column(spacing=8, controls=[
-                                ft.Text(value="Número de la tarjeta", font_family="AlbertSansR",
-                                        color=primaryTextColor, spans=[self.span]),
-                                self.cc_number
-                            ]),
-                            ft.Row(spacing=16, alignment=ft.MainAxisAlignment.SPACE_BETWEEN, controls=[
-                                ft.Column(spacing=8, expand=True, controls=[
-                                    ft.Text(value="Fecha de validez", font_family="AlbertSansR",
-                                            color=primaryTextColor, spans=[self.span]),
-                                    self.cc_date
-                                ]),
-                                ft.VerticalDivider(),
-                                ft.Column(spacing=8, controls=[
-                                    ft.Text(value="CVC", font_family="AlbertSansR",
-                                            color=primaryTextColor, spans=[self.span]),
-                                    self.cc_cvc
-                                ]),
-                            ]),
-                            ft.Column(expand=True),
-                            ft.Row(controls=[self.cc_submit], alignment=ft.MainAxisAlignment.END)
+                            ft.Row(
+                                controls=[
+                                    ft.Text(
+                                        value="Añadir tarjeta de crédito",
+                                        font_family="AlbertSansR",
+                                        size=18,
+                                        color=accentTextColor
+                                    ),
+                                ]
+                            ),
+                            ft.Column(
+                                spacing=8,
+                                controls=[
+                                    ft.Text(
+                                        value="Usuario asociado",
+                                        font_family="AlbertSansR",
+                                        color=primaryTextColor,
+                                        spans=[self.span, ]
+                                    ),
+                                    self.creditcard_dropdown,
+                                ]
+                            ),
+                            ft.Column(
+                                spacing=8,
+                                controls=[
+                                    ft.Text(
+                                        value="Alias",
+                                        font_family="AlbertSansR",
+                                        color=primaryTextColor
+                                    ),
+                                    self.cc_alias,
+                                ]
+                            ),
+                            ft.Column(
+                                spacing=8,
+                                controls=[
+                                    ft.Text(
+                                        value="Nombre del titular",
+                                        font_family="AlbertSansR",
+                                        color=primaryTextColor
+                                    ),
+                                    self.cc_holder,
+                                ]
+                            ),
+                            ft.Column(
+                                spacing=8,
+                                controls=[
+                                    ft.Text(
+                                        value="Número de la tarjeta",
+                                        font_family="AlbertSansR",
+                                        color=primaryTextColor,
+                                        spans=[self.span, ]
+                                    ),
+                                    self.cc_number,
+                                ]
+                            ),
+                            ft.Row(
+                                spacing=16,
+                                alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+                                controls=[
+                                    ft.Column(
+                                        spacing=8,
+                                        expand=True,
+                                        controls=[
+                                            ft.Text(
+                                                value="Caducidad",
+                                                font_family="AlbertSansR",
+                                                color=primaryTextColor,
+                                                spans=[self.span, ]
+                                            ),
+                                            self.cc_date,
+                                        ]
+                                    ),
+                                    ft.VerticalDivider(),
+                                    ft.Column(
+                                        spacing=8,
+                                        controls=[
+                                            ft.Text(
+                                                value="CVC",
+                                                font_family="AlbertSansR",
+                                                color=primaryTextColor,
+                                                spans=[self.span, ]
+                                            ),
+                                            self.cc_cvc,
+                                        ]
+                                    ),
+                                ]
+                            ),
+                            ft.Column(
+                                expand=True
+                            ),
+                            ft.Row(
+                                alignment=ft.MainAxisAlignment.END,
+                                controls=[self.cc_submit, ]
+                            )
                         ]
                     )
                 ]
@@ -283,7 +477,8 @@ class AdminPage(ft.Column):
             border_radius=4,
             padding=ft.padding.all(24),
             shadow=ft.BoxShadow(
-                blur_radius=0.9, offset=(0.0, 0.5),
+                blur_radius=0.9,
+                offset=(0.0, 0.5),
                 color=ft.Colors.with_opacity(opacity=0.3, color=neutral80)
             ),
             content=ft.Row(
@@ -293,39 +488,79 @@ class AdminPage(ft.Column):
                         expand=True,
                         spacing=16,
                         controls=[
-                            ft.Row(controls=[
-                                ft.Text(value="Añadir nota segura", font_family="AlbertSansR",
-                                        size=18, color=accentTextColor),
-                            ]),
-                            ft.Column(spacing=8, controls=[
-                                ft.Text(value="Usuario asociado", font_family="AlbertSansR",
-                                        color=primaryTextColor, spans=[self.span]),
-                                self.note_dropdown
-                            ]),
-                            ft.Column(spacing=8, controls=[
-                                ft.Text(value="Título de la nota", font_family="AlbertSansR",
-                                        color=primaryTextColor, spans=[]),
-                                self.n_title
-                            ]),
-                            ft.Column(spacing=8, controls=[
-                                ft.Text(value="Contenido", font_family="AlbertSansR",
-                                        color=primaryTextColor, spans=[self.span]),
-                                self.n_content
-                            ]),
-                            ft.Column(expand=True),
-                            ft.Row(controls=[self.n_submit], alignment=ft.MainAxisAlignment.END)
+                            ft.Row(
+                                controls=[
+                                    ft.Text(
+                                        value="Añadir nota segura",
+                                        font_family="AlbertSansR",
+                                        size=18,
+                                        color=accentTextColor
+                                    ),
+                                ]
+                            ),
+                            ft.Column(
+                                spacing=8,
+                                controls=[
+                                    ft.Text(
+                                        value="Usuario asociado",
+                                        font_family="AlbertSansR",
+                                        color=primaryTextColor,
+                                        spans=[self.span, ]
+                                    ),
+                                    self.note_dropdown,
+                                ]
+                            ),
+                            ft.Column(
+                                spacing=8,
+                                controls=[
+                                    ft.Text(
+                                        value="Título de la nota",
+                                        font_family="AlbertSansR",
+                                        color=primaryTextColor
+                                    ),
+                                    self.n_title,
+                                ]
+                            ),
+                            ft.Column(
+                                spacing=8,
+                                controls=[
+                                    ft.Text(
+                                        value="Contenido",
+                                        font_family="AlbertSansR",
+                                        color=primaryTextColor,
+                                        spans=[self.span, ]
+                                    ),
+                                    self.n_content,
+                                ]
+                            ),
+                            ft.Column(
+                                expand=True
+                            ),
+                            ft.Row(
+                                alignment=ft.MainAxisAlignment.END,
+                                controls=[self.n_submit, ]
+                            ),
                         ]
-                    )
+                    ),
                 ]
             )
         )
 
-        self.all_users = ft.Container(
+        # Item rows
+        self.user_rows = ft.Column()
+        self.site_rows = ft.Column()
+        self.creditcard_rows = ft.Column()
+        self.note_rows = ft.Column()
+        self.pass_request_rows = ft.Column()
+
+        # Item dropdowns
+        self.users_display = ft.Container(
             expand=True,
             bgcolor=neutral00,
             border_radius=4,
             shadow=ft.BoxShadow(
-                blur_radius=0.9, offset=(0.0, 0.5),
+                blur_radius=0.9,
+                offset=(0.0, 0.5),
                 color=ft.Colors.with_opacity(opacity=0.3, color=neutral80)
             ),
             content=ft.ExpansionTile(
@@ -336,15 +571,16 @@ class AdminPage(ft.Column):
                 min_tile_height=44,
                 bgcolor=neutral00,
                 collapsed_bgcolor=neutral00,
-                controls=[self.user_rows]
+                controls=[self.user_rows, ]
             )
         )
-        self.all_sites = ft.Container(
+        self.sites_display = ft.Container(
             expand=True,
             bgcolor=neutral00,
             border_radius=4,
             shadow=ft.BoxShadow(
-                blur_radius=0.9, offset=(0.0, 0.5),
+                blur_radius=0.9,
+                offset=(0.0, 0.5),
                 color=ft.Colors.with_opacity(opacity=0.3, color=neutral80)
             ),
             content=ft.ExpansionTile(
@@ -355,15 +591,16 @@ class AdminPage(ft.Column):
                 min_tile_height=44,
                 bgcolor=neutral00,
                 collapsed_bgcolor=neutral00,
-                controls=[self.site_rows]
+                controls=[self.site_rows, ]
             )
         )
-        self.all_creditcards = ft.Container(
+        self.creditcards_display = ft.Container(
             expand=True,
             bgcolor=neutral00,
             border_radius=4,
             shadow=ft.BoxShadow(
-                blur_radius=0.9, offset=(0.0, 0.5),
+                blur_radius=0.9,
+                offset=(0.0, 0.5),
                 color=ft.Colors.with_opacity(opacity=0.3, color=neutral80)
             ),
             content=ft.ExpansionTile(
@@ -374,15 +611,16 @@ class AdminPage(ft.Column):
                 min_tile_height=44,
                 bgcolor=neutral00,
                 collapsed_bgcolor=neutral00,
-                controls=[self.creditcard_rows]
+                controls=[self.creditcard_rows, ]
             )
         )
-        self.all_notes = ft.Container(
+        self.notes_display = ft.Container(
             expand=True,
             bgcolor=neutral00,
             border_radius=4,
             shadow=ft.BoxShadow(
-                blur_radius=0.9, offset=(0.0, 0.5),
+                blur_radius=0.9,
+                offset=(0.0, 0.5),
                 color=ft.Colors.with_opacity(opacity=0.3, color=neutral80)
             ),
             content=ft.ExpansionTile(
@@ -393,15 +631,16 @@ class AdminPage(ft.Column):
                 min_tile_height=44,
                 bgcolor=neutral00,
                 collapsed_bgcolor=neutral00,
-                controls=[self.note_rows]
+                controls=[self.note_rows, ]
             )
         )
-        self.all_requests = ft.Container(
+        self.requests_display = ft.Container(
             expand=True,
             bgcolor=neutral00,
             border_radius=4,
             shadow=ft.BoxShadow(
-                blur_radius=0.9, offset=(0.0, 0.5),
+                blur_radius=0.9,
+                offset=(0.0, 0.5),
                 color=ft.Colors.with_opacity(opacity=0.3, color=neutral80)
             ),
             content=ft.ExpansionTile(
@@ -412,54 +651,46 @@ class AdminPage(ft.Column):
                 min_tile_height=44,
                 bgcolor=neutral00,
                 collapsed_bgcolor=neutral00,
-                controls=[self.pass_request_rows]
+                controls=[self.pass_request_rows, ]
             )
         )
 
         # Design settings
         self.espacing = 32
 
+        # Page content
         self.controls = [
             ft.Row(
                 expand=True,
                 spacing=32,
                 controls=[
-                    ft.Column(
-                        expand=True,
-                        spacing=24,
-                        controls=[
-                            # New User form
-                            self.user_form,
-                            # New Creditcard form
-                            self.creditcard_form
-                        ]
-                    ),
-                    ft.Column(
-                        expand=True,
-                        spacing=24,
-                        controls=[
-                            # New Site form
-                            self.site_form,
-                            # New Note form
-                            self.note_form
-                        ]
-                    ),
+                    # Forms
+                    self.user_form,
+                    self.creditcard_form,
+                    self.site_form,
+                    self.note_form,
                 ]
             ),
-            ft.Divider(),
-            self.all_users,
-            self.all_sites,
-            self.all_creditcards,
-            self.all_notes,
-            self.all_requests
+            ft.Divider(
+                height=32, thickness=3, color=neutral20
+            ),
+            ft.Column(
+                spacing=32,
+                controls=[
+                    # Dropdowns
+                    self.users_display,
+                    self.sites_display,
+                    self.creditcards_display,
+                    self.notes_display,
+                    self.requests_display,
+                ]
+            ),
         ]
 
         self.update_content()
 
-    def add_new_user(self, _: ft.ControlEvent) -> None:
-        self.u_fullname.reset_error()
-        self.u_email.reset_error()
-        self.u_password.reset_error()
+    def __add_new_user(self, _: ft.ControlEvent) -> None:
+        self.__reset_all_textield_errors()
 
         fullname = self.u_fullname.value.strip().title()
         email = self.u_email.value.strip().lower()
@@ -471,6 +702,10 @@ class AdminPage(ft.Column):
             self.u_fullname.show_error("¡El usuario debe tener un nombre!")
             return
 
+        if session.query(User).filter_by(email=email).first():
+            self.u_email.show_error("¡Ese correo ya existe!")
+            return
+
         if not Validate.is_valid_email(email):
             self.u_email.show_error("¡Se necesita un correo electrónico válido!")
             return
@@ -479,127 +714,154 @@ class AdminPage(ft.Column):
             self.u_password.show_error("¡La contraseña necesita números, mayúsculas y minúsculas")
             return
 
-        self.u_fullname.reset_error()
-        self.u_email.reset_error()
-        self.u_password.reset_error()
+        self.__reset_all_textield_errors()
 
         # New user instance
         user = User(fullname, email, password, role)
-        session.add(user)
-        session.commit()
+        self.__save_data(user)
 
-        # Reset fields
-        self.u_fullname.value = ""
-        self.u_email.value = ""
-        self.u_password.value = ""
-        self.u_switch.set_value(False)
-        self.user_form.update()
+        # Reset user form
+        self.__reset_user_form()
 
         # Show & update items
-        self.snackbar.change_style(msg=f"¡Usuario {repr(fullname)} agregado!", style=SnackbarStyle.SUCCESS)
-        self.snackbar.update()
         self.update_content()
-        self.update_dropdown()
+        self.__display_message(msg=f"¡Usuario {repr(fullname)} agregado!", style=SnackbarStyle.SUCCESS)
+        self.__update_display()
 
-    def add_new_site(self, _: ft.ControlEvent) -> None:
-        self.site_dropdown.error_text = None
-        self.site_dropdown.update()
-        self.s_address.reset_error()
-        self.s_username.reset_error()
-        self.s_password.reset_error()
+    def __add_new_site(self, _: ft.ControlEvent) -> None:
+        self.__reset_all_textield_errors()
 
-        user_email = self.site_dropdown.value
+        user = self.__get_user_intance(self.site_dropdown.value)
+        if not user:
+            self.dropdown_show_error(msg="¡Debes asociar un usuario al elemento!", dropdown=self.site_dropdown)
+            return
+
         name = self.s_name.value.strip().capitalize() if self.s_name.value else "Nueva dirección web"
-        address = self.rename_address(self.s_address.value.strip())
+        address = self.__rename_address(self.s_address.value.strip())
         username = self.s_username.value.strip()
         password = self.s_password.value.strip()
 
         # Validate fields
-        if not user_email:
-            self.site_dropdown.error_text = "¡Debes asociar un usuario al elemento!"
-            self.site_dropdown.update()
-            return
         if not Validate.is_valid_address(address):
             self.s_address.show_error(msg="¡No es una dirección válida!")
             return
+
         if not username:
             self.s_username.show_error(msg="¡Se necesita un nombre de usuario!")
             return
+
         if not password:
             self.s_password.show_error(msg="¡Se necesita una contraseña!")
             return
 
-        self.site_dropdown.error_text = None
-        self.site_dropdown.update()
-        self.s_address.reset_error()
-        self.s_username.reset_error()
-        self.s_password.reset_error()
+        self.__reset_all_textield_errors()
 
         # New site instance
-        user_associate = session.query(User).filter_by(email=user_email).first()
-        site = Site(address, username, password, user_associate, name)
-        session.add(site)
-        session.commit()
+        site = Site(address, username, password, user, name)
+        self.__save_data(site)
 
-        # Reset fields
-        self.site_dropdown.value = None
-        self.s_name.value = ""
-        self.s_address.value = ""
-        self.s_username.value = ""
-        self.s_password.value = ""
-        self.site_form.update()
+        # Reset site form
+        self.__reset_site_form()
 
         # Show & update items
-        self.snackbar.change_style(msg=f"¡{repr(name)} agregado con éxito!", style=SnackbarStyle.SUCCESS)
-        self.snackbar.update()
         self.update_content()
-        self.update_dropdown()
+        self.__display_message(msg=f"¡{repr(name)} agregado con éxito!", style=SnackbarStyle.SUCCESS)
+        self.__update_display()
 
-    def add_new_creditcard(self, _: ft.ControlEvent) -> None:
-        self.creditcard_dropdown.error_text = None
-        self.creditcard_dropdown.update()
-        self.cc_number.reset_error()
-        self.cc_date.reset_error()
-        self.cc_cvc.reset_error()
+    def __add_new_creditcard(self, _: ft.ControlEvent) -> None:
+        self.__reset_all_textield_errors()
 
-        user_email = self.creditcard_dropdown.value
+        user = self.__get_user_intance(self.creditcard_dropdown.value)
+        if not user:
+            self.dropdown_show_error(msg="¡Debes asociar un usuario al elemento!", dropdown=self.creditcard_dropdown)
+            return
+
         alias = self.cc_alias.value.strip().capitalize() if self.cc_alias.value else "Alias tarjeta"
-        cardholder = self.cc_holder.value.strip().title() if self.cc_holder.value else None
+        cardholder = self.cc_holder.value.strip().title() if self.cc_holder.value else user.fullname
         number = self.cc_number.value.strip()
         date = self.cc_date.value.strip()
         cvc = self.cc_cvc.value.strip()
 
         # Validate fields
-        if not user_email:
-            self.creditcard_dropdown.error_text = "¡Debes asociar un usuario al elemento!"
-            self.creditcard_dropdown.update()
-            return
         if not Validate.is_valid_creditcard_number(number):
             self.cc_number.show_error(msg="¡Introduce un número válido de tarjeta!")
             return
+
         if not Validate.is_valid_date(date):
             self.cc_date.show_error(msg="¡Se necesita una fecha válida!")
             return
+
         if not cvc:
             self.cc_cvc.show_error(msg="¡CVC necesario!")
             return
 
-        self.creditcard_dropdown.error_text = None
-        self.creditcard_dropdown.update()
-        self.cc_number.reset_error()
-        self.cc_date.reset_error()
-        self.cc_cvc.reset_error()
+        self.__reset_all_textield_errors()
+        date = datetime.strptime(date, "%m/%y")
 
         # New creditcard instance
-        user_associate = session.query(User).filter_by(email=user_email).first()
-        if cardholder is None:
-            cardholder = user_associate.fullname
-        date = datetime.strptime(date, "%m/%y")
-        creditcard = CreditCard(cardholder, number, cvc, date, user_associate, alias)
-        session.add(creditcard)
-        session.commit()
+        creditcard = CreditCard(cardholder, number, cvc, date, user, alias)
+        self.__save_data(creditcard)
 
-        # Reset fields
+        # Reset creditcard form
+        self.__reset_creditcard_form()
+
+        # Show & update items
+        self.update_content()
+        self.__display_message(msg=f"¡{repr(alias)} agregada con éxito!", style=SnackbarStyle.SUCCESS)
+        self.__update_display()
+
+    def __add_new_note(self, _: ft.ControlEvent) -> None:
+        self.__reset_all_textield_errors()
+
+        user = self.__get_user_intance(self.note_dropdown.value)
+        if not user:
+            self.dropdown_show_error(msg="¡Debes asociar un usuario al elemento!", dropdown=self.note_dropdown)
+            return
+
+        title = self.n_title.value.capitalize().strip() if self.n_title.value else "Nueva nota"
+        content = self.n_content.value.strip()
+
+        # Validate fields
+        if not content:
+            self.n_content.show_error("¡El campo no puede ir vacío!")
+            return
+
+        self.__reset_all_textield_errors()
+
+        # New note instance
+        note = Note(content, user, title)
+        self.__save_data(note)
+
+        # Reset note form
+        self.__reset_note_form()
+
+        # Show & update items
+        self.update_content()
+        self.__display_message(msg=f"¡{repr(title)} agregada con éxito!", style=SnackbarStyle.SUCCESS)
+        self.__update_display()
+
+    def update_content(self) -> None:
+        self.__request_new_data()
+        self.__update_dropdown_options()
+        self.__populate_rows(self.users, self.sites, self.creditcards, self.notes, self.pass_requests)
+
+    def __reset_all_textield_errors(self) -> None:
+        self.cc_cvc.reset_error()
+        self.cc_date.reset_error()
+        self.cc_number.reset_error()
+        self.n_content.reset_error()
+        self.s_address.reset_error()
+        self.s_password.reset_error()
+        self.s_username.reset_error()
+        self.u_email.reset_error()
+        self.u_fullname.reset_error()
+        self.u_password.reset_error()
+
+        self.dropdown_reset_error(self.creditcard_dropdown)
+        self.dropdown_reset_error(self.note_dropdown)
+        self.dropdown_reset_error(self.site_dropdown)
+
+    def __reset_creditcard_form(self) -> None:
         self.creditcard_dropdown.value = None
         self.cc_alias.value = ""
         self.cc_holder.value = ""
@@ -608,70 +870,73 @@ class AdminPage(ft.Column):
         self.cc_cvc.value = ""
         self.creditcard_form.update()
 
-        # Show & update items
-        self.snackbar.change_style(msg=f"¡{repr(alias)} agregada con éxito!", style=SnackbarStyle.SUCCESS)
-        self.snackbar.update()
-        self.update_content()
-        self.update_dropdown()
-
-    def add_new_note(self, _: ft.ControlEvent) -> None:
-        self.note_dropdown.error_text = None
-        self.note_dropdown.update()
-        self.n_content.reset_error()
-
-        user_email = self.note_dropdown.value
-        title = self.n_title.value.capitalize().strip() if self.n_title.value else "Nueva nota"
-        content = self.n_content.value.strip()
-
-        # Validate fields
-        if not user_email:
-            self.note_dropdown.error_text = "¡Debes asociar un usuario al elemento!"
-            self.note_dropdown.update()
-            return
-        if not content:
-            self.n_content.show_error("¡El campo no puede ir vacío!")
-            return
-
-        self.note_dropdown.error_text = None
-        self.note_dropdown.update()
-        self.n_content.reset_error()
-
-        # New note instance
-        user_associate = session.query(User).filter_by(email=user_email).first()
-        note = Note(content, user_associate, title)
-        session.add(note)
-        session.commit()
-
-        # Reset fields
+    def __reset_note_form(self) -> None:
         self.note_dropdown.value = None
         self.n_title.value = ""
         self.n_content.value = ""
         self.note_form.update()
 
-        # Show & update items
-        self.snackbar.change_style(msg=f"¡{repr(title)} agregada con éxito!", style=SnackbarStyle.SUCCESS)
-        self.snackbar.update()
-        self.update_content()
-        self.update_dropdown()
+    def __reset_site_form(self) -> None:
+        self.site_dropdown.value = None
+        self.s_name.value = ""
+        self.s_address.value = ""
+        self.s_username.value = ""
+        self.s_password.value = ""
+        self.site_form.update()
 
-    def __populate_rows(self, users: list[User], sites: list[Site], creditcards: list[CreditCard],
-                        notes: list[Note], pass_requests: list[PasswordRequest]) -> None:
+    def __reset_user_form(self) -> None:
+        self.u_fullname.value = ""
+        self.u_email.value = ""
+        self.u_password.value = ""
+        self.u_switch.set_value(False)
+        self.user_form.update()
+
+    def __display_message(self, msg: str, style: SnackbarStyle):
+        self.snackbar.change_style(msg=msg, style=style)
+        self.snackbar.update()
+
+    def __request_new_data(self) -> None:
+        self.users = session.query(User).all()
+        self.sites = session.query(Site).all()
+        self.creditcards = session.query(CreditCard).all()
+        self.notes = session.query(Note).all()
+        self.pass_requests = session.query(PasswordRequest).all()
+
+    def __update_dropdown_options(self) -> None:
+        self.site_dropdown.options = [ft.dropdown.Option(user.email) for user in self.users]
+        self.creditcard_dropdown.options = [ft.dropdown.Option(user.email) for user in self.users]
+        self.note_dropdown.options = [ft.dropdown.Option(user.email) for user in self.users]
+
+    def __populate_rows(
+            self,
+            users: list[User],
+            sites: list[Site],
+            creditcards: list[CreditCard],
+            notes: list[Note],
+            pw_requests: list[PasswordRequest]
+    ) -> None:
         self.__clear_rows()
-        for user in users:
-            self.user_rows.controls.append(
-                AdminRow(self.page, user, RowStyle.USER, self.update_content, self.update_dropdown))
-        for site in sites:
-            self.site_rows.controls.append(
-                AdminRow(self.page, site, RowStyle.SITE, self.update_content, self.update_dropdown))
-        for creditcard in creditcards:
-            self.creditcard_rows.controls.append(
-                AdminRow(self.page, creditcard, RowStyle.CREDITCARD, self.update_content, self.update_dropdown))
-        for note in notes:
-            self.note_rows.controls.append(
-                AdminRow(self.page, note, RowStyle.NOTE, self.update_content, self.update_dropdown))
-        for request in pass_requests:
-            self.pass_request_rows.controls.append(
-                AdminRow(self.page, request, RowStyle.PASS_REQUEST, self.update_content, self.update_dropdown))
+        self.__append_item(users, RowStyle.USER, self.user_rows.controls)
+        self.__append_item(sites, RowStyle.SITE, self.site_rows.controls)
+        self.__append_item(creditcards, RowStyle.CREDITCARD, self.creditcard_rows.controls)
+        self.__append_item(notes, RowStyle.NOTE, self.note_rows.controls)
+        self.__append_item(pw_requests, RowStyle.PASS_REQUEST, self.pass_request_rows.controls)
+
+    def __append_item(
+            self, items: list[User | Site | CreditCard | Note | PasswordRequest],
+            style: RowStyle,
+            target: list
+    ) -> None:
+        for item in items:
+            target.append(
+                AdminRow(
+                    page=self.page,
+                    item=item,
+                    style=style,
+                    update_appearance=self.update_content,
+                    update_dropdown=self.__update_display
+                )
+            )
 
     def __clear_rows(self) -> None:
         self.user_rows.controls.clear()
@@ -680,34 +945,36 @@ class AdminPage(ft.Column):
         self.note_rows.controls.clear()
         self.pass_request_rows.controls.clear()
 
-    def update_dropdown(self) -> None:
-        self.all_users.update()
-        self.all_sites.update()
-        self.all_creditcards.update()
-        self.all_notes.update()
-        self.all_requests.update()
-        self.site_dropdown.update()
-        self.creditcard_dropdown.update()
-        self.note_dropdown.update()
-
-    def update_content(self) -> None:
-        self.users = session.query(User).all()
-        self.sites = session.query(Site).all()
-        self.creditcards = session.query(CreditCard).all()
-        self.notes = session.query(Note).all()
-        self.pass_requests = session.query(PasswordRequest).all()
-
-        self.__populate_rows(self.users, self.sites, self.creditcards, self.notes, self.pass_requests)
-        self.site_dropdown.options = [ft.dropdown.Option(user.email) for user in self.users]
-        self.creditcard_dropdown.options = [ft.dropdown.Option(user.email) for user in self.users]
-        self.note_dropdown.options = [ft.dropdown.Option(user.email) for user in self.users]
+    def __update_display(self) -> None:
+        self.update()
 
     @staticmethod
-    def rename_address(new_address: str) -> str:
+    def __save_data(item: CreditCard | Note | PasswordRequest | Site | User) -> None:
+        session.add(item)
+        session.commit()
+
+    @staticmethod
+    def __get_user_intance(email: str) -> User:
+        return session.query(User).filter_by(email=email).first()
+
+    @staticmethod
+    def __rename_address(web_address: str) -> str:
         address = ""
-        if not new_address.startswith(("http://", "https://")):
+        if not web_address.startswith(("http://", "https://")):
             address = "http://"
-        address += new_address
-        if not new_address.endswith("/"):
+
+        address += web_address
+        if not web_address.endswith("/"):
             address += "/"
+
         return address
+
+    @staticmethod
+    def dropdown_show_error(msg: str, dropdown: ft.Dropdown) -> None:
+        dropdown.error_text = msg
+        dropdown.update()
+
+    @staticmethod
+    def dropdown_reset_error(dropdown: ft.Dropdown) -> None:
+        dropdown.error_text = None
+        dropdown.update()

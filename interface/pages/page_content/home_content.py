@@ -10,6 +10,7 @@ from interface.pages.widgets import CreditCardWidget, NoteWidget, SiteWidget
 
 
 class HomePage(ft.Row):
+    """Displays the newest elements added."""
     def __init__(self, page: ft.Page, snackbar: Snackbar, update_changes: Callable[[], None]) -> None:
         super().__init__()
 
@@ -26,11 +27,20 @@ class HomePage(ft.Row):
         self.notes = []
 
         # Body content
-        self.sites_column = ft.Column(scroll=ft.ScrollMode.AUTO, horizontal_alignment=ft.CrossAxisAlignment.START)
-        self.creditcards_column = ft.Column(scroll=ft.ScrollMode.AUTO, horizontal_alignment=ft.CrossAxisAlignment.START)
-        self.notes_column = ft.Column(scroll=ft.ScrollMode.AUTO, horizontal_alignment=ft.CrossAxisAlignment.START)
+        self.sites_column = ft.Column(
+            scroll=ft.ScrollMode.AUTO,
+            horizontal_alignment=ft.CrossAxisAlignment.START
+        )
+        self.creditcards_column = ft.Column(
+            scroll=ft.ScrollMode.AUTO,
+            horizontal_alignment=ft.CrossAxisAlignment.START
+        )
+        self.notes_column = ft.Column(
+            scroll=ft.ScrollMode.AUTO,
+            horizontal_alignment=ft.CrossAxisAlignment.START
+        )
 
-        # Design settings
+        # Settings design
         self.alignment = ft.MainAxisAlignment.SPACE_AROUND
         self.vertical_alignment = ft.CrossAxisAlignment.START
         self.scroll = ft.ScrollMode.AUTO
@@ -42,7 +52,7 @@ class HomePage(ft.Row):
                 spacing=16,
                 controls=[
                     ft.Text(value="Nuevas direcciones web", font_family="AlbertSansR", size=20),
-                    self.sites_column
+                    self.sites_column,
                 ]
             ),
             ft.Column(
@@ -51,7 +61,7 @@ class HomePage(ft.Row):
                 spacing=16,
                 controls=[
                     ft.Text(value="Nuevas tarjetas", font_family="AlbertSansR", size=20),
-                    self.creditcards_column
+                    self.creditcards_column,
                 ]
             ),
             ft.Column(
@@ -60,10 +70,12 @@ class HomePage(ft.Row):
                 spacing=16,
                 controls=[
                     ft.Text(value="Nuevas notas", font_family="AlbertSansR", size=20),
-                    self.notes_column
+                    self.notes_column,
                 ]
             ),
-            ft.Column(width=400, alignment=ft.MainAxisAlignment.START, controls=[])
+            ft.Column(
+                width=400, alignment=ft.MainAxisAlignment.START, controls=[]
+            ),
         ]
 
         self.update_content()
@@ -84,10 +96,21 @@ class HomePage(ft.Row):
 
     def update_content(self) -> None:
         self.sites = session.query(Site).filter_by(
-            user_id=self.user.id).order_by(Site.created.desc()).limit(self.limiter).all()
+            user_id=self.user.id
+        ).order_by(
+            Site.created.desc()
+        ).limit(self.limiter).all()
+
         self.creditcards = session.query(CreditCard).filter_by(
-            user_id=self.user.id).order_by(CreditCard.created.desc()).limit(self.limiter).all()
+            user_id=self.user.id
+        ).order_by(
+            CreditCard.created.desc()
+        ).limit(self.limiter).all()
+
         self.notes = session.query(Note).filter_by(
-            user_id=self.user.id).order_by(Note.created.desc()).limit(self.limiter).all()
+            user_id=self.user.id
+        ).order_by(
+            Note.created.desc()
+        ).limit(self.limiter).all()
 
         self.__populate_columns(self.sites, self.creditcards, self.notes)

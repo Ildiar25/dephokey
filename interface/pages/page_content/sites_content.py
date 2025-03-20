@@ -10,6 +10,7 @@ from interface.pages.widgets import SiteWidget
 
 
 class SitesPage(ft.Column):
+    """Displays all sites and update interface."""
     def __init__(self, page: ft.Page, snackbar: Snackbar, update_changes: Callable[[], None]) -> None:
         super().__init__()
 
