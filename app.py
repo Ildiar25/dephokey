@@ -10,7 +10,7 @@ from shared.logger_setup import main_log as log
 from shared.utils.colors import primaryCorporate100
 
 
-async def check_session_is_expired(page: ft.Page) -> None:
+async def __check_session_is_expired(page: ft.Page) -> None:
     """Monitores if session is expired every 30 seconds"""
     log.info("Monitoreo de la sesión inicializado.")
     current_session = True
@@ -21,27 +21,26 @@ async def check_session_is_expired(page: ft.Page) -> None:
             continue
 
         current_session = False
-        await back_to_login_page(page)
+        await __back_to_login_page(page)
 
 
-async def back_to_login_page(page: ft.Page) -> None:
+async def __back_to_login_page(page: ft.Page) -> None:
+    """Navigates to login page."""
     log.info("Sesión expirada. Redirigiendo a LOGIN.")
     page.session.clear()
 
-    if len(page.controls) != 0:
-        if isinstance(page.controls[0], Dashboard):
-            # Hide menus
-            page.appbar.visible = False
-            page.bottom_appbar.visible = False
-            page.bgcolor = primaryCorporate100
-            page.clean()
-            page.update()
-            page.go("/login")
-            return
+    if len(page.controls) != 0 and isinstance(page.controls[0], Dashboard):
+        # Hide menus
+        page.appbar.visible = False
+        page.bottom_appbar.visible = False
+        page.bgcolor = primaryCorporate100
+        page.clean()
+        page.update()
+        page.go("/login")
+        return
 
 
 def main(page: ft.Page) -> None:
-
     # Create all tables
     Base.metadata.create_all(bind=main_database.engine)
     log.info("¡BASE DE DATOS cargada con éxito!")
@@ -61,8 +60,8 @@ def main(page: ft.Page) -> None:
     page.theme_mode = ft.ThemeMode.LIGHT
     page.bgcolor = primaryCorporate100
     page.padding = ft.padding.all(0)
-    page.window.min_width = 950
-    page.window.min_height = 650
+    page.window.min_width = 1360
+    page.window.min_height = 768
 
     # Page behavior
     page.theme = ft.Theme(
@@ -80,7 +79,7 @@ def main(page: ft.Page) -> None:
             page.add(Login(page))
 
         elif page.route == "/reset_password":
-            log.info("Redirigiendo a RESET PASSWORD.")
+            log.info("Redirigiendo a PW_RECOVER GENERATE_PW.")
             page.add(ResetPasswordPage(page))
 
         elif page.route == "/signup":
@@ -92,7 +91,7 @@ def main(page: ft.Page) -> None:
             page.add(Dashboard(page))
 
             # Initializes session monitoring
-            page.loop.create_task(check_session_is_expired(page))
+            page.loop.create_task(__check_session_is_expired(page))
 
     # Define routes
     page.on_route_change = route_changer
