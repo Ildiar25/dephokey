@@ -16,21 +16,36 @@ from shared.validate import Validate
 
 
 class Login(ft.Container):
+    """Creates Login page and displays all form elements"""
     def __init__(self, page: ft.Page) -> None:
         super().__init__()
 
-        # General attributes
+        # Page attributes
         self.page = page
         self.page.scroll = None
         self.snackbar = Snackbar()
 
         # Login attributes
-        self.email = CustomTextField(label="Correo Electrónico",
-            on_change=self.toggle_login_button_state, max_length=30)
-        self.password = CustomTextField(label="Contraseña", on_change=self.toggle_login_button_state,
-            on_submit=self.login, password=True, can_reveal_password=True, max_length=30)
+        self.email = CustomTextField(
+            label="Correo Electrónico",
+            autofocus=True,
+            on_change=self.__toggle_login_button_state,
+            max_length=30
+        )
+        self.password = CustomTextField(
+            label="Contraseña",
+            on_change=self.__toggle_login_button_state,
+            on_submit=self.__login,
+            password=True,
+            can_reveal_password=True,
+            max_length=30
+        )
         self.login_button = CustomElevatedButton(
-            name="Login", style=ButtonStyle.DEFAULT, expand=True, disabled=True, on_click=self.login
+            name="Login",
+            style=ButtonStyle.DEFAULT,
+            expand=True,
+            disabled=True,
+            on_click=self.__login
         )
 
         # Page design
@@ -56,7 +71,7 @@ class Login(ft.Container):
                                     spacing=24,
                                     controls=[
                                         ft.Text(
-                                            "Inicia Sesión en Dephokey",
+                                            value="Inicia Sesión en Dephokey",
                                             font_family="AlbertSansB",
                                             color=accentTextColor,
                                             size=24
@@ -68,14 +83,12 @@ class Login(ft.Container):
                                                 TextLink(
                                                     text="¿Has olvidado la contraseña?",
                                                     function=lambda _: self.page.go("/reset_password")
-                                                )
+                                                ),
                                             ]
                                         ),
                                         ft.Row(
-                                            controls=[
-                                                self.login_button
-                                            ]
-                                        )
+                                            controls=[self.login_button, ]
+                                        ),
                                     ]
                                 )
                             ),
@@ -87,16 +100,17 @@ class Login(ft.Container):
                                         TextLink(
                                             text="¡Regístrate en Dephokey!",
                                             function=lambda _: self.page.go("/signup")
-                                        )
+                                        ),
                                     ]
                                 )
                             ),
-                            self.snackbar
+                            # This control displays a message to the user when it is necessary
+                            self.snackbar,
                         ]
                     )
                 ),
 
-                # Image deco
+                # Lateral decoration
                 ft.Container(
                     expand=True,
                     image=ft.DecorationImage("interface/assets/bg-image-login.png", fit=ft.ImageFit.COVER),
@@ -117,42 +131,40 @@ class Login(ft.Container):
                                         expand=True,
                                         alignment=ft.alignment.center,
                                         content=ft.Image(src="interface/assets/login-account-circle.svg", width=350)
-                                    )
+                                    ),
                                 ]
-                            )
+                            ),
                         ]
                     )
-                )
+                ),
             ]
         )
 
     log.info("Página 'LOGIN' creada.")
 
-    def toggle_login_button_state(self, _: ft.ControlEvent) -> None:
+    def __toggle_login_button_state(self, _: ft.ControlEvent) -> None:
         if all((self.email.value, self.password.value)):
             self.login_button.disabled = False
         else:
             self.login_button.disabled = True
         self.login_button.update()
 
-    def login(self, _: ft.ControlEvent) -> None:
-
+    def __login(self, _: ft.ControlEvent) -> None:
         email_input = self.email.value.lower().strip()
         password_input = self.password.value.strip()
 
         # First, validate email & password
         if not all((Validate.is_valid_email(email_input), Validate.is_valid_password(password_input))):
-            self.snackbar.change_style(
+            self.__display_message(
                 msg="El correo o la contraseña no son válidos.\nLa contraseña debe tener al menos un número, "
-                    "una mayúscula y una minúscula", style=SnackbarStyle.DANGER
+                    "una mayúscula y una minúscula",
+                style=SnackbarStyle.DANGER
             )
-            self.snackbar.update()
             return
 
         # Second, check if email already exists
         if not session.query(User).filter(User.email == email_input).first():
-            self.snackbar.change_style(msg="¡El usuario no existe!", style=SnackbarStyle.DANGER)
-            self.snackbar.update()
+            self.__display_message(msg="¡El usuario no existe!", style=SnackbarStyle.DANGER)
             return
 
         # Third, load user and hashed input password
@@ -163,24 +175,36 @@ class Login(ft.Container):
         if not all((user.email == email_input, user.hashed_password == hashed_password)):
             log.warning("Inicio de sesión fallido: Los datos no coinciden.")
             log.debug(f" >>> Datos: '{mask_email(email_input)}' - '{mask_password(password_input)}'")
-            self.snackbar.change_style(msg="El correo electrónico o la contraseña no son válidos.",
-                                       style=SnackbarStyle.DANGER)
-            self.snackbar.update()
+            self.__display_message(
+                msg="El correo electrónico o la contraseña no son válidos.", style=SnackbarStyle.DANGER
+            )
             return
 
-        # Create new session
-        self.page.session.set("session", user)
+        self.__reset_fields()
+        self.__create_session(user)
+        self.__nav_to_home()
+
+    def __create_session(self, user: User) -> None:
+        self.page.session.set(key="session", value=user)
         log.info("Sesión iniciada con éxito.")
         log.debug(f" >>> Usuario: '{mask_email(user.email)}' BIENVENIDO.")
 
-        # Report page loading
-        self.page.overlay.append(
-            LoadingPage()
-        )
+    def __display_message(self, msg: str, style: SnackbarStyle) -> None:
+        self.snackbar.change_style(msg=msg, style=style)
+        self.snackbar.update()
+
+    def __reset_fields(self) -> None:
+        self.email.value = ""
+        self.password.value = ""
+        self.content.update()
+
+    def __nav_to_home(self) -> None:
+        # Display loading page
+        self.page.overlay.append(LoadingPage())
         self.page.update()
 
         # Load sound
-        open_session = ft.Audio("interface/assets/effects/open-session.mp3", autoplay=True)
+        open_session = ft.Audio(src="interface/assets/effects/open-session.mp3", autoplay=True)
         self.page.overlay.append(open_session)
         self.page.update()
 

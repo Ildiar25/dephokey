@@ -15,23 +15,47 @@ from shared.validate import Validate
 
 
 class Signup(ft.Container):
+    """Creates Signup page and displays all form elements"""
     def __init__(self, page: ft.Page) -> None:
         super().__init__()
 
-        # General attributes (like info elements)
+        # Page attributes
         self.page = page
         self.snackbar = Snackbar()
 
         # Signup attributes
-        self.name = CustomTextField(label="Nombre Completo", on_change=self.toggle_signup_button_state, max_length=150)
-        self.email = CustomTextField(label="Correo electrónico",
-            on_change=self.toggle_signup_button_state, max_length=50)
-        self.password = CustomTextField(label="Contraseña", on_change=self.toggle_signup_button_state,
-            password=True, can_reveal_password=True, max_length=50)
-        self.password_repeat = CustomTextField(label="Repite la contraseña", on_change=self.toggle_signup_button_state,
-            password=True, max_length=50)
+        self.name = CustomTextField(
+            label="Nombre Completo",
+            on_change=self.__toggle_signup_button_state,
+            autofocus=True,
+            max_length=150
+        )
+        self.email = CustomTextField(
+            label="Correo electrónico",
+            on_change=self.__toggle_signup_button_state,
+            max_length=50
+        )
+        self.password = CustomTextField(
+            label="Contraseña",
+            on_change=self.__toggle_signup_button_state,
+            password=True,
+            can_reveal_password=True,
+            max_length=50
+        )
+        self.password_repeat = CustomTextField(
+            label="Repite la contraseña",
+            on_change=self.__toggle_signup_button_state,
+            on_submit=self.__create_account,
+            password=True,
+            can_reveal_password=True,
+            max_length=50
+        )
         self.signup_button = CustomElevatedButton(
-            name="Regístrate", style=ButtonStyle.DEFAULT, expand=True, disabled=True, on_click=self.create_account
+            name="Regístrate",
+            style=ButtonStyle.DEFAULT,
+            expand=True,
+            disabled=True,
+            on_click=self.__create_account
         )
 
         # Page design
@@ -41,7 +65,7 @@ class Signup(ft.Container):
         self.content = ft.Row(
             spacing=0,
             controls=[
-                # Image deco
+                # Lateral decoration
                 ft.Container(
                     expand=True,
                     image=ft.DecorationImage("interface/assets/bg-image-signup.png", fit=ft.ImageFit.COVER),
@@ -62,9 +86,9 @@ class Signup(ft.Container):
                                         expand=True,
                                         alignment=ft.alignment.center,
                                         content=ft.Image(src="interface/assets/signup-passkey.svg", width=350)
-                                    )
+                                    ),
                                 ]
-                            )
+                            ),
                         ]
                     )
                 ),
@@ -85,7 +109,7 @@ class Signup(ft.Container):
                                     spacing=24,
                                     controls=[
                                         ft.Text(
-                                            "Regístrate en Dephokey",
+                                            value="Regístrate en Dephokey",
                                             font_family="AlbertSansB",
                                             color=accentTextColor,
                                             size=24
@@ -95,13 +119,11 @@ class Signup(ft.Container):
                                                 self.name,
                                                 self.email,
                                                 self.password,
-                                                self.password_repeat
+                                                self.password_repeat,
                                             ]
                                         ),
                                         ft.Row(
-                                            controls=[
-                                                self.signup_button
-                                            ]
+                                            controls=[self.signup_button, ]
                                         ),
                                     ]
                                 )
@@ -114,88 +136,90 @@ class Signup(ft.Container):
                                         TextLink(
                                             text="¡Inicia Sesión!",
                                             function=lambda _: self.page.go("/login")
-                                        )
+                                        ),
                                     ]
                                 )
                             ),
-                            self.snackbar
+                            # This control displays a message to the user when it is necessary
+                            self.snackbar,
                         ]
                     )
-                )
+                ),
             ]
         )
 
     log.info("Página 'SIGNUP' creada.")
 
-    def toggle_signup_button_state(self, _: ft.ControlEvent) -> None:
+    def __toggle_signup_button_state(self, _: ft.ControlEvent) -> None:
         if all((self.name, self.email.value, self.password.value, self.password_repeat.value)):
             self.signup_button.disabled = False
         else:
             self.signup_button.disabled = True
+
         self.signup_button.update()
 
-    def create_account(self, _: ft.ControlEvent) -> None:
-
+    def __create_account(self, _: ft.ControlEvent) -> None:
         name_input = self.name.value.title().strip()
         email_input = self.email.value.lower().strip()
         password_input = self.password.value.strip()
         repeat_input = self.password_repeat.value.strip()
 
-        # First, check if passwords are equal
-        if not password_input == repeat_input:
-            # Reset Snackbar
-            self.snackbar.change_style(msg="¡Las contraseñas no coinciden!", style=SnackbarStyle.DANGER)
-            self.snackbar.update()
+        # First, check if passwords are not equal
+        if password_input != repeat_input:
+            self.__display_message(msg="¡Las contraseñas no coinciden!", style=SnackbarStyle.DANGER)
             return
 
         # Second, validates email & password
         if not all((Validate.is_valid_email(email_input), Validate.is_valid_password(password_input))):
-            # Reset Snackbar
-            self.snackbar.change_style(
+            self.__display_message(
                 msg="El correo o la contraseña no son válidos.\nLa contraseña debe tener al menos un número, "
-                    "una mayúscula y una minúscula", style=SnackbarStyle.DANGER)
-            self.snackbar.update()
+                    "una mayúscula y una minúscula y un tamaño mínimo de 8 caracteres.",
+                style=SnackbarStyle.DANGER
+            )
             return
 
         # Check if user already exists
         if session.query(User).filter(User.email == email_input).first():
             log.warning("Creación de usuario fallida: El usuario ya existe.")
             log.debug(f" >>> Datos: '{mask_email(email_input)}' - '{mask_password(password_input)}'")
-
-            # Reset Snackbar
-            self.snackbar.change_style(msg="¡El correo electrónico ya existe!", style=SnackbarStyle.DANGER)
-            self.snackbar.update()
+            self.__display_message(msg="¡El correo electrónico ya existe!", style=SnackbarStyle.DANGER)
             return
+
+        self.__reset_fields()
 
         # Creates new user instance
         new_user = User(fullname=name_input, email=email_input, password=password_input)
         log.info("Usuario creado con éxito.")
         log.debug(f" >>> {new_user}")
 
-        # Reset fields
+        # Saves user to database
+        session.add(new_user)
+        session.commit()
+
+        # Provide user feedback
+        self.__display_message(
+            msg=f"¡Bienvenido/a a Dephokey, {new_user.fullname}!\n¡Ahora ya puedes iniciar sesión!",
+            style=SnackbarStyle.SUCCESS
+        )
+        self.__nav_to_login()
+
+    def __display_message(self, msg: str, style: SnackbarStyle) -> None:
+        self.snackbar.change_style(msg=msg, style=style)
+        self.snackbar.update()
+
+    def __reset_fields(self) -> None:
         self.name.value = ""
         self.email.value = ""
         self.password.value = ""
         self.password_repeat.value = ""
         self.content.update()
 
-        # Saves user to database
-        session.add(new_user)
-        session.commit()
-
-        # Notifies to the user
-        self.snackbar.change_style(
-            msg=f"¡Bienvenido/a a Dephokey, {new_user.fullname}!\n¡Ahora ya puedes iniciar sesión!",
-            style=SnackbarStyle.SUCCESS)
-        self.snackbar.update()
-
-        # Report loading page
-        self.page.overlay.append(
-            LoadingPage()
-        )
+    def __nav_to_login(self) -> None:
+        # Display loading page
+        self.page.overlay.append(LoadingPage())
         self.page.update()
 
         # Load login page
-        time.sleep(2)
+        time.sleep(2.5)
         self.page.overlay.clear()
         self.page.go("/login")

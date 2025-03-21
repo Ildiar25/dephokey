@@ -218,7 +218,7 @@ class SettingsPage(ft.Row):
 
     def __change_password(self, _: ft.ControlEvent) -> None:
         self.page.open(
-            ChangePasswordForm(page=self.page, snackbar=self.snackbar, style=FormStyle.EDIT)
+            ChangePasswordForm(page=self.page, snackbar=self.snackbar, style=FormStyle.PW_UPDATE)
         )
 
     def __display_message(self, msg: str, style: SnackbarStyle) -> None:

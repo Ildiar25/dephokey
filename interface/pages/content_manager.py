@@ -8,9 +8,9 @@ from interface.pages.page_content import (
     AboutPage,
     AdminPage,
     CreditcCardsPage,
+    EntriesPage,
     HomePage,
     NotesPage,
-    ResultsPage,
     SettingsPage,
     SitesPage,
 )
@@ -19,149 +19,172 @@ from shared.utils.colors import primaryTextColor
 
 
 class ContentStyle(Enum):
-    HOME = "home"
-    ADMIN = "admin"
-    SITES = "sites"
-    CREDITCARDS = "creditcards"
-    NOTES = "notes"
     ABOUT = "about"
-    SETTINGS = "settings"
-    RESULTS = "results"
+    ADMIN = "admin"
+    CREDITCARDS = "creditcards"
     EMPTY = "empty"
+    ENTRIES = "entries"
+    HOME = "home"
+    NOTES = "notes"
+    SETTINGS = "settings"
+    SITES = "sites"
 
 
-class BodyContent(ft.Column):
-    def __init__(self, page: ft.Page, snackbar: Snackbar, style: ContentStyle = ContentStyle.EMPTY,
-                 title: str = "", buttons: list[ft.Control] | None = None) -> None:
+class ContentManager(ft.Column):
+    """
+    Content manager provides functionality to manage content for all instantiated pages.
+    Otherwise, only if page exists update their content.
+    """
+    def __init__(
+            self,
+            page: ft.Page,
+            snackbar: Snackbar,
+            style: ContentStyle = ContentStyle.EMPTY,
+            title: str = "",
+            buttons: list[ft.Control] | None = None
+    ) -> None:
         super().__init__()
 
         # General attributes
         self.page = page
         self.snackbar = snackbar
         self.style = style
-        self.title = ft.Text(value=title, font_family="AlbertSansB", color=primaryTextColor, size=24)
 
-        # BodyContent attributes
+        # ContentManager attributes
         self.user: User = self.page.session.get("session")
-        self.header = ft.Row(
-            alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
-            controls=[self.title, ft.Row(spacing=16, controls=buttons)]
+        self.title = ft.Text(
+            value=title,
+            font_family="AlbertSansB",
+            color=primaryTextColor,
+            size=24
         )
-        self.body = ft.Row(expand=True, wrap=True, spacing=16)
-        self.results_style = None
+        self.buttons = ft.Row(spacing=16, controls=buttons)
 
-        # Body content
-        self.home_content = None
-        self.admin_content = None
-        self.sites_content = None
-        self.creditcards_content = None
-        self.notes_content = None
-        self.about_content = None
-        self.settings_content = None
-        self.results_content = None
+        # Body attributes
+        self.header = ft.Row(alignment=ft.MainAxisAlignment.SPACE_BETWEEN, controls=[self.title, self.buttons])
+        self.canvas = ft.Row(expand=True, wrap=True, spacing=16)
+
+        # Displayed main pages
+        self.about_pg = None
+        self.admin_pg = None
+        self.creditcard_pg = None
+        self.entries_pg = None
+        self.home_pg = None
+        self.note_pg = None
+        self.settings_pg = None
+        self.sites_pg = None
 
         # Body design
         self.spacing = 32
         self.scroll = ft.ScrollMode.AUTO
         self.expand = True
 
-        # Body content
-        self.controls = [self.header, self.body]
+        # ContentManager content
+        self.controls = [self.header, self.canvas]
+
         self.__update_appearance()
 
         log.info("Inicializando 'CONTENT MANAGER'...")
 
     def __update_appearance(self, user_input: str | None = None) -> None:
         match self.style:
-            case ContentStyle.HOME:
-                if not isinstance(self.home_content, HomePage):
-                    self.home_content = HomePage(self.page, self.snackbar, self.update_changes)
-                    self.body.controls = [self.home_content]
-                    log.info("Página 'HOME' creada.")
-                self.home_content.update_content()
-                self.body.controls = [self.home_content]
-                log.info("Página 'HOME' actualizada.")
-
-            case ContentStyle.ADMIN:
-                if not isinstance(self.admin_content, AdminPage):
-                    self.admin_content = AdminPage(self.page, self.snackbar, self.update_changes)
-                    self.body.controls = [self.admin_content]
-                    log.info("Página 'ADMIN' creada.")
-                self.admin_content.update_content()
-                self.body.controls = [self.admin_content]
-                log.info("Página 'ADMIN' actualizada.")
-
-            case ContentStyle.SITES:
-                if not isinstance(self.sites_content, SitesPage):
-                    self.sites_content = SitesPage(self.page, self.snackbar, self.update_changes)
-                    self.body.controls = [self.sites_content]
-                    log.info("Página 'SITES' creada.")
-                self.sites_content.update_content()
-                self.body.controls = [self.sites_content]
-                log.info("Página 'SITES' actualizada.")
-
-            case ContentStyle.CREDITCARDS:
-                if not isinstance(self.creditcards_content, CreditcCardsPage):
-                    self.creditcards_content = CreditcCardsPage(self.page, self.snackbar, self.update_changes)
-                    self.body.controls = [self.creditcards_content]
-                    log.info("Página 'CREDITCARDS' creada.")
-                self.creditcards_content.update_content()
-                self.body.controls = [self.creditcards_content]
-                log.info("Página 'CREDITCARDS' actualizada.")
-
-            case ContentStyle.NOTES:
-                if not isinstance(self.notes_content, NotesPage):
-                    self.notes_content = NotesPage(self.page, self.snackbar, self.update_changes)
-                    self.body.controls = [self.notes_content]
-                    log.info("Página 'NOTES' creada.")
-                self.notes_content.update_content()
-                self.body.controls = [self.notes_content]
-                log.info("Página 'NOTES' actualizada.")
-
             case ContentStyle.ABOUT:
-                if not isinstance(self.about_content, AboutPage):
-                    self.about_content = AboutPage(self.page, self.snackbar, self.update_changes)
-                    self.body.controls = [self.about_content]
+                if not isinstance(self.about_pg, AboutPage):
+                    self.about_pg = AboutPage(self.page, self.snackbar, self.__confirm_changes)
+                    self.canvas.controls = [self.about_pg]
                     log.info("Página 'ABOUT' creada.")
-                self.about_content.update_content()
-                self.body.controls = [self.about_content]
+
+                self.about_pg.update_content()
+                self.canvas.controls = [self.about_pg]
                 log.info("Página 'ABOUT' actualizada.")
 
-            case ContentStyle.SETTINGS:
-                if not isinstance(self.settings_content, SettingsPage):
-                    self.settings_content = SettingsPage(self.page, self.snackbar)
-                    self.body.controls = [self.settings_content]
-                    log.info("Página 'SETTINGS' creada.")
-                self.settings_content.update_content()
-                self.body.controls = [self.settings_content]
-                log.info("Página 'SETTINGS' actualizada.")
+            case ContentStyle.ADMIN:
+                if not isinstance(self.admin_pg, AdminPage):
+                    self.admin_pg = AdminPage(self.page, self.snackbar, self.__confirm_changes)
+                    self.canvas.controls = [self.admin_pg]
+                    log.info("Página 'ADMIN' creada.")
 
-            case ContentStyle.RESULTS:
-                if not isinstance(self.results_content, ResultsPage):
-                    self.results_content = ResultsPage(self.page, self.snackbar, self.update_changes)
-                    self.body.controls = [self.results_content]
-                    log.info("Página 'RESULTS' creada.")
-                self.results_content.get_user_input(user_input)
-                self.results_content.update_content()
-                self.body.controls = [self.results_content]
-                log.info("Página 'RESULTS' actualizada.")
+                self.admin_pg.update_content()
+                self.canvas.controls = [self.admin_pg]
+                log.info("Página 'ADMIN' actualizada.")
+
+            case ContentStyle.CREDITCARDS:
+                if not isinstance(self.creditcard_pg, CreditcCardsPage):
+                    self.creditcard_pg = CreditcCardsPage(self.page, self.snackbar, self.__confirm_changes)
+                    self.canvas.controls = [self.creditcard_pg]
+                    log.info("Página 'CREDITCARDS' creada.")
+
+                self.creditcard_pg.update_content()
+                self.canvas.controls = [self.creditcard_pg]
+                log.info("Página 'CREDITCARDS' actualizada.")
 
             case ContentStyle.EMPTY:
-                self.header.controls[1].controls.clear()
-                self.body.controls.clear()
+                self.buttons.controls.clear()
+                self.canvas.controls.clear()
+
+            case ContentStyle.ENTRIES:
+                if not isinstance(self.entries_pg, EntriesPage):
+                    self.entries_pg = EntriesPage(self.page, self.snackbar, self.__confirm_changes)
+                    self.canvas.controls = [self.entries_pg]
+                    log.info("Página 'ENTRIES' creada.")
+
+                self.entries_pg.get_user_input(user_input)
+                self.entries_pg.update_content()
+                self.canvas.controls = [self.entries_pg]
+                log.info("Página 'ENTRIES' actualizada.")
+
+            case ContentStyle.HOME:
+                if not isinstance(self.home_pg, HomePage):
+                    self.home_pg = HomePage(self.page, self.snackbar, self.__confirm_changes)
+                    self.canvas.controls = [self.home_pg]
+                    log.info("Página 'HOME' creada.")
+
+                self.home_pg.update_content()
+                self.canvas.controls = [self.home_pg]
+                log.info("Página 'HOME' actualizada.")
+
+            case ContentStyle.NOTES:
+                if not isinstance(self.note_pg, NotesPage):
+                    self.note_pg = NotesPage(self.page, self.snackbar, self.__confirm_changes)
+                    self.canvas.controls = [self.note_pg]
+                    log.info("Página 'NOTES' creada.")
+
+                self.note_pg.update_content()
+                self.canvas.controls = [self.note_pg]
+                log.info("Página 'NOTES' actualizada.")
+
+            case ContentStyle.SETTINGS:
+                if not isinstance(self.settings_pg, SettingsPage):
+                    self.settings_pg = SettingsPage(self.page, self.snackbar)
+                    self.canvas.controls = [self.settings_pg]
+                    log.info("Página 'SETTINGS' creada.")
+
+                self.settings_pg.update_content()
+                self.canvas.controls = [self.settings_pg]
+                log.info("Página 'SETTINGS' actualizada.")
+
+            case ContentStyle.SITES:
+                if not isinstance(self.sites_pg, SitesPage):
+                    self.sites_pg = SitesPage(self.page, self.snackbar, self.__confirm_changes)
+                    self.canvas.controls = [self.sites_pg]
+                    log.info("Página 'SITES' creada.")
+
+                self.sites_pg.update_content()
+                self.canvas.controls = [self.sites_pg]
+                log.info("Página 'SITES' actualizada.")
 
     def change_content(self, title: str, style: ContentStyle, buttons: list[ft.Control] | None = None) -> None:
         self.style = style
         self.title.value = title
-        self.header.controls[1].controls = buttons
+        self.buttons.controls = buttons
         self.__update_appearance()
 
     def show_results(self, user_input: str) -> None:
-        self.style = ContentStyle.RESULTS
+        self.style = ContentStyle.ENTRIES
         self.title.value = f"Buscando '{user_input}'..."
-        self.header.controls[1].controls.clear()
+        self.buttons.controls.clear()
         self.__update_appearance(user_input)
 
-    def update_changes(self) -> None:
+    def __confirm_changes(self) -> None:
         self.__update_appearance()
         self.update()
