@@ -1,7 +1,7 @@
 
-# Dephokey — PasswordManager v.0.3.3 
+# Dephokey — PasswordManager v.1.0.0 
 
-Dephokey — PasswordManager v.0.3.3 is an application that stores sensitive data under an encryption key within its own 
+Dephokey — PasswordManager v.1.0.0 is an application that stores sensitive data under an encryption key within its own 
 database. Avoids connecting to third-party servers, keeping all data and its credentials under user's control, 
 thus respecting their privacy.
 
@@ -10,8 +10,9 @@ thus respecting their privacy.
 _\*how to use this app\*_
 
 ## Installation Guide
-First ensure you have Python v.3.11.5 or superior, Git v.2.45.1 or superior & Docker v28.0.1 or superior 
-installed on your computer. You can download it from these urls:
+First ensure you have Python v.3.11.5 or superior, Git v.2.45.1 or superior and Docker v28.0.1 or superior 
+installed on your computer (notice Docker is not essential for app, it just allows to work with emails). You can 
+download it from these urls:
 
 
 [![Static Badge](https://img.shields.io/badge/Python-Download-blue)](https://www.python.org/downloads/)
@@ -84,7 +85,7 @@ pip install -r requirements.txt
 ---
 
 ### Start Email Server
-This command open 1025 port on localhost
+This command opens 1025 port on localhost in detached mode (be sure Docker is running)
 ```bash
 docker compose -f compose.yaml up -d
 ```

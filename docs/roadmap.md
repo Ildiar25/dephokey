@@ -45,7 +45,7 @@
 
 * Navigation
   * [x] Home Content
-  * [ ] Admin Content
+  * [x] Admin Content
   * [x] Sites Content
   * [x] Credit Cards Content
   * [x] Notes Content
@@ -206,11 +206,18 @@ Methods:
 ---
 
 # Future Changes
-* [ ] Add modification date to main models.
-* [ ] Add a main key in the system's keyring. Each user will have its own encrypted key by using main key.
-* [ ] Admin can change creation & modification date.
-* [ ] Send a welcome email and verify user email.
-* [ ] Create Login class. Add third-party credentials to login (as Google, GitHub and others).
-* [ ] Save database on system's directory.
-* [ ] Support multiple credit card types (as Debit or Credit).
+* [ ] Create Login class. Adds third-party credentials to Login (as Google, GitHub and others).
+* [ ] Implement _remember me_ option.
+* [ ] Create Password class. It shows security pass level. Controls if it is repeated. Add an expiration date.
 * [ ] Add password security level.
+
+
+* [ ] Add modification date to main models.
+* [ ] Support multiple credit card types (as Debit or Credit).
+* [ ] Add tries limit to login. 
+* [ ] Send a welcome email and verify user email.
+* [ ] Admin can change creation & modification date.
+
+
+* [ ] Add a main key in the system's keyring. Each user will have its own encrypted key by using main key.
+* [ ] Save database on system's directory.
