@@ -90,7 +90,7 @@ class ContentManager(ft.Column):
         match self.style:
             case ContentStyle.ABOUT:
                 if not isinstance(self.about_pg, AboutPage):
-                    self.about_pg = AboutPage(self.page, self.snackbar, self.__confirm_changes)
+                    self.about_pg = AboutPage(self.page, self.snackbar, self.confirm_changes)
                     self.canvas.controls = [self.about_pg]
                     log.info("Página 'ABOUT' creada.")
 
@@ -100,7 +100,7 @@ class ContentManager(ft.Column):
 
             case ContentStyle.ADMIN:
                 if not isinstance(self.admin_pg, AdminPage):
-                    self.admin_pg = AdminPage(self.page, self.snackbar, self.__confirm_changes)
+                    self.admin_pg = AdminPage(self.page, self.snackbar, self.confirm_changes)
                     self.canvas.controls = [self.admin_pg]
                     log.info("Página 'ADMIN' creada.")
 
@@ -110,7 +110,7 @@ class ContentManager(ft.Column):
 
             case ContentStyle.CREDITCARDS:
                 if not isinstance(self.creditcard_pg, CreditcCardsPage):
-                    self.creditcard_pg = CreditcCardsPage(self.page, self.snackbar, self.__confirm_changes)
+                    self.creditcard_pg = CreditcCardsPage(self.page, self.snackbar, self.confirm_changes)
                     self.canvas.controls = [self.creditcard_pg]
                     log.info("Página 'CREDITCARDS' creada.")
 
@@ -124,7 +124,7 @@ class ContentManager(ft.Column):
 
             case ContentStyle.ENTRIES:
                 if not isinstance(self.entries_pg, EntriesPage):
-                    self.entries_pg = EntriesPage(self.page, self.snackbar, self.__confirm_changes)
+                    self.entries_pg = EntriesPage(self.page, self.snackbar, self.confirm_changes)
                     self.canvas.controls = [self.entries_pg]
                     log.info("Página 'ENTRIES' creada.")
 
@@ -135,7 +135,7 @@ class ContentManager(ft.Column):
 
             case ContentStyle.HOME:
                 if not isinstance(self.home_pg, HomePage):
-                    self.home_pg = HomePage(self.page, self.snackbar, self.__confirm_changes)
+                    self.home_pg = HomePage(self.page, self.snackbar, self.confirm_changes)
                     self.canvas.controls = [self.home_pg]
                     log.info("Página 'HOME' creada.")
 
@@ -145,7 +145,7 @@ class ContentManager(ft.Column):
 
             case ContentStyle.NOTES:
                 if not isinstance(self.note_pg, NotesPage):
-                    self.note_pg = NotesPage(self.page, self.snackbar, self.__confirm_changes)
+                    self.note_pg = NotesPage(self.page, self.snackbar, self.confirm_changes)
                     self.canvas.controls = [self.note_pg]
                     log.info("Página 'NOTES' creada.")
 
@@ -165,7 +165,7 @@ class ContentManager(ft.Column):
 
             case ContentStyle.SITES:
                 if not isinstance(self.sites_pg, SitesPage):
-                    self.sites_pg = SitesPage(self.page, self.snackbar, self.__confirm_changes)
+                    self.sites_pg = SitesPage(self.page, self.snackbar, self.confirm_changes)
                     self.canvas.controls = [self.sites_pg]
                     log.info("Página 'SITES' creada.")
 
@@ -185,6 +185,6 @@ class ContentManager(ft.Column):
         self.buttons.controls.clear()
         self.__update_appearance(user_input)
 
-    def __confirm_changes(self) -> None:
+    def confirm_changes(self) -> None:
         self.__update_appearance()
         self.update()

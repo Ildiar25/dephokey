@@ -28,8 +28,13 @@ class ButtonStyle(Enum):
 
 
 class CustomElevatedButton(ft.ElevatedButton):
+    """Creates a custom elevated button. Call to a given function each time it is pressed."""
     def __init__(
-            self, name: str, style: ButtonStyle, on_click: Callable[[ft.ControlEvent], None] | None = None, **kwargs
+            self,
+            name: str,
+            style: ButtonStyle,
+            on_click: Callable[[ft.ControlEvent], None] | None = None,
+            **kwargs
     ) -> None:
         super().__init__(**kwargs)
 
@@ -48,18 +53,20 @@ class CustomElevatedButton(ft.ElevatedButton):
                     ft.ControlState.DISABLED: neutral10,
                     ft.ControlState.DEFAULT: primaryCorporateColor,
                     ft.ControlState.HOVERED: primaryCorporate25,
-                    ft.ControlState.FOCUSED: primaryCorporate25
+                    ft.ControlState.FOCUSED: primaryCorporate25,
                 }
                 self.style = ft.ButtonStyle(
+                    shape=ft.RoundedRectangleBorder(4),
+                    elevation=self.elevation,
                     padding={
                         ft.ControlState.DEFAULT: ft.padding.symmetric(vertical=8, horizontal=16),
                         ft.ControlState.DISABLED: ft.padding.symmetric(vertical=8, horizontal=16),
-                        ft.ControlState.HOVERED: ft.padding.symmetric(vertical=8, horizontal=16)
+                        ft.ControlState.HOVERED: ft.padding.symmetric(vertical=8, horizontal=16),
                     },
                     color={
                         ft.ControlState.DEFAULT: tertiaryTextColor,
                         ft.ControlState.DISABLED: tertiaryTextColor,
-                        ft.ControlState.HOVERED: tertiaryTextColor
+                        ft.ControlState.HOVERED: tertiaryTextColor,
                     },
                     icon_color={
                         ft.ControlState.DEFAULT: neutral00,
@@ -76,10 +83,8 @@ class CustomElevatedButton(ft.ElevatedButton):
                             width=1.8,
                             color=primaryCorporate25,
                             stroke_align=ft.BorderSideStrokeAlign.INSIDE
-                        )
-                    },
-                    shape=ft.RoundedRectangleBorder(4),
-                    elevation=self.elevation
+                        ),
+                    }
                 )
 
             case ButtonStyle.ICON:
@@ -88,18 +93,20 @@ class CustomElevatedButton(ft.ElevatedButton):
                     ft.ControlState.DISABLED: neutral10,
                     ft.ControlState.DEFAULT: primaryCorporateColor,
                     ft.ControlState.HOVERED: primaryCorporate25,
-                    ft.ControlState.FOCUSED: primaryCorporate25
+                    ft.ControlState.FOCUSED: primaryCorporate25,
                 }
                 self.style = ft.ButtonStyle(
+                    shape=ft.RoundedRectangleBorder(4),
+                    elevation=self.elevation,
                     padding={
                         ft.ControlState.DEFAULT: ft.padding.symmetric(vertical=8, horizontal=16),
                         ft.ControlState.DISABLED: ft.padding.symmetric(vertical=8, horizontal=16),
-                        ft.ControlState.HOVERED: ft.padding.symmetric(vertical=8, horizontal=16)
+                        ft.ControlState.HOVERED: ft.padding.symmetric(vertical=8, horizontal=16),
                     },
                     color={
                         ft.ControlState.DEFAULT: tertiaryTextColor,
                         ft.ControlState.DISABLED: tertiaryTextColor,
-                        ft.ControlState.HOVERED: tertiaryTextColor
+                        ft.ControlState.HOVERED: tertiaryTextColor,
                     },
                     icon_color={
                         ft.ControlState.DEFAULT: neutral00,
@@ -116,10 +123,8 @@ class CustomElevatedButton(ft.ElevatedButton):
                             width=1.8,
                             color=primaryCorporate25,
                             stroke_align=ft.BorderSideStrokeAlign.INSIDE
-                        )
-                    },
-                    shape=ft.RoundedRectangleBorder(4),
-                    elevation=self.elevation
+                        ),
+                    }
                 )
 
             case ButtonStyle.BORDER:
@@ -127,18 +132,20 @@ class CustomElevatedButton(ft.ElevatedButton):
                     ft.ControlState.DISABLED: neutral10,
                     ft.ControlState.DEFAULT: transparentColor,
                     ft.ControlState.HOVERED: primaryCorporate25,
-                    ft.ControlState.FOCUSED: primaryCorporate25
+                    ft.ControlState.FOCUSED: primaryCorporate25,
                 }
                 self.style = ft.ButtonStyle(
+                    shape=ft.RoundedRectangleBorder(4),
+                    elevation=self.elevation,
                     padding={
                         ft.ControlState.DEFAULT: ft.padding.symmetric(vertical=8, horizontal=16),
                         ft.ControlState.DISABLED: ft.padding.symmetric(vertical=8, horizontal=16),
-                        ft.ControlState.HOVERED: ft.padding.symmetric(vertical=8, horizontal=16)
+                        ft.ControlState.HOVERED: ft.padding.symmetric(vertical=8, horizontal=16),
                     },
                     color={
                         ft.ControlState.DEFAULT: accentTextColor,
                         ft.ControlState.DISABLED: tertiaryTextColor,
-                        ft.ControlState.HOVERED: tertiaryTextColor
+                        ft.ControlState.HOVERED: tertiaryTextColor,
                     },
                     icon_color={
                         ft.ControlState.DEFAULT: primaryCorporateColor,
@@ -160,10 +167,8 @@ class CustomElevatedButton(ft.ElevatedButton):
                             width=1.8,
                             color=primaryCorporate25,
                             stroke_align=ft.BorderSideStrokeAlign.INSIDE
-                        )
-                    },
-                    shape=ft.RoundedRectangleBorder(4),
-                    elevation=self.elevation
+                        ),
+                    }
                 )
 
             case ButtonStyle.CANCEL:
@@ -171,18 +176,20 @@ class CustomElevatedButton(ft.ElevatedButton):
                     ft.ControlState.DISABLED: neutral10,
                     ft.ControlState.DEFAULT: transparentColor,
                     ft.ControlState.HOVERED: neutral10,
-                    ft.ControlState.FOCUSED: neutral10
+                    ft.ControlState.FOCUSED: neutral10,
                 }
                 self.style = ft.ButtonStyle(
+                    shape=ft.RoundedRectangleBorder(4),
+                    elevation=self.elevation,
                     padding={
                         ft.ControlState.DEFAULT: ft.padding.symmetric(vertical=8, horizontal=16),
                         ft.ControlState.DISABLED: ft.padding.symmetric(vertical=8, horizontal=16),
-                        ft.ControlState.HOVERED: ft.padding.symmetric(vertical=8, horizontal=16)
+                        ft.ControlState.HOVERED: ft.padding.symmetric(vertical=8, horizontal=16),
                     },
                     color={
                         ft.ControlState.DEFAULT: secondaryTextColor,
                         ft.ControlState.DISABLED: secondaryTextColor,
-                        ft.ControlState.HOVERED: secondaryTextColor
+                        ft.ControlState.HOVERED: secondaryTextColor,
                     },
                     icon_color={
                         ft.ControlState.DEFAULT: neutral40,
@@ -199,10 +206,8 @@ class CustomElevatedButton(ft.ElevatedButton):
                             width=1.8,
                             color=neutral10,
                             stroke_align=ft.BorderSideStrokeAlign.INSIDE
-                        )
-                    },
-                    shape=ft.RoundedRectangleBorder(4),
-                    elevation=self.elevation
+                        ),
+                    }
                 )
 
             case ButtonStyle.DELETE:
@@ -210,18 +215,20 @@ class CustomElevatedButton(ft.ElevatedButton):
                     ft.ControlState.DISABLED: neutral10,
                     ft.ControlState.DEFAULT: neutralDangerMedium,
                     ft.ControlState.HOVERED: neutralDangerDark,
-                    ft.ControlState.FOCUSED: neutralDangerDark
+                    ft.ControlState.FOCUSED: neutralDangerDark,
                 }
                 self.style = ft.ButtonStyle(
+                    shape=ft.RoundedRectangleBorder(4),
+                    elevation=self.elevation,
                     padding={
                         ft.ControlState.DEFAULT: ft.padding.symmetric(vertical=8, horizontal=16),
                         ft.ControlState.DISABLED: ft.padding.symmetric(vertical=8, horizontal=16),
-                        ft.ControlState.HOVERED: ft.padding.symmetric(vertical=8, horizontal=16)
+                        ft.ControlState.HOVERED: ft.padding.symmetric(vertical=8, horizontal=16),
                     },
                     color={
                         ft.ControlState.DEFAULT: tertiaryTextColor,
                         ft.ControlState.DISABLED: tertiaryTextColor,
-                        ft.ControlState.HOVERED: tertiaryTextColor
+                        ft.ControlState.HOVERED: tertiaryTextColor,
                     },
                     icon_color={
                         ft.ControlState.DEFAULT: neutral00,
@@ -238,8 +245,6 @@ class CustomElevatedButton(ft.ElevatedButton):
                             width=2,
                             color=neutralDangerDark,
                             stroke_align=ft.BorderSideStrokeAlign.INSIDE
-                        )
-                    },
-                    shape=ft.RoundedRectangleBorder(4),
-                    elevation=self.elevation
+                        ),
+                    }
                 )

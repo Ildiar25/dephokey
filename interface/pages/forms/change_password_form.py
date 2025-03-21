@@ -133,7 +133,7 @@ class ChangePasswordForm(BaseForm):
                         ),
                         ft.Row(
                             controls=[
-                                TextLink(text="Generar Contraseña", function=self.__generate_password),
+                                TextLink(text="Generar Contraseña", target=self.__generate_password),
                             ]
                         ),
                     ]
@@ -224,7 +224,7 @@ class ChangePasswordForm(BaseForm):
                         ),
                         ft.Row(
                             controls=[
-                                TextLink(text="Generar Contraseña", function=self.__generate_password),
+                                TextLink(text="Generar Contraseña", target=self.__generate_password),
                             ]
                         ),
                     ]

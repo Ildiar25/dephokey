@@ -91,12 +91,12 @@ class CreditCardWidget(ft.Card):
                                         IconLink(
                                             icon=ft.Icons.EDIT_OUTLINED,
                                             style=IconLinkStyle.DARK,
-                                            function=self.__open_edit_creditcard_form
+                                            target=self.__open_edit_creditcard_form
                                         ),
                                         IconLink(
                                             icon=ft.Icons.DELETE_OUTLINED,
                                             style=IconLinkStyle.DARK,
-                                            function=self.__open_delete_form
+                                            target=self.__open_delete_form
                                         ),
                                     ]
                                 )
@@ -112,7 +112,7 @@ class CreditCardWidget(ft.Card):
                             IconLink(
                                 icon=ft.Icons.COPY_ROUNDED,
                                 style=IconLinkStyle.DARK,
-                                function=self.__copy_text,
+                                target=self.__copy_text,
                                 tooltip="copiar número"
                             ),
                         ]

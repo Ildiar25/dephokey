@@ -8,6 +8,7 @@ from shared.utils.colors import (
 
 
 class CustomTextField(ft.TextField):
+    """Creates a custom text field."""
     def __init__(self, error: str | None = None, **kwargs) -> None:
         super().__init__(**kwargs)
 

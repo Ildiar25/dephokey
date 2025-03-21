@@ -135,7 +135,7 @@ class Signup(ft.Container):
                                         ft.Text("¿Ya tienes cuenta?"),
                                         TextLink(
                                             text="¡Inicia Sesión!",
-                                            function=lambda _: self.page.go("/login")
+                                            target=lambda _: self.page.go("/login")
                                         ),
                                     ]
                                 )

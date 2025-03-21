@@ -4,12 +4,13 @@ import flet as ft
 
 
 class CustomSearchBar(ft.Container):
-    def __init__(self, width: int, function: Callable[[ft.ControlEvent], None]) -> None:
+    """Creates a custom searchbar. Call to a given function each time user changes textfield content."""
+    def __init__(self, width: int, target: Callable[[ft.ControlEvent], None]) -> None:
         super().__init__()
 
         # Specific settings
         self.width = width
-        self.function = function
+        self.target = target
         self.textfield_on_focus = False
         self.textfield = ft.TextField(
             expand=True,
@@ -42,18 +43,20 @@ class CustomSearchBar(ft.Container):
             vertical_alignment=ft.CrossAxisAlignment.CENTER,
             controls=[
                 ft.Icon(ft.Icons.SEARCH_ROUNDED, size=17, color=ft.Colors.BLACK, opacity=0.85),
-                self.textfield
+                self.textfield,
             ]
         )
 
     def __text_changed(self, event: ft.ControlEvent) -> None:
-        self.function(event)
+        self.target(event)
         self.update()
 
     def __is_focused(self, _: ft.ControlEvent) -> None:
         self.textfield_on_focus = not self.textfield_on_focus
+
         if self.textfield_on_focus or self.textfield.value:
             self.opacity = 1
         else:
             self.opacity = 0.4
+
         self.update()

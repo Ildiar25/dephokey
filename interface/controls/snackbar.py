@@ -15,14 +15,15 @@ from shared.utils.colors import (
 
 
 class SnackbarStyle(Enum):
-    INFO = "info"
-    WARNING = "warning"
     DANGER = "danger"
-    SUCCESS = "success"
+    INFO = "info"
     RESET = "reset"
+    SUCCESS = "success"
+    WARNING = "warning"
 
 
 class Snackbar(ft.SnackBar):
+    """Creates a custom snackbar to display info based on their style."""
     def __init__(self, content: str = "", style: SnackbarStyle = SnackbarStyle.RESET) -> None:
         super().__init__(ft.Text(content, text_align=ft.TextAlign.CENTER))
 

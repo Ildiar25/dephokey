@@ -47,13 +47,13 @@ class AdminRow(ft.Container):
                 IconLink(
                     icon=ft.Icons.EDIT_OUTLINED,
                     style=IconLinkStyle.LIGHT,
-                    function=self.__open_edit_item_form,
+                    target=self.__open_edit_item_form,
                     visible=False
                 ),
                 IconLink(
                     icon=ft.Icons.DELETE_OUTLINED,
                     style=IconLinkStyle.LIGHT,
-                    function=self.__open_delete_form,
+                    target=self.__open_delete_form,
                     visible=False
                 ),
             ]

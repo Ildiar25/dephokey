@@ -82,7 +82,7 @@ class Login(ft.Container):
                                                 self.password,
                                                 TextLink(
                                                     text="¿Has olvidado la contraseña?",
-                                                    function=lambda _: self.page.go("/reset_password")
+                                                    target=lambda _: self.page.go("/reset_password")
                                                 ),
                                             ]
                                         ),
@@ -99,7 +99,7 @@ class Login(ft.Container):
                                         ft.Text("¿No tienes cuenta?"),
                                         TextLink(
                                             text="¡Regístrate en Dephokey!",
-                                            function=lambda _: self.page.go("/signup")
+                                            target=lambda _: self.page.go("/signup")
                                         ),
                                     ]
                                 )

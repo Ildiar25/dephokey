@@ -339,7 +339,7 @@ class AboutPage(ft.Row):
                                                     controls=[
                                                         TextLink(
                                                             text="GitHub",
-                                                            function=lambda _: self.page.launch_url(
+                                                            target=lambda _: self.page.launch_url(
                                                                 "https://github.com/Ildiar25"
                                                             )
                                                         ),
@@ -356,7 +356,7 @@ class AboutPage(ft.Row):
                                                     controls=[
                                                         TextLink(
                                                             text="LinkedIn",
-                                                            function=lambda _: self.page.launch_url(
+                                                            target=lambda _: self.page.launch_url(
                                                                 "http://www.linkedin.com/in/"
                                                                 "joan-pastor-vicens-aa5b4a55"
                                                             )

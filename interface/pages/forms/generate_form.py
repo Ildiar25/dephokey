@@ -129,7 +129,7 @@ class GenerateForm(BaseForm):
                                 IconLink(
                                     icon=ft.Icons.COPY_ROUNDED,
                                     style=IconLinkStyle.LIGHT,
-                                    function=self.__copy_text,
+                                    target=self.__copy_text,
                                     tooltip="copiar contraseña"
                                 ),
                             ]
@@ -162,7 +162,7 @@ class GenerateForm(BaseForm):
                                 IconLink(
                                     icon=ft.Icons.COPY_ROUNDED,
                                     style=IconLinkStyle.LIGHT,
-                                    function=self.__copy_text,
+                                    target=self.__copy_text,
                                     tooltip="copiar contraseña"
                                 ),
                             ]

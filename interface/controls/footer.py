@@ -4,7 +4,7 @@ from shared.utils.colors import primaryCorporateColor, tertiaryTextColor
 
 
 class Footer(ft.BottomAppBar):
-
+    """Creates the app footer."""
     def __init__(self) -> None:
         super().__init__()
 
@@ -19,6 +19,6 @@ class Footer(ft.BottomAppBar):
         # Content
         self.content = ft.Row(
             controls=[
-                ft.Text("DephoKey © 2025 · Todos los derechos reservados", color=tertiaryTextColor)
+                ft.Text(value="DephoKey © 2025 · Todos los derechos reservados", color=tertiaryTextColor),
             ]
         )

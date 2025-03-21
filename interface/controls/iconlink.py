@@ -21,21 +21,25 @@ class IconLinkStyle(Enum):
 
 
 class IconLink(ft.Container):
-    def __init__(self, icon: ft.Icons, style: IconLinkStyle, function: Callable[[Any], None] | None = None, **kwargs):
+    """Creates a custom clickable icon image according to a given ICON STYLE."""
+    def __init__(self, icon: ft.Icons, style: IconLinkStyle, target: Callable[[Any], None] | None = None, **kwargs):
         super().__init__(**kwargs)
 
         # Sets style & Update
         self.style = style
-        self.on_hover = self.toggle_focus_link
+        self.on_hover = self.__toggle_focus_link
         self.badge = ft.Badge(
-            bgcolor=neutralSuccessLight, text_color=successTextColor, offset=ft.Offset(-25, -20),
-            label_visible=False, padding=ft.padding.symmetric(horizontal=10),
+            bgcolor=neutralSuccessLight,
+            text_color=successTextColor,
+            offset=ft.Offset(-25, -20),
+            label_visible=False,
+            padding=ft.padding.symmetric(horizontal=10),
             text_style=ft.TextStyle(font_family="AlbertSansR", size=12)
         )
         self.__update_appareance(icon)
 
         # Endpoint
-        self.on_click = function
+        self.on_click = target
 
     def __update_appareance(self, icon: ft.Icons) -> None:
         match self.style:
@@ -45,13 +49,14 @@ class IconLink(ft.Container):
             case IconLinkStyle.DARK:
                 self.content = ft.Icon(name=icon, color=neutral00)
 
-    def toggle_focus_link(self, cursor: ft.ControlEvent) -> None:
+    def __toggle_focus_link(self, cursor: ft.ControlEvent) -> None:
         match self.style:
             case IconLinkStyle.LIGHT:
                 if cursor and cursor.control.content.color == primaryCorporateColor:
                     cursor.control.content.color = neutral80
                 else:
                     cursor.control.content.color = primaryCorporateColor
+
                 cursor.control.update()
 
             case IconLinkStyle.DARK:
@@ -59,6 +64,7 @@ class IconLink(ft.Container):
                     cursor.control.content.color = neutral40
                 else:
                     cursor.control.content.color = neutral00
+
                 cursor.control.update()
 
     def show_badge(self, msg: str  = "¡copiado!") -> None:

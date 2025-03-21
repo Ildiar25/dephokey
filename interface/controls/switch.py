@@ -6,8 +6,15 @@ from shared.utils.colors import neutralSuccessMedium, secondaryTextColor
 
 
 class CustomSwitch(ft.Container):
-    def __init__(self, title: str, width: int | None = None, expand: bool = False,
-                 on_change: Callable[[ft.ControlEvent], None] | None = None, value: bool = False) -> None:
+    """Creates a custom switch button with text name."""
+    def __init__(
+            self,
+            title: str,
+            width: int | None = None,
+            expand: bool = False,
+            on_change: Callable[[ft.ControlEvent], None] | None = None,
+            value: bool = False
+    ) -> None:
         super().__init__()
 
         self.width = width
@@ -27,9 +34,9 @@ class CustomSwitch(ft.Container):
                     on_change=on_change,
                     active_track_color=neutralSuccessMedium,
                     track_color={
-                        ft.ControlState.PRESSED: ft.Colors.PINK
+                        ft.ControlState.PRESSED: ft.Colors.PINK,
                     }
-                )
+                ),
             ]
         )
 

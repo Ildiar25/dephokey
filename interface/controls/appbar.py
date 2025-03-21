@@ -4,7 +4,7 @@ import flet as ft
 
 from features.models.user import User, UserRole
 from interface.controls.searchbar import CustomSearchBar
-from interface.pages.content_manager import BodyContent, ContentStyle
+from interface.pages.content_manager import ContentManager, ContentStyle
 from interface.pages.loading_page import LoadingPage
 from shared.logger_setup import main_log as log
 from shared.utils.colors import (
@@ -19,7 +19,7 @@ from shared.utils.colors import (
 
 
 class CustomAppbar(ft.AppBar):
-    def __init__(self, page: ft.Page, snackbar: ft.SnackBar, content: BodyContent) -> None:
+    def __init__(self, page: ft.Page, snackbar: ft.SnackBar, content: ContentManager) -> None:
         super().__init__()
 
         # General settings
@@ -29,7 +29,7 @@ class CustomAppbar(ft.AppBar):
         # Appbar attributes
         self.user: User = self.page.session.get("session")
         self.body_content = content
-        self.search_bar = CustomSearchBar(width=1008, function=self.search_results)
+        self.search_bar = CustomSearchBar(width=1008, target=self.search_results)
 
         # Appbar design
         self.visible = False
@@ -97,7 +97,7 @@ class CustomAppbar(ft.AppBar):
                 highlight_color=neutral20,
                 hover_color=neutral10,
                 focus_color=neutral10,
-                visible=False if self.user.role == UserRole.CLIENT else True
+                visible=self.user.role == UserRole.ADMIN
             )
         ]
         self.body_content.change_content(title="Configuración", style=ContentStyle.SETTINGS, buttons=buttons)
@@ -110,7 +110,7 @@ class CustomAppbar(ft.AppBar):
         self.body_content.update()
 
     def search_results(self, result: ft.ControlEvent) -> None:
-        log.info("Redirigiendo a RESULTS")
+        log.info("Redirigiendo a ENTRIES")
         self.body_content.show_results(result.control.value.strip())
         self.body_content.update()
 

@@ -7,20 +7,21 @@ from shared.utils.colors import accentTextColor, secondaryTextColor
 
 
 class TextLink(ft.Container):
-    def __init__(self, text: str, function: Callable[[Any], None], **kwargs) -> None:
+    """Creates a clickable text."""
+    def __init__(self, text: str, target: Callable[[Any], None], **kwargs) -> None:
         super().__init__(**kwargs)
 
         # General attributes
         self.content = ft.Text(value=text, color=accentTextColor)
 
         # Endpoint
-        self.on_click = function
+        self.on_click = target
 
         # Style
-        self.on_hover = self.toggle_focus_link
+        self.on_hover = self.__toggle_focus_link
 
     @staticmethod
-    def toggle_focus_link(cursor: ft.ControlEvent) -> None:
+    def __toggle_focus_link(cursor: ft.ControlEvent) -> None:
         if cursor and cursor.control.content.color == accentTextColor:
             cursor.control.content.color = secondaryTextColor
             cursor.control.content.style = ft.TextStyle(
@@ -30,4 +31,5 @@ class TextLink(ft.Container):
         else:
             cursor.control.content.color = accentTextColor
             cursor.control.content.style = None
+
         cursor.control.update()

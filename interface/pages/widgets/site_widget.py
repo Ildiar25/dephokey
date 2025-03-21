@@ -38,7 +38,7 @@ class SiteWidget(ft.Card):
         )
         self.site_link = TextLink(
             text=self.site.address,
-            function=lambda _: self.page.launch_url(self.site.address)
+            target=lambda _: self.page.launch_url(self.site.address)
         )
         self.site_username = ft.Text(self.site.username, color=neutral60)
         self.site_password = ft.Text(mask_password(decrypt_data(self.site.encrypted_password)))
@@ -67,12 +67,12 @@ class SiteWidget(ft.Card):
                                         IconLink(
                                             icon=ft.Icons.EDIT_OUTLINED,
                                             style=IconLinkStyle.LIGHT,
-                                            function=self.__open_edit_site_form
+                                            target=self.__open_edit_site_form
                                         ),
                                         IconLink(
                                             icon=ft.Icons.DELETE_OUTLINED,
                                             style=IconLinkStyle.LIGHT,
-                                            function=self.__open_delete_form
+                                            target=self.__open_delete_form
                                         ),
                                     ]
                                 )
@@ -120,7 +120,7 @@ class SiteWidget(ft.Card):
                             IconLink(
                                 icon=ft.Icons.COPY_ROUNDED,
                                 style=IconLinkStyle.LIGHT,
-                                function=self.__copy_text,
+                                target=self.__copy_text,
                                 tooltip="copiar contraseña"
                             ),
                         ]

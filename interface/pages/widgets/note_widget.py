@@ -65,12 +65,12 @@ class NoteWidget(ft.Card):
                                                 IconLink(
                                                     icon=ft.Icons.EDIT_OUTLINED,
                                                     style=IconLinkStyle.LIGHT,
-                                                    function=self.__open_edit_note_form
+                                                    target=self.__open_edit_note_form
                                                 ),
                                                 IconLink(
                                                     icon=ft.Icons.DELETE_OUTLINED,
                                                     style=IconLinkStyle.LIGHT,
-                                                    function=self.__open_delete_form
+                                                    target=self.__open_delete_form
                                                 ),
                                             ]
                                         )
