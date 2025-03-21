@@ -8,7 +8,7 @@ from shared.logger_setup import main_log as log
 KEY_PATH = Path(__file__).parent
 
 
-def load_key() -> bytes | None:
+def __load_key() -> bytes | None:
 
     # Prepare key for encrypt
     try:
@@ -26,7 +26,7 @@ def load_key() -> bytes | None:
 
 def encrypt_data(new_data: str) -> str:
     data_coded = new_data.encode(encoding="utf-8", errors="replace")  # 'Replace' changes character by official '�'
-    key = load_key()
+    key = __load_key()
 
     # Prepare data_encryption module
     try:
@@ -48,7 +48,7 @@ def encrypt_data(new_data: str) -> str:
 
 def decrypt_data(load_data: str) -> str:
     data_coded = load_data.encode()
-    key = load_key()
+    key = __load_key()
 
     # Prepare data_encryption module
     try:
