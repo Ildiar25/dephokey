@@ -47,7 +47,7 @@ def main(page: ft.Page) -> None:
     fill_with_users()
 
     # Page settings
-    page.title = "Dephokey — PasswordManager v.0.3.3"
+    page.title = "Dephokey — PasswordManager v.1.0.0"
     page.fonts = {
         "AlbertSansR": "interface/assets/fonts/albert-sans/albert-sans-regular.ttf",
         "AlbertSansB": "interface/assets/fonts/albert-sans/albert-sans-bold.ttf",
