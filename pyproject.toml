@@ -1,18 +1,16 @@
-[build-system]
-
-
 [project]
 name = "Dephokey"
-version = "0.3.3"
+version = "1.0.0"
 dependencies = [
     "SQLAlchemy~=2.0.36",
     "flet~=0.25.2",
     "nanoid~=2.0.0",
     "Faker~=35.1.0",
     "cryptography~=44.0.1",
-    "Jinja2~=3.1.5"
+    "Jinja2~=3.1.5",
+    "python-dotenv~=1.0.1",
 ]
-requires-python = ">=3.12"
+requires-python = ">=3.11.5"
 authors = [{name = "Joan Pastor", email = "j.pastor1591@gmail.com"}]
 maintainers = [{name = "Joan Pastor", email = "j.pastor1591@gmail.com"}]
 description = "Password Manager"
@@ -21,3 +19,16 @@ readme = "README.md"
 [project.database]
 type = "sqlite"
 path = "data/database/database.db"
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+select = [
+    "B",    # flake8-bugbear
+    "E",    # pycodestyle
+    "F",    # Pyflakes
+    "I",    # isort
+    "SIM",  # flake8-simplify
+    "UP",   # pyupgrade
+]
