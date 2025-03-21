@@ -1,6 +1,6 @@
 import unittest
 
-from features.data_encryption.core import decrypt_data
+from features.data_encryption.core import decrypt_data, encrypt_data
 from features.models.password_request import PasswordRequest
 from features.models.user import User, UserRole
 from shared.logger_setup import test_log as log
@@ -26,10 +26,7 @@ class UserBuilder:
 class PasswordRequestBuilder:
     def __init__(self) -> None:
         """Helps to create PasswordRequest instance."""
-        self.__request = PasswordRequest(
-            code="ABC1234",
-            user=UserBuilder().build()
-        )
+        self.__request = PasswordRequest(user=UserBuilder().build())
 
     def build(self) -> PasswordRequest:
         return self.__request
@@ -41,7 +38,7 @@ class TestPasswordRequest(unittest.TestCase):
 
         # Create new instance
         self.request = PasswordRequestBuilder().build()
-        self.code = "ABC1234"
+        self.code_length = encrypt_data("ABC1234")
 
         log.info("PASSWORD REQUEST instance ready for test...")
 
@@ -79,28 +76,51 @@ class TestPasswordRequest(unittest.TestCase):
         )
         log.info(">>> Confirm if PASSWORD REQUEST USER is instance of USER...   OK")
 
-    def test_passwordRequestCodeExists(self) -> None:
+    def test_passwordRequestEncryptedCodeExists(self) -> None:
         self.assertIsNotNone(
             obj=self.request.encrypted_code,
-            msg="Password request MUST HAVE code."
+            msg="Password request MUST HAVE encrypted code."
         )
-        log.info(">>> Confirm if PASSWORD REQUEST has CODE...   OK")
+        log.info(">>> Confirm if PASSWORD REQUEST has CODE ENCRYPTED...   OK")
 
-    def test_passwordRequestCodeType(self) -> None:
+    def test_passwordRequestCodeIsEncrypt(self) -> None:
+        self.assertEqual(
+            first=len(self.code_length),
+            second=len(self.request.encrypted_code),
+            msg="Password request code MUST BE encrypted."
+        )
+        log.info(">>> Confirm if PASSWORD REQUEST CODE is ENCRYPTED...   OK")
+
+    def test_passwordRequestEncryptedCodeType(self) -> None:
         self.assertIsInstance(
             obj=self.request.encrypted_code,
             cls=str,
             msg="Password request code MUST BE string type."
         )
-        log.info(">>> Confirm if PASSWORD REQUEST CODE is instance of STRING...   OK")
+        log.info(">>> Confirm if PASSWORD REQUEST ENCRYPTED CODE is instance of STRING...   OK")
 
-    def test_passwordRequestCodeEncrypted(self) -> None:
-        self.assertEqual(
-            first=self.code,
-            second=decrypt_data(self.request.encrypted_code),
-            msg="Password request code MUST BE equal."
+    def test_passwordRequestDecryptedCodeExists(self) -> None:
+        self.assertIsNotNone(
+            obj=decrypt_data(self.request.encrypted_code),
+            msg="Password request MUST HAVE decrypted code."
         )
-        log.info(">>> Confirm if PASSWORD REQUEST CODE is ENCRYPTED...   OK")
+        log.info(">>> Confirm if PASSWORD REQUEST has CODE DECRYPTED...   OK")
+
+    def test_passwordRequestCodeDecrypt(self) -> None:
+        self.assertEqual(
+            first=len(decrypt_data(self.code_length)),
+            second=len(decrypt_data(self.request.encrypted_code)),
+            msg="Password request code MUST BE decrypted (length=7)."
+        )
+        log.info(">>> Confirm if PASSWORD REQUEST CODE is DECRYPTED...   OK")
+
+    def test_passwordRequestDecryptedCodeType(self) -> None:
+        self.assertIsInstance(
+            obj=decrypt_data(self.request.encrypted_code),
+            cls=str,
+            msg="Password request code MUST BE string type."
+        )
+        log.info(">>> Confirm if PASSWORD REQUEST DECRYPTED CODE is instance of STRING...   OK")
 
     @staticmethod
     def log_instance(request: PasswordRequest) -> None:
