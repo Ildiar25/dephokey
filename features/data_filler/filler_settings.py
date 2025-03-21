@@ -15,7 +15,7 @@ from shared.validate import Validate
 FAKE = Faker('es_ES')
 
 
-def test_number_validation() -> str:
+def __test_number_validation() -> str:
     number = ""
     while not Validate.is_valid_creditcard_number(number):
         number = FAKE.credit_card_number()
@@ -23,7 +23,7 @@ def test_number_validation() -> str:
     return number
 
 
-def fill_with_data(user: User) -> None:
+def __fill_with_data(user: User) -> None:
     log.info(f"Añadiendo elementos de prueba al usuario {user.email}...")
 
     some_sites = []
@@ -48,7 +48,7 @@ def fill_with_data(user: User) -> None:
         some_cards.append(
             CreditCard(
                 cardholder=FAKE.name().title(),
-                number=test_number_validation(),
+                number=__test_number_validation(),
                 cvc=str(random.randint(a=100, b=9999)),
                 user=user,
                 alias=FAKE.word().capitalize(),
@@ -72,7 +72,7 @@ def fill_with_data(user: User) -> None:
     session.commit()
 
 
-def create_admin_account() -> None:
+def __create_admin_account() -> None:
     admin = User(
         fullname="Sergio Administrativo Muñoz",
         email="admin.24@gmail.com",
@@ -83,7 +83,7 @@ def create_admin_account() -> None:
     session.commit()
 
 
-def create_client_account() -> None:
+def __create_client_account() -> None:
     client = User(
         fullname="Manuel Tester García",
         email="client.24@gmail.com",
@@ -94,7 +94,7 @@ def create_client_account() -> None:
     session.commit()
 
     # Add client data examples
-    fill_with_data(client)
+    __fill_with_data(client)
     log.info("¡Datos de prueba creados exitosamente!")
 
 
@@ -102,9 +102,9 @@ def fill_with_users() -> None:
     # Add admin user automatically
     if not session.query(User).filter(User.email == "admin.24@gmail.com").first():
         log.info("Usuario ADMIN no encontrado. Se procede a crearlo...")
-        create_admin_account()
+        __create_admin_account()
 
     # Add client user automatically
     if not session.query(User).filter(User.email == "client.24@gmail.com").first():
         log.info("Usuario CLIENT no encontrado. Se procede a crearlo...")
-        create_client_account()
+        __create_client_account()
