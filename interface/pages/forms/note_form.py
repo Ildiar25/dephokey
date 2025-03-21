@@ -15,10 +15,16 @@ from .base_form import BaseForm, FormStyle
 
 
 class NoteForm(BaseForm):
-    def __init__(self,
-                 title: str, page: ft.Page, style: FormStyle, snackbar: Snackbar | None = None,
-                 note: Note | None = None, update_changes: Callable[[], None] = None,
-                 update_dropdown: Callable[[], None] | None = None) -> None:
+    def __init__(
+            self,
+            title: str,
+            page: ft.Page,
+            style: FormStyle,
+            snackbar: Snackbar | None = None,
+            note: Note | None = None,
+            update_changes: Callable[[], None] = None,
+            update_dropdown: Callable[[], None] | None = None
+    ) -> None:
         super().__init__()
 
         # General attributes
@@ -33,11 +39,19 @@ class NoteForm(BaseForm):
         self.update_dropdown = update_dropdown
 
         # Form fields
-        self.n_title = CustomTextField(hint_text="Añade un título", max_length=24,
+        self.n_title = CustomTextField(
+            hint_text="Añade un título",
+            max_length=24,
             on_change=self.__update_field_inputs
         )
-        self.n_content = CustomTextField(hint_text="Agrega contenido importante", can_reveal_password=True,
-            password=True, on_change=self.__update_field_inputs, max_lines=10, min_lines=10, max_length=324,
+        self.n_content = CustomTextField(
+            hint_text="Agrega contenido importante",
+            can_reveal_password=True,
+            password=True,
+            on_change=self.__update_field_inputs,
+            max_lines=10,
+            min_lines=10,
+            max_length=324,
         )
 
         # Form settings
@@ -47,7 +61,8 @@ class NoteForm(BaseForm):
         self.title = ft.Row(
             alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
             controls=[
-                ft.Text(title, font_family="AlbertSansB", size=20, color=primaryTextColor), self.close_button
+                ft.Text(title, font_family="AlbertSansB", size=20, color=primaryTextColor),
+                self.close_button,
             ]
         )
 
@@ -57,25 +72,37 @@ class NoteForm(BaseForm):
         match self.style:
             case FormStyle.ADD:
                 self.submit_button.on_click = self.__add_note
+                self.n_content.on_submit = self.__add_note
 
                 # Content
                 self.content.content = ft.Column(
                     spacing=14,
                     controls=[
-                        ft.Column(spacing=6, controls=[
-                            ft.Text(value="Título de la nota", font_family="AlbertSansR", color=primaryTextColor),
-                            self.n_title
-                        ]),
-                        ft.Column(spacing=6, controls=[
-                            ft.Text(value="Contenido", font_family="AlbertSansR", color=primaryTextColor,
-                                    spans=[self.span]),
-                            self.n_content
-                        ])
+                        ft.Column(
+                            spacing=6,
+                            controls=[
+                                ft.Text(value="Título de la nota", font_family="AlbertSansR", color=primaryTextColor),
+                                self.n_title,
+                            ]
+                        ),
+                        ft.Column(
+                            spacing=6,
+                            controls=[
+                                ft.Text(
+                                    value="Contenido",
+                                    font_family="AlbertSansR",
+                                    color=primaryTextColor,
+                                    spans=[self.span, ]
+                                ),
+                                self.n_content,
+                            ]
+                        ),
                     ]
                 )
 
             case FormStyle.EDIT:
                 self.submit_button.on_click = self.__update_note
+                self.n_content.on_submit = self.__update_note
                 self.n_title.value = self.note.title
                 self.n_content.value = decrypt_data(self.note.encrypted_content)
 
@@ -83,44 +110,34 @@ class NoteForm(BaseForm):
                 self.content.content = ft.Column(
                     spacing=14,
                     controls=[
-                        ft.Column(spacing=6, controls=[
-                            ft.Text(value="Título de la nota", font_family="AlbertSansR", color=primaryTextColor),
-                            self.n_title
-                        ]),
-                        ft.Column(spacing=6, controls=[
-                            ft.Text(value="Contenido", font_family="AlbertSansR", color=primaryTextColor,
-                                    spans=[self.span]),
-                            self.n_content
-                        ])
+                        ft.Column(
+                            spacing=6,
+                            controls=[
+                                ft.Text(value="Título de la nota", font_family="AlbertSansR", color=primaryTextColor),
+                                self.n_title,
+                            ]
+                        ),
+                        ft.Column(
+                            spacing=6,
+                            controls=[
+                                ft.Text(
+                                    value="Contenido",
+                                    font_family="AlbertSansR",
+                                    color=primaryTextColor,
+                                    spans=[self.span, ]
+                                ),
+                                self.n_content,
+                            ]
+                        ),
                     ]
                 )
 
     def __update_field_inputs(self, cursor: ft.ControlEvent) -> None:
         self.n_content.reset_error()
         self.fields = [self.n_content.value]
-        self.toggle_submit_button_state(cursor)
-
-    def __update_note(self, _: ft.ControlEvent) -> None:
-
-        new_title = self.n_title.value.capitalize().strip() if self.n_title.value else "Nueva nota"
-        new_content = self.n_content.value.strip()
-
-        if not new_content:
-            self.n_content.show_error("El campo no puede ir vacío.")
-            return
-
-        # Update note-data
-        self.note.title = new_title
-        self.note.encrypted_content = encrypt_data(new_content)
-
-        session.commit()
-        self.update_changes()
-        if not isinstance(self.update_dropdown, NoneType):
-            self.update_dropdown()
-        self.page.close(self)
+        self._toggle_submit_button_state(cursor)
 
     def __add_note(self, _: ft.ControlEvent) -> None:
-
         new_title = self.n_title.value.capitalize().strip() if self.n_title.value else "Nueva nota"
         new_content = self.n_content.value.strip()
 
@@ -130,10 +147,39 @@ class NoteForm(BaseForm):
 
         # Create new note-instance
         new_note = Note(new_content, self.user, new_title)
-        session.add(new_note)
+        self.__save_changes(new_note)
+
+        self.__display_message(msg=f"¡{new_title} añadida!", style=SnackbarStyle.SUCCESS)
+        self.page.close(self)
+
+    def __update_note(self, _: ft.ControlEvent) -> None:
+        new_title = self.n_title.value.capitalize().strip() if self.n_title.value else "Nueva nota"
+        new_content = self.n_content.value.strip()
+
+        if not new_content:
+            self.n_content.show_error("El campo no puede ir vacío.")
+            return
+
+        # Update note-data
+        self.__update_data(new_title, new_content)
+
+        self.__save_changes()
+        self.page.close(self)
+
+    def __save_changes(self, note: Note | None = None) -> None:
+        if note is not None:
+            session.add(note)
+
         session.commit()
 
         self.update_changes()
-        self.snackbar.change_style(msg=f"¡{new_title} añadida!", style=SnackbarStyle.SUCCESS)
+        if not isinstance(self.update_dropdown, NoneType):
+            self.update_dropdown()
+
+    def __update_data(self, title: str, content: str) -> None:
+        self.note.title = title
+        self.note.encrypted_content = encrypt_data(content)
+
+    def __display_message(self, msg: str, style: SnackbarStyle) -> None:
+        self.snackbar.change_style(msg=msg, style=style)
         self.snackbar.update()
-        self.page.close(self)
