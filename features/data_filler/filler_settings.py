@@ -19,6 +19,7 @@ def test_number_validation() -> str:
     number = ""
     while not Validate.is_valid_creditcard_number(number):
         number = FAKE.credit_card_number()
+
     return number
 
 
