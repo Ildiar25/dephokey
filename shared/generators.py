@@ -20,7 +20,7 @@ class GenerateID:
     def __str__(self) -> str:
         return (
             f"<class GenerateID("
-            f"method={repr(self.short_id.__name__)}, "
+                f"method={repr(self.short_id.__name__)}, "
             f")>"
         )
 
@@ -41,6 +41,6 @@ class GenerateToken:
     def __str__(self) -> str:
         return (
             f"<class GenerateToken("
-            f"method={repr(self.generate.__name__)}, "
+                f"method={repr(self.generate.__name__)}, "
             f")>"
         )
