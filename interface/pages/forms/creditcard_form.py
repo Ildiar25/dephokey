@@ -17,6 +17,7 @@ from .base_form import BaseForm, FormStyle
 
 
 class CreditCardForm(BaseForm):
+    """Creates a form to edit or create a new credit card instance."""
     def __init__(
             self,
             title: str,

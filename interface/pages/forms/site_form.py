@@ -16,6 +16,7 @@ from .base_form import BaseForm, FormStyle
 
 
 class SiteForm(BaseForm):
+    """Creates a form to edit or create a new site instance."""
     def __init__(
             self,
             title: str,

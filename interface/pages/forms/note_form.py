@@ -15,6 +15,7 @@ from .base_form import BaseForm, FormStyle
 
 
 class NoteForm(BaseForm):
+    """Creates a form to edit or create a new note instance."""
     def __init__(
             self,
             title: str,

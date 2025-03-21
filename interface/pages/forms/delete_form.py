@@ -26,6 +26,7 @@ class DeleteFormStyle(Enum):
 
 
 class DeleteForm(BaseForm):
+    """Creates a form to delete items based on a given DELETE style."""
     def __init__(
             self,
             page: ft.Page,

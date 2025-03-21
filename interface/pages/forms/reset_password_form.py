@@ -13,6 +13,7 @@ from .base_form import BaseForm, FormStyle
 
 
 class ResetPasswordForm(BaseForm):
+    """Creates a form to edit token data."""
     def __init__(
             self,
             title: str,

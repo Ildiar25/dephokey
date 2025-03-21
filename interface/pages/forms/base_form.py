@@ -23,6 +23,7 @@ class FormStyle(Enum):
 
 
 class BaseForm(ft.AlertDialog):
+    """Creates a basic form with some attributes by default like form size, main buttons and their behavior."""
     def __init__(self) -> None:
         super().__init__()
 

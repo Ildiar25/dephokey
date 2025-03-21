@@ -15,6 +15,7 @@ from .base_form import BaseForm, FormStyle
 
 
 class GenerateForm(BaseForm):
+    """Creates a form based on a given GENERATE style. It is used to generate passwords or credit card numbers."""
     def __init__(self, title: str, page: ft.Page, style: FormStyle) -> None:
         super().__init__()
 

@@ -15,6 +15,7 @@ from .base_form import BaseForm, FormStyle
 
 
 class ChangePasswordForm(BaseForm):
+    """Creates a form to update passwords regardless if session exists or not."""
     def __init__(self, page: ft.Page, snackbar: Snackbar, style: FormStyle, email: str | None = None) -> None:
         super().__init__()
 

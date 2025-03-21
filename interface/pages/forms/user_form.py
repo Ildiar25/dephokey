@@ -14,6 +14,7 @@ from .base_form import BaseForm, FormStyle
 
 
 class UserForm(BaseForm):
+    """Creates a form to edit user data."""
     def __init__(
             self,
             title: str,
