@@ -47,9 +47,8 @@ class NoteForm(BaseForm):
         )
         self.n_content = CustomTextField(
             hint_text="Agrega contenido importante",
-            can_reveal_password=True,
-            password=True,
             on_change=self.__update_field_inputs,
+            multiline=True,
             max_lines=10,
             min_lines=10,
             max_length=324,
@@ -73,7 +72,6 @@ class NoteForm(BaseForm):
         match self.style:
             case FormStyle.ADD:
                 self.submit_button.on_click = self.__add_note
-                self.n_content.on_submit = self.__add_note
 
                 # Content
                 self.content.content = ft.Column(
@@ -103,7 +101,6 @@ class NoteForm(BaseForm):
 
             case FormStyle.EDIT:
                 self.submit_button.on_click = self.__update_note
-                self.n_content.on_submit = self.__update_note
                 self.n_title.value = self.note.title
                 self.n_content.value = decrypt_data(self.note.encrypted_content)
 
