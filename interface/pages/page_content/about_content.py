@@ -94,6 +94,33 @@ class AboutPage(ft.Row):
                                             color=primaryTextColor,
                                             size=14
                                         ),
+                                        ft.Column(
+                                            spacing=8,
+                                            controls=[
+                                                ft.Text(
+                                                    value="ADVERTENCIA",
+                                                    font_family="AlbertSansB",
+                                                    color=accentTextColor,
+                                                    size=16
+                                                ),
+                                                ft.Text(
+                                                    value="Hay que tener en cuenta que todos los datos almacenados no "
+                                                          "deben de ser verídicos, pues dicha aplicación no cumple "
+                                                          "con los estándares de seguridad PCI DSS. Esta aplicación "
+                                                          "sólo es para la verificación del funcionamiento "
+                                                          "establecido en el briefing del proyecto final.",
+                                                    font_family="AlbertSansL",
+                                                    color=secondaryTextColor,
+                                                    size=16
+                                                ),
+                                                TextLink(
+                                                    text="Más información",
+                                                    target=lambda _: self.page.launch_url(
+                                                        "https://stripe.com/es/guides/pci-compliance"
+                                                    )
+                                                ),
+                                            ]
+                                        ),
                                     ]
                                 ),
                             ]
