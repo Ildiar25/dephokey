@@ -64,9 +64,11 @@ class ChangePasswordForm(BaseForm):
                 self.submit_button.on_click = self.__reset_password
 
                 # Content
-                self.content.content = ft.Column(alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+                self.content.content = ft.Column(
+                    alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
                     controls=[
-                        ft.Row(wrap=True,
+                        ft.Row(
+                            wrap=True,
                             controls=[
                                 ft.Text(
                                     value="¡Atención! ",
@@ -230,7 +232,7 @@ class ChangePasswordForm(BaseForm):
                     ]
                 )
 
-    def __update_field_inputs(self, cursor:ft.ControlEvent) -> None:
+    def __update_field_inputs(self, cursor: ft.ControlEvent) -> None:
         self.main_pw.reset_error()
         self.check_pw.reset_error()
         self.fields = [self.main_pw, self.check_pw]
@@ -246,7 +248,7 @@ class ChangePasswordForm(BaseForm):
         self.main_pw.value = secure_password
         self.main_pw.update()
 
-    def __reset_password(self, _:ft.ControlEvent) -> None:
+    def __reset_password(self, _: ft.ControlEvent) -> None:
         new_password = self.main_pw.value.strip()
         pass_checking = self.check_pw.value.strip()
 

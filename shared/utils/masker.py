@@ -18,6 +18,7 @@ Included functions:
 
 CHAR = "•"
 
+
 def mask_email(email: str) -> str:
     local, domain = email.split("@")
     masked = CHAR * len(local)

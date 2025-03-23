@@ -215,13 +215,13 @@ class CreditCardForm(BaseForm):
                                 ft.Column(
                                     spacing=6,
                                     controls=[
-                                    ft.Text(
-                                        value="CVC",
-                                        font_family="AlbertSansR",
-                                        color=primaryTextColor,
-                                        spans=[self.span, ]
-                                    ),
-                                    self.cc_cvc,
+                                        ft.Text(
+                                            value="CVC",
+                                            font_family="AlbertSansR",
+                                            color=primaryTextColor,
+                                            spans=[self.span, ]
+                                        ),
+                                        self.cc_cvc,
                                     ]
                                 ),
                             ]

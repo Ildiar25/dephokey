@@ -88,7 +88,7 @@ class CustomElevatedButton(ft.ElevatedButton):
                 )
 
             case ButtonStyle.ICON:
-                self.icon=ft.Icons.ADD_ROUNDED
+                self.icon = ft.Icons.ADD_ROUNDED
                 self.bgcolor = {
                     ft.ControlState.DISABLED: neutral10,
                     ft.ControlState.DEFAULT: primaryCorporateColor,

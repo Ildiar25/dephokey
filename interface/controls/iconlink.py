@@ -67,7 +67,7 @@ class IconLink(ft.Container):
 
                 cursor.control.update()
 
-    def show_badge(self, msg: str  = "¡copiado!") -> None:
+    def show_badge(self, msg: str = "¡copiado!") -> None:
         self.badge.text = msg
         self.badge.label_visible = True
         self.update()

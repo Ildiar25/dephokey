@@ -245,7 +245,8 @@ class AdminPage(ft.Column):
                             ft.Column(
                                 expand=True
                             ),
-                            ft.Row(alignment=ft.MainAxisAlignment.END,
+                            ft.Row(
+                                alignment=ft.MainAxisAlignment.END,
                                 controls=[self.u_submit, ]
                             ),
                         ]

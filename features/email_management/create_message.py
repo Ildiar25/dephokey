@@ -13,6 +13,7 @@ from shared.utils.masker import mask_email, mask_text
 
 MAIN_PATH = Path(__file__).parent
 
+
 class MessageStyle(Enum):
     RESET = "reset"
     QUERY = "querty"
@@ -119,9 +120,9 @@ class CreateMessage(MIMEMultipart):
     def custom_repr(self) -> str:
         return (
             f"<class CreateEmail("
-                f"from={repr(mask_email(self['From']))}, "
-                f"to={repr(mask_email(self['To']))}, "
-                f"subject={repr(self['Subject'])}, "
-                f"content={repr(mask_text(self.with_text))}"
+            f"from={repr(mask_email(self['From']))}, "
+            f"to={repr(mask_email(self['To']))}, "
+            f"subject={repr(self['Subject'])}, "
+            f"content={repr(mask_text(self.with_text))}"
             f")>"
         )

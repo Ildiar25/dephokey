@@ -4,7 +4,7 @@ from shared.utils.colors import neutral00, secondaryCorporateColor
 
 
 class LoadingPage(ft.Container):
-    """Creates Loading page and displays it between pages navigation"""
+    """Creates Loading page and displays an infinite progress bar."""
     def __init__(self):
         super().__init__()
 

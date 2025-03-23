@@ -153,7 +153,7 @@ class AdminRow(ft.Container):
                 self.page.open(
                     SiteForm(
                         title=f"Editando {self.item.name}",
-                        site= self.item,
+                        site=self.item,
                         page=self.page,
                         style=FormStyle.EDIT,
                         update_changes=self.update_appearance,

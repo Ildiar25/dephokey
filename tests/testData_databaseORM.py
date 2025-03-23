@@ -8,6 +8,7 @@ from shared.logger_setup import test_log as log
 
 ##### WARNING: We cannot implement delete testing because unittest does not run tests in a specific order.
 
+
 class TableBuilder(Base):
     __tablename__ = "test_table"
     id: Mapped[int] = mapped_column(primary_key=True)

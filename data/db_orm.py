@@ -76,6 +76,7 @@ class Base(DeclarativeBase):
     """This class transform attributes to mapped data and link them to database table."""
     pass
 
+
 # Those databases allow to get the engine
 test_database = DatabaseManager(DB_TEST_PATH)
 main_database = DatabaseManager(DB_PATH, DB_FILENAME)

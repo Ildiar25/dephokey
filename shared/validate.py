@@ -121,10 +121,10 @@ class Validate:
     def __str__(self) -> str:
         return (
             f"<class Validate("
-                f"method={repr(self.is_valid_address.__name__)}, "
-                f"method={repr(self.is_valid_creditcard_number.__name__)}, "
-                f"method={repr(self.is_valid_email.__name__)}, "
-                f"method={repr(self.is_valid_password.__name__)}, "
-                f"method={repr(self.is_valid_date.__name__)}, "
+            f"method={repr(self.is_valid_address.__name__)}, "
+            f"method={repr(self.is_valid_creditcard_number.__name__)}, "
+            f"method={repr(self.is_valid_email.__name__)}, "
+            f"method={repr(self.is_valid_password.__name__)}, "
+            f"method={repr(self.is_valid_date.__name__)}, "
             f")>"
         )

@@ -66,7 +66,7 @@ class ResetPasswordPage(ft.Container):
         # Page attributes
         self.page = page
         self.snackbar = Snackbar()
-        self.user : User | None = None
+        self.user: User | None = None
 
         # ResetPassword attributes
         self.main_field = CustomTextField(label="Correo Electrónico", on_change=None, on_submit=self.__submit_email)

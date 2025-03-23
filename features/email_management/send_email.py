@@ -54,8 +54,8 @@ class SendEmail:
     def __str__(self) -> str:
         return (
             f"<class SendEmail("
-                f"host={repr(self.smtp_host)}, "
-                f"port={repr(self.smtp_port)}, "
-                f"message={repr(self.message.custom_repr())}"
+            f"host={repr(self.smtp_host)}, "
+            f"port={repr(self.smtp_port)}, "
+            f"message={repr(self.message.custom_repr())}"
             f")>"
         )

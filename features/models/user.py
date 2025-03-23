@@ -50,11 +50,11 @@ class User(Base):
     def __str__(self) -> str:
         return (
             f"<class User("
-                f"id={repr(self.id)}, "
-                f"role={repr(self.role)}, "
-                f"fullname={repr(self.fullname)}, "
-                f"email={repr(mask_email(self.email))}, "
-                f"hashed_password={repr(mask_text(self.hashed_password))}, "
-                f"created={repr(self.created.strftime('%Y-%m-%dT%H:%M:%S'))}, "
+            f"id={repr(self.id)}, "
+            f"role={repr(self.role)}, "
+            f"fullname={repr(self.fullname)}, "
+            f"email={repr(mask_email(self.email))}, "
+            f"hashed_password={repr(mask_text(self.hashed_password))}, "
+            f"created={repr(self.created.strftime('%Y-%m-%dT%H:%M:%S'))}, "
             f")>"
         )

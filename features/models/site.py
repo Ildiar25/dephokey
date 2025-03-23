@@ -66,12 +66,12 @@ class Site(Base):
     def __str__(self) -> str:
         return (
             f"<class Site("
-                f"id={repr(self.id)}, "
-                f"name={repr(self.name)}, "
-                f"address={repr(self.address)}, "
-                f"username={repr(mask_username(self.username))}, "
-                f"encrypted_password={repr(mask_text(self.encrypted_password))}, "
-                f"user={repr(self.user.fullname)}, "
-                f"created={repr(self.created.strftime('%Y-%m-%dT%H:%M:%S'))}, "
+            f"id={repr(self.id)}, "
+            f"name={repr(self.name)}, "
+            f"address={repr(self.address)}, "
+            f"username={repr(mask_username(self.username))}, "
+            f"encrypted_password={repr(mask_text(self.encrypted_password))}, "
+            f"user={repr(self.user.fullname)}, "
+            f"created={repr(self.created.strftime('%Y-%m-%dT%H:%M:%S'))}, "
             f")>"
         )

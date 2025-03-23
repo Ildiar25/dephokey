@@ -84,14 +84,14 @@ class CreditCard(Base):
     def __str__(self) -> str:
         return (
             f"<class Creditcard("
-                f"id={repr(self.id)}, "
-                f"cardholder={repr(self.cardholder)}, "
-                f"encrypted_number={repr(mask_text(self.encrypted_number))}, "
-                f"encrypted_cvc={repr(mask_text(self.encrypted_cvc))}, "
-                f"valid_until={repr(self.valid_until.strftime('%Y-%m'))}, "
-                f"expired={repr(self.expired)}, "
-                f"alias={repr(self.alias)}, "
-                f"user={repr(mask_email(self.user.email))}, "
-                f"created={repr(self.created.strftime('%Y-%m-%dT%H:%M:%S'))}, "
+            f"id={repr(self.id)}, "
+            f"cardholder={repr(self.cardholder)}, "
+            f"encrypted_number={repr(mask_text(self.encrypted_number))}, "
+            f"encrypted_cvc={repr(mask_text(self.encrypted_cvc))}, "
+            f"valid_until={repr(self.valid_until.strftime('%Y-%m'))}, "
+            f"expired={repr(self.expired)}, "
+            f"alias={repr(self.alias)}, "
+            f"user={repr(mask_email(self.user.email))}, "
+            f"created={repr(self.created.strftime('%Y-%m-%dT%H:%M:%S'))}, "
             f")>"
         )

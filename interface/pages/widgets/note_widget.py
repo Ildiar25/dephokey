@@ -43,7 +43,7 @@ class NoteWidget(ft.Card):
         self.shape = ft.RoundedRectangleBorder(4)
 
         # Widget content
-        self.content=ft.Container(
+        self.content = ft.Container(
             on_hover=self.__scale_widget,
             padding=ft.padding.all(24),
             expand=True,

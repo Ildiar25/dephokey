@@ -73,7 +73,9 @@ class GenerateForm(BaseForm):
                 ]
 
                 # Content
-                self.content.content = ft.Column(alignment=ft.MainAxisAlignment.SPACE_BETWEEN, spacing=22,
+                self.content.content = ft.Column(
+                    alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+                    spacing=22,
                     controls=[
                         ft.Row(
                             wrap=True,
@@ -106,7 +108,8 @@ class GenerateForm(BaseForm):
                                 ),
                             ]
                         ),
-                        ft.Row(alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+                        ft.Row(
+                            alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
                             controls=[
                                 ft.Text(
                                     value="Número máximo de caracteres:",
@@ -142,7 +145,9 @@ class GenerateForm(BaseForm):
                 self.submit_button.on_click = self.__generate_number
 
                 # Content
-                self.content.content = ft.Column(alignment=ft.MainAxisAlignment.SPACE_BETWEEN, spacing=22,
+                self.content.content = ft.Column(
+                    alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+                    spacing=22,
                     controls=[
                         ft.Row(
                             wrap=True,

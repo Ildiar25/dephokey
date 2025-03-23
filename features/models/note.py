@@ -55,10 +55,10 @@ class Note(Base):
     def __str__(self) -> str:
         return (
             f"<class Note("
-                f"id={repr(self.id)}, "
-                f"title={repr(self.title)}, "
-                f"content_encrypted={repr(mask_text(self.encrypted_content))}, "
-                f"user={repr(mask_email(self.user.email))}, "
-                f"created={repr(self.created.strftime('%Y-%m-%dT%H:%M:%S'))}, "
+            f"id={repr(self.id)}, "
+            f"title={repr(self.title)}, "
+            f"content_encrypted={repr(mask_text(self.encrypted_content))}, "
+            f"user={repr(mask_email(self.user.email))}, "
+            f"created={repr(self.created.strftime('%Y-%m-%dT%H:%M:%S'))}, "
             f")>"
         )
