@@ -109,12 +109,15 @@ class CreateMessage(MIMEMultipart):
     def create(self) -> "CreateMessage":
         if self.img:
             self.attach(self.img)
+
         if self.with_text:
             text_part = MIMEText(self.with_text, "plain")
             self.attach(text_part)
+
         if self.with_html:
             html_part = MIMEText(self.with_html, "html")
             self.attach(html_part)
+
         return self
 
     def custom_repr(self) -> str:
