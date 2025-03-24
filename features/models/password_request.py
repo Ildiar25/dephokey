@@ -59,6 +59,6 @@ class PasswordRequest(Base):
             f"user={repr(mask_email(self.user.email))}, "
             f"encrypted_code={repr(mask_text(self.encrypted_code))}, "
             f"created={repr(self.created.strftime('%Y-%m-%dT%H:%M:%S'))}, "
-            f"expires_at={repr(self.expires_at.strftime('%Y-%m-%dT%H:%M:%S'))}"
+            f"expires_at={repr(self.expires_at.strftime('%Y-%m-%dT%H:%M:%S'))}, "
             f")>"
         )

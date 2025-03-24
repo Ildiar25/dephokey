@@ -135,7 +135,7 @@ class TestCreateMessage(unittest.TestCase):
 
     @staticmethod
     def log_instance(email: CreateMessage) -> None:
-        log.debug(email.__str__())
+        log.debug(email.custom_repr())
 
 
 if __name__ == "__main__":

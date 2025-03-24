@@ -126,6 +126,6 @@ class CreateMessage(MIMEMultipart):
             f"from={repr(mask_email(self['From']))}, "
             f"to={repr(mask_email(self['To']))}, "
             f"subject={repr(self['Subject'])}, "
-            f"content={repr(mask_text(self.with_text))}"
+            f"content={repr(mask_text(self.with_text))}, "
             f")>"
         )

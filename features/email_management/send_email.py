@@ -56,6 +56,6 @@ class SendEmail:
             f"<class SendEmail("
             f"host={repr(self.smtp_host)}, "
             f"port={repr(self.smtp_port)}, "
-            f"message={repr(self.message.custom_repr())}"
+            f"message={repr(self.message.custom_repr())}, "
             f")>"
         )
