@@ -11,6 +11,7 @@ from interface.controls.iconlink import IconLinkStyle
 from interface.pages.forms import CreditCardForm, DeleteForm, NoteForm, ResetPasswordForm, SiteForm, UserForm
 from interface.pages.forms.base_form import FormStyle
 from interface.pages.forms.delete_form import DeleteFormStyle
+from shared.utils.colors import neutral00, neutral05
 
 
 class RowStyle(Enum):
@@ -63,10 +64,12 @@ class AdminRow(ft.Container):
         self.expand = True
         self.padding = ft.padding.all(10)
         self.on_hover = self.__toggle_visible_buttons
+        self.bgcolor = neutral00
+        self.height = 50
 
         # Content
         self.content = ft.Row(
-            height=20,
+            height=50,
             alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
             controls=[]
         )
@@ -76,64 +79,186 @@ class AdminRow(ft.Container):
         match self.style:
             case RowStyle.USER:
                 self.content.controls.extend([
-                    ft.Column(width=148, controls=[ft.Text(self.item.id)]),
-                    ft.Column(width=78, controls=[ft.Text(self.item.role.value.upper())]),
-                    ft.Column(width=156, controls=[ft.Text(self.item.fullname)]),
-                    ft.Column(width=186, controls=[ft.Text(self.item.email)]),
-                    ft.Column(width=180, controls=[ft.Text(self.item.created.strftime("%d/%m/%Y | %H:%M:%S"))]),
-                    ft.Column(width=56, controls=[self.actions]),
+                    ft.Column(
+                        width=148,
+                        alignment=ft.MainAxisAlignment.CENTER,
+                        controls=[ft.Text(self.item.id)]
+                    ),
+                    ft.Column(
+                        width=78,
+                        alignment=ft.MainAxisAlignment.CENTER,
+                        controls=[ft.Text(self.item.role.value.upper())]
+                    ),
+                    ft.Column(
+                        width=220,
+                        alignment=ft.MainAxisAlignment.CENTER,
+                        controls=[ft.Text(self.item.fullname)]
+                    ),
+                    ft.Column(
+                        width=186,
+                        alignment=ft.MainAxisAlignment.CENTER,
+                        controls=[ft.Text(self.item.email)]
+                    ),
+                    ft.Column(
+                        width=220,
+                        alignment=ft.MainAxisAlignment.CENTER,
+                        controls=[ft.Text(self.item.created.strftime("%d/%m/%Y | %H:%M:%S"))]
+                    ),
+                    ft.Column(
+                        width=56,
+                        alignment=ft.MainAxisAlignment.CENTER,
+                        controls=[self.actions]
+                    ),
                 ])
 
             case RowStyle.SITE:
                 self.content.controls.extend([
-                    ft.Column(width=148, controls=[ft.Text(self.item.id)]),
-                    ft.Column(width=186, controls=[ft.Text(self.item.user.email)]),
-                    ft.Column(width=156, controls=[ft.Text(self.item.name)]),
-                    ft.Column(width=186, controls=[ft.Text(self.item.address)]),
-                    ft.Column(width=186, controls=[ft.Text(self.item.username)]),
-                    ft.Column(width=148, controls=[ft.Text(self.item.created.strftime("%d/%m/%Y | %H:%M:%S"))]),
-                    ft.Column(width=56, controls=[self.actions]),
+                    ft.Column(
+                        width=148,
+                        alignment=ft.MainAxisAlignment.CENTER,
+                        controls=[ft.Text(self.item.id)]
+                    ),
+                    ft.Column(
+                        width=186,
+                        alignment=ft.MainAxisAlignment.CENTER,
+                        controls=[ft.Text(self.item.user.email)]
+                    ),
+                    ft.Column(
+                        width=156,
+                        alignment=ft.MainAxisAlignment.CENTER,
+                        controls=[ft.Text(self.item.name)]
+                    ),
+                    ft.Column(
+                        width=186,
+                        alignment=ft.MainAxisAlignment.CENTER,
+                        controls=[ft.Text(self.item.address)]
+                    ),
+                    ft.Column(
+                        width=186,
+                        alignment=ft.MainAxisAlignment.CENTER,
+                        controls=[ft.Text(self.item.username)]
+                    ),
+                    ft.Column(
+                        width=220,
+                        alignment=ft.MainAxisAlignment.CENTER,
+                        controls=[ft.Text(self.item.created.strftime("%d/%m/%Y | %H:%M:%S"))]
+                    ),
+                    ft.Column(
+                        width=56,
+                        alignment=ft.MainAxisAlignment.CENTER,
+                        controls=[self.actions]
+                    ),
                 ])
 
             case RowStyle.CREDITCARD:
                 self.content.controls.extend([
-                    ft.Column(width=148, controls=[ft.Text(self.item.id)]),
-                    ft.Column(width=186, controls=[ft.Text(self.item.user.email)]),
-                    ft.Column(width=152, controls=[ft.Text(decrypt_data(self.item.encrypted_number))]),
-                    ft.Column(width=186, controls=[ft.Text(self.item.alias)]),
-                    ft.Column(width=186, controls=[ft.Text(self.item.cardholder)]),
-                    ft.Column(width=148, controls=[ft.Text(self.item.created.strftime("%d/%m/%Y | %H:%M:%S"))]),
-                    ft.Column(width=56, controls=[self.actions]),
+                    ft.Column(
+                        width=148,
+                        alignment=ft.MainAxisAlignment.CENTER,
+                        controls=[ft.Text(self.item.id)]
+                    ),
+                    ft.Column(
+                        width=186,
+                        alignment=ft.MainAxisAlignment.CENTER,
+                        controls=[ft.Text(self.item.user.email)]
+                    ),
+                    ft.Column(
+                        width=220,
+                        alignment=ft.MainAxisAlignment.CENTER,
+                        controls=[ft.Text(decrypt_data(self.item.encrypted_number))]
+                    ),
+                    ft.Column(
+                        width=186,
+                        alignment=ft.MainAxisAlignment.CENTER,
+                        controls=[ft.Text(self.item.alias)]
+                    ),
+                    ft.Column(
+                        width=186,
+                        alignment=ft.MainAxisAlignment.CENTER,
+                        controls=[ft.Text(self.item.cardholder)]
+                    ),
+                    ft.Column(
+                        width=220,
+                        alignment=ft.MainAxisAlignment.CENTER,
+                        controls=[ft.Text(self.item.created.strftime("%d/%m/%Y | %H:%M:%S"))]
+                    ),
+                    ft.Column(
+                        width=56,
+                        alignment=ft.MainAxisAlignment.CENTER,
+                        controls=[self.actions]
+                    ),
                 ])
 
             case RowStyle.NOTE:
                 self.content.controls.extend([
-                    ft.Column(width=148, controls=[ft.Text(self.item.id)]),
-                    ft.Column(width=186, controls=[ft.Text(self.item.user.email)]),
-                    ft.Column(width=152, controls=[ft.Text(self.item.title)]),
-                    ft.Column(width=148, controls=[ft.Text(self.item.created.strftime("%d/%m/%Y | %H:%M:%S"))]),
-                    ft.Column(width=56, controls=[self.actions]),
+                    ft.Column(
+                        width=148,
+                        alignment=ft.MainAxisAlignment.CENTER,
+                        controls=[ft.Text(self.item.id)]
+                    ),
+                    ft.Column(
+                        width=186,
+                        alignment=ft.MainAxisAlignment.CENTER,
+                        controls=[ft.Text(self.item.user.email)]
+                    ),
+                    ft.Column(
+                        width=152,
+                        alignment=ft.MainAxisAlignment.CENTER,
+                        controls=[ft.Text(self.item.title)]
+                    ),
+                    ft.Column(
+                        width=220,
+                        alignment=ft.MainAxisAlignment.CENTER,
+                        controls=[ft.Text(self.item.created.strftime("%d/%m/%Y | %H:%M:%S"))]
+                    ),
+                    ft.Column(
+                        width=56,
+                        alignment=ft.MainAxisAlignment.CENTER,
+                        controls=[self.actions]
+                    ),
                 ])
 
             case RowStyle.PASS_REQUEST:
                 self.content.controls.extend([
-                    ft.Column(width=148, controls=[ft.Text(self.item.id)]),
-                    ft.Column(width=186, controls=[ft.Text(self.item.user.email)]),
-                    ft.Column(width=152, controls=[ft.Text(decrypt_data(self.item.encrypted_code))]),
-                    ft.Column(width=148, controls=[ft.Text(self.item.created.strftime("%d/%m/%Y | %H:%M:%S"))]),
-                    ft.Column(width=56, controls=[self.actions]),
+                    ft.Column(
+                        width=148,
+                        alignment=ft.MainAxisAlignment.CENTER,
+                        controls=[ft.Text(self.item.id)]
+                    ),
+                    ft.Column(
+                        width=186,
+                        alignment=ft.MainAxisAlignment.CENTER,
+                        controls=[ft.Text(self.item.user.email)]
+                    ),
+                    ft.Column(
+                        width=152,
+                        alignment=ft.MainAxisAlignment.CENTER,
+                        controls=[ft.Text(decrypt_data(self.item.encrypted_code))]
+                    ),
+                    ft.Column(
+                        width=220,
+                        alignment=ft.MainAxisAlignment.CENTER,
+                        controls=[ft.Text(self.item.created.strftime("%d/%m/%Y | %H:%M:%S"))]
+                    ),
+                    ft.Column(
+                        width=56,
+                        alignment=ft.MainAxisAlignment.CENTER,
+                        controls=[self.actions]
+                    ),
                 ])
 
     def __toggle_visible_buttons(self, cursor: ft.ControlEvent) -> None:
         if cursor and all((not self.actions.controls[0].visible, not self.actions.controls[1].visible)):
             self.actions.controls[0].visible = True
             self.actions.controls[1].visible = True
+            self.bgcolor = neutral05
         else:
             self.actions.controls[0].visible = False
             self.actions.controls[1].visible = False
+            self.bgcolor = neutral00
 
-        self.actions.controls[0].update()
-        self.actions.controls[1].update()
+        self.update()
+
 
     def __open_edit_item_form(self, _: ft.ControlEvent) -> None:
         match self.style:

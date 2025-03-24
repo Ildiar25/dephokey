@@ -90,7 +90,7 @@ class AdminPage(ft.Column):
             password=True,
             can_reveal_password=True
         )
-        self.u_switch = CustomSwitch(title="Rol de usuario: ADMIN")
+        self.u_switch = CustomSwitch(title="Privilegios de ADMIN")
         self.u_submit = CustomElevatedButton(
             name="Añadir usuario",
             style=ButtonStyle.ICON,
@@ -566,10 +566,10 @@ class AdminPage(ft.Column):
             ),
             content=ft.ExpansionTile(
                 title=ft.Text(value="Usuarios", size=20, color=accentTextColor),
-                controls_padding=ft.padding.all(22),
+                controls_padding=22,
+                tile_padding=24,
                 shape=ft.RoundedRectangleBorder(4),
                 collapsed_shape=ft.RoundedRectangleBorder(4),
-                min_tile_height=44,
                 bgcolor=neutral00,
                 collapsed_bgcolor=neutral00,
                 controls=[self.user_rows, ]
@@ -586,10 +586,10 @@ class AdminPage(ft.Column):
             ),
             content=ft.ExpansionTile(
                 title=ft.Text(value="Sitios web", size=20, color=accentTextColor),
-                controls_padding=ft.padding.all(22),
+                controls_padding=22,
+                tile_padding=24,
                 shape=ft.RoundedRectangleBorder(4),
                 collapsed_shape=ft.RoundedRectangleBorder(4),
-                min_tile_height=44,
                 bgcolor=neutral00,
                 collapsed_bgcolor=neutral00,
                 controls=[self.site_rows, ]
@@ -606,10 +606,10 @@ class AdminPage(ft.Column):
             ),
             content=ft.ExpansionTile(
                 title=ft.Text(value="Tarjetas de crédito", size=20, color=accentTextColor),
-                controls_padding=ft.padding.all(22),
+                controls_padding=22,
+                tile_padding=24,
                 shape=ft.RoundedRectangleBorder(4),
                 collapsed_shape=ft.RoundedRectangleBorder(4),
-                min_tile_height=44,
                 bgcolor=neutral00,
                 collapsed_bgcolor=neutral00,
                 controls=[self.creditcard_rows, ]
@@ -626,10 +626,10 @@ class AdminPage(ft.Column):
             ),
             content=ft.ExpansionTile(
                 title=ft.Text(value="Notas seguras", size=20, color=accentTextColor),
-                controls_padding=ft.padding.all(22),
+                controls_padding=22,
+                tile_padding=24,
                 shape=ft.RoundedRectangleBorder(4),
                 collapsed_shape=ft.RoundedRectangleBorder(4),
-                min_tile_height=44,
                 bgcolor=neutral00,
                 collapsed_bgcolor=neutral00,
                 controls=[self.note_rows, ]
@@ -646,10 +646,10 @@ class AdminPage(ft.Column):
             ),
             content=ft.ExpansionTile(
                 title=ft.Text(value="Peticiones de cambio de contraseña", size=20, color=accentTextColor),
-                controls_padding=ft.padding.all(22),
+                controls_padding=22,
+                tile_padding=24,
                 shape=ft.RoundedRectangleBorder(4),
                 collapsed_shape=ft.RoundedRectangleBorder(4),
-                min_tile_height=44,
                 bgcolor=neutral00,
                 collapsed_bgcolor=neutral00,
                 controls=[self.pass_request_rows, ]

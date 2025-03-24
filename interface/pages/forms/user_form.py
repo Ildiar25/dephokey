@@ -5,8 +5,8 @@ from types import NoneType
 import flet as ft
 
 from data.db_orm import session
-from features.models.user import User
-from interface.controls import CustomTextField
+from features.models.user import User, UserRole
+from interface.controls import CustomSwitch, CustomTextField
 from shared.utils.colors import primaryTextColor
 from shared.validate import Validate
 
@@ -53,13 +53,7 @@ class UserForm(BaseForm):
             password=True,
             can_reveal_password=True
         )
-        self.u_pw_check = CustomTextField(
-            hint_text="Repite la contraseña",
-            on_change=self.__update_field_inputs,
-            max_length=30,
-            password=True,
-            can_reveal_password=True
-        )
+        self.u_admin = CustomSwitch(title="De administrador", expand=True)
 
         # Form settings
         self.cancel_button.on_click = lambda _: self.page.close(self)
@@ -79,9 +73,9 @@ class UserForm(BaseForm):
         match self.style:
             case FormStyle.EDIT:
                 self.submit_button.on_click = self.__edit_user
-                self.u_pw_check.on_submit = self.__edit_user
                 self.u_fullname.value = self.user.fullname
                 self.u_email.value = self.user.email
+                self.u_admin.set_value(self.user.role == UserRole.ADMIN)
 
                 self.content.content = ft.Column(
                     spacing=14,
@@ -121,12 +115,9 @@ class UserForm(BaseForm):
                             spacing=6,
                             controls=[
                                 ft.Text(
-                                    value="Repite la contraseña",
-                                    font_family="AlbertSansR",
-                                    color=primaryTextColor,
-                                    spans=[self.span, ]
+                                    value="Privilegios", font_family="AlbertSansR",color=primaryTextColor,
                                 ),
-                                self.u_pw_check,
+                                self.u_admin,
                             ]
                         ),
                     ]
@@ -137,38 +128,33 @@ class UserForm(BaseForm):
 
     def __update_field_inputs(self, cursor: ft.ControlEvent) -> None:
         self.u_fullname.reset_error()
-        self.fields = [self.u_fullname.value, self.u_email.value, self.u_password.value, self.u_pw_check]
+        self.fields = [self.u_fullname.value, self.u_email.value, self.u_password.value]
         self._toggle_submit_button_state(cursor)
 
     def __edit_user(self, _: ft.ControlEvent) -> None:
         new_fullname = self.u_fullname.value.strip().title()
         new_email = self.u_email.value.strip().lower()
         new_password = self.u_password.value.strip()
-        new_pw_check = self.u_pw_check.value.strip()
+        new_admin = self.u_admin.get_value()
 
         if not Validate.is_valid_email(new_email):
             self.u_email.show_error("Se necesita un correo válido")
             return
 
-        if new_password != new_pw_check:
-            self.u_password.reset_error()
-            self.u_pw_check.show_error("Las contraseñas no coinciden.")
-            return
-
         if not Validate.is_valid_password(new_password):
-            self.u_pw_check.reset_error()
             self.u_password.show_error("Contraseña inválida: debe contener mínimo mayúsculas, minúsculas y un número.")
             return
 
         # Update user-data
-        self.__update_data(new_email, new_fullname, new_password)
+        self.__update_data(new_email, new_fullname, new_password, new_admin)
         self.__save_changes()
         self.page.close(self)
 
-    def __update_data(self, email, fullname, password) -> None:
+    def __update_data(self, email, fullname, password, admin) -> None:
         self.user.fullname = fullname
         self.user.email = email
         self.user.hashed_password = sha256(password.encode()).hexdigest()
+        self.user.role = UserRole.ADMIN if admin else UserRole.CLIENT
 
     def __save_changes(self) -> None:
         session.commit()
