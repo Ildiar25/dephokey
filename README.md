@@ -84,10 +84,10 @@ A dialog alert will you ask if you want to continue and then the app will close 
 This app includes some extra tools: A secure password generator and a credit card number generator. Both of them can 
 be used to add new test elements to the database.
 
-**Password Generator**
+**Password Generator** \
 ![Password Generator](docs/media/gifs/generate-password.gif "How to generate a secure password")
 
-**Credit Card Number Generator**
+**Credit Card Number Generator** \
 ![Credit Card Number Generator](docs/media/gifs/generate-number.gif "How to generate a credit card number")
 
 ---
