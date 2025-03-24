@@ -47,6 +47,7 @@ class NoteWidget(ft.Card):
             on_hover=self.__scale_widget,
             padding=ft.padding.all(24),
             expand=True,
+            image=ft.DecorationImage("interface/assets/note-bg.png", fit=ft.ImageFit.COVER),
             content=ft.Column(
                 alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
                 spacing=16,
