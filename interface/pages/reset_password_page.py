@@ -19,6 +19,9 @@ from shared.utils.colors import accentTextColor, neutral00, neutral10, neutral20
 from shared.validate import Validate
 
 
+SECONDS_AWAIT = 300
+
+
 class CountDown(ft.Text):
     """
     This class helps to display a text-based control countdown for UX.
@@ -76,7 +79,7 @@ class ResetPasswordPage(ft.Container):
             on_click=self.__submit_email,
             height=45
         )
-        self.countdown = CountDown(seconds=300, page=self.page)
+        self.countdown = CountDown(seconds=SECONDS_AWAIT, page=self.page)
 
         # Page design
         self.expand = True
@@ -276,7 +279,7 @@ class ResetPasswordPage(ft.Container):
             self.__display_message(msg="El token no es válido.", style=SnackbarStyle.DANGER)
             return
 
-        self.__hide_content()
+        self.__reset_page()
 
         # Open change password form
         self.page.open(
@@ -294,6 +297,18 @@ class ResetPasswordPage(ft.Container):
             self.char_07.value.strip().upper(),
         ])
 
+    def __reset_page(self) -> None:
+        self.countdown.stop()
+        self.countdown.seconds = SECONDS_AWAIT
+        self.char_01.value = ""
+        self.char_02.value = ""
+        self.char_03.value = ""
+        self.char_04.value = ""
+        self.char_05.value = ""
+        self.char_06.value = ""
+        self.char_07.value = ""
+        self.__hide_content()
+
     def __show_content(self) -> None:
         self.main_field.value = ""
         self.submit_email.disabled = True
@@ -304,7 +319,6 @@ class ResetPasswordPage(ft.Container):
     def __hide_content(self) -> None:
         self.main_field.value = ""
         self.submit_email.disabled = False
-        self.countdown.stop()
         self.hidden_content.visible = False
         self.content.update()
 
