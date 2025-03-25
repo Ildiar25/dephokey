@@ -34,8 +34,8 @@ page.
 ### How to recover your account
 **NOTE: Be sure you have Docker installed and running on your computer before enabling this feature (see the 
 installation guide).** \
-First, navigate to the Reset Password page and write your registered email. Then check the email and write back the 
-sent token. Finally, complete the text fields in the form and submit it. Your password will be changed!
+First, navigate to the Reset Password page and write your registered email. Check your email and come back to the 
+app with the given token. Finally, complete the text fields in the form and submit it. Your password will be changed!
 
 ![Reset Password](docs/media/gifs/reset-password.gif "How to recover your account")
 
