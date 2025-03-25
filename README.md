@@ -2,7 +2,7 @@
 # Dephokey — PasswordManager v.1.0.0 
 
 Dephokey — PasswordManager v.1.0.0 is an application that stores sensitive data under an encryption key within its own 
-database. Avoids connecting to third-party servers, keeping all data and its credentials under user's control, 
+database. It avoids connecting to third-party servers, keeping all data and its credentials under the user's control, 
 thus respecting their privacy.
 
 ---
@@ -27,8 +27,8 @@ To sign in, fill the text fields on main page and press the submit button. The a
 ---
 
 ### How to recover your account
-**NOTE: You must have Docker installed and running (see the installation guide) on your computer to enable this 
-function.** \
+**NOTE: You must have Docker installed and running on your computer before to enable this function (see the 
+installation guide).** \
 First, navigate to reset password and write your registered email. Then catch the email and write the sended token.
 Finally, complete the text fields form and submit. Your password has been changed!
 
@@ -63,10 +63,10 @@ When you click on it, a dialog alert will you ask if you want to continue and th
 ---
 
 ### How to send feedback
-**NOTE: You must have Docker installed and running (see the installation guide) on your computer to enable this 
-function.** \
+**NOTE: You must have Docker installed and running on your computer before to enable this function (see the 
+installation guide).** \
 First navigate to about page. Then you can fill the form and send it to our offices. Of course, it will be response 
-as soon as possible.
+as soon as possible!
 
 ![Feedback Email](docs/media/gifs/feedback-email.gif "How to send feedback")
 
@@ -93,16 +93,16 @@ be used to add new test elements to the database.
 ---
 
 ## Installation Guide
-First ensure you have Python v.3.11.5 or superior, Git v.2.45.1 or superior and Docker v28.0.1 or superior 
-installed on your computer (notice Docker **is optional** for this app, it just allows to work with emails). You 
-can download it from these urls:
+First ensure you have Python v.3.11.5 or later, Git v.2.45.1 or later and Docker v28.0.1 or later 
+installed on your computer (note: Docker **is not essential** for this app, it just allows you to work with emails). 
+You can download them from these URLs:
 
 
 [![Static Badge](https://img.shields.io/badge/Python-Download-blue)](https://www.python.org/downloads/)
 [![Static Badge](https://img.shields.io/badge/Git-Download-blue)](https://git-scm.com/downloads)
 [![Static Badge](https://img.shields.io/badge/Docker-Download-blue)](https://www.docker.com/)
 
-### Create Folder
+### Create a folder
 Open your favorite IDE, create a new folder and navigate into it
 ```
 # Creates folder
@@ -114,21 +114,21 @@ cd <new_folder>
 
 ---
 
-### Clone Repository
-Once you are inside your new folder, you can clone this repo with the next command:
+### Clone the repository
+Once you are inside your new folder, you can clone this repo with the following command:
 ```
 git clone https://github.com/Ildiar25/dephokey
 ```
-This creates a new folder named `dephokey`. Navigate into it with command `cd dephokey`.
+This creates a new folder named `dephokey`. Navigate into it with the command `cd dephokey`.
 
 ---
 
-### Create Virtual Environment
-Now, you need a new virtual environment. To create a new one, please follow the next step:
+### Create a virtual environment
+Now, you need a new virtual environment. To create a new one, please follow the steps below:
 ```bash
 python -m venv .venv
 ```
-Once it is created, activate with the following instructions:
+Once it is created, activate it with the following instructions:
 
 **From PowerShell:**
 ```bash
@@ -140,7 +140,7 @@ Once it is created, activate with the following instructions:
 .venv\Scripts\activate.bat
 ```
 
-*__ATTENTION:__ When you try to activate you can get the next message:*
+*__ATTENTION:__ When you try to activate it you can get the following message:*
 ```
 + .venv/Scripts/Activate.ps1
 + ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -148,19 +148,19 @@ Once it is created, activate with the following instructions:
     + FullyQualifiedErrorId : UnauthorizedAccess
 ```
 
-That's because windows has script execution disabled by default.
-You can solve this problem opening Windows PowerShell in administrator mode and running the next command. Then answer 
-_'yes'_:
+That's because Windows has script execution disabled by default. \
+You can solve this problem by opening Windows PowerShell in Administrator Mode and running the following command. Then 
+answer _'yes'_:
 ```
 Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted
 ```
 
-Now, you can activate virtual environment.
+Now, you can activate the virtual environment.
 
 ---
 
 ### Install Dependencies
-This app need some dependencies, and you can install them automatically writing the next code:
+This app needs some dependencies, and you can install them automatically by running the following command:
 ```bash
 pip install -r requirements.txt
 ```
@@ -168,7 +168,7 @@ pip install -r requirements.txt
 ---
 
 ### Start Email Server
-This command opens 1025 port on localhost in detached mode (be sure Docker is running)
+This command opens port 1025 on localhost in detached mode (make sure Docker is running before)
 ```bash
 docker compose -f compose.yaml up -d
 ```
@@ -176,24 +176,28 @@ docker compose -f compose.yaml up -d
 ---
 
 ### Run Tests
-Before application use, you will need to check if all features are working correctly. To do that, you must run 
-python tests with the following command:
+Before using the app, you will need to check if all features are working correctly. To do that, you must run 
+the python tests with the following command:
 ```bash
 python -m unittest discover tests
 ```
 
 ---
 
-### Run App
-Now, our app is ready to run. Enjoy it!
+### Run the app
+Now, your app is ready to run. Enjoy it!
 ```bash
 flet run app.py
 ```
 
 ---
 
-### Stop Server
-Once you finished, you can stop the server with next command:
+### Stop the server
+Once you are finished, you can stop the server with the following command:
 ```bash
 docker compose -f compose.yaml down
 ```
+
+---
+
+![Thank You](docs/media/thank-you.jpg "Thank you very much!")
