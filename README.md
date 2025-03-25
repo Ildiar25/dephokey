@@ -13,63 +13,65 @@ You can see our roadmap here: \
 
 ## User Guide
 
-_This guide will show you which features this app has with gif examples._
+_This guide will show you which features this app has with GIF examples._
 
 ### How to create a new account
-To create a new account, navigate to sign up page, fill the text fields and press the submit button. The app will 
-redirect you to de login page automatically.
+To create a new account, navigate to the Sign-up page, fill in the text fields and press the submit button. The app 
+will redirect you to the Login page automatically.
 
 ![Create Account](docs/media/gifs/create-user.gif "How to create a new account")
 
 ---
 
 ### How to sign in on the app
-To sign in, fill the text fields on main page and press the submit button. The app will redirect you to home page.
+To sign in, fill in the text fields on main page and press the submit button. The app will redirect you to the home 
+page.
 
 ![Log in](docs/media/gifs/login.gif "How to Log in on the app")
 
 ---
 
 ### How to recover your account
-**NOTE: You must have Docker installed and running on your computer before to enable this function (see the 
+**NOTE: Be sure you have Docker installed and running on your computer before enabling this feature (see the 
 installation guide).** \
-First, navigate to reset password and write your registered email. Then catch the email and write the sended token.
-Finally, complete the text fields form and submit. Your password has been changed!
+First, navigate to the Reset Password page and write your registered email. Then check the email and write back the 
+sent token. Finally, complete the text fields in the form and submit it. Your password will be changed!
 
 ![Reset Password](docs/media/gifs/reset-password.gif "How to recover your account")
 
 ---
 
 ### How to add elements
-You must choose what you want to add into database. This example shows how to add a new website.
-First, click on the add button. Fill the form with necessary data and submit it. Your new site will appear on sites 
-page.
+You must choose what you want to add to the database. This example shows how to add a new website.
+First, click on the add button. Fill in the form with the necessary data and submit it. Your new site will appear on the
+Sites page.
 
 ![Add Site](docs/media/gifs/add-site.gif "How do add a site")
 
 ---
 
 ### How to edit elements
-All widgets have an edit button. You will find it near close button. \
-When you click on it, an edit form will appear. Now you can update all data and submit it. Your new info will 
-appear on its page like the next example.
+All widgets have an edit button. You will find it near the close button. \
+When you click on it, an edit form will appear. Now you can update all the data and submit it. Your new info will 
+appear on its page as shown in the next example.
 
 ![Edit CreditCard](docs/media/gifs/edit-creditcard.gif "How to edit a creditcard")
 
 ---
 
 ### How to delete elements
-All widgets can delete itself with delete button. \
-When you click on it, a dialog alert will you ask if you want to continue and the page will be updated after it.
+All widgets have a delete button. \
+When you click on it, a dialog alert will ask you if you want to continue and the page will be updated after 
+confirmation.
 
 ![Delete Note](docs/media/gifs/delete-note.gif "How to delete a note")
 
 ---
 
 ### How to send feedback
-**NOTE: You must have Docker installed and running on your computer before to enable this function (see the 
+**NOTE: Be sure you have Docker installed and running on your computer before enabling this feature (see the 
 installation guide).** \
-First navigate to about page. Then you can fill the form and send it to our offices. Of course, it will be response 
+First navigate to the About page. Then you can in the form and send it to our offices. Of course, we will respond 
 as soon as possible!
 
 ![Feedback Email](docs/media/gifs/feedback-email.gif "How to send feedback")
@@ -77,8 +79,9 @@ as soon as possible!
 ---
 
 ### How to delete your account
-To delete your account, navigate to settings page and click on delete account button.
-A dialog alert will you ask if you want to continue and then the app will close your session and redirect to login page.
+To delete your account, navigate to the Settings page and click on the Delete Account button.
+A dialog alert will ask you if you want to continue, and then the app will log you out and redirect you to the Login 
+page.
 
 ![Delete Account](docs/media/gifs/delete-account.gif "How to delete your account")
 
@@ -223,6 +226,9 @@ Best regards!
 Joan \
 Ps: You can contact me or see my works from these URLs:
 
-[![Static Badge](https://img.shields.io/badge/LinkedIn-Profile-green)](https://www.linkedin.com/in/joan-pastor-vicens-aa5b4a55)
+[![Static Badge](https://img.shields.io/badge/LinkedIn-Profile-green)](
+https://www.linkedin.com/in/joan-pastor-vicens-aa5b4a55)
 [![Static Badge](https://img.shields.io/badge/GitHub-Portfolio-green?logo=github&logoColor=white
 )](https://github.com/Ildiar25)
+
+See you coding! 😜
