@@ -3,7 +3,11 @@
 
 Dephokey — PasswordManager v.1.0.0 is an application that stores sensitive data under an encryption key within its own 
 database. It avoids connecting to third-party servers, keeping all data and its credentials under the user's control, 
-thus respecting their privacy.
+thus respecting their privacy. 
+
+You can see our roadmap here: \
+[![Static Badge](https://img.shields.io/badge/Dephokey-Roadmap-FB9820?logo=readdotcv&logoColor=white
+)](docs/roadmap.md)
 
 ---
 
@@ -98,11 +102,14 @@ installed on your computer (note: Docker **is not essential** for this app, it j
 You can download them from these URLs:
 
 
-[![Static Badge](https://img.shields.io/badge/Python-Download-blue)](https://www.python.org/downloads/)
-[![Static Badge](https://img.shields.io/badge/Git-Download-blue)](https://git-scm.com/downloads)
-[![Static Badge](https://img.shields.io/badge/Docker-Download-blue)](https://www.docker.com/)
+[![Static Badge](https://img.shields.io/badge/Python-Download-3776AB?logo=python&logoColor=white
+)](https://www.python.org/downloads/)
+[![Static Badge](https://img.shields.io/badge/Git-Download-F05032?logo=git&logoColor=white
+)](https://git-scm.com/downloads)
+[![Static Badge](https://img.shields.io/badge/Docker-Download-2496ED?logo=docker&logoColor=white
+)](https://www.docker.com/)
 
-### Create a folder
+### 🔹 Create a folder
 Open your favorite IDE, create a new folder and navigate into it
 ```
 # Creates folder
@@ -114,7 +121,7 @@ cd <new_folder>
 
 ---
 
-### Clone the repository
+### 🔹 Clone the repository
 Once you are inside your new folder, you can clone this repo with the following command:
 ```
 git clone https://github.com/Ildiar25/dephokey
@@ -123,7 +130,7 @@ This creates a new folder named `dephokey`. Navigate into it with the command `c
 
 ---
 
-### Create a virtual environment
+### 🔹 Create a virtual environment
 Now, you need a new virtual environment. To create a new one, please follow the steps below:
 ```bash
 python -m venv .venv
@@ -159,7 +166,7 @@ Now, you can activate the virtual environment.
 
 ---
 
-### Install Dependencies
+### 🔹 Install Dependencies
 This app needs some dependencies, and you can install them automatically by running the following command:
 ```bash
 pip install -r requirements.txt
@@ -167,7 +174,7 @@ pip install -r requirements.txt
 
 ---
 
-### Start Email Server
+### 🔹 Start Email Server
 This command opens port 1025 on localhost in detached mode (make sure Docker is running before)
 ```bash
 docker compose -f compose.yaml up -d
@@ -175,7 +182,7 @@ docker compose -f compose.yaml up -d
 
 ---
 
-### Run Tests
+### 🔹 Run Tests
 Before using the app, you will need to check if all features are working correctly. To do that, you must run 
 the python tests with the following command:
 ```bash
@@ -184,7 +191,7 @@ python -m unittest discover tests
 
 ---
 
-### Run the app
+### 🔹 Run the app
 Now, your app is ready to run. Enjoy it!
 ```bash
 flet run app.py
@@ -192,7 +199,7 @@ flet run app.py
 
 ---
 
-### Stop the server
+### 🔹 Stop the server
 Once you are finished, you can stop the server with the following command:
 ```bash
 docker compose -f compose.yaml down
@@ -201,3 +208,21 @@ docker compose -f compose.yaml down
 ---
 
 ![Thank You](docs/media/thank-you.jpg "Thank you very much!")
+
+---
+
+### About me
+
+Hi! I'm Joan and this is my first major project! I'm learning programming since 2024, and I'm more than glad to show 
+off my progress with you all! I hope you enjoyed this app as I'd enjoyed to program it thus your feedback is very 
+important to me. See you on my next project and thank you very much! \
+Best regards!
+
+
+
+Joan \
+Ps: You can contact me or see my works from these URLs:
+
+[![Static Badge](https://img.shields.io/badge/LinkedIn-Profile-green)](https://www.linkedin.com/in/joan-pastor-vicens-aa5b4a55)
+[![Static Badge](https://img.shields.io/badge/GitHub-Portfolio-green?logo=github&logoColor=white
+)](https://github.com/Ildiar25)

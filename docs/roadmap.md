@@ -1,5 +1,5 @@
 
-# Dephokey Roadmap 2024
+# 🏁 Dephokey Roadmap 2024
 
 ---
 
@@ -29,7 +29,7 @@
   * [x] Hashing
 
   
-# Dephokey Roadmap 2025
+# 🏁 Dephokey Roadmap 2025
 
 ---
 
@@ -74,7 +74,7 @@
 
 ---
 
-# Clients (Platform)
+# 💻 Clients (Platform)
 
 Currently, Dephokey is only supported by **Windows Operating System**.
 
@@ -85,18 +85,18 @@ Currently, Dephokey is only supported by **Windows Operating System**.
 * [ ] iOS
 * [ ] Web
 
-# All Models
+# 🗂️ All Models
 
-### ◈ User
-This model allows to create a user instance to work with. 
+### 👨‍💼 User
+This model allows the creation of a user instance to work with. 
 
 Parameters:
 - ID: str || ID with 15 random characters
-- Role: UserRole || Enum from different roles
+- Role: UserRole || Enum of different roles
 - Fullname: str || The user's name
 - Email: str || The user's email
-- Hashed Password: str || Hashed user's password
-- created: datetime || Timestamp when instance is created
+- Hashed Password: str || The user's hashed password
+- created: datetime || Timestamp of instance creation
 
 Return:
 - None
@@ -104,17 +104,17 @@ Return:
 Methods:
 - None
 
-### ◈ Site
-This model allows to create a site instance to work with. 
+### 🌐 Site
+This model allows the creation of a site instance to work with. 
 
 Parameters:
 - ID: str || ID with 15 random characters
-- Name: str | None || The web's name
-- Address: str || Web address
-- Username: str || User's username
-- Encrypted Password: str || Encrypted user's site password
+- Name: str | None || The site's name
+- Address: str || Website address
+- Username: str || The user's username
+- Encrypted Password: str || The user's encrypted site password
 - User: User || Needs User instance (user session)
-- Created: datetime || Timestamp when instance is created
+- Created: datetime || Timestamp of instance creation
 
 Return:
 - None
@@ -122,15 +122,15 @@ Return:
 Methods:
 - None
 
-### ◈ Note
-This model allows to create a note instance to work with. 
+### 📝 Note
+This model allows the creation of a note instance to work with. 
 
 Parameters:
 - ID: str || ID with 15 random characters
-- Title: str | None || Note's title
-- Encrypted Content: str || Encrypted note content
+- Title: str | None || The note's title
+- Encrypted Content: str || The encrypted note content
 - User: User || Needs User instance (user session)
-- Created: datetime || Timestamp when instance is created
+- Created: datetime || Timestamp of instance creation
 
 Return:
 - None
@@ -138,19 +138,19 @@ Return:
 Methods:
 - None
 
-### ◈ Credit Card
-This model allows to create a credit card instance to work with. 
+### 💳 Credit Card
+This model allows the creation of a credit card instance to work with. 
 
 Parameters:
 - ID: str || ID with 15 random characters
 - Cardholder: str || Credit card owner's name
-- Encrypted Number: str || Encrypted credit card number
-- Encrypted CVC: str || Encrypted credit card CVC
-- Valid Until: datetime || Date when credit card expires
-- Expired: bool || If it is expired, value is equal to True
+- Encrypted Number: str || The encrypted credit card number
+- Encrypted CVC: str || The encrypted credit card CVC
+- Valid Until: datetime || Expiration date of the credit card
+- Expired: bool || True if expired
 - Alias: str | None || Credit card alias
 - User: User || Needs User instance (user session)
-- Created: datetime || Timestamp when instance is created
+- Created: datetime || Timestamp of instance creation
 
 Return:
 - None
@@ -158,14 +158,15 @@ Return:
 Methods:
 - None
 
-### ◈ Password Request
-This model allows to create a password request instance to work with. 
+### 🔒 Password Request
+This model allows the creation of a password request instance to work with. 
 
 Parameters:
 - ID: str || ID with 15 random characters
-- Encrypted Code: str || Encrypted token
+- Encrypted Code: str || The encrypted token
 - User: User || Needs User instance (user session)
-- Created: datetime || Timestamp when instance is created
+- Created: datetime || Timestamp of instance creation
+- Expires at: datetime || Timestamp of instance expiration
 
 Return:
 - None
@@ -173,17 +174,17 @@ Return:
 Methods:
 - None
 
-### ◈ Create Message
-This model allows to create a message instance to work with.
+### 📧 Create Message
+This model allows the creation of a message instance to work with.
 
 Parameters:
 - Style: MessageStyle || Enum from different messages
-- Sender: str || User's email or app email
-- Recipient: str || User's email or app email
-- Subject: str | None || Message title
-- Token: str | None || User's token
-- Name: str | None || User's name
-- Content: str | None || Body message content
+- Sender: str || The user's email or the app email
+- Recipient: str || The user's email or the app email
+- Subject: str | None || The message title
+- Token: str | None || The user's token
+- Name: str | None || The user's name
+- Content: str | None || The message body
 
 Return:
 - MIMEMultipart (CreateMessage) || Message with an image, plain text and HTML variations
@@ -191,12 +192,12 @@ Return:
 Methods:
 - Create: Callable[[], MIMEMultipart] || Returns a MIMEMultipart message object
 
-### ◈ SendEmail
-This model allows to send a message.
+### 📤 Send Email
+This model allows sending message.
 
 Attributes:
 - Host: str || The host name or IP
-- Port: int || Just the port
+- Port: int || Port number
 - Message: CreateMessage || The message itself
 
 Methods:
@@ -205,19 +206,20 @@ Methods:
 
 ---
 
-# Future Changes
-* [ ] Create Login class. Adds third-party credentials to Login (as Google, GitHub and others).
-* [ ] Implement _remember me_ option.
-* [ ] Create Password class. It shows security pass level. Controls if it is repeated. Add an expiration date.
-* [ ] Add password security level.
+# 📅 Future Changes
+* [ ] Create a Login class to support third-`party authentication (Google, GitHub, etc.).
+* [ ] Implement a _Remember Me_ option for user sessions.
+* [ ] Develop a Password class to evaluate password length, detect repetitions and enforce expiration dates.
+* [ ] Enhance password security with additional validation measures.
 
 
-* [ ] Add modification date to main models.
+* [ ] Add a modification date to all main models.
 * [ ] Support multiple credit card types (as Debit or Credit).
-* [ ] Add tries limit to login. 
-* [ ] Send a welcome email and verify user email.
-* [ ] Admin can change creation & modification date.
+* [ ] Implement a login attempt limit to enhance security. 
+* [ ] Send a welcome email upon registration and verify user email.
+* [ ] Allow admins to modify creation and modification dates.
 
 
-* [ ] Add a main key in the system's keyring. Each user will have its own encrypted key by using main key.
-* [ ] Save database on system's directory.
+* [ ] Introduce a master encryption key stored in the system's keyring. Each user's key will be encrypted useing 
+  this master key.
+* [ ] Store the database in the system's directory for better accessibility and security.
