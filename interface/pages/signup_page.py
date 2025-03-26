@@ -68,7 +68,7 @@ class Signup(ft.Container):
                 # Lateral decoration
                 ft.Container(
                     expand=True,
-                    image=ft.DecorationImage("interface/assets/bg-image-signup.png", fit=ft.ImageFit.COVER),
+                    image=ft.DecorationImage(r"interface\assets\bg-image-signup.png", fit=ft.ImageFit.COVER),
                     content=ft.Stack(
                         alignment=ft.alignment.top_left,
                         controls=[
@@ -76,7 +76,7 @@ class Signup(ft.Container):
                                 width=152,
                                 height=48,
                                 margin=ft.margin.only(left=50, top=25),
-                                content=ft.Image("interface/assets/logotype-white.svg")
+                                content=ft.Image(r"interface\assets\logotype-white.svg")
                             ),
                             ft.Column(
                                 expand=True,
@@ -85,7 +85,7 @@ class Signup(ft.Container):
                                     ft.Container(
                                         expand=True,
                                         alignment=ft.alignment.center,
-                                        content=ft.Image(src="interface/assets/signup-passkey.svg", width=350)
+                                        content=ft.Image(src=r"interface\assets\signup-passkey.svg", width=350)
                                     ),
                                 ]
                             ),
@@ -135,7 +135,7 @@ class Signup(ft.Container):
                                         ft.Text("¿Ya tienes cuenta?"),
                                         TextLink(
                                             text="¡Inicia Sesión!",
-                                            target=lambda _: self.page.go("/login")
+                                            target=lambda _: self.page.go(r"\login")
                                         ),
                                     ]
                                 )
@@ -222,4 +222,4 @@ class Signup(ft.Container):
         # Load login page
         time.sleep(2.5)
         self.page.overlay.clear()
-        self.page.go("/login")
+        self.page.go(r"\login")

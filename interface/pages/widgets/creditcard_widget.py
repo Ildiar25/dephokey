@@ -104,7 +104,7 @@ class CreditCardWidget(ft.Card):
                         ]
                     ),
                     # Body
-                    ft.Image(src="interface/assets/creditcard-chip.svg", height=29),
+                    ft.Image(src=r"interface\assets\creditcard-chip.svg", height=29),
                     ft.Row(
                         alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
                         controls=[

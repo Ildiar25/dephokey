@@ -82,7 +82,7 @@ class Login(ft.Container):
                                                 self.password,
                                                 TextLink(
                                                     text="¿Has olvidado la contraseña?",
-                                                    target=lambda _: self.page.go("/reset_password")
+                                                    target=lambda _: self.page.go(r"\reset_password")
                                                 ),
                                             ]
                                         ),
@@ -99,7 +99,7 @@ class Login(ft.Container):
                                         ft.Text("¿No tienes cuenta?"),
                                         TextLink(
                                             text="¡Regístrate en Dephokey!",
-                                            target=lambda _: self.page.go("/signup")
+                                            target=lambda _: self.page.go(r"\signup")
                                         ),
                                     ]
                                 )
@@ -113,7 +113,7 @@ class Login(ft.Container):
                 # Lateral decoration
                 ft.Container(
                     expand=True,
-                    image=ft.DecorationImage("interface/assets/bg-image-login.png", fit=ft.ImageFit.COVER),
+                    image=ft.DecorationImage(r"interface\assets\bg-image-login.png", fit=ft.ImageFit.COVER),
                     content=ft.Stack(
                         alignment=ft.alignment.top_right,
                         controls=[
@@ -121,7 +121,7 @@ class Login(ft.Container):
                                 width=152,
                                 height=48,
                                 margin=ft.margin.only(top=25, right=50),
-                                content=ft.Image("interface/assets/logotype-white.svg")
+                                content=ft.Image(r"interface\assets\logotype-white.svg")
                             ),
                             ft.Column(
                                 expand=True,
@@ -130,7 +130,7 @@ class Login(ft.Container):
                                     ft.Container(
                                         expand=True,
                                         alignment=ft.alignment.center,
-                                        content=ft.Image(src="interface/assets/login-account-circle.svg", width=350)
+                                        content=ft.Image(src=r"interface\assets\login-account-circle.svg", width=350)
                                     ),
                                 ]
                             ),
@@ -204,7 +204,7 @@ class Login(ft.Container):
         self.page.update()
 
         # Load sound
-        open_session = ft.Audio(src="interface/assets/effects/open-session.mp3", autoplay=True)
+        open_session = ft.Audio(src=r"interface\assets\effects\open-session.mp3", autoplay=True)
         self.page.overlay.append(open_session)
         self.page.update()
 
@@ -212,4 +212,4 @@ class Login(ft.Container):
         time.sleep(2.5)
         self.page.update()
         self.page.overlay.clear()
-        self.page.go("/home")
+        self.page.go(r"\home")

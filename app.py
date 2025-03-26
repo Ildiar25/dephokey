@@ -36,7 +36,7 @@ async def __back_to_login_page(page: ft.Page) -> None:
         page.bgcolor = primaryCorporate100
         page.clean()
         page.update()
-        page.go("/login")
+        page.go(r"\login")
         return
 
 
@@ -49,11 +49,11 @@ def main(page: ft.Page) -> None:
     # Page settings
     page.title = "Dephokey — PasswordManager v.1.0.0"
     page.fonts = {
-        "AlbertSansR": "interface/assets/fonts/albert-sans/albert-sans-regular.ttf",
-        "AlbertSansB": "interface/assets/fonts/albert-sans/albert-sans-bold.ttf",
-        "AlbertSansL": "interface/assets/fonts/albert-sans/albert-sans-light.ttf",
-        "AlbertSansI": "interface/assets/fonts/albert-sans/albert-sans-italic.ttf",
-        "IcelandR": "interface/assets/fonts/iceland/iceland-regular.ttf",
+        "AlbertSansR": r"interface\assets\fonts\albert-sans\albert-sans-regular.ttf",
+        "AlbertSansB": r"interface\assets\fonts\albert-sans\albert-sans-bold.ttf",
+        "AlbertSansL": r"interface\assets\fonts\albert-sans\albert-sans-light.ttf",
+        "AlbertSansI": r"interface\assets\fonts\albert-sans\albert-sans-italic.ttf",
+        "IcelandR": r"interface\assets\fonts\iceland\iceland-regular.ttf",
     }
 
     # Page design
@@ -74,19 +74,19 @@ def main(page: ft.Page) -> None:
 
     def route_changer(_: ft.ControlEvent):
         page.clean()
-        if page.route == "/login":
+        if page.route == r"\login":
             log.info("Redirigiendo a LOGIN.")
             page.add(Login(page))
 
-        elif page.route == "/reset_password":
+        elif page.route == r"\reset_password":
             log.info("Redirigiendo a PW_RECOVER GENERATE_PW.")
             page.add(ResetPasswordPage(page))
 
-        elif page.route == "/signup":
+        elif page.route == r"\signup":
             log.info("Redirigiendo a SIGNUP.")
             page.add(Signup(page))
 
-        elif page.route == "/home" and page.session.contains_key("session"):
+        elif page.route == r"\home" and page.session.contains_key("session"):
             log.info("Redirigiendo a DASHBOARD")
             page.add(Dashboard(page))
 
@@ -95,8 +95,8 @@ def main(page: ft.Page) -> None:
 
     # Define routes
     page.on_route_change = route_changer
-    page.go("/login")
+    page.go(r"\login")
 
 
 if __name__ == '__main__':
-    ft.app(target=main, assets_dir="interface/assets")
+    ft.app(target=main, assets_dir=r"interface\assets")

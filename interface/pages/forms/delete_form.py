@@ -176,11 +176,11 @@ class DeleteForm(BaseForm):
         self.page.update()
 
         # Load sound
-        close_session = ft.Audio(src="interface/assets/effects/close-session.mp3", autoplay=True)
+        close_session = ft.Audio(src=r"interface\assets\effects\close-session.mp3", autoplay=True)
         self.page.overlay.append(close_session)
         self.page.update()
 
         # Load login page
         time.sleep(2.5)
         self.page.overlay.clear()
-        self.page.go("/login")
+        self.page.go(r"\login")

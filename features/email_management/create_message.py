@@ -33,7 +33,7 @@ class CreateMessage(MIMEMultipart):
         super().__init__()
 
         # General attributes
-        self.path_img = Path(__file__).parent.joinpath("templates/assets/logotype.png")
+        self.path_img = Path(__file__).parent.joinpath(r"templates\assets\logotype.png")
         self["From"] = send_from if send_from else "dephokey.team@gmail.com"
         self["To"] = send_to if send_to else "dephokey.team@gmail.com"
         self["Subject"] = subject if subject else "¡Tu token para Dephokey está listo!"
@@ -93,7 +93,7 @@ class CreateMessage(MIMEMultipart):
     @staticmethod
     def __load_template(template_name: str, title: str, message: str) -> str | None:
         # Loads file directory
-        env = Environment(loader=FileSystemLoader(f"{MAIN_PATH}/templates"))
+        env = Environment(loader=FileSystemLoader(rf"{MAIN_PATH}\templates"))
 
         try:
             new_template = env.get_template(template_name)

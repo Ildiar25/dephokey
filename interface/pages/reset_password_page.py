@@ -18,7 +18,6 @@ from shared.logger_setup import main_log as log
 from shared.utils.colors import accentTextColor, neutral00, neutral10, neutral20, primaryCorporateColor
 from shared.validate import Validate
 
-
 SECONDS_AWAIT = 300
 
 
@@ -215,7 +214,7 @@ class ResetPasswordPage(ft.Container):
 
     def __nav_to_login(self, _: ft.ControlEvent) -> None:
         self.__hide_content()
-        self.page.go("/login")
+        self.page.go(r"\login")
 
     def __submit_email(self, _: ft.ControlEvent) -> None:
         email = self.main_field.value.strip().lower()

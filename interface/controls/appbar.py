@@ -52,7 +52,7 @@ class CustomAppbar(ft.AppBar):
         self.leading_width = 230
         self.leading = ft.Container(
             margin=ft.margin.only(left=24, right=64),
-            content=ft.Image(src="interface/assets/logotype-color.svg", fit=ft.ImageFit.FIT_WIDTH)
+            content=ft.Image(src=r"interface\assets\logotype-color.svg", fit=ft.ImageFit.FIT_WIDTH)
         )
 
         # Title (Search bar)
@@ -127,7 +127,7 @@ class CustomAppbar(ft.AppBar):
         self.page.update()
 
         # Load sound
-        close_session = ft.Audio(src="interface/assets/effects/close-session.mp3", autoplay=True)
+        close_session = ft.Audio(src=r"interface\assets\effects\close-session.mp3", autoplay=True)
         self.page.overlay.append(close_session)
         self.page.update()
 
@@ -140,4 +140,4 @@ class CustomAppbar(ft.AppBar):
         # Load login page
         time.sleep(2.5)
         self.page.overlay.clear()
-        self.page.go("/login")
+        self.page.go(r"\login")

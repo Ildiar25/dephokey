@@ -66,7 +66,7 @@ class Dashboard(ft.Container):
                 controls=[
                     ft.Container(
                         image=ft.DecorationImage(
-                            src="interface/assets/bgimage-home-page.png", fit=ft.ImageFit.COVER, opacity=0.5
+                            src=r"interface\assets\bgimage-home-page.png", fit=ft.ImageFit.COVER, opacity=0.5
                         )
                     ),
                     self.body_content,

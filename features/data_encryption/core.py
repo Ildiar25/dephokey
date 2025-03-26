@@ -12,7 +12,7 @@ def __load_key() -> bytes | None:
 
     # Prepare key for encrypt
     try:
-        with open(f"{KEY_PATH}/key.key", "rb") as key_file:
+        with open(rf"{KEY_PATH}\key.key", "rb") as key_file:
             key = key_file.read()
         return key
 
