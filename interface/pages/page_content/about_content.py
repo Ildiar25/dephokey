@@ -434,7 +434,7 @@ class AboutPage(ft.Row):
 
     def __send_coments(self, reason: str, message: str) -> None:
         new_email = SendEmail(
-            msg_style=MessageStyle.QUERY,
+            msg_style=MessageStyle.FEEDBACK,
             send_from=self.user.email,
             subject=reason,
             content=message

@@ -241,7 +241,7 @@ class ResetPasswordPage(ft.Container):
 
     def __send_email(self, pw_request: PasswordRequest) -> None:
         new_email = SendEmail(
-            msg_style=MessageStyle.RESET,
+            msg_style=MessageStyle.RECOVER,
             send_to=self.user.email,
             name=self.user.fullname.split(" ")[0],
             token=decrypt_data(pw_request.encrypted_code)

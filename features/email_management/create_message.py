@@ -15,8 +15,8 @@ MAIN_PATH = Path(__file__).parent
 
 
 class MessageStyle(Enum):
-    RESET = "reset"
-    QUERY = "querty"
+    RECOVER = "recover"
+    FEEDBACK = "feedback"
 
 
 class CreateMessage(MIMEMultipart):
@@ -50,7 +50,7 @@ class CreateMessage(MIMEMultipart):
 
     def __update_appearance(self) -> None:
         match self.style:
-            case MessageStyle.RESET:
+            case MessageStyle.RECOVER:
                 self.with_text = (
                     f"Hola {self.name}!\nPor favor, introduce en el programa el código de siete caracteres "
                     f"proporcionado\npara poder actualizar tu contraseña:\n\n{self.token}\n\nSi no has realizado "
@@ -62,7 +62,7 @@ class CreateMessage(MIMEMultipart):
                     message=self.token
                 )
 
-            case MessageStyle.QUERY:
+            case MessageStyle.FEEDBACK:
                 self.with_html = self.__load_template(
                     template_name="user_request.html",
                     title=self["subject"],

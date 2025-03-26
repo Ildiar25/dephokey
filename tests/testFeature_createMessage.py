@@ -37,7 +37,7 @@ class TestCreateMessage(unittest.TestCase):
 
         # Create new instance
         self.message = CreateMessage(
-            MessageStyle.RESET,
+            MessageStyle.RECOVER,
             send_to=UserBuilder().build().email,
             name=UserBuilder().build().fullname,
             token="ABC1234"

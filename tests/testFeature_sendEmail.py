@@ -32,7 +32,7 @@ class TestSendEmail(unittest.TestCase):
 
         # Create send email instance
         self.email = SendEmail(
-            msg_style=MessageStyle.RESET,
+            msg_style=MessageStyle.RECOVER,
             send_to=UserBuilder().build().email,
             name=UserBuilder().build().fullname,
             token=self.token
