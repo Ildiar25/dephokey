@@ -6,8 +6,12 @@ database. It avoids connecting to third-party servers, keeping all data and its 
 thus respecting their privacy. 
 
 You can see our roadmap here: \
-[![Static Badge](https://img.shields.io/badge/Dephokey-Roadmap-FB9820?logo=readdotcv&logoColor=white
+[![Static Badge](https://img.shields.io/badge/Dephokey-Roadmap-FB9820?logo=maplibre&logoColor=white
 )](docs/roadmap.md)
+
+And the complet project here: \
+[![Static Badge](https://img.shields.io/badge/Passowrd_Manager_v.1.0.0-Final_Project-4285F4?logo=googledocs&logoColor=white
+)](docs/Password_Manager_v.1.0.0.pdf)
 
 ---
 

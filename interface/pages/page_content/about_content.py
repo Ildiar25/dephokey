@@ -72,7 +72,7 @@ class AboutPage(ft.Row):
                                     expand=True,
                                     controls=[
                                         ft.Text(
-                                            value="Dephokey — PasswordManager v.0.3.3",
+                                            value="Dephokey — PasswordManager v.1.0.0",
                                             font_family="AlbertSansR",
                                             color=accentTextColor,
                                             size=20,
